@@ -1,0 +1,13 @@
+﻿//----- hệ thống đặt/ trả lời câu hỏi và tương tác
+user_accounts, user_profile, account_type
+user_story, tech_tags , story_line (later)
+job_reference (later)
+career, career_type
+location
+//-----
+question
+comment
+answer
+interact
+report
+//------------

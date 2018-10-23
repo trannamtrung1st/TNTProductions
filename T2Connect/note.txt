@@ -1,0 +1,28 @@
+﻿uni2connect.com
+Trang web liên kết cộng đồng IT Việt
+Nội dung chính: diễn đàn trao đổi. chia sẻ kiến thức, thủ thuật, tool công cụ hỗ trợ
+Chức năng cộng đồng: đặt, trả lời câu hỏi, chia sẻ, tương tác, đánh giá, báo cáo, xếp hạng.
+Chức năng server: get link, vv...
+Điểm đặc biệt: 
+- cho phép các cá nhân share code open source, share các prroject, tool cá nhân, đặt, trả lời câu hỏi. Có thể xây dựng hệ thống tính điểm đổi thưởng, xếp hạng vv... xây dựng cộng  đồng IT lớn mạnh ở VN. 
+- có tính năng tổng hợp bài viết, tổng hợp các tool đã chia sẻ. 
+- tổ chức các cuộc thi, các thách thức có giải thưởng, ...
+bổ sung hệ thống:
+- xây dựng dịch vụ làm hồ sơ, cv online theo yêu cầu + các thành tích, đóng góp cho cộng đồng IT trên trang
+bổ sung hệ thống:
+- cho phép lập team làm project cá nhân, doanh nghiệp , tìm kiếm freelancer, việc làm IT, tìm nhân lực
+thị trường: sinh viêt IT, cộng đồng IT, dev, doanh nghiệp. marketing có thể đưa cho sinh viên FPT. thu hút bằng phần thưởng, kêu gọi
+do đó thu hút được các cá nhân tham gia chia sẻ (có thưởng). => xây dựng cộng đồng, tăng traffic. => mở được các dịch vụ
+thị trường nước ngoài: Stackoverflow
+việt nam: daynhauhoc, sinhvienit, vforum,...
+tìm điểm mạnh yếu.
+thách thức: (hệ thống) 
+- xây dựng được hệ thống user, cho phép đăng câu hỏi, trả lời, tương tác, report . 
+- hệ thống tính điểm, xếp hạng
+- đăng tool, source code (làm app hỗ trợ format code trên page) => public dưới dạng embed trên trang khác. 
+- xây dựng hệ thống quản trị tốt, có role admin, kiểm duyệt, duy trì chất lượng bài viết
+- xây dựng hệ thống quản lý phần thưởng, giải thưởng, tổ chức cuộc thi, vv...
+-------------------------------
+thách thức (giao diện):
+- tương tự stackoverflow, đánh được vào mắt người dùng
+- SEO tốt.

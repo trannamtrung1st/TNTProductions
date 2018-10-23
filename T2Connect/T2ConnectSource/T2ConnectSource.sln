@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T2CDataService", "T2CDataService\T2CDataService.csproj", "{EDC64056-089A-4364-950F-AB538A792DF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "T2CApi", "T2CApi\T2CApi.csproj", "{C5469151-8FED-4A53-AF49-06FDD6BEE9D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EDC64056-089A-4364-950F-AB538A792DF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDC64056-089A-4364-950F-AB538A792DF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDC64056-089A-4364-950F-AB538A792DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDC64056-089A-4364-950F-AB538A792DF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5469151-8FED-4A53-AF49-06FDD6BEE9D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5469151-8FED-4A53-AF49-06FDD6BEE9D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5469151-8FED-4A53-AF49-06FDD6BEE9D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5469151-8FED-4A53-AF49-06FDD6BEE9D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,3131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{98834E31-337F-4B2E-B33C-4DD266A32DEA}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataServiceTest</RootNamespace>
+    <AssemblyName>DataServiceTest</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TNT.DataServiceTemplate">
+      <HintPath>..\TNT.DataServiceTemplate\bin\Debug\TNT.DataServiceTemplate.dll</HintPath>
+    </Reference>
+    <Reference Include="TNT.IoContainer">
+      <HintPath>..\..\TNT.IoContainer\TNT.IoContainer\bin\Debug\TNT.IoContainer.dll</HintPath>
+    </Reference>
+    <Reference Include="TNT.TemplateAPI">
+      <HintPath>..\TNT.DataServiceTemplate\bin\Debug\TNT.TemplateAPI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Global\Global.cs">
+      <DependentUpon>GlobalGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global\GlobalGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\ManagerGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ManagerGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\UnitOfWork.cs">
+      <DependentUpon>ManagerGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Application.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AreaDelivery.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Article.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Attendance.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AttendanceDate.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BlogCategory.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BlogPost.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BlogPostCollection.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BlogPostCollectionItem.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BlogPostCollectionItemMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BlogPostImage.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Brand.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CategoryExtra.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CategoryExtraMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CheckFinger.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contact.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Cost.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CostCategory.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CostInventoryMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Coupon.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CouponCampaign.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CouponProvider.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerFeedback.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerFilter.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerProductMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerStoreReportMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerType.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C_TransactionIndex_2244ceaa_24f5_4fde_bd5f_baf8ea08cdc4.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__MigrationHistory.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DateHotelReport.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DateProduct.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DateProductItem.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DateReport.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DayMode.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeliveryInfo.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeliveryInformation.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Device.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\District.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\AccountDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ApplicationDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\AreaDeliveryDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ArticleDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\AspNetRoleDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\AspNetUserClaimDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\AspNetUserDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\AspNetUserLoginDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\AttendanceDateDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\AttendanceDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\BaseDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\BlogCategoryDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\BlogPostCollectionDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\BlogPostCollectionItemDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\BlogPostCollectionItemMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\BlogPostDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\BlogPostImageDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\BrandDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CategoryExtraDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CategoryExtraMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CheckFingerDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ContactDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CostCategoryDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CostDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CostInventoryMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CouponCampaignDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CouponDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CouponProviderDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CustomerDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CustomerFeedbackDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CustomerFilterDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CustomerProductMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CustomerStoreReportMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CustomerTypeDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\C_TransactionIndex_2244ceaa_24f5_4fde_bd5f_baf8ea08cdc4Domain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\C__MigrationHistoryDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\DateHotelReportDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\DateProductDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\DateProductItemDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\DateReportDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\DayModeDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\DeliveryInfoDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\DeliveryInformationDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\DeviceDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\DistrictDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\DomainGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\EmployeeDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\EmployeeFingerDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\EmployeeGroupDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\EmployeeInStoreDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\EventLocationDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\FavoritedDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\FingerScanMachineDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\GroupDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\GuestDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ImageCollectionDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ImageCollectionItemDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\InventoryCheckingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\InventoryCheckingItemDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\InventoryDateReportDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\InventoryDateReportItemDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\InventoryReceiptDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\InventoryReceiptItemDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\InventoryTemplateReportDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\LanguageDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\LanguageKeyDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\LanguageValueDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\MachineConnectDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\MembershipCardDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\MembershipCardTypeDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\MenuDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\NotificationDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\OrderDetailDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\OrderDetailPromotionMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\OrderDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\OrderFeeItemDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\OrderGroupDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\OrderPromotionMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PartnerDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PartnerMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PaymentDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PaymentPartnerDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PaymentReportDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PayrollCategoryDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PayrollDetailDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PayrollPeriodDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PayslipAttributeDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PayslipAttributeMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PaySlipDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PaySlipItemDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PaySlipTemplateDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PosConfigDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PosDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PosFileDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PriceAdditionDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PriceGroupDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PriceNightDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProductCategoryDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProductCollectionDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProductCollectionItemMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProductComboDetailDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProductDetailMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProductDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProductImageCollectionDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProductImageCollectionItemMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProductImageDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProductItemCategoryDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProductItemCompositionMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProductItemDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProductSpecificationDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProfileDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PromotionDetailDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PromotionDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PromotionStoreMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProviderDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProviderProductItemMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProvinceDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\RatingProductDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\RatingStarDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ReportTrackingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\RoleDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\RoomCategoryDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\RoomCategoryPriceGroupMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\RoomDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\RoomFloorDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\SalaryHourDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\SalaryRuleDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\StoreDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\StoreDomainDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\StoreGroupDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\StoreGroupMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\StoreThemeDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\StoreUserDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\StoreWebRouteDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\StoreWebRouteModelDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\StoreWebSettingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\StoreWebViewCounterDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\SubRentGroupDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\sysdiagramDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\SystemPartnerMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\TagDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\TagMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\TemplateDetailMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\TemplateReportProductItemMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\TemplateRuleMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ThemeDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\TimeFrameDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\TimeModeRuleDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\TimeModeTypeDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\TokenUserDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\TransactionDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\UserDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\VATOrderDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\VATOrderMappingDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ViewCounterDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\VoucherDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\WardDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\WebCustomerFeedbackDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\WebElementDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\WebElementTypeDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\WebMenuCategoryDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\WebMenuDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\WebPageDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeFinger.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeGroup.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EmployeeInStore.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EventLocation.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\AccountExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ApplicationExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\AreaDeliveryExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ArticleExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\AspNetRoleExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\AspNetUserClaimExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\AspNetUserExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\AspNetUserLoginExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\AttendanceDateExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\AttendanceExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\BlogCategoryExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\BlogPostCollectionExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\BlogPostCollectionItemExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\BlogPostCollectionItemMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\BlogPostExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\BlogPostImageExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\BrandExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CategoryExtraExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CategoryExtraMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CheckFingerExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ContactExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CostCategoryExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CostExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CostInventoryMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CouponCampaignExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CouponExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CouponProviderExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CustomerExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CustomerFeedbackExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CustomerFilterExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CustomerProductMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CustomerStoreReportMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CustomerTypeExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\C_TransactionIndex_2244ceaa_24f5_4fde_bd5f_baf8ea08cdc4Extension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\C__MigrationHistoryExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\DateHotelReportExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\DateProductExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\DateProductItemExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\DateReportExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\DayModeExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\DeliveryInfoExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\DeliveryInformationExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\DeviceExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\DistrictExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\EmployeeExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\EmployeeFingerExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\EmployeeGroupExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\EmployeeInStoreExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\Entity.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\EventLocationExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ExtensionGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\FavoritedExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\FingerScanMachineExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\GroupExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\GuestExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ImageCollectionExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ImageCollectionItemExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\InventoryCheckingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\InventoryCheckingItemExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\InventoryDateReportExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\InventoryDateReportItemExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\InventoryReceiptExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\InventoryReceiptItemExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\InventoryTemplateReportExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\LanguageExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\LanguageKeyExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\LanguageValueExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\MachineConnectExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\MembershipCardExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\MembershipCardTypeExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\MenuExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\NotificationExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\OrderDetailExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\OrderDetailPromotionMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\OrderExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\OrderFeeItemExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\OrderGroupExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\OrderPromotionMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PartnerExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PartnerMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PaymentExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PaymentPartnerExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PaymentReportExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PayrollCategoryExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PayrollDetailExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PayrollPeriodExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PayslipAttributeExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PayslipAttributeMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PaySlipExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PaySlipItemExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PaySlipTemplateExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PosConfigExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PosExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PosFileExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PriceAdditionExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PriceGroupExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PriceNightExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProductCategoryExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProductCollectionExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProductCollectionItemMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProductComboDetailExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProductDetailMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProductExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProductImageCollectionExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProductImageCollectionItemMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProductImageExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProductItemCategoryExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProductItemCompositionMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProductItemExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProductSpecificationExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProfileExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PromotionDetailExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PromotionExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PromotionStoreMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProviderExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProviderProductItemMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProvinceExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\RatingProductExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\RatingStarExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ReportTrackingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\RoleExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\RoomCategoryExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\RoomCategoryPriceGroupMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\RoomExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\RoomFloorExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\SalaryHourExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\SalaryRuleExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\StoreDomainExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\StoreExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\StoreGroupExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\StoreGroupMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\StoreThemeExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\StoreUserExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\StoreWebRouteExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\StoreWebRouteModelExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\StoreWebSettingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\StoreWebViewCounterExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\SubRentGroupExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\sysdiagramExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\SystemPartnerMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\TagExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\TagMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\TemplateDetailMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\TemplateReportProductItemMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\TemplateRuleMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ThemeExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\TimeFrameExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\TimeModeRuleExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\TimeModeTypeExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\TokenUserExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\TransactionExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\UserExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\VATOrderExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\VATOrderMappingExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ViewCounterExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\VoucherExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\WardExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\WebCustomerFeedbackExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\WebElementExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\WebElementTypeExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\WebMenuCategoryExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\WebMenuExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\WebPageExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Favorited.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FingerScanMachine.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Group.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Guest.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ImageCollection.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ImageCollectionItem.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryChecking.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryCheckingItem.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryDateReport.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryDateReportItem.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryReceipt.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryReceiptItem.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryTemplateReport.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Language.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LanguageKey.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LanguageValue.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MachineConnect.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MembershipCard.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MembershipCardType.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Menu.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MyEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MyEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MyEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MyEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Notification.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderDetail.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderDetailPromotionMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderFeeItem.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderGroup.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderPromotionMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Partner.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartnerMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payment.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PaymentPartner.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PaymentReport.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PayrollCategory.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PayrollDetail.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PayrollPeriod.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PaySlip.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PayslipAttribute.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PayslipAttributeMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PaySlipItem.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PaySlipTemplate.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pos.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PosConfig.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PosFile.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PriceAddition.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PriceGroup.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PriceNight.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductCategory.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductCollection.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductCollectionItemMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductComboDetail.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductDetailMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductImage.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductImageCollection.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductImageCollectionItemMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductItem.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductItemCategory.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductItemCompositionMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductSpecification.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Profile.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Promotion.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PromotionDetail.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PromotionStoreMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Provider.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProviderProductItemMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Province.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RatingProduct.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RatingStar.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReportTracking.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\AccountRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ApplicationRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\AreaDeliveryRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ArticleRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\AspNetRoleRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\AspNetUserClaimRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\AspNetUserLoginRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\AspNetUserRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\AttendanceDateRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\AttendanceRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\BaseRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\BlogCategoryRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\BlogPostCollectionItemMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\BlogPostCollectionItemRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\BlogPostCollectionRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\BlogPostImageRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\BlogPostRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\BrandRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CategoryExtraMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CategoryExtraRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CheckFingerRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ContactRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CostCategoryRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CostInventoryMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CostRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CouponCampaignRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CouponProviderRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CouponRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CustomerFeedbackRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CustomerFilterRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CustomerProductMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CustomerRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CustomerStoreReportMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CustomerTypeRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\C_TransactionIndex_2244ceaa_24f5_4fde_bd5f_baf8ea08cdc4Repository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\C__MigrationHistoryRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\DateHotelReportRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\DateProductItemRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\DateProductRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\DateReportRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\DayModeRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\DeliveryInfoRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\DeliveryInformationRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\DeviceRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\DistrictRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\EmployeeFingerRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\EmployeeGroupRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\EmployeeInStoreRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\EmployeeRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\EventLocationRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\FavoritedRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\FingerScanMachineRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\GroupRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\GuestRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ImageCollectionItemRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ImageCollectionRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\InventoryCheckingItemRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\InventoryCheckingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\InventoryDateReportItemRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\InventoryDateReportRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\InventoryReceiptItemRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\InventoryReceiptRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\InventoryTemplateReportRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\LanguageKeyRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\LanguageRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\LanguageValueRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\MachineConnectRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\MembershipCardRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\MembershipCardTypeRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\MenuRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\NotificationRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\OrderDetailPromotionMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\OrderDetailRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\OrderFeeItemRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\OrderGroupRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\OrderPromotionMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\OrderRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PartnerMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PartnerRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PaymentPartnerRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PaymentReportRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PaymentRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PayrollCategoryRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PayrollDetailRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PayrollPeriodRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PayslipAttributeMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PayslipAttributeRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PaySlipItemRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PaySlipRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PaySlipTemplateRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PosConfigRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PosFileRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PosRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PriceAdditionRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PriceGroupRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PriceNightRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProductCategoryRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProductCollectionItemMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProductCollectionRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProductComboDetailRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProductDetailMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProductImageCollectionItemMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProductImageCollectionRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProductImageRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProductItemCategoryRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProductItemCompositionMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProductItemRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProductRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProductSpecificationRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProfileRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PromotionDetailRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PromotionRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PromotionStoreMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProviderProductItemMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProviderRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProvinceRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\RatingProductRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\RatingStarRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ReportTrackingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\RepositoryGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\RoleRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\RoomCategoryPriceGroupMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\RoomCategoryRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\RoomFloorRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\RoomRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\SalaryHourRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\SalaryRuleRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\StoreDomainRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\StoreGroupMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\StoreGroupRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\StoreRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\StoreThemeRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\StoreUserRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\StoreWebRouteModelRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\StoreWebRouteRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\StoreWebSettingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\StoreWebViewCounterRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\SubRentGroupRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\sysdiagramRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\SystemPartnerMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\TagMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\TagRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\TemplateDetailMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\TemplateReportProductItemMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\TemplateRuleMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ThemeRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\TimeFrameRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\TimeModeRuleRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\TimeModeTypeRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\TokenUserRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\TransactionRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\UserRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\VATOrderMappingRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\VATOrderRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ViewCounterRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\VoucherRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\WardRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\WebCustomerFeedbackRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\WebElementRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\WebElementTypeRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\WebMenuCategoryRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\WebMenuRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\WebPageRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Room.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RoomCategory.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RoomCategoryPriceGroupMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RoomFloor.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalaryHour.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SalaryRule.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\AccountService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ApplicationService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\AreaDeliveryService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ArticleService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\AspNetRoleService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\AspNetUserClaimService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\AspNetUserLoginService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\AspNetUserService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\AttendanceDateService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\AttendanceService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\BaseService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\BlogCategoryService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\BlogPostCollectionItemMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\BlogPostCollectionItemService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\BlogPostCollectionService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\BlogPostImageService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\BlogPostService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\BrandService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CategoryExtraMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CategoryExtraService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CheckFingerService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ContactService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CostCategoryService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CostInventoryMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CostService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CouponCampaignService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CouponProviderService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CouponService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CustomerFeedbackService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CustomerFilterService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CustomerProductMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CustomerService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CustomerStoreReportMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CustomerTypeService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\C_TransactionIndex_2244ceaa_24f5_4fde_bd5f_baf8ea08cdc4Service.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\C__MigrationHistoryService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\DateHotelReportService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\DateProductItemService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\DateProductService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\DateReportService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\DayModeService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\DeliveryInformationService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\DeliveryInfoService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\DeviceService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\DistrictService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\EmployeeFingerService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\EmployeeGroupService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\EmployeeInStoreService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\EmployeeService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\EventLocationService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\FavoritedService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\FingerScanMachineService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\GroupService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\GuestService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ImageCollectionItemService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ImageCollectionService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\InventoryCheckingItemService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\InventoryCheckingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\InventoryDateReportItemService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\InventoryDateReportService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\InventoryReceiptItemService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\InventoryReceiptService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\InventoryTemplateReportService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\LanguageKeyService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\LanguageService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\LanguageValueService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\MachineConnectService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\MembershipCardService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\MembershipCardTypeService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\MenuService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\NotificationService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\OrderDetailPromotionMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\OrderDetailService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\OrderFeeItemService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\OrderGroupService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\OrderPromotionMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\OrderService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PartnerMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PartnerService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PaymentPartnerService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PaymentReportService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PaymentService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PayrollCategoryService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PayrollDetailService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PayrollPeriodService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PayslipAttributeMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PayslipAttributeService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PaySlipItemService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PaySlipService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PaySlipTemplateService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PosConfigService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PosFileService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PosService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PriceAdditionService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PriceGroupService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PriceNightService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProductCategoryService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProductCollectionItemMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProductCollectionService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProductComboDetailService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProductDetailMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProductImageCollectionItemMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProductImageCollectionService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProductImageService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProductItemCategoryService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProductItemCompositionMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProductItemService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProductService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProductSpecificationService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProfileService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PromotionDetailService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PromotionService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PromotionStoreMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProviderProductItemMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProviderService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProvinceService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\RatingProductService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\RatingStarService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ReportTrackingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\RoleService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\RoomCategoryPriceGroupMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\RoomCategoryService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\RoomFloorService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\RoomService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\SalaryHourService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\SalaryRuleService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ServiceGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\StoreDomainService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\StoreGroupMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\StoreGroupService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\StoreService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\StoreThemeService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\StoreUserService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\StoreWebRouteModelService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\StoreWebRouteService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\StoreWebSettingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\StoreWebViewCounterService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\SubRentGroupService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\sysdiagramService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\SystemPartnerMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\TagMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\TagService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\TemplateDetailMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\TemplateReportProductItemMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\TemplateRuleMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ThemeService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\TimeFrameService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\TimeModeRuleService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\TimeModeTypeService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\TokenUserService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\TransactionService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\UserService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\VATOrderMappingService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\VATOrderService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ViewCounterService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\VoucherService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\WardService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\WebCustomerFeedbackService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\WebElementService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\WebElementTypeService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\WebMenuCategoryService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\WebMenuService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\WebPageService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Store.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreDomain.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreGroup.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreGroupMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreTheme.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreUser.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreWebRoute.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreWebRouteModel.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreWebSetting.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreWebViewCounter.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SubRentGroup.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SystemPartnerMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tag.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TagMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TemplateDetailMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TemplateReportProductItemMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TemplateRuleMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Theme.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TimeFrame.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TimeModeRule.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TimeModeType.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TokenUser.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Transaction.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VATOrder.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VATOrderMapping.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewCounter.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Voucher.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Ward.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WebCustomerFeedback.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WebElement.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WebElementType.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WebMenu.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WebMenuCategory.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WebPage.cs">
+      <DependentUpon>MyEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\DefaultUtilities.cs">
+      <DependentUpon>UtilityGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\UtilityGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UtilityGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AccountViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ApplicationViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AreaDeliveryViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ArticleViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AspNetRoleViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AspNetUserClaimViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AspNetUserLoginViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AspNetUserViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AttendanceDateViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AttendanceViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BaseViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BlogCategoryViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BlogPostCollectionItemMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BlogPostCollectionItemViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BlogPostCollectionViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BlogPostImageViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BlogPostViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BrandViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CategoryExtraMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CategoryExtraViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CheckFingerViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ContactViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CostCategoryViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CostInventoryMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CostViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CouponCampaignViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CouponProviderViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CouponViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerFeedbackViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerFilterViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerProductMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerStoreReportMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerTypeViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\C_TransactionIndex_2244ceaa_24f5_4fde_bd5f_baf8ea08cdc4ViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\C__MigrationHistoryViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DateHotelReportViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DateProductItemViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DateProductViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DateReportViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DayModeViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DeliveryInformationViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DeliveryInfoViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DeviceViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DistrictViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EmployeeFingerViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EmployeeGroupViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EmployeeInStoreViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EmployeeViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EventLocationViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\FavoritedViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\FingerScanMachineViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\GroupViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\GuestViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ImageCollectionItemViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ImageCollectionViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InventoryCheckingItemViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InventoryCheckingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InventoryDateReportItemViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InventoryDateReportViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InventoryReceiptItemViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InventoryReceiptViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InventoryTemplateReportViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\LanguageKeyViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\LanguageValueViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\LanguageViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MachineConnectViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MembershipCardTypeViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MembershipCardViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MenuViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\NotificationViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderDetailPromotionMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderDetailViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderFeeItemViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderGroupViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderPromotionMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PartnerMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PartnerViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PaymentPartnerViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PaymentReportViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PaymentViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PayrollCategoryViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PayrollDetailViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PayrollPeriodViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PayslipAttributeMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PayslipAttributeViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PaySlipItemViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PaySlipTemplateViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PaySlipViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PosConfigViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PosFileViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PosViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PriceAdditionViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PriceGroupViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PriceNightViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductCategoryViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductCollectionItemMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductCollectionViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductComboDetailViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductDetailMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductImageCollectionItemMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductImageCollectionViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductImageViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductItemCategoryViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductItemCompositionMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductItemViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductSpecificationViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProfileViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PromotionDetailViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PromotionStoreMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PromotionViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProviderProductItemMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProviderViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProvinceViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RatingProductViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RatingStarViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ReportTrackingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RoleViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RoomCategoryPriceGroupMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RoomCategoryViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RoomFloorViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RoomViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SalaryHourViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SalaryRuleViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreDomainViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreGroupMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreGroupViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreThemeViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreUserViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreWebRouteModelViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreWebRouteViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreWebSettingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreWebViewCounterViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SubRentGroupViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\sysdiagramViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SystemPartnerMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TagMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TagViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TemplateDetailMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TemplateReportProductItemMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TemplateRuleMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ThemeViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TimeFrameViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TimeModeRuleViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TimeModeTypeViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TokenUserViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TransactionViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\UserViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\VATOrderMappingViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\VATOrderViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ViewCounterViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ViewModelGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\VoucherViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WardViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WebCustomerFeedbackViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WebElementTypeViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WebElementViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WebMenuCategoryViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WebMenuViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WebPageViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="Models\MyEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MyEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\MyEntities.edmx.diagram">
+      <DependentUpon>MyEntities.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Templates\DataServiceTest.ttinclude" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Global\GlobalGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GlobalGen.cs</LastGenOutput>
+    </Content>
+    <Content Include="Managers\ManagerGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ManagerGen.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Domains\DomainGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DomainGen.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Extensions\ExtensionGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ExtensionGen.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MyEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyEntities.edmx</DependentUpon>
+      <LastGenOutput>MyEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\MyEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MyEntities.edmx</DependentUpon>
+      <LastGenOutput>MyEntities.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Repositories\RepositoryGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RepositoryGen.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Services\ServiceGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ServiceGen.cs</LastGenOutput>
+    </Content>
+    <Content Include="README.txt" />
+    <Content Include="Utilities\UtilityGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UtilityGen.cs</LastGenOutput>
+    </Content>
+    <Content Include="ViewModels\ViewModelGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ViewModelGen.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

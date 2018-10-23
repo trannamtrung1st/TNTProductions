@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using T2CDataService.Models;
+using T2CDataService.ViewModels;
+
+namespace T2CDataService.Utilities
+{
+	public static class DefaultUtilities
+	{
+		public static List<VM> ToListVM<E, VM>(this IEnumerable<E> list) where E: IEntity
+		{
+			return list.Select(e => e.To<VM>()).ToList();
+		}
+		
+		public static List<E> ToListEntities<VM, E>(this IEnumerable<VM> list) where VM: IViewModel
+		{
+			return list.Select(vm => vm.To<E>()).ToList();
+		}
+		
+	}
+}

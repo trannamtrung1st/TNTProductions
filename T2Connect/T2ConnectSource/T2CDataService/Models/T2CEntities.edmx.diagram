@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="883acc0238384b26b0b4cca10c01f1d0" Name="Diagram1">
+        <EntityTypeShape EntityType="T2CModel.Answer" Width="1.5" PointX="7.5" PointY="8.75" />
+        <EntityTypeShape EntityType="T2CModel.Comment" Width="1.5" PointX="5.25" PointY="5.5" />
+        <EntityTypeShape EntityType="T2CModel.Post" Width="1.5" PointX="3" PointY="7.25" />
+        <EntityTypeShape EntityType="T2CModel.Question" Width="1.5" PointX="5.25" PointY="10.25" />
+        <EntityTypeShape EntityType="T2CModel.User" Width="1.5" PointX="0.75" PointY="3.75" />
+        <AssociationConnector Association="T2CModel.FK_Answer_Post" />
+        <AssociationConnector Association="T2CModel.FK_Answer_Question" />
+        <AssociationConnector Association="T2CModel.FK_Comment_Post" />
+        <AssociationConnector Association="T2CModel.FK_Comment_Users" />
+        <AssociationConnector Association="T2CModel.FK_Post_Users" />
+        <AssociationConnector Association="T2CModel.FK_Question_Post" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

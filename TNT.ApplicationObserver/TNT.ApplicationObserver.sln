@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNT.AppObserver", "TNT.AppObserver\TNT.AppObserver.csproj", "{75734F0A-4542-41F1-AF78-693587E612CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNT.AppObserverKeeper", "TNT.AppObserverKeeper\TNT.AppObserverKeeper.csproj", "{31676892-C7B0-42C4-AC1E-05DDAB9F4807}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTest", "AppTest\AppTest.csproj", "{53652EE1-9923-4705-81CD-8D3A034754C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75734F0A-4542-41F1-AF78-693587E612CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75734F0A-4542-41F1-AF78-693587E612CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75734F0A-4542-41F1-AF78-693587E612CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75734F0A-4542-41F1-AF78-693587E612CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31676892-C7B0-42C4-AC1E-05DDAB9F4807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31676892-C7B0-42C4-AC1E-05DDAB9F4807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31676892-C7B0-42C4-AC1E-05DDAB9F4807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31676892-C7B0-42C4-AC1E-05DDAB9F4807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53652EE1-9923-4705-81CD-8D3A034754C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53652EE1-9923-4705-81CD-8D3A034754C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53652EE1-9923-4705-81CD-8D3A034754C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53652EE1-9923-4705-81CD-8D3A034754C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
