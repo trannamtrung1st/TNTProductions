@@ -1,0 +1,544 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D9723ED9-295C-4D67-B500-6915800209A6}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PromoterDataService</RootNamespace>
+    <AssemblyName>PromoterDataService</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\TNT.DataServiceTemplate\DataServiceTest\bin\Debug\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\TNT.DataServiceTemplate\DataServiceTest\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http">
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TNT.DataServiceTemplate">
+      <HintPath>..\..\TNT.DataServiceTemplate\TNT.DataServiceTemplate\bin\Debug\TNT.DataServiceTemplate.dll</HintPath>
+    </Reference>
+    <Reference Include="TNT.Helpers">
+      <HintPath>..\..\TNT.Helpers\TNT.Helpers\bin\Debug\TNT.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="TNT.IoContainer">
+      <HintPath>..\..\TNT.IoContainer\TNT.IoContainer\bin\Debug\TNT.IoContainer.dll</HintPath>
+    </Reference>
+    <Reference Include="TNT.TemplateAPI">
+      <HintPath>..\..\TNT.TemplateAPI\TNT.TemplateAPI\bin\Debug\TNT.TemplateAPI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="APIs\EnumsManager.cs" />
+    <Compile Include="APIs\Messages\ErrorMessage.cs" />
+    <Compile Include="APIs\Messages\Message.cs" />
+    <Compile Include="Global\Global.cs">
+      <DependentUpon>GlobalGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Global\GlobalGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\ManagerGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ManagerGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\UnitOfWork.cs">
+      <DependentUpon>ManagerGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Campaign.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomerSegment.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\BaseDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CampaignDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CustomerDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CustomerSegmentDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\DomainGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\EventDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\OrderDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\OrderItemDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ProductDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PromotionAppliedDetailDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PromotionDetailDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PromotionDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\RedemptionDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\RedemptionRollbackDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\SegmentDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\StoreDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\ValidationRuleDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\VoucherDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\VoucherDomainExtension.cs" />
+    <Compile Include="Models\Event.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CampaignExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CustomerExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CustomerSegmentExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\Entity.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\EventExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ExtensionGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\OrderExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\OrderItemExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ProductExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PromotionAppliedDetailExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PromotionDetailExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PromotionExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\RedemptionExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\RedemptionRollbackExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\SegmentExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\StoreExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\ValidationRuleExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\VoucherExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderItem.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PromoterDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PromoterDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PromoterDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PromoterDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PromoterDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Promotion.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PromotionAppliedDetail.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PromotionDetail.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Redemption.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RedemptionRollback.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\BaseRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CampaignRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CustomerRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CustomerSegmentRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\EventRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\OrderItemRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\OrderRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ProductRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PromotionAppliedDetailRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PromotionDetailRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PromotionRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\RedemptionRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\RedemptionRollbackRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\RepositoryGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\SegmentRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\StoreRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\ValidationRuleRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\VoucherRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Segment.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\BaseService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CampaignService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CampaignServiceExtension.cs" />
+    <Compile Include="Models\Services\CustomerSegmentService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\CustomerService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\EventService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\OrderItemService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\OrderService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ProductService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PromotionAppliedDetailService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PromotionDetailService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PromotionService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\RedemptionRollbackService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\RedemptionService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\SegmentService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ServiceGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\StoreService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\ValidationRuleService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\VoucherService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Store.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ValidationRule.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Voucher.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VoucherConfig.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\DefaultUtilities.cs">
+      <DependentUpon>UtilityGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\UtilityGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UtilityGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BaseViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CampaignViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerSegmentViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EventViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderItemViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PromotionAppliedDetailViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PromotionDetailViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PromotionViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RedemptionRollbackViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RedemptionViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SegmentViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ValidationRuleViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ViewModelGen.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\VoucherViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\VoucherViewModelExtension.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="Models\PromoterDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PromoterDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\PromoterDB.edmx.diagram">
+      <DependentUpon>PromoterDB.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Templates\PromoterDataService.ttinclude" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global\GlobalGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GlobalGen.cs</LastGenOutput>
+    </Content>
+    <Content Include="Managers\ManagerGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ManagerGen.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Domains\DomainGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DomainGen.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Extensions\ExtensionGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ExtensionGen.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\PromoterDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PromoterDB.edmx</DependentUpon>
+      <LastGenOutput>PromoterDB.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\PromoterDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PromoterDB.edmx</DependentUpon>
+      <LastGenOutput>PromoterDB.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Repositories\RepositoryGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RepositoryGen.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Services\ServiceGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ServiceGen.cs</LastGenOutput>
+    </Content>
+    <Content Include="README.txt" />
+    <Content Include="Utilities\UtilityGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UtilityGen.cs</LastGenOutput>
+    </Content>
+    <Content Include="ViewModels\ViewModelGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ViewModelGen.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="APIs\Models\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

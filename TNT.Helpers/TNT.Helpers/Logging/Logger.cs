@@ -269,11 +269,6 @@ namespace TNT.Helpers.Logging
             }
         }
 
-        public void SetAdaptee()
-        {
-            throw new NotImplementedException();
-        }
-
         public Logger(ILoggerAdaptee adaptee)
         {
             Adaptee = adaptee;

@@ -1,0 +1,1567 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PromoterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Campaign">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="100" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="ValidationRuleId" Type="int" />
+          <Property Name="VoucherConfig" Type="varchar(max)" />
+          <Property Name="VoucherQuantity" Type="int" />
+          <Property Name="VoucherAvailableQuantity" Type="int" />
+          <Property Name="MetadataObject" Type="nvarchar(max)" />
+          <Property Name="Deactive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="100" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="Address" Type="nvarchar" MaxLength="500" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" />
+          <Property Name="MetadataObject" Type="nvarchar(max)" />
+          <Property Name="CreatedTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CustomerSegment">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="SegmentId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="SegmentId" Type="int" Nullable="false" />
+          <Property Name="Deactive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Type" Type="int" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="SourceId" Type="nvarchar" MaxLength="100" />
+          <Property Name="SourceIdDataType" Type="int" />
+          <Property Name="SourceType" Type="int" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="ContentObject" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="100" />
+          <Property Name="TotalAmount" Type="float" />
+          <Property Name="FinalAmount" Type="float" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="CashierObject" Type="nvarchar(max)" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="StoreId" Type="int" />
+        </EntityType>
+        <EntityType Name="OrderItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="TotalAmount" Type="float" />
+          <Property Name="FinalAmount" Type="float" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="100" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="SmallestUnit" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="float" />
+        </EntityType>
+        <EntityType Name="Promotion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="100" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Banner" Type="ntext" />
+          <Property Name="ValidationRuleId" Type="int" />
+          <Property Name="PromotionDetailId" Type="int" />
+          <Property Name="CampaignId" Type="int" />
+          <Property Name="AvailableTimes" Type="int" />
+          <Property Name="AppliedTimes" Type="int" />
+          <Property Name="AssetsObject" Type="nvarchar(max)" />
+          <Property Name="MetadataObject" Type="nvarchar(max)" />
+          <Property Name="Deactive" Type="bit" />
+        </EntityType>
+        <EntityType Name="PromotionAppliedDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PromotionType" Type="int" />
+          <Property Name="OrderId" Type="int" />
+          <Property Name="OrderItemId" Type="int" />
+          <Property Name="RedemptionId" Type="int" />
+          <Property Name="RedemptionRollbackId" Type="int" />
+          <Property Name="VoucherCode" Type="varchar" MaxLength="100" />
+          <Property Name="PromotionCode" Type="varchar" MaxLength="100" />
+          <Property Name="DiscountPercent" Type="int" />
+          <Property Name="DiscountAmount" Type="float" />
+          <Property Name="GiftAmount" Type="int" />
+          <Property Name="GiftProductCodes" Type="varchar(max)" />
+          <Property Name="CouponCodes" Type="varchar(max)" />
+          <Property Name="CouponTotalAmount" Type="float" />
+        </EntityType>
+        <EntityType Name="PromotionDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsDiscount" Type="bit" />
+          <Property Name="DiscountAmount" Type="int" />
+          <Property Name="DiscountUnit" Type="int" />
+          <Property Name="DiscountUnitValue" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsGift" Type="bit" />
+          <Property Name="GiftAmounts" Type="varchar(max)" />
+          <Property Name="GiftCodesExpr" Type="varchar(max)" />
+          <Property Name="GiftUnits" Type="nvarchar(max)" />
+          <Property Name="Deactive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Redemption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="MetadataObject" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" />
+          <Property Name="FailureCode" Type="int" />
+        </EntityType>
+        <EntityType Name="RedemptionRollback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="CustomerId" Type="int" />
+          <Property Name="RedemptionId" Type="int" />
+          <Property Name="Reason" Type="nvarchar(max)" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="FailureCode" Type="int" />
+        </EntityType>
+        <EntityType Name="Segment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="100" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Description" Type="ntext" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="100" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Deactive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ValidationRule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SegmentRuleOp" Type="int" />
+          <Property Name="InSegmentId" Type="varchar(max)" />
+          <Property Name="NotInSegmentId" Type="varchar(max)" />
+          <Property Name="ProductRuleOp" Type="int" />
+          <Property Name="ProductCodePattern" Type="nvarchar" MaxLength="200" />
+          <Property Name="MinProductPrice" Type="float" />
+          <Property Name="MaxProductPrice" Type="float" />
+          <Property Name="MinProductQuantity" Type="int" />
+          <Property Name="MaxProductQuantity" Type="int" />
+          <Property Name="OrderRuleOp" Type="int" />
+          <Property Name="MinOrderAmount" Type="float" />
+          <Property Name="MaxOrderAmount" Type="float" />
+          <Property Name="MinOrderProductQuantity" Type="int" />
+          <Property Name="MaxOrderProductQuantity" Type="int" />
+          <Property Name="RedemptionRuleOp" Type="int" />
+          <Property Name="MinRedeemTimes" Type="int" />
+          <Property Name="MaxRedeemTimes" Type="int" />
+          <Property Name="GeneralRuleOp" Type="int" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="ExpirationDate" Type="datetime" />
+          <Property Name="ListApplyHours" Type="varchar" MaxLength="100" />
+          <Property Name="ApplyStoresId" Type="varchar(max)" />
+          <Property Name="ExceptDates" Type="varchar(max)" />
+          <Property Name="ExceptDOWs" Type="varchar" MaxLength="100" />
+          <Property Name="AnotherRuleOp" Type="int" />
+          <Property Name="AnotherRuleId" Type="int" />
+        </EntityType>
+        <EntityType Name="Voucher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="100" />
+          <Property Name="CampaignId" Type="int" />
+          <Property Name="PromotionDetailId" Type="int" />
+          <Property Name="ValidationRuleId" Type="int" />
+          <Property Name="AssetsObject" Type="nvarchar(max)" />
+          <Property Name="MetadataObject" Type="nvarchar(max)" />
+          <Property Name="IsGotten" Type="bit" />
+          <Property Name="UsingTimes" Type="int" />
+          <Property Name="UsedTimes" Type="int" />
+          <Property Name="Deactive" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Campaign_ValidationRule">
+          <End Role="ValidationRule" Type="Self.ValidationRule" Multiplicity="0..1" />
+          <End Role="Campaign" Type="Self.Campaign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ValidationRule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Campaign">
+              <PropertyRef Name="ValidationRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerSegment_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CustomerSegment" Type="Self.CustomerSegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerSegment">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerSegment_Segment">
+          <End Role="Segment" Type="Self.Segment" Multiplicity="1" />
+          <End Role="CustomerSegment" Type="Self.CustomerSegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Segment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerSegment">
+              <PropertyRef Name="SegmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Event_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Store">
+          <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Product1" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Promotion_Campaign">
+          <End Role="Campaign" Type="Self.Campaign" Multiplicity="0..1" />
+          <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campaign">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Promotion">
+              <PropertyRef Name="CampaignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Promotion_PromotionDetail">
+          <End Role="PromotionDetail" Type="Self.PromotionDetail" Multiplicity="0..1" />
+          <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Promotion">
+              <PropertyRef Name="PromotionDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Promotion_ValidationRule">
+          <End Role="ValidationRule" Type="Self.ValidationRule" Multiplicity="0..1" />
+          <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ValidationRule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Promotion">
+              <PropertyRef Name="ValidationRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromotionAppliedDetail_Order">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="PromotionAppliedDetail" Type="Self.PromotionAppliedDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PromotionAppliedDetail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromotionAppliedDetail_OrderItem">
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="0..1" />
+          <End Role="PromotionAppliedDetail" Type="Self.PromotionAppliedDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PromotionAppliedDetail">
+              <PropertyRef Name="OrderItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromotionAppliedDetail_Redemption">
+          <End Role="Redemption" Type="Self.Redemption" Multiplicity="0..1" />
+          <End Role="PromotionAppliedDetail" Type="Self.PromotionAppliedDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Redemption">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PromotionAppliedDetail">
+              <PropertyRef Name="RedemptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromotionAppliedDetail_RedemptionRollback">
+          <End Role="RedemptionRollback" Type="Self.RedemptionRollback" Multiplicity="0..1" />
+          <End Role="PromotionAppliedDetail" Type="Self.PromotionAppliedDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RedemptionRollback">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PromotionAppliedDetail">
+              <PropertyRef Name="RedemptionRollbackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Redemption_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Redemption" Type="Self.Redemption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Redemption">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RedemptionRollback_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="RedemptionRollback" Type="Self.RedemptionRollback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RedemptionRollback">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RedemptionRollback_Redemption">
+          <End Role="Redemption" Type="Self.Redemption" Multiplicity="0..1" />
+          <End Role="RedemptionRollback" Type="Self.RedemptionRollback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Redemption">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RedemptionRollback">
+              <PropertyRef Name="RedemptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ValidationRule_ValidationRule">
+          <End Role="ValidationRule" Type="Self.ValidationRule" Multiplicity="0..1" />
+          <End Role="ValidationRule1" Type="Self.ValidationRule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ValidationRule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ValidationRule1">
+              <PropertyRef Name="AnotherRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Voucher_Campaign">
+          <End Role="Campaign" Type="Self.Campaign" Multiplicity="0..1" />
+          <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campaign">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Voucher">
+              <PropertyRef Name="CampaignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Voucher_PromotionDetail">
+          <End Role="PromotionDetail" Type="Self.PromotionDetail" Multiplicity="0..1" />
+          <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Voucher">
+              <PropertyRef Name="PromotionDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Voucher_ValidationRule">
+          <End Role="ValidationRule" Type="Self.ValidationRule" Multiplicity="0..1" />
+          <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ValidationRule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Voucher">
+              <PropertyRef Name="ValidationRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PromoterModelStoreContainer">
+          <EntitySet Name="Campaign" EntityType="Self.Campaign" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerSegment" EntityType="Self.CustomerSegment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderItem" EntityType="Self.OrderItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Promotion" EntityType="Self.Promotion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromotionAppliedDetail" EntityType="Self.PromotionAppliedDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromotionDetail" EntityType="Self.PromotionDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Redemption" EntityType="Self.Redemption" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RedemptionRollback" EntityType="Self.RedemptionRollback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Segment" EntityType="Self.Segment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Store" EntityType="Self.Store" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ValidationRule" EntityType="Self.ValidationRule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Voucher" EntityType="Self.Voucher" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Campaign_ValidationRule" Association="Self.FK_Campaign_ValidationRule">
+            <End Role="ValidationRule" EntitySet="ValidationRule" />
+            <End Role="Campaign" EntitySet="Campaign" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerSegment_Customer" Association="Self.FK_CustomerSegment_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerSegment" EntitySet="CustomerSegment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerSegment_Segment" Association="Self.FK_CustomerSegment_Segment">
+            <End Role="Segment" EntitySet="Segment" />
+            <End Role="CustomerSegment" EntitySet="CustomerSegment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Event_Customer" Association="Self.FK_Event_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Event" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Store" Association="Self.FK_Order_Store">
+            <End Role="Store" EntitySet="Store" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Order" Association="Self.FK_OrderItem_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Product" Association="Self.FK_OrderItem_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Product" Association="Self.FK_Product_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Product1" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Promotion_Campaign" Association="Self.FK_Promotion_Campaign">
+            <End Role="Campaign" EntitySet="Campaign" />
+            <End Role="Promotion" EntitySet="Promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Promotion_PromotionDetail" Association="Self.FK_Promotion_PromotionDetail">
+            <End Role="PromotionDetail" EntitySet="PromotionDetail" />
+            <End Role="Promotion" EntitySet="Promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Promotion_ValidationRule" Association="Self.FK_Promotion_ValidationRule">
+            <End Role="ValidationRule" EntitySet="ValidationRule" />
+            <End Role="Promotion" EntitySet="Promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromotionAppliedDetail_Order" Association="Self.FK_PromotionAppliedDetail_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="PromotionAppliedDetail" EntitySet="PromotionAppliedDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromotionAppliedDetail_OrderItem" Association="Self.FK_PromotionAppliedDetail_OrderItem">
+            <End Role="OrderItem" EntitySet="OrderItem" />
+            <End Role="PromotionAppliedDetail" EntitySet="PromotionAppliedDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromotionAppliedDetail_Redemption" Association="Self.FK_PromotionAppliedDetail_Redemption">
+            <End Role="Redemption" EntitySet="Redemption" />
+            <End Role="PromotionAppliedDetail" EntitySet="PromotionAppliedDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromotionAppliedDetail_RedemptionRollback" Association="Self.FK_PromotionAppliedDetail_RedemptionRollback">
+            <End Role="RedemptionRollback" EntitySet="RedemptionRollback" />
+            <End Role="PromotionAppliedDetail" EntitySet="PromotionAppliedDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Redemption_Customer" Association="Self.FK_Redemption_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Redemption" EntitySet="Redemption" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RedemptionRollback_Customer" Association="Self.FK_RedemptionRollback_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="RedemptionRollback" EntitySet="RedemptionRollback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RedemptionRollback_Redemption" Association="Self.FK_RedemptionRollback_Redemption">
+            <End Role="Redemption" EntitySet="Redemption" />
+            <End Role="RedemptionRollback" EntitySet="RedemptionRollback" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ValidationRule_ValidationRule" Association="Self.FK_ValidationRule_ValidationRule">
+            <End Role="ValidationRule" EntitySet="ValidationRule" />
+            <End Role="ValidationRule1" EntitySet="ValidationRule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Voucher_Campaign" Association="Self.FK_Voucher_Campaign">
+            <End Role="Campaign" EntitySet="Campaign" />
+            <End Role="Voucher" EntitySet="Voucher" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Voucher_PromotionDetail" Association="Self.FK_Voucher_PromotionDetail">
+            <End Role="PromotionDetail" EntitySet="PromotionDetail" />
+            <End Role="Voucher" EntitySet="Voucher" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Voucher_ValidationRule" Association="Self.FK_Voucher_ValidationRule">
+            <End Role="ValidationRule" EntitySet="ValidationRule" />
+            <End Role="Voucher" EntitySet="Voucher" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PromoterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PromoterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Campaigns" EntityType="PromoterModel.Campaign" />
+          <EntitySet Name="Customers" EntityType="PromoterModel.Customer" />
+          <EntitySet Name="CustomerSegments" EntityType="PromoterModel.CustomerSegment" />
+          <EntitySet Name="Events" EntityType="PromoterModel.Event" />
+          <EntitySet Name="Orders" EntityType="PromoterModel.Order" />
+          <EntitySet Name="OrderItems" EntityType="PromoterModel.OrderItem" />
+          <EntitySet Name="Products" EntityType="PromoterModel.Product" />
+          <EntitySet Name="Promotions" EntityType="PromoterModel.Promotion" />
+          <EntitySet Name="PromotionAppliedDetails" EntityType="PromoterModel.PromotionAppliedDetail" />
+          <EntitySet Name="PromotionDetails" EntityType="PromoterModel.PromotionDetail" />
+          <EntitySet Name="Redemptions" EntityType="PromoterModel.Redemption" />
+          <EntitySet Name="RedemptionRollbacks" EntityType="PromoterModel.RedemptionRollback" />
+          <EntitySet Name="Segments" EntityType="PromoterModel.Segment" />
+          <EntitySet Name="Stores" EntityType="PromoterModel.Store" />
+          <EntitySet Name="ValidationRules" EntityType="PromoterModel.ValidationRule" />
+          <EntitySet Name="Vouchers" EntityType="PromoterModel.Voucher" />
+          <AssociationSet Name="FK_Campaign_ValidationRule" Association="PromoterModel.FK_Campaign_ValidationRule">
+            <End Role="ValidationRule" EntitySet="ValidationRules" />
+            <End Role="Campaign" EntitySet="Campaigns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Promotion_Campaign" Association="PromoterModel.FK_Promotion_Campaign">
+            <End Role="Campaign" EntitySet="Campaigns" />
+            <End Role="Promotion" EntitySet="Promotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Voucher_Campaign" Association="PromoterModel.FK_Voucher_Campaign">
+            <End Role="Campaign" EntitySet="Campaigns" />
+            <End Role="Voucher" EntitySet="Vouchers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerSegment_Customer" Association="PromoterModel.FK_CustomerSegment_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="CustomerSegment" EntitySet="CustomerSegments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Event_Customer" Association="PromoterModel.FK_Event_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Event" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Customer" Association="PromoterModel.FK_Order_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Redemption_Customer" Association="PromoterModel.FK_Redemption_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Redemption" EntitySet="Redemptions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RedemptionRollback_Customer" Association="PromoterModel.FK_RedemptionRollback_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="RedemptionRollback" EntitySet="RedemptionRollbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerSegment_Segment" Association="PromoterModel.FK_CustomerSegment_Segment">
+            <End Role="Segment" EntitySet="Segments" />
+            <End Role="CustomerSegment" EntitySet="CustomerSegments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Store" Association="PromoterModel.FK_Order_Store">
+            <End Role="Store" EntitySet="Stores" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Order" Association="PromoterModel.FK_OrderItem_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromotionAppliedDetail_Order" Association="PromoterModel.FK_PromotionAppliedDetail_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="PromotionAppliedDetail" EntitySet="PromotionAppliedDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Product" Association="PromoterModel.FK_OrderItem_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromotionAppliedDetail_OrderItem" Association="PromoterModel.FK_PromotionAppliedDetail_OrderItem">
+            <End Role="OrderItem" EntitySet="OrderItems" />
+            <End Role="PromotionAppliedDetail" EntitySet="PromotionAppliedDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Product" Association="PromoterModel.FK_Product_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Product1" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Promotion_PromotionDetail" Association="PromoterModel.FK_Promotion_PromotionDetail">
+            <End Role="PromotionDetail" EntitySet="PromotionDetails" />
+            <End Role="Promotion" EntitySet="Promotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Promotion_ValidationRule" Association="PromoterModel.FK_Promotion_ValidationRule">
+            <End Role="ValidationRule" EntitySet="ValidationRules" />
+            <End Role="Promotion" EntitySet="Promotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromotionAppliedDetail_Redemption" Association="PromoterModel.FK_PromotionAppliedDetail_Redemption">
+            <End Role="Redemption" EntitySet="Redemptions" />
+            <End Role="PromotionAppliedDetail" EntitySet="PromotionAppliedDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromotionAppliedDetail_RedemptionRollback" Association="PromoterModel.FK_PromotionAppliedDetail_RedemptionRollback">
+            <End Role="RedemptionRollback" EntitySet="RedemptionRollbacks" />
+            <End Role="PromotionAppliedDetail" EntitySet="PromotionAppliedDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Voucher_PromotionDetail" Association="PromoterModel.FK_Voucher_PromotionDetail">
+            <End Role="PromotionDetail" EntitySet="PromotionDetails" />
+            <End Role="Voucher" EntitySet="Vouchers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RedemptionRollback_Redemption" Association="PromoterModel.FK_RedemptionRollback_Redemption">
+            <End Role="Redemption" EntitySet="Redemptions" />
+            <End Role="RedemptionRollback" EntitySet="RedemptionRollbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ValidationRule_ValidationRule" Association="PromoterModel.FK_ValidationRule_ValidationRule">
+            <End Role="ValidationRule" EntitySet="ValidationRules" />
+            <End Role="ValidationRule1" EntitySet="ValidationRules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Voucher_ValidationRule" Association="PromoterModel.FK_Voucher_ValidationRule">
+            <End Role="ValidationRule" EntitySet="ValidationRules" />
+            <End Role="Voucher" EntitySet="Vouchers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Campaign">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ValidationRuleId" Type="Int32" />
+          <Property Name="VoucherConfig" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VoucherQuantity" Type="Int32" />
+          <Property Name="VoucherAvailableQuantity" Type="Int32" />
+          <Property Name="MetadataObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Deactive" Type="Boolean" />
+          <NavigationProperty Name="ValidationRule" Relationship="PromoterModel.FK_Campaign_ValidationRule" FromRole="Campaign" ToRole="ValidationRule" />
+          <NavigationProperty Name="Promotions" Relationship="PromoterModel.FK_Promotion_Campaign" FromRole="Campaign" ToRole="Promotion" />
+          <NavigationProperty Name="Vouchers" Relationship="PromoterModel.FK_Voucher_Campaign" FromRole="Campaign" ToRole="Voucher" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MetadataObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CustomerSegments" Relationship="PromoterModel.FK_CustomerSegment_Customer" FromRole="Customer" ToRole="CustomerSegment" />
+          <NavigationProperty Name="Events" Relationship="PromoterModel.FK_Event_Customer" FromRole="Customer" ToRole="Event" />
+          <NavigationProperty Name="Orders" Relationship="PromoterModel.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
+          <NavigationProperty Name="Redemptions" Relationship="PromoterModel.FK_Redemption_Customer" FromRole="Customer" ToRole="Redemption" />
+          <NavigationProperty Name="RedemptionRollbacks" Relationship="PromoterModel.FK_RedemptionRollback_Customer" FromRole="Customer" ToRole="RedemptionRollback" />
+        </EntityType>
+        <EntityType Name="CustomerSegment">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+            <PropertyRef Name="SegmentId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="SegmentId" Type="Int32" Nullable="false" />
+          <Property Name="Deactive" Type="Boolean" />
+          <NavigationProperty Name="Customer" Relationship="PromoterModel.FK_CustomerSegment_Customer" FromRole="CustomerSegment" ToRole="Customer" />
+          <NavigationProperty Name="Segment" Relationship="PromoterModel.FK_CustomerSegment_Segment" FromRole="CustomerSegment" ToRole="Segment" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="SourceId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SourceIdDataType" Type="Int32" />
+          <Property Name="SourceType" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContentObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer" Relationship="PromoterModel.FK_Event_Customer" FromRole="Event" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TotalAmount" Type="Double" />
+          <Property Name="FinalAmount" Type="Double" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="CashierObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="StoreId" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="PromoterModel.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
+          <NavigationProperty Name="Store" Relationship="PromoterModel.FK_Order_Store" FromRole="Order" ToRole="Store" />
+          <NavigationProperty Name="OrderItems" Relationship="PromoterModel.FK_OrderItem_Order" FromRole="Order" ToRole="OrderItem" />
+          <NavigationProperty Name="PromotionAppliedDetails" Relationship="PromoterModel.FK_PromotionAppliedDetail_Order" FromRole="Order" ToRole="PromotionAppliedDetail" />
+        </EntityType>
+        <EntityType Name="OrderItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="TotalAmount" Type="Double" />
+          <Property Name="FinalAmount" Type="Double" />
+          <NavigationProperty Name="Order" Relationship="PromoterModel.FK_OrderItem_Order" FromRole="OrderItem" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="PromoterModel.FK_OrderItem_Product" FromRole="OrderItem" ToRole="Product" />
+          <NavigationProperty Name="PromotionAppliedDetails" Relationship="PromoterModel.FK_PromotionAppliedDetail_OrderItem" FromRole="OrderItem" ToRole="PromotionAppliedDetail" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="SmallestUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" />
+          <NavigationProperty Name="OrderItems" Relationship="PromoterModel.FK_OrderItem_Product" FromRole="Product" ToRole="OrderItem" />
+          <NavigationProperty Name="Product1" Relationship="PromoterModel.FK_Product_Product" FromRole="Product" ToRole="Product1" />
+          <NavigationProperty Name="Product2" Relationship="PromoterModel.FK_Product_Product" FromRole="Product1" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Promotion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Banner" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ValidationRuleId" Type="Int32" />
+          <Property Name="PromotionDetailId" Type="Int32" />
+          <Property Name="CampaignId" Type="Int32" />
+          <Property Name="AvailableTimes" Type="Int32" />
+          <Property Name="AppliedTimes" Type="Int32" />
+          <Property Name="AssetsObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetadataObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Deactive" Type="Boolean" />
+          <NavigationProperty Name="Campaign" Relationship="PromoterModel.FK_Promotion_Campaign" FromRole="Promotion" ToRole="Campaign" />
+          <NavigationProperty Name="PromotionDetail" Relationship="PromoterModel.FK_Promotion_PromotionDetail" FromRole="Promotion" ToRole="PromotionDetail" />
+          <NavigationProperty Name="ValidationRule" Relationship="PromoterModel.FK_Promotion_ValidationRule" FromRole="Promotion" ToRole="ValidationRule" />
+        </EntityType>
+        <EntityType Name="PromotionAppliedDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PromotionType" Type="Int32" />
+          <Property Name="OrderId" Type="Int32" />
+          <Property Name="OrderItemId" Type="Int32" />
+          <Property Name="RedemptionId" Type="Int32" />
+          <Property Name="RedemptionRollbackId" Type="Int32" />
+          <Property Name="VoucherCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PromotionCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DiscountPercent" Type="Int32" />
+          <Property Name="DiscountAmount" Type="Double" />
+          <Property Name="GiftAmount" Type="Int32" />
+          <Property Name="GiftProductCodes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CouponCodes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CouponTotalAmount" Type="Double" />
+          <NavigationProperty Name="Order" Relationship="PromoterModel.FK_PromotionAppliedDetail_Order" FromRole="PromotionAppliedDetail" ToRole="Order" />
+          <NavigationProperty Name="OrderItem" Relationship="PromoterModel.FK_PromotionAppliedDetail_OrderItem" FromRole="PromotionAppliedDetail" ToRole="OrderItem" />
+          <NavigationProperty Name="Redemption" Relationship="PromoterModel.FK_PromotionAppliedDetail_Redemption" FromRole="PromotionAppliedDetail" ToRole="Redemption" />
+          <NavigationProperty Name="RedemptionRollback" Relationship="PromoterModel.FK_PromotionAppliedDetail_RedemptionRollback" FromRole="PromotionAppliedDetail" ToRole="RedemptionRollback" />
+        </EntityType>
+        <EntityType Name="PromotionDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsDiscount" Type="Boolean" />
+          <Property Name="DiscountAmount" Type="Int32" />
+          <Property Name="DiscountUnit" Type="Int32" />
+          <Property Name="DiscountUnitValue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsGift" Type="Boolean" />
+          <Property Name="GiftAmounts" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="GiftCodesExpr" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="GiftUnits" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Deactive" Type="Boolean" />
+          <NavigationProperty Name="Promotions" Relationship="PromoterModel.FK_Promotion_PromotionDetail" FromRole="PromotionDetail" ToRole="Promotion" />
+          <NavigationProperty Name="Vouchers" Relationship="PromoterModel.FK_Voucher_PromotionDetail" FromRole="PromotionDetail" ToRole="Voucher" />
+        </EntityType>
+        <EntityType Name="Redemption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="MetadataObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="FailureCode" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="PromoterModel.FK_Redemption_Customer" FromRole="Redemption" ToRole="Customer" />
+          <NavigationProperty Name="PromotionAppliedDetails" Relationship="PromoterModel.FK_PromotionAppliedDetail_Redemption" FromRole="Redemption" ToRole="PromotionAppliedDetail" />
+          <NavigationProperty Name="RedemptionRollbacks" Relationship="PromoterModel.FK_RedemptionRollback_Redemption" FromRole="Redemption" ToRole="RedemptionRollback" />
+        </EntityType>
+        <EntityType Name="RedemptionRollback">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="CustomerId" Type="Int32" />
+          <Property Name="RedemptionId" Type="Int32" />
+          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="FailureCode" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="PromoterModel.FK_RedemptionRollback_Customer" FromRole="RedemptionRollback" ToRole="Customer" />
+          <NavigationProperty Name="PromotionAppliedDetails" Relationship="PromoterModel.FK_PromotionAppliedDetail_RedemptionRollback" FromRole="RedemptionRollback" ToRole="PromotionAppliedDetail" />
+          <NavigationProperty Name="Redemption" Relationship="PromoterModel.FK_RedemptionRollback_Redemption" FromRole="RedemptionRollback" ToRole="Redemption" />
+        </EntityType>
+        <EntityType Name="Segment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CustomerSegments" Relationship="PromoterModel.FK_CustomerSegment_Segment" FromRole="Segment" ToRole="CustomerSegment" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Deactive" Type="Boolean" />
+          <NavigationProperty Name="Orders" Relationship="PromoterModel.FK_Order_Store" FromRole="Store" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="ValidationRule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SegmentRuleOp" Type="Int32" />
+          <Property Name="InSegmentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NotInSegmentId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProductRuleOp" Type="Int32" />
+          <Property Name="ProductCodePattern" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MinProductPrice" Type="Double" />
+          <Property Name="MaxProductPrice" Type="Double" />
+          <Property Name="MinProductQuantity" Type="Int32" />
+          <Property Name="MaxProductQuantity" Type="Int32" />
+          <Property Name="OrderRuleOp" Type="Int32" />
+          <Property Name="MinOrderAmount" Type="Double" />
+          <Property Name="MaxOrderAmount" Type="Double" />
+          <Property Name="MinOrderProductQuantity" Type="Int32" />
+          <Property Name="MaxOrderProductQuantity" Type="Int32" />
+          <Property Name="RedemptionRuleOp" Type="Int32" />
+          <Property Name="MinRedeemTimes" Type="Int32" />
+          <Property Name="MaxRedeemTimes" Type="Int32" />
+          <Property Name="GeneralRuleOp" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
+          <Property Name="ListApplyHours" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ApplyStoresId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ExceptDates" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ExceptDOWs" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AnotherRuleOp" Type="Int32" />
+          <Property Name="AnotherRuleId" Type="Int32" />
+          <NavigationProperty Name="Campaigns" Relationship="PromoterModel.FK_Campaign_ValidationRule" FromRole="ValidationRule" ToRole="Campaign" />
+          <NavigationProperty Name="Promotions" Relationship="PromoterModel.FK_Promotion_ValidationRule" FromRole="ValidationRule" ToRole="Promotion" />
+          <NavigationProperty Name="ValidationRule1" Relationship="PromoterModel.FK_ValidationRule_ValidationRule" FromRole="ValidationRule" ToRole="ValidationRule1" />
+          <NavigationProperty Name="ValidationRule2" Relationship="PromoterModel.FK_ValidationRule_ValidationRule" FromRole="ValidationRule1" ToRole="ValidationRule" />
+          <NavigationProperty Name="Vouchers" Relationship="PromoterModel.FK_Voucher_ValidationRule" FromRole="ValidationRule" ToRole="Voucher" />
+        </EntityType>
+        <EntityType Name="Voucher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CampaignId" Type="Int32" />
+          <Property Name="PromotionDetailId" Type="Int32" />
+          <Property Name="ValidationRuleId" Type="Int32" />
+          <Property Name="AssetsObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetadataObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsGotten" Type="Boolean" />
+          <Property Name="UsingTimes" Type="Int32" />
+          <Property Name="UsedTimes" Type="Int32" />
+          <Property Name="Deactive" Type="Boolean" />
+          <NavigationProperty Name="Campaign" Relationship="PromoterModel.FK_Voucher_Campaign" FromRole="Voucher" ToRole="Campaign" />
+          <NavigationProperty Name="PromotionDetail" Relationship="PromoterModel.FK_Voucher_PromotionDetail" FromRole="Voucher" ToRole="PromotionDetail" />
+          <NavigationProperty Name="ValidationRule" Relationship="PromoterModel.FK_Voucher_ValidationRule" FromRole="Voucher" ToRole="ValidationRule" />
+        </EntityType>
+        <Association Name="FK_Campaign_ValidationRule">
+          <End Type="PromoterModel.ValidationRule" Role="ValidationRule" Multiplicity="0..1" />
+          <End Type="PromoterModel.Campaign" Role="Campaign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ValidationRule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Campaign">
+              <PropertyRef Name="ValidationRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Promotion_Campaign">
+          <End Type="PromoterModel.Campaign" Role="Campaign" Multiplicity="0..1" />
+          <End Type="PromoterModel.Promotion" Role="Promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campaign">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Promotion">
+              <PropertyRef Name="CampaignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Voucher_Campaign">
+          <End Type="PromoterModel.Campaign" Role="Campaign" Multiplicity="0..1" />
+          <End Type="PromoterModel.Voucher" Role="Voucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campaign">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Voucher">
+              <PropertyRef Name="CampaignId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerSegment_Customer">
+          <End Type="PromoterModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="PromoterModel.CustomerSegment" Role="CustomerSegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerSegment">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Event_Customer">
+          <End Type="PromoterModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="PromoterModel.Event" Role="Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Customer">
+          <End Type="PromoterModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="PromoterModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Redemption_Customer">
+          <End Type="PromoterModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="PromoterModel.Redemption" Role="Redemption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Redemption">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RedemptionRollback_Customer">
+          <End Type="PromoterModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="PromoterModel.RedemptionRollback" Role="RedemptionRollback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RedemptionRollback">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerSegment_Segment">
+          <End Type="PromoterModel.Segment" Role="Segment" Multiplicity="1" />
+          <End Type="PromoterModel.CustomerSegment" Role="CustomerSegment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Segment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerSegment">
+              <PropertyRef Name="SegmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Store">
+          <End Type="PromoterModel.Store" Role="Store" Multiplicity="0..1" />
+          <End Type="PromoterModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Order">
+          <End Type="PromoterModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="PromoterModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromotionAppliedDetail_Order">
+          <End Type="PromoterModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="PromoterModel.PromotionAppliedDetail" Role="PromotionAppliedDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PromotionAppliedDetail">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Product">
+          <End Type="PromoterModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="PromoterModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromotionAppliedDetail_OrderItem">
+          <End Type="PromoterModel.OrderItem" Role="OrderItem" Multiplicity="0..1" />
+          <End Type="PromoterModel.PromotionAppliedDetail" Role="PromotionAppliedDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PromotionAppliedDetail">
+              <PropertyRef Name="OrderItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Product">
+          <End Type="PromoterModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="PromoterModel.Product" Role="Product1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Promotion_PromotionDetail">
+          <End Type="PromoterModel.PromotionDetail" Role="PromotionDetail" Multiplicity="0..1" />
+          <End Type="PromoterModel.Promotion" Role="Promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Promotion">
+              <PropertyRef Name="PromotionDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Promotion_ValidationRule">
+          <End Type="PromoterModel.ValidationRule" Role="ValidationRule" Multiplicity="0..1" />
+          <End Type="PromoterModel.Promotion" Role="Promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ValidationRule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Promotion">
+              <PropertyRef Name="ValidationRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromotionAppliedDetail_Redemption">
+          <End Type="PromoterModel.Redemption" Role="Redemption" Multiplicity="0..1" />
+          <End Type="PromoterModel.PromotionAppliedDetail" Role="PromotionAppliedDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Redemption">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PromotionAppliedDetail">
+              <PropertyRef Name="RedemptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromotionAppliedDetail_RedemptionRollback">
+          <End Type="PromoterModel.RedemptionRollback" Role="RedemptionRollback" Multiplicity="0..1" />
+          <End Type="PromoterModel.PromotionAppliedDetail" Role="PromotionAppliedDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RedemptionRollback">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PromotionAppliedDetail">
+              <PropertyRef Name="RedemptionRollbackId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Voucher_PromotionDetail">
+          <End Type="PromoterModel.PromotionDetail" Role="PromotionDetail" Multiplicity="0..1" />
+          <End Type="PromoterModel.Voucher" Role="Voucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Voucher">
+              <PropertyRef Name="PromotionDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RedemptionRollback_Redemption">
+          <End Type="PromoterModel.Redemption" Role="Redemption" Multiplicity="0..1" />
+          <End Type="PromoterModel.RedemptionRollback" Role="RedemptionRollback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Redemption">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RedemptionRollback">
+              <PropertyRef Name="RedemptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ValidationRule_ValidationRule">
+          <End Type="PromoterModel.ValidationRule" Role="ValidationRule" Multiplicity="0..1" />
+          <End Type="PromoterModel.ValidationRule" Role="ValidationRule1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ValidationRule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ValidationRule1">
+              <PropertyRef Name="AnotherRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Voucher_ValidationRule">
+          <End Type="PromoterModel.ValidationRule" Role="ValidationRule" Multiplicity="0..1" />
+          <End Type="PromoterModel.Voucher" Role="Voucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ValidationRule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Voucher">
+              <PropertyRef Name="ValidationRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PromoterModelStoreContainer" CdmEntityContainer="PromoterEntities">
+          <EntitySetMapping Name="Campaigns">
+            <EntityTypeMapping TypeName="PromoterModel.Campaign">
+              <MappingFragment StoreEntitySet="Campaign">
+                <ScalarProperty Name="Deactive" ColumnName="Deactive" />
+                <ScalarProperty Name="MetadataObject" ColumnName="MetadataObject" />
+                <ScalarProperty Name="VoucherAvailableQuantity" ColumnName="VoucherAvailableQuantity" />
+                <ScalarProperty Name="VoucherQuantity" ColumnName="VoucherQuantity" />
+                <ScalarProperty Name="VoucherConfig" ColumnName="VoucherConfig" />
+                <ScalarProperty Name="ValidationRuleId" ColumnName="ValidationRuleId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="PromoterModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
+                <ScalarProperty Name="MetadataObject" ColumnName="MetadataObject" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerSegments">
+            <EntityTypeMapping TypeName="PromoterModel.CustomerSegment">
+              <MappingFragment StoreEntitySet="CustomerSegment">
+                <ScalarProperty Name="Deactive" ColumnName="Deactive" />
+                <ScalarProperty Name="SegmentId" ColumnName="SegmentId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="PromoterModel.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="ContentObject" ColumnName="ContentObject" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SourceType" ColumnName="SourceType" />
+                <ScalarProperty Name="SourceIdDataType" ColumnName="SourceIdDataType" />
+                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="PromoterModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CashierObject" ColumnName="CashierObject" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="FinalAmount" ColumnName="FinalAmount" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderItems">
+            <EntityTypeMapping TypeName="PromoterModel.OrderItem">
+              <MappingFragment StoreEntitySet="OrderItem">
+                <ScalarProperty Name="FinalAmount" ColumnName="FinalAmount" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="PromoterModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="SmallestUnit" ColumnName="SmallestUnit" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Promotions">
+            <EntityTypeMapping TypeName="PromoterModel.Promotion">
+              <MappingFragment StoreEntitySet="Promotion">
+                <ScalarProperty Name="Deactive" ColumnName="Deactive" />
+                <ScalarProperty Name="MetadataObject" ColumnName="MetadataObject" />
+                <ScalarProperty Name="AssetsObject" ColumnName="AssetsObject" />
+                <ScalarProperty Name="AppliedTimes" ColumnName="AppliedTimes" />
+                <ScalarProperty Name="AvailableTimes" ColumnName="AvailableTimes" />
+                <ScalarProperty Name="CampaignId" ColumnName="CampaignId" />
+                <ScalarProperty Name="PromotionDetailId" ColumnName="PromotionDetailId" />
+                <ScalarProperty Name="ValidationRuleId" ColumnName="ValidationRuleId" />
+                <ScalarProperty Name="Banner" ColumnName="Banner" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PromotionAppliedDetails">
+            <EntityTypeMapping TypeName="PromoterModel.PromotionAppliedDetail">
+              <MappingFragment StoreEntitySet="PromotionAppliedDetail">
+                <ScalarProperty Name="CouponTotalAmount" ColumnName="CouponTotalAmount" />
+                <ScalarProperty Name="CouponCodes" ColumnName="CouponCodes" />
+                <ScalarProperty Name="GiftProductCodes" ColumnName="GiftProductCodes" />
+                <ScalarProperty Name="GiftAmount" ColumnName="GiftAmount" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="PromotionCode" ColumnName="PromotionCode" />
+                <ScalarProperty Name="VoucherCode" ColumnName="VoucherCode" />
+                <ScalarProperty Name="RedemptionRollbackId" ColumnName="RedemptionRollbackId" />
+                <ScalarProperty Name="RedemptionId" ColumnName="RedemptionId" />
+                <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="PromotionType" ColumnName="PromotionType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PromotionDetails">
+            <EntityTypeMapping TypeName="PromoterModel.PromotionDetail">
+              <MappingFragment StoreEntitySet="PromotionDetail">
+                <ScalarProperty Name="Deactive" ColumnName="Deactive" />
+                <ScalarProperty Name="GiftUnits" ColumnName="GiftUnits" />
+                <ScalarProperty Name="GiftCodesExpr" ColumnName="GiftCodesExpr" />
+                <ScalarProperty Name="GiftAmounts" ColumnName="GiftAmounts" />
+                <ScalarProperty Name="IsGift" ColumnName="IsGift" />
+                <ScalarProperty Name="DiscountUnitValue" ColumnName="DiscountUnitValue" />
+                <ScalarProperty Name="DiscountUnit" ColumnName="DiscountUnit" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="IsDiscount" ColumnName="IsDiscount" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Redemptions">
+            <EntityTypeMapping TypeName="PromoterModel.Redemption">
+              <MappingFragment StoreEntitySet="Redemption">
+                <ScalarProperty Name="FailureCode" ColumnName="FailureCode" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="MetadataObject" ColumnName="MetadataObject" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RedemptionRollbacks">
+            <EntityTypeMapping TypeName="PromoterModel.RedemptionRollback">
+              <MappingFragment StoreEntitySet="RedemptionRollback">
+                <ScalarProperty Name="FailureCode" ColumnName="FailureCode" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="RedemptionId" ColumnName="RedemptionId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Segments">
+            <EntityTypeMapping TypeName="PromoterModel.Segment">
+              <MappingFragment StoreEntitySet="Segment">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stores">
+            <EntityTypeMapping TypeName="PromoterModel.Store">
+              <MappingFragment StoreEntitySet="Store">
+                <ScalarProperty Name="Deactive" ColumnName="Deactive" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ValidationRules">
+            <EntityTypeMapping TypeName="PromoterModel.ValidationRule">
+              <MappingFragment StoreEntitySet="ValidationRule">
+                <ScalarProperty Name="AnotherRuleId" ColumnName="AnotherRuleId" />
+                <ScalarProperty Name="AnotherRuleOp" ColumnName="AnotherRuleOp" />
+                <ScalarProperty Name="ExceptDOWs" ColumnName="ExceptDOWs" />
+                <ScalarProperty Name="ExceptDates" ColumnName="ExceptDates" />
+                <ScalarProperty Name="ApplyStoresId" ColumnName="ApplyStoresId" />
+                <ScalarProperty Name="ListApplyHours" ColumnName="ListApplyHours" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="GeneralRuleOp" ColumnName="GeneralRuleOp" />
+                <ScalarProperty Name="MaxRedeemTimes" ColumnName="MaxRedeemTimes" />
+                <ScalarProperty Name="MinRedeemTimes" ColumnName="MinRedeemTimes" />
+                <ScalarProperty Name="RedemptionRuleOp" ColumnName="RedemptionRuleOp" />
+                <ScalarProperty Name="MaxOrderProductQuantity" ColumnName="MaxOrderProductQuantity" />
+                <ScalarProperty Name="MinOrderProductQuantity" ColumnName="MinOrderProductQuantity" />
+                <ScalarProperty Name="MaxOrderAmount" ColumnName="MaxOrderAmount" />
+                <ScalarProperty Name="MinOrderAmount" ColumnName="MinOrderAmount" />
+                <ScalarProperty Name="OrderRuleOp" ColumnName="OrderRuleOp" />
+                <ScalarProperty Name="MaxProductQuantity" ColumnName="MaxProductQuantity" />
+                <ScalarProperty Name="MinProductQuantity" ColumnName="MinProductQuantity" />
+                <ScalarProperty Name="MaxProductPrice" ColumnName="MaxProductPrice" />
+                <ScalarProperty Name="MinProductPrice" ColumnName="MinProductPrice" />
+                <ScalarProperty Name="ProductCodePattern" ColumnName="ProductCodePattern" />
+                <ScalarProperty Name="ProductRuleOp" ColumnName="ProductRuleOp" />
+                <ScalarProperty Name="NotInSegmentId" ColumnName="NotInSegmentId" />
+                <ScalarProperty Name="InSegmentId" ColumnName="InSegmentId" />
+                <ScalarProperty Name="SegmentRuleOp" ColumnName="SegmentRuleOp" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vouchers">
+            <EntityTypeMapping TypeName="PromoterModel.Voucher">
+              <MappingFragment StoreEntitySet="Voucher">
+                <ScalarProperty Name="Deactive" ColumnName="Deactive" />
+                <ScalarProperty Name="UsedTimes" ColumnName="UsedTimes" />
+                <ScalarProperty Name="UsingTimes" ColumnName="UsingTimes" />
+                <ScalarProperty Name="IsGotten" ColumnName="IsGotten" />
+                <ScalarProperty Name="MetadataObject" ColumnName="MetadataObject" />
+                <ScalarProperty Name="AssetsObject" ColumnName="AssetsObject" />
+                <ScalarProperty Name="ValidationRuleId" ColumnName="ValidationRuleId" />
+                <ScalarProperty Name="PromotionDetailId" ColumnName="PromotionDetailId" />
+                <ScalarProperty Name="CampaignId" ColumnName="CampaignId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

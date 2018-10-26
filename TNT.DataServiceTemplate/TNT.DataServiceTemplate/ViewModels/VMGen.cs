@@ -66,7 +66,7 @@ namespace TNT.DataServiceTemplate.ViewModels
                     if (JsonIgnoreProps.Contains(p.Key))
                         s0.Add("[JsonIgnore]");
                     else
-                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key) + "\")]");
+                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key) + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
                     s0.Add("public " + p.Value + " " + p.Key + " { get; set; }");
                 }
             }
@@ -77,7 +77,7 @@ namespace TNT.DataServiceTemplate.ViewModels
                     if (JsonIgnoreProps.Contains(p.Key))
                         s0.Add("[JsonIgnore]");
                     else
-                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key) + "\")]");
+                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key) + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
                     s0.Add("public " + p.Value + " " + p.Key + "VM { get; set; }");
                 }
             }
@@ -88,7 +88,7 @@ namespace TNT.DataServiceTemplate.ViewModels
                     if (JsonIgnoreProps.Contains(p.Key))
                         s0.Add("[JsonIgnore]");
                     else
-                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key) + "\")]");
+                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key) + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
                     s0.Add("public " + p.Value + " " + p.Key + "VM { get; set; }");
                 }
             }

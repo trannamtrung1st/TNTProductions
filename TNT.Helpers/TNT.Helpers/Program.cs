@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TNT.Helpers.General;
 using TNT.Helpers.Logging;
 
 namespace TNT.Helpers
@@ -11,9 +13,7 @@ namespace TNT.Helpers
     {
         static void Main(string[] args)
         {
-            ILoggerAdapter logger = new LoggerBuilder(LogMode.ByDate)
-                .LogFolder("./").LogName("test").FileExtension("txt").Build();
-            logger.Log("asd", true);
+            var rand = new Random();
         }
     }
 }
