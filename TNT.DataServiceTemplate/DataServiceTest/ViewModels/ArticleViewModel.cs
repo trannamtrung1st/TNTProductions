@@ -11,23 +11,23 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ArticleViewModel: BaseViewModel<Article>
 	{
-		[JsonProperty("iD")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ID { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("decription")]
+		[JsonProperty("decription", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Decription { get; set; }
-		[JsonProperty("contentHTML")]
+		[JsonProperty("content_html", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ContentHTML { get; set; }
-		[JsonProperty("dateCreate")]
+		[JsonProperty("date_create", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime DateCreate { get; set; }
-		[JsonProperty("isAvailable")]
+		[JsonProperty("is_available", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsAvailable { get; set; }
-		[JsonProperty("thumbnail")]
+		[JsonProperty("thumbnail", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Thumbnail { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
 		
 		public ArticleViewModel(Article entity) : this()

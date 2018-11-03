@@ -15,7 +15,7 @@
 <#@ import namespace="TNT.DataServiceTemplate.Models.Repositories" #>
 <#
 	var projectPath = Host.ResolveAssemblyReference("$(ProjectDir)");
-	var activeCol = false;
+	var activeCol = true;
 	var dt = new EdmxParser(projectPath+@"Models/PromoterDB.edmx","PromoterDataService", activeCol).Data;
 	var manager = TemplateFileManager.Create(this);
 #>

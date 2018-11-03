@@ -11,21 +11,21 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class StoreDomainViewModel: BaseViewModel<StoreDomain>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("protocol")]
+		[JsonProperty("protocol", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Protocol { get; set; }
-		[JsonProperty("hostName")]
+		[JsonProperty("host_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string HostName { get; set; }
-		[JsonProperty("port")]
+		[JsonProperty("port", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Port { get; set; }
-		[JsonProperty("directory")]
+		[JsonProperty("directory", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Directory { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
 		
 		public StoreDomainViewModel(StoreDomain entity) : this()

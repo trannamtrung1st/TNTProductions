@@ -84,28 +84,28 @@ namespace PromoterDataService.Models.Repositories
 		public override Campaign FindById(int key)
 		{
 			var entity = context.Campaigns.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override Campaign FindActiveById(int key)
 		{
 			var entity = context.Campaigns.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<Campaign> FindByIdAsync(int key)
 		{
 			var entity = await context.Campaigns.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<Campaign> FindActiveByIdAsync(int key)
 		{
 			var entity = await context.Campaigns.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
@@ -118,7 +118,7 @@ namespace PromoterDataService.Models.Repositories
 			}
 			
 			return dbSet.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 		}
 		
 		public override async Task<Campaign> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<Campaign, TProperty>>[] members)
@@ -130,7 +130,7 @@ namespace PromoterDataService.Models.Repositories
 			}
 			
 			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 		}
 		
 		public override Campaign Activate(Campaign entity)

@@ -11,23 +11,23 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class EmployeeFingerViewModel: BaseViewModel<EmployeeFinger>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("empId")]
+		[JsonProperty("emp_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> EmpId { get; set; }
-		[JsonProperty("empEnrollNumber")]
+		[JsonProperty("emp_enroll_number", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string EmpEnrollNumber { get; set; }
-		[JsonProperty("fingerIndex")]
+		[JsonProperty("finger_index", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int FingerIndex { get; set; }
-		[JsonProperty("fingerData")]
+		[JsonProperty("finger_data", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string FingerData { get; set; }
-		[JsonProperty("type")]
+		[JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Type { get; set; }
-		[JsonProperty("nameEmployeeInMachine")]
+		[JsonProperty("name_employee_in_machine", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string NameEmployeeInMachine { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("employee")]
+		[JsonProperty("employee", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public EmployeeViewModel EmployeeVM { get; set; }
 		
 		public EmployeeFingerViewModel(EmployeeFinger entity) : this()

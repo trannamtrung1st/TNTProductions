@@ -11,15 +11,15 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class TimeModeTypeViewModel: BaseViewModel<TimeModeType>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("timeModeRules")]
+		[JsonProperty("time_mode_rules", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<TimeModeRuleViewModel> TimeModeRulesVM { get; set; }
 		
 		public TimeModeTypeViewModel(TimeModeType entity) : this()

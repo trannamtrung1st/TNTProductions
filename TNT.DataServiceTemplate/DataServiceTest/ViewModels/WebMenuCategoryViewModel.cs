@@ -11,19 +11,19 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class WebMenuCategoryViewModel: BaseViewModel<WebMenuCategory>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("isMenuSystem")]
+		[JsonProperty("is_menu_system", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsMenuSystem { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
-		[JsonProperty("webMenus")]
+		[JsonProperty("web_menus", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<WebMenuViewModel> WebMenusVM { get; set; }
 		
 		public WebMenuCategoryViewModel(WebMenuCategory entity) : this()

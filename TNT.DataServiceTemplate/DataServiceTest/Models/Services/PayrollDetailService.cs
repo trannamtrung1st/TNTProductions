@@ -17,128 +17,13 @@ namespace DataServiceTest.Models.Services
 	{
 	}
 	
-	public partial class PayrollDetailService : BaseService, IPayrollDetailService
+	public partial class PayrollDetailService : BaseService<PayrollDetail, PayrollDetailViewModel, int>, IPayrollDetailService
 	{
-		private IPayrollDetailRepository repository;
-		
 		public PayrollDetailService(IUnitOfWork uow)
 		{
 			repository = uow.Scope.Resolve<IPayrollDetailRepository>(uow);
 		}
 		
-		public override bool AutoSave
-		{
-			get
-			{
-				return repository.AutoSave;
-			}
-			set
-			{
-				repository.AutoSave = value;
-			}
-		}
-		
-		#region CRUD Area
-		public PayrollDetail Add(PayrollDetail entity)
-		{
-			return repository.Add(entity);
-		}
-		
-		public async Task<PayrollDetail> AddAsync(PayrollDetail entity)
-		{
-			return await repository.AddAsync(entity);
-		}
-		
-		public PayrollDetail Update(PayrollDetail entity)
-		{
-			return repository.Update(entity);
-		}
-		
-		public async Task<PayrollDetail> UpdateAsync(PayrollDetail entity)
-		{
-			return await repository.UpdateAsync(entity);
-		}
-		
-		public PayrollDetail Delete(PayrollDetail entity)
-		{
-			return repository.Delete(entity);
-		}
-		
-		public async Task<PayrollDetail> DeleteAsync(PayrollDetail entity)
-		{
-			return await repository.DeleteAsync(entity);
-		}
-		
-		public PayrollDetail Delete(int key)
-		{
-			return repository.Delete(key);
-		}
-		
-		public async Task<PayrollDetail> DeleteAsync(int key)
-		{
-			return await repository.DeleteAsync(key);
-		}
-		
-		public PayrollDetail FindById(int key)
-		{
-			return repository.FindActiveById(key);
-		}
-		
-		public async Task<PayrollDetail> FindByIdAsync(int key)
-		{
-			return await repository.FindActiveByIdAsync(key);
-		}
-		
-		public PayrollDetail Activate(PayrollDetail entity)
-		{
-			return repository.Activate(entity);
-		}
-		
-		public PayrollDetail Activate(int key)
-		{
-			return repository.Activate(key);
-		}
-		
-		public PayrollDetail Deactivate(PayrollDetail entity)
-		{
-			return repository.Deactivate(entity);
-		}
-		
-		public PayrollDetail Deactivate(int key)
-		{
-			return repository.Deactivate(key);
-		}
-		
-		public IQueryable<PayrollDetail> GetActive()
-		{
-			return repository.GetActive();
-		}
-		
-		public IQueryable<PayrollDetail> GetActive(Expression<Func<PayrollDetail, bool>> expr)
-		{
-			return repository.GetActive(expr);
-		}
-		
-		public PayrollDetail FirstOrDefault()
-		{
-			return repository.FirstOrDefault();
-		}
-		
-		public PayrollDetail FirstOrDefault(Expression<Func<PayrollDetail, bool>> expr)
-		{
-			return repository.FirstOrDefault(expr);
-		}
-		
-		public async Task<PayrollDetail> FirstOrDefaultAsync()
-		{
-			return await repository.FirstOrDefaultAsync();
-		}
-		
-		public async Task<PayrollDetail> FirstOrDefaultAsync(Expression<Func<PayrollDetail, bool>> expr)
-		{
-			return await repository.FirstOrDefaultAsync(expr);
-		}
-		#endregion
 		
 		#region Implement for Resource Pooling
 		public PayrollDetailService()

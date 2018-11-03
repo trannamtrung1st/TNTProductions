@@ -11,21 +11,21 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class StoreWebRouteModelViewModel: BaseViewModel<StoreWebRouteModel>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("storeWebRouteId")]
+		[JsonProperty("store_web_route_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreWebRouteId { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("viewModelType")]
+		[JsonProperty("view_model_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ViewModelType { get; set; }
-		[JsonProperty("idRouteValueName")]
+		[JsonProperty("id_route_value_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string IdRouteValueName { get; set; }
-		[JsonProperty("idRouteDefaultValue")]
+		[JsonProperty("id_route_default_value", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string IdRouteDefaultValue { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("storeWebRoute")]
+		[JsonProperty("store_web_route", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreWebRouteViewModel StoreWebRouteVM { get; set; }
 		
 		public StoreWebRouteModelViewModel(StoreWebRouteModel entity) : this()

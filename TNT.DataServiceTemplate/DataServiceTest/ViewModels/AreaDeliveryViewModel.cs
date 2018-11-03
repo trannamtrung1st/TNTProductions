@@ -11,23 +11,23 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class AreaDeliveryViewModel: BaseViewModel<AreaDelivery>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("areaName")]
+		[JsonProperty("area_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string AreaName { get; set; }
-		[JsonProperty("areaType")]
+		[JsonProperty("area_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int AreaType { get; set; }
-		[JsonProperty("priceDelivery")]
+		[JsonProperty("price_delivery", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public decimal PriceDelivery { get; set; }
-		[JsonProperty("areaID")]
+		[JsonProperty("area_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> AreaID { get; set; }
-		[JsonProperty("areaDelivery2")]
+		[JsonProperty("area_delivery2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public AreaDeliveryViewModel AreaDelivery2VM { get; set; }
-		[JsonProperty("areaDelivery1")]
+		[JsonProperty("area_delivery1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<AreaDeliveryViewModel> AreaDelivery1VM { get; set; }
-		[JsonProperty("districts")]
+		[JsonProperty("districts", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<DistrictViewModel> DistrictsVM { get; set; }
-		[JsonProperty("provinces")]
+		[JsonProperty("provinces", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ProvinceViewModel> ProvincesVM { get; set; }
 		
 		public AreaDeliveryViewModel(AreaDelivery entity) : this()

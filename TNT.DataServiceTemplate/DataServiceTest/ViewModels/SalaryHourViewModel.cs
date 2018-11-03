@@ -11,23 +11,23 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class SalaryHourViewModel: BaseViewModel<SalaryHour>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("date")]
+		[JsonProperty("date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime Date { get; set; }
-		[JsonProperty("duration")]
+		[JsonProperty("duration", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> Duration { get; set; }
-		[JsonProperty("insertMode")]
+		[JsonProperty("insert_mode", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int InsertMode { get; set; }
-		[JsonProperty("employeeId")]
+		[JsonProperty("employee_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> EmployeeId { get; set; }
-		[JsonProperty("updatePerson")]
+		[JsonProperty("update_person", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string UpdatePerson { get; set; }
-		[JsonProperty("timeModeRuleId")]
+		[JsonProperty("time_mode_rule_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> TimeModeRuleId { get; set; }
-		[JsonProperty("existCode")]
+		[JsonProperty("exist_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ExistCode { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
 		
 		public SalaryHourViewModel(SalaryHour entity) : this()

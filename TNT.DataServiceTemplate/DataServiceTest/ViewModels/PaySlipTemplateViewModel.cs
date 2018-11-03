@@ -11,19 +11,19 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class PaySlipTemplateViewModel: BaseViewModel<PaySlipTemplate>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("payrollPeriods")]
+		[JsonProperty("payroll_periods", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<PayrollPeriodViewModel> PayrollPeriodsVM { get; set; }
-		[JsonProperty("templateDetailMappings")]
+		[JsonProperty("template_detail_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<TemplateDetailMappingViewModel> TemplateDetailMappingsVM { get; set; }
-		[JsonProperty("templateRuleMappings")]
+		[JsonProperty("template_rule_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<TemplateRuleMappingViewModel> TemplateRuleMappingsVM { get; set; }
 		
 		public PaySlipTemplateViewModel(PaySlipTemplate entity) : this()

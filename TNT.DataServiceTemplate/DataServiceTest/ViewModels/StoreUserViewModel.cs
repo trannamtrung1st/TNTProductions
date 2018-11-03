@@ -11,11 +11,11 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class StoreUserViewModel: BaseViewModel<StoreUser>
 	{
-		[JsonProperty("username")]
+		[JsonProperty("username", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Username { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
 		
 		public StoreUserViewModel(StoreUser entity) : this()

@@ -11,19 +11,19 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class CustomerProductMappingViewModel: BaseViewModel<CustomerProductMapping>
 	{
-		[JsonProperty("iD")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ID { get; set; }
-		[JsonProperty("customerID")]
+		[JsonProperty("customer_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CustomerID { get; set; }
-		[JsonProperty("productID")]
+		[JsonProperty("product_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProductID { get; set; }
-		[JsonProperty("totalQuantity")]
+		[JsonProperty("total_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int TotalQuantity { get; set; }
-		[JsonProperty("updateDate")]
+		[JsonProperty("update_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime UpdateDate { get; set; }
-		[JsonProperty("customer")]
+		[JsonProperty("customer", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public CustomerViewModel CustomerVM { get; set; }
-		[JsonProperty("product")]
+		[JsonProperty("product", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductViewModel ProductVM { get; set; }
 		
 		public CustomerProductMappingViewModel(CustomerProductMapping entity) : this()

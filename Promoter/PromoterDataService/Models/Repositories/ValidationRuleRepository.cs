@@ -84,28 +84,28 @@ namespace PromoterDataService.Models.Repositories
 		public override ValidationRule FindById(int key)
 		{
 			var entity = context.ValidationRules.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override ValidationRule FindActiveById(int key)
 		{
 			var entity = context.ValidationRules.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<ValidationRule> FindByIdAsync(int key)
 		{
 			var entity = await context.ValidationRules.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<ValidationRule> FindActiveByIdAsync(int key)
 		{
 			var entity = await context.ValidationRules.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
@@ -118,7 +118,7 @@ namespace PromoterDataService.Models.Repositories
 			}
 			
 			return dbSet.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 		}
 		
 		public override async Task<ValidationRule> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<ValidationRule, TProperty>>[] members)
@@ -130,7 +130,7 @@ namespace PromoterDataService.Models.Repositories
 			}
 			
 			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 		}
 		
 		public override ValidationRule Activate(ValidationRule entity)

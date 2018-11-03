@@ -11,49 +11,49 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class InventoryReceiptViewModel: BaseViewModel<InventoryReceipt>
 	{
-		[JsonProperty("receiptID")]
+		[JsonProperty("receipt_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ReceiptID { get; set; }
-		[JsonProperty("changeDate")]
+		[JsonProperty("change_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime ChangeDate { get; set; }
-		[JsonProperty("receiptType")]
+		[JsonProperty("receipt_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ReceiptType { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Status { get; set; }
-		[JsonProperty("notes")]
+		[JsonProperty("notes", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Notes { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("creator")]
+		[JsonProperty("creator", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Creator { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreId { get; set; }
-		[JsonProperty("inStoreId")]
+		[JsonProperty("in_store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> InStoreId { get; set; }
-		[JsonProperty("outStoreId")]
+		[JsonProperty("out_store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> OutStoreId { get; set; }
-		[JsonProperty("providerId")]
+		[JsonProperty("provider_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ProviderId { get; set; }
-		[JsonProperty("createDate")]
+		[JsonProperty("create_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> CreateDate { get; set; }
-		[JsonProperty("invoiceNumber")]
+		[JsonProperty("invoice_number", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string InvoiceNumber { get; set; }
-		[JsonProperty("amount")]
+		[JsonProperty("amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> Amount { get; set; }
-		[JsonProperty("startDate")]
+		[JsonProperty("start_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> StartDate { get; set; }
-		[JsonProperty("endDate")]
+		[JsonProperty("end_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> EndDate { get; set; }
-		[JsonProperty("provider")]
+		[JsonProperty("provider", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProviderViewModel ProviderVM { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
-		[JsonProperty("store1")]
+		[JsonProperty("store1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel Store1VM { get; set; }
-		[JsonProperty("store2")]
+		[JsonProperty("store2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel Store2VM { get; set; }
-		[JsonProperty("costInventoryMappings")]
+		[JsonProperty("cost_inventory_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<CostInventoryMappingViewModel> CostInventoryMappingsVM { get; set; }
-		[JsonProperty("inventoryReceiptItems")]
+		[JsonProperty("inventory_receipt_items", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<InventoryReceiptItemViewModel> InventoryReceiptItemsVM { get; set; }
 		
 		public InventoryReceiptViewModel(InventoryReceipt entity) : this()

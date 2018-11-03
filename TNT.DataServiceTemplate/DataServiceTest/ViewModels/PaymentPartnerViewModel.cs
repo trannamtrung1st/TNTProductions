@@ -11,33 +11,33 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class PaymentPartnerViewModel: BaseViewModel<PaymentPartner>
 	{
-		[JsonProperty("iD")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ID { get; set; }
-		[JsonProperty("partnerName")]
+		[JsonProperty("partner_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PartnerName { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("companyName")]
+		[JsonProperty("company_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CompanyName { get; set; }
-		[JsonProperty("contactPerson")]
+		[JsonProperty("contact_person", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ContactPerson { get; set; }
-		[JsonProperty("phoneNumber")]
+		[JsonProperty("phone_number", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PhoneNumber { get; set; }
-		[JsonProperty("fax")]
+		[JsonProperty("fax", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Fax { get; set; }
-		[JsonProperty("website")]
+		[JsonProperty("website", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Website { get; set; }
-		[JsonProperty("address")]
+		[JsonProperty("address", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Address { get; set; }
-		[JsonProperty("att1")]
+		[JsonProperty("att1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att1 { get; set; }
-		[JsonProperty("att2")]
+		[JsonProperty("att2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att2 { get; set; }
-		[JsonProperty("att3")]
+		[JsonProperty("att3", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att3 { get; set; }
-		[JsonProperty("att4")]
+		[JsonProperty("att4", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att4 { get; set; }
 		
 		public PaymentPartnerViewModel(PaymentPartner entity) : this()

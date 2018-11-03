@@ -11,15 +11,15 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class CustomerTypeViewModel: BaseViewModel<CustomerType>
 	{
-		[JsonProperty("iD")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ID { get; set; }
-		[JsonProperty("customerType1")]
+		[JsonProperty("customer_type1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CustomerType1 { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BrandId { get; set; }
-		[JsonProperty("brand")]
+		[JsonProperty("brand", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public BrandViewModel BrandVM { get; set; }
-		[JsonProperty("customers")]
+		[JsonProperty("customers", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<CustomerViewModel> CustomersVM { get; set; }
 		
 		public CustomerTypeViewModel(CustomerType entity) : this()

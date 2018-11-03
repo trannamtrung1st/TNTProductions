@@ -17,18 +17,25 @@ namespace PromoterDataService.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
+            this.GiftAppliedDetails = new HashSet<GiftAppliedDetail>();
+            this.GiftDetails = new HashSet<GiftDetail>();
             this.OrderItems = new HashSet<OrderItem>();
             this.Product1 = new HashSet<Product>();
         }
     
-        public int Id { get; set; }
-        public string Code { get; set; }
+        public int IID { get; set; }
+        public string SID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public Nullable<int> ParentId { get; set; }
         public string SmallestUnit { get; set; }
         public Nullable<double> Price { get; set; }
+        public Nullable<bool> Active { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GiftAppliedDetail> GiftAppliedDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GiftDetail> GiftDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderItem> OrderItems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -11,23 +11,23 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class PayrollDetailViewModel: BaseViewModel<PayrollDetail>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("value")]
+		[JsonProperty("value", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> Value { get; set; }
-		[JsonProperty("payrollCategoryId")]
+		[JsonProperty("payroll_category_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> PayrollCategoryId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("payrollCategory")]
+		[JsonProperty("payroll_category", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public PayrollCategoryViewModel PayrollCategoryVM { get; set; }
-		[JsonProperty("paySlipItems")]
+		[JsonProperty("pay_slip_items", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<PaySlipItemViewModel> PaySlipItemsVM { get; set; }
-		[JsonProperty("templateDetailMappings")]
+		[JsonProperty("template_detail_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<TemplateDetailMappingViewModel> TemplateDetailMappingsVM { get; set; }
 		
 		public PayrollDetailViewModel(PayrollDetail entity) : this()

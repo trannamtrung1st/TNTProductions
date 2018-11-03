@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class StoreGroupViewModel: BaseViewModel<StoreGroup>
 	{
-		[JsonProperty("groupID")]
+		[JsonProperty("group_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int GroupID { get; set; }
-		[JsonProperty("groupName")]
+		[JsonProperty("group_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string GroupName { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("brand")]
+		[JsonProperty("brand", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public BrandViewModel BrandVM { get; set; }
-		[JsonProperty("storeGroupMappings")]
+		[JsonProperty("store_group_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<StoreGroupMappingViewModel> StoreGroupMappingsVM { get; set; }
 		
 		public StoreGroupViewModel(StoreGroup entity) : this()

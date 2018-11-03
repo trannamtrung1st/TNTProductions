@@ -11,19 +11,19 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class PayslipAttributeMappingViewModel: BaseViewModel<PayslipAttributeMapping>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("payslipId")]
+		[JsonProperty("payslip_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> PayslipId { get; set; }
-		[JsonProperty("attributeId")]
+		[JsonProperty("attribute_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> AttributeId { get; set; }
-		[JsonProperty("value")]
+		[JsonProperty("value", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Value { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("paySlip")]
+		[JsonProperty("pay_slip", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public PaySlipViewModel PaySlipVM { get; set; }
-		[JsonProperty("payslipAttribute")]
+		[JsonProperty("payslip_attribute", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public PayslipAttributeViewModel PayslipAttributeVM { get; set; }
 		
 		public PayslipAttributeMappingViewModel(PayslipAttributeMapping entity) : this()

@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using DataServiceTest.Models;
 using DataServiceTest.Managers;
 using TNT.IoContainer.Container;
+using System.Data.Entity.Infrastructure;
 
 namespace DataServiceTest.Models.Repositories
 {
@@ -43,10 +44,8 @@ namespace DataServiceTest.Models.Repositories
 		Task<E> FirstOrDefaultAsync(Expression<Func<E, bool>> expr);
 		E SingleOrDefault(Expression<Func<E, bool>> expr);
 		Task<E> SingleOrDefaultAsync(Expression<Func<E, bool>> expr);
-		E SqlQuery(string sql, params object[] parameters);
-		Task<E> SqlQueryAsync(string sql, params object[] parameters);
-		T SqlQuery<T>(string sql, params object[] parameters);
-		Task<T> SqlQueryAsync<T>(string sql, params object[] parameters);
+		DbRawSqlQuery<E> SqlQuery(string sql, params object[] parameters);
+		DbRawSqlQuery<T> SqlQuery<T>(string sql, params object[] parameters);
 	}
 	
 	public abstract partial class BaseRepository<E, K> : IBaseRepository<E, K> where E : class
@@ -64,24 +63,14 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region SqlQuery
-		public E SqlQuery(string sql, params object[] parameters)
+		public DbRawSqlQuery<E> SqlQuery(string sql, params object[] parameters)
 		{
-			return context.Database.SqlQuery<E>(sql, parameters).FirstOrDefault();
+			return context.Database.SqlQuery<E>(sql, parameters);
 		}
 		
-		public async Task<E> SqlQueryAsync(string sql, params object[] parameters)
+		public DbRawSqlQuery<T> SqlQuery<T>(string sql, params object[] parameters)
 		{
-			return await context.Database.SqlQuery<E>(sql, parameters).FirstOrDefaultAsync();
-		}
-		
-		public T SqlQuery<T>(string sql, params object[] parameters)
-		{
-			return context.Database.SqlQuery<T>(sql, parameters).FirstOrDefault();
-		}
-		
-		public async Task<T> SqlQueryAsync<T>(string sql, params object[] parameters)
-		{
-			return await context.Database.SqlQuery<T>(sql, parameters).FirstOrDefaultAsync();
+			return context.Database.SqlQuery<T>(sql, parameters);
 		}
 		#endregion
 		

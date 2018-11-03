@@ -11,25 +11,25 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class FingerScanMachineViewModel: BaseViewModel<FingerScanMachine>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("machineCode")]
+		[JsonProperty("machine_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MachineCode { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("url")]
+		[JsonProperty("url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Url { get; set; }
-		[JsonProperty("ip")]
+		[JsonProperty("ip", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Ip { get; set; }
-		[JsonProperty("brandOfMachine")]
+		[JsonProperty("brand_of_machine", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string BrandOfMachine { get; set; }
-		[JsonProperty("dateOfManufacture")]
+		[JsonProperty("date_of_manufacture", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> DateOfManufacture { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("checkFingers")]
+		[JsonProperty("check_fingers", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<CheckFingerViewModel> CheckFingersVM { get; set; }
 		
 		public FingerScanMachineViewModel(FingerScanMachine entity) : this()

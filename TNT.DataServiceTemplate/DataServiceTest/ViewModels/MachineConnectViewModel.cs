@@ -11,23 +11,23 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class MachineConnectViewModel: BaseViewModel<MachineConnect>
 	{
-		[JsonProperty("iD")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ID { get; set; }
-		[JsonProperty("machineID")]
+		[JsonProperty("machine_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int MachineID { get; set; }
-		[JsonProperty("connectTime")]
+		[JsonProperty("connect_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> ConnectTime { get; set; }
-		[JsonProperty("connectResult")]
+		[JsonProperty("connect_result", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> ConnectResult { get; set; }
-		[JsonProperty("storeID")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreID { get; set; }
-		[JsonProperty("brandID")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandID { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("machineName")]
+		[JsonProperty("machine_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MachineName { get; set; }
-		[JsonProperty("machineCode")]
+		[JsonProperty("machine_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MachineCode { get; set; }
 		
 		public MachineConnectViewModel(MachineConnect entity) : this()

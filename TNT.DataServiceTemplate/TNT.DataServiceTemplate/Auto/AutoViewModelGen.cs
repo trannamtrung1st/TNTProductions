@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TNT.DataServiceTemplate.Data;
 using TNT.DataServiceTemplate.TTGen;
 using TNT.TemplateAPI.Generators;
+using static TNT.DataServiceTemplate.Helpers.GeneralHelper;
 
 namespace TNT.DataServiceTemplate.Auto
 {
@@ -15,14 +16,16 @@ namespace TNT.DataServiceTemplate.Auto
         private DataInfo Data { get; set; }
         private string[] JsonIgnoreProps { get; set; }
         private string[] ExceptProps { get; set; }
-
-        public AutoViewModelGen(DataInfo dt, string[] jsonIgnoreProps,
+        private JsonPropertyFormatEnum Style { get; set; }
+        public AutoViewModelGen(DataInfo dt, string[] jsonIgnoreProps, JsonPropertyFormatEnum style,
             string[] exceptProps, params string[] addedDirectives) : base(addedDirectives)
         {
+            Style = style;
             Data = dt;
             AddDirectives(
                 "import namespace=\"TNT.DataServiceTemplate.Data\"",
-                "import namespace=\"TNT.DataServiceTemplate.ViewModels\"");
+                "import namespace=\"TNT.DataServiceTemplate.ViewModels\"",
+                "import namespace=\"static TNT.DataServiceTemplate.Helpers.GeneralHelper\"");
             ResolveMapping.Add("project", dt.ProjectName);
             ResolveMapping.Add("context", dt.ContextName);
             JsonIgnoreProps = jsonIgnoreProps;
@@ -72,7 +75,8 @@ namespace TNT.DataServiceTemplate.Auto
             Add(new TemplateCodeBlock(jIgnoreArr, exceptArr, new StatementGen(
                 "foreach (var e in dt.Entities)", "{"),
                 new StatementGen(true,
-                    "var vmGen = new VMGen(e, jIgnore, except);",
+                    "var vmGen = new VMGen(e, jIgnore, except, JsonPropertyFormatEnum." 
+                        + Enum.GetName(typeof(JsonPropertyFormatEnum), Style) + ");",
                     "manager.StartNewFile(e.EntityName+\"ViewModel.cs\");")),
                 new TemplateTextBlock("<#=vmGen.Generate()#>"),
                 new TemplateCodeBlock(new StatementGen(

@@ -11,15 +11,15 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class sysdiagramViewModel: BaseViewModel<sysdiagram>
 	{
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string name { get; set; }
-		[JsonProperty("principal_id")]
+		[JsonProperty("principal__id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int principal_id { get; set; }
-		[JsonProperty("diagram_id")]
+		[JsonProperty("diagram__id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int diagram_id { get; set; }
-		[JsonProperty("version")]
+		[JsonProperty("version", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> version { get; set; }
-		[JsonProperty("definition")]
+		[JsonProperty("definition", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public byte[] definition { get; set; }
 		
 		public sysdiagramViewModel(sysdiagram entity) : this()

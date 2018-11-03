@@ -84,28 +84,28 @@ namespace PromoterDataService.Models.Repositories
 		public override Event FindById(int key)
 		{
 			var entity = context.Events.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override Event FindActiveById(int key)
 		{
 			var entity = context.Events.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<Event> FindByIdAsync(int key)
 		{
 			var entity = await context.Events.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<Event> FindActiveByIdAsync(int key)
 		{
 			var entity = await context.Events.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
@@ -118,7 +118,7 @@ namespace PromoterDataService.Models.Repositories
 			}
 			
 			return dbSet.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 		}
 		
 		public override async Task<Event> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<Event, TProperty>>[] members)
@@ -130,7 +130,7 @@ namespace PromoterDataService.Models.Repositories
 			}
 			
 			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 		}
 		
 		public override Event Activate(Event entity)

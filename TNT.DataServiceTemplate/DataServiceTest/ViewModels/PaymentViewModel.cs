@@ -11,33 +11,33 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class PaymentViewModel: BaseViewModel<Payment>
 	{
-		[JsonProperty("paymentID")]
+		[JsonProperty("payment_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int PaymentID { get; set; }
-		[JsonProperty("toRentID")]
+		[JsonProperty("to_rent_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ToRentID { get; set; }
-		[JsonProperty("amount")]
+		[JsonProperty("amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double Amount { get; set; }
-		[JsonProperty("currencyCode")]
+		[JsonProperty("currency_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CurrencyCode { get; set; }
-		[JsonProperty("fCAmount")]
+		[JsonProperty("fcamount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public decimal FCAmount { get; set; }
-		[JsonProperty("notes")]
+		[JsonProperty("notes", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Notes { get; set; }
-		[JsonProperty("payTime")]
+		[JsonProperty("pay_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime PayTime { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Status { get; set; }
-		[JsonProperty("type")]
+		[JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Type { get; set; }
-		[JsonProperty("realAmount")]
+		[JsonProperty("real_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> RealAmount { get; set; }
-		[JsonProperty("cardCode")]
+		[JsonProperty("card_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CardCode { get; set; }
-		[JsonProperty("costID")]
+		[JsonProperty("cost_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CostID { get; set; }
-		[JsonProperty("cost")]
+		[JsonProperty("cost", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public CostViewModel CostVM { get; set; }
-		[JsonProperty("order")]
+		[JsonProperty("order", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public OrderViewModel OrderVM { get; set; }
 		
 		public PaymentViewModel(Payment entity) : this()

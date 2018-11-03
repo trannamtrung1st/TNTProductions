@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class FavoritedViewModel: BaseViewModel<Favorited>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("userID")]
+		[JsonProperty("user_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string UserID { get; set; }
-		[JsonProperty("productID")]
+		[JsonProperty("product_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProductID { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("favoriteStt")]
+		[JsonProperty("favorite_stt", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> FavoriteStt { get; set; }
-		[JsonProperty("product")]
+		[JsonProperty("product", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductViewModel ProductVM { get; set; }
 		
 		public FavoritedViewModel(Favorited entity) : this()

@@ -11,15 +11,15 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class VATOrderMappingViewModel: BaseViewModel<VATOrderMapping>
 	{
-		[JsonProperty("iD")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ID { get; set; }
-		[JsonProperty("rentID")]
+		[JsonProperty("rent_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int RentID { get; set; }
-		[JsonProperty("invoiceID")]
+		[JsonProperty("invoice_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int InvoiceID { get; set; }
-		[JsonProperty("order")]
+		[JsonProperty("order", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public OrderViewModel OrderVM { get; set; }
-		[JsonProperty("vATOrder")]
+		[JsonProperty("vatorder", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public VATOrderViewModel VATOrderVM { get; set; }
 		
 		public VATOrderMappingViewModel(VATOrderMapping entity) : this()

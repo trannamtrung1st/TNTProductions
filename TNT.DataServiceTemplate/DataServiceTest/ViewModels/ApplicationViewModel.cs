@@ -11,15 +11,15 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ApplicationViewModel: BaseViewModel<Application>
 	{
-		[JsonProperty("applicationName")]
+		[JsonProperty("application_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ApplicationName { get; set; }
-		[JsonProperty("applicationId")]
+		[JsonProperty("application_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public System.Guid ApplicationId { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("roles")]
+		[JsonProperty("roles", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<RoleViewModel> RolesVM { get; set; }
-		[JsonProperty("users")]
+		[JsonProperty("users", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<UserViewModel> UsersVM { get; set; }
 		
 		public ApplicationViewModel(Application entity) : this()

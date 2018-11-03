@@ -11,47 +11,47 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class BlogPostCollectionViewModel: BaseViewModel<BlogPostCollection>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("seoName")]
+		[JsonProperty("seo_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SeoName { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("seoDescription")]
+		[JsonProperty("seo_description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SeoDescription { get; set; }
-		[JsonProperty("link")]
+		[JsonProperty("link", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Link { get; set; }
-		[JsonProperty("picUrl")]
+		[JsonProperty("pic_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PicUrl { get; set; }
-		[JsonProperty("parentId")]
+		[JsonProperty("parent_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ParentId { get; set; }
-		[JsonProperty("isDisplay")]
+		[JsonProperty("is_display", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsDisplay { get; set; }
-		[JsonProperty("position")]
+		[JsonProperty("position", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Position { get; set; }
-		[JsonProperty("seoKeyword")]
+		[JsonProperty("seo_keyword", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SeoKeyword { get; set; }
-		[JsonProperty("limitation")]
+		[JsonProperty("limitation", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Limitation { get; set; }
-		[JsonProperty("seoName1")]
+		[JsonProperty("seo_name1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SeoName1 { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("blogPostCollection2")]
+		[JsonProperty("blog_post_collection2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public BlogPostCollectionViewModel BlogPostCollection2VM { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
-		[JsonProperty("blogPostCollection1")]
+		[JsonProperty("blog_post_collection1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<BlogPostCollectionViewModel> BlogPostCollection1VM { get; set; }
-		[JsonProperty("blogPostCollectionItemMappings")]
+		[JsonProperty("blog_post_collection_item_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<BlogPostCollectionItemMappingViewModel> BlogPostCollectionItemMappingsVM { get; set; }
-		[JsonProperty("blogPostCollectionItems")]
+		[JsonProperty("blog_post_collection_items", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<BlogPostCollectionItemViewModel> BlogPostCollectionItemsVM { get; set; }
 		
 		public BlogPostCollectionViewModel(BlogPostCollection entity) : this()

@@ -11,11 +11,11 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class EventLocationViewModel: BaseViewModel<EventLocation>
 	{
-		[JsonProperty("locationId")]
+		[JsonProperty("location_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int LocationId { get; set; }
-		[JsonProperty("locationName")]
+		[JsonProperty("location_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string LocationName { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
 		
 		public EventLocationViewModel(EventLocation entity) : this()

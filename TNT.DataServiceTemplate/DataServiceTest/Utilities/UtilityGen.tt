@@ -20,7 +20,7 @@
 #>
 <#
 	var uGen = new UtilitiesGen(dt);
-	manager.StartNewFile("DefaultUtilities.cs");
+	manager.StartNewFile("GeneralUtils.cs");
 #>
 <#=uGen.Generate()#><#
 	manager.Process();

@@ -11,39 +11,39 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class WebMenuViewModel: BaseViewModel<WebMenu>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("menuText")]
+		[JsonProperty("menu_text", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MenuText { get; set; }
-		[JsonProperty("menuText1")]
+		[JsonProperty("menu_text1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MenuText1 { get; set; }
-		[JsonProperty("menuText2")]
+		[JsonProperty("menu_text2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MenuText2 { get; set; }
-		[JsonProperty("type")]
+		[JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Type { get; set; }
-		[JsonProperty("link")]
+		[JsonProperty("link", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Link { get; set; }
-		[JsonProperty("iconUrl")]
+		[JsonProperty("icon_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string IconUrl { get; set; }
-		[JsonProperty("displayOrder")]
+		[JsonProperty("display_order", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int DisplayOrder { get; set; }
-		[JsonProperty("parentMenuId")]
+		[JsonProperty("parent_menu_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ParentMenuId { get; set; }
-		[JsonProperty("menuLevel")]
+		[JsonProperty("menu_level", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MenuLevel { get; set; }
-		[JsonProperty("storeFilter")]
+		[JsonProperty("store_filter", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreFilter { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("isSystemMenu")]
+		[JsonProperty("is_system_menu", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsSystemMenu { get; set; }
-		[JsonProperty("categoryId")]
+		[JsonProperty("category_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CategoryId { get; set; }
-		[JsonProperty("webMenu2")]
+		[JsonProperty("web_menu2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public WebMenuViewModel WebMenu2VM { get; set; }
-		[JsonProperty("webMenuCategory")]
+		[JsonProperty("web_menu_category", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public WebMenuCategoryViewModel WebMenuCategoryVM { get; set; }
-		[JsonProperty("webMenu1")]
+		[JsonProperty("web_menu1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<WebMenuViewModel> WebMenu1VM { get; set; }
 		
 		public WebMenuViewModel(WebMenu entity) : this()

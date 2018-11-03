@@ -11,15 +11,15 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ProductItemCompositionMappingViewModel: BaseViewModel<ProductItemCompositionMapping>
 	{
-		[JsonProperty("producID")]
+		[JsonProperty("produc_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProducID { get; set; }
-		[JsonProperty("itemID")]
+		[JsonProperty("item_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ItemID { get; set; }
-		[JsonProperty("quantity")]
+		[JsonProperty("quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double Quantity { get; set; }
-		[JsonProperty("product")]
+		[JsonProperty("product", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductViewModel ProductVM { get; set; }
-		[JsonProperty("productItem")]
+		[JsonProperty("product_item", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductItemViewModel ProductItemVM { get; set; }
 		
 		public ProductItemCompositionMappingViewModel(ProductItemCompositionMapping entity) : this()

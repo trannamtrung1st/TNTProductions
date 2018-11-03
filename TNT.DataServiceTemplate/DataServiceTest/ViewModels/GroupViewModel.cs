@@ -11,19 +11,19 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class GroupViewModel: BaseViewModel<Group>
 	{
-		[JsonProperty("groupId")]
+		[JsonProperty("group_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int GroupId { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("isDisplayed")]
+		[JsonProperty("is_displayed", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsDisplayed { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("products")]
+		[JsonProperty("products", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ProductViewModel> ProductsVM { get; set; }
-		[JsonProperty("stores")]
+		[JsonProperty("stores", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<StoreViewModel> StoresVM { get; set; }
 		
 		public GroupViewModel(Group entity) : this()

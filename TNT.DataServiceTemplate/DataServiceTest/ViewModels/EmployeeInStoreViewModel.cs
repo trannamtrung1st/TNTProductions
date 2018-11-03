@@ -11,21 +11,21 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class EmployeeInStoreViewModel: BaseViewModel<EmployeeInStore>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("employeeId")]
+		[JsonProperty("employee_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int EmployeeId { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("assignedDate")]
+		[JsonProperty("assigned_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime AssignedDate { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Status { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("employee")]
+		[JsonProperty("employee", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public EmployeeViewModel EmployeeVM { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
 		
 		public EmployeeInStoreViewModel(EmployeeInStore entity) : this()

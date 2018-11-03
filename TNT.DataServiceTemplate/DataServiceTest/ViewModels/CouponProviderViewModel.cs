@@ -11,13 +11,13 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class CouponProviderViewModel: BaseViewModel<CouponProvider>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("providerName")]
+		[JsonProperty("provider_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ProviderName { get; set; }
-		[JsonProperty("isActive")]
+		[JsonProperty("is_active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsActive { get; set; }
-		[JsonProperty("couponCampaigns")]
+		[JsonProperty("coupon_campaigns", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<CouponCampaignViewModel> CouponCampaignsVM { get; set; }
 		
 		public CouponProviderViewModel(CouponProvider entity) : this()

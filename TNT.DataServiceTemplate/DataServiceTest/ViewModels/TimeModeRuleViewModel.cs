@@ -11,33 +11,33 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class TimeModeRuleViewModel: BaseViewModel<TimeModeRule>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("startHour")]
+		[JsonProperty("start_hour", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<System.TimeSpan> StartHour { get; set; }
-		[JsonProperty("endHour")]
+		[JsonProperty("end_hour", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<System.TimeSpan> EndHour { get; set; }
-		[JsonProperty("minDuration")]
+		[JsonProperty("min_duration", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> MinDuration { get; set; }
-		[JsonProperty("maxDuration")]
+		[JsonProperty("max_duration", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> MaxDuration { get; set; }
-		[JsonProperty("dayModeId")]
+		[JsonProperty("day_mode_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> DayModeId { get; set; }
-		[JsonProperty("timeModeTypeId")]
+		[JsonProperty("time_mode_type_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> TimeModeTypeId { get; set; }
-		[JsonProperty("defaultRate")]
+		[JsonProperty("default_rate", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> DefaultRate { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("dayMode")]
+		[JsonProperty("day_mode", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DayModeViewModel DayModeVM { get; set; }
-		[JsonProperty("timeModeType")]
+		[JsonProperty("time_mode_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public TimeModeTypeViewModel TimeModeTypeVM { get; set; }
-		[JsonProperty("salaryRules")]
+		[JsonProperty("salary_rules", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<SalaryRuleViewModel> SalaryRulesVM { get; set; }
 		
 		public TimeModeRuleViewModel(TimeModeRule entity) : this()

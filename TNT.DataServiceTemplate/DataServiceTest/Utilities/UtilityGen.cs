@@ -1,4 +1,4 @@
 
 // Generated helper templates
 // Generated items
-// TNT.DataServiceTemplate\DataServiceTest\Utilities\DefaultUtilities.cs
+// TNT.DataServiceTemplate\DataServiceTest\Utilities\GeneralUtils.cs

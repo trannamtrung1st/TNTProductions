@@ -11,27 +11,27 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class SalaryRuleViewModel: BaseViewModel<SalaryRule>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("timeModeRuleId")]
+		[JsonProperty("time_mode_rule_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> TimeModeRuleId { get; set; }
-		[JsonProperty("minTimeDuration")]
+		[JsonProperty("min_time_duration", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double MinTimeDuration { get; set; }
-		[JsonProperty("maxTimeDuration")]
+		[JsonProperty("max_time_duration", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double MaxTimeDuration { get; set; }
-		[JsonProperty("value")]
+		[JsonProperty("value", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> Value { get; set; }
-		[JsonProperty("rate")]
+		[JsonProperty("rate", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> Rate { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("timeModeRule")]
+		[JsonProperty("time_mode_rule", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public TimeModeRuleViewModel TimeModeRuleVM { get; set; }
-		[JsonProperty("templateRuleMappings")]
+		[JsonProperty("template_rule_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<TemplateRuleMappingViewModel> TemplateRuleMappingsVM { get; set; }
 		
 		public SalaryRuleViewModel(SalaryRule entity) : this()

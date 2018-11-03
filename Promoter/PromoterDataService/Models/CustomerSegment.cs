@@ -14,9 +14,11 @@ namespace PromoterDataService.Models
     
     public partial class CustomerSegment
     {
-        public int CustomerId { get; set; }
-        public int SegmentId { get; set; }
-        public Nullable<bool> Deactive { get; set; }
+        public int CustomerIID { get; set; }
+        public int SegmentIID { get; set; }
+        public string CustomerSID { get; set; }
+        public string SegmentSID { get; set; }
+        public Nullable<bool> Active { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Segment Segment { get; set; }

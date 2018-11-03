@@ -11,35 +11,35 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ProviderViewModel: BaseViewModel<Provider>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("providerName")]
+		[JsonProperty("provider_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ProviderName { get; set; }
-		[JsonProperty("isAvailable")]
+		[JsonProperty("is_available", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsAvailable { get; set; }
-		[JsonProperty("address")]
+		[JsonProperty("address", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Address { get; set; }
-		[JsonProperty("phone")]
+		[JsonProperty("phone", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Phone { get; set; }
-		[JsonProperty("email")]
+		[JsonProperty("email", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Email { get; set; }
-		[JsonProperty("managerName")]
+		[JsonProperty("manager_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ManagerName { get; set; }
-		[JsonProperty("license")]
+		[JsonProperty("license", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string License { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BrandId { get; set; }
-		[JsonProperty("type")]
+		[JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Type { get; set; }
-		[JsonProperty("vATCode")]
+		[JsonProperty("vatcode", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string VATCode { get; set; }
-		[JsonProperty("accountNo")]
+		[JsonProperty("account_no", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string AccountNo { get; set; }
-		[JsonProperty("inventoryReceipts")]
+		[JsonProperty("inventory_receipts", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<InventoryReceiptViewModel> InventoryReceiptsVM { get; set; }
-		[JsonProperty("providerProductItemMappings")]
+		[JsonProperty("provider_product_item_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ProviderProductItemMappingViewModel> ProviderProductItemMappingsVM { get; set; }
-		[JsonProperty("vATOrders")]
+		[JsonProperty("vatorders", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<VATOrderViewModel> VATOrdersVM { get; set; }
 		
 		public ProviderViewModel(Provider entity) : this()

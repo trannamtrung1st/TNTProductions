@@ -11,41 +11,41 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class InventoryDateReportItemViewModel: BaseViewModel<InventoryDateReportItem>
 	{
-		[JsonProperty("itemID")]
+		[JsonProperty("item_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ItemID { get; set; }
-		[JsonProperty("quantity")]
+		[JsonProperty("quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double Quantity { get; set; }
-		[JsonProperty("reportID")]
+		[JsonProperty("report_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ReportID { get; set; }
-		[JsonProperty("importAmount")]
+		[JsonProperty("import_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> ImportAmount { get; set; }
-		[JsonProperty("exportAmount")]
+		[JsonProperty("export_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> ExportAmount { get; set; }
-		[JsonProperty("cancelAmount")]
+		[JsonProperty("cancel_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> CancelAmount { get; set; }
-		[JsonProperty("soldAmount")]
+		[JsonProperty("sold_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> SoldAmount { get; set; }
-		[JsonProperty("returnAmount")]
+		[JsonProperty("return_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> ReturnAmount { get; set; }
-		[JsonProperty("changeInventoryAmount")]
+		[JsonProperty("change_inventory_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> ChangeInventoryAmount { get; set; }
-		[JsonProperty("theoryAmount")]
+		[JsonProperty("theory_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> TheoryAmount { get; set; }
-		[JsonProperty("realAmount")]
+		[JsonProperty("real_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> RealAmount { get; set; }
-		[JsonProperty("totalExport")]
+		[JsonProperty("total_export", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> TotalExport { get; set; }
-		[JsonProperty("totalImport")]
+		[JsonProperty("total_import", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> TotalImport { get; set; }
-		[JsonProperty("receivedChangeInventoryAmount")]
+		[JsonProperty("received_change_inventory_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> ReceivedChangeInventoryAmount { get; set; }
-		[JsonProperty("isSelected")]
+		[JsonProperty("is_selected", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsSelected { get; set; }
-		[JsonProperty("price")]
+		[JsonProperty("price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double Price { get; set; }
-		[JsonProperty("inventoryDateReport")]
+		[JsonProperty("inventory_date_report", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public InventoryDateReportViewModel InventoryDateReportVM { get; set; }
-		[JsonProperty("productItem")]
+		[JsonProperty("product_item", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductItemViewModel ProductItemVM { get; set; }
 		
 		public InventoryDateReportItemViewModel(InventoryDateReportItem entity) : this()

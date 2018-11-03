@@ -11,21 +11,21 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class DayModeViewModel: BaseViewModel<DayMode>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("dayFilter")]
+		[JsonProperty("day_filter", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> DayFilter { get; set; }
-		[JsonProperty("isSpecialDay")]
+		[JsonProperty("is_special_day", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> IsSpecialDay { get; set; }
-		[JsonProperty("priority")]
+		[JsonProperty("priority", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Priority { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("timeModeRules")]
+		[JsonProperty("time_mode_rules", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<TimeModeRuleViewModel> TimeModeRulesVM { get; set; }
 		
 		public DayModeViewModel(DayMode entity) : this()

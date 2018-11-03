@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PromoterDataService.Models;
-using PromoterDataService.ViewModels;
+using DataServiceTest.Models;
+using DataServiceTest.ViewModels;
 
-namespace PromoterDataService.Utilities
+namespace DataServiceTest.Utilities
 {
-	public static class DefaultUtilities
+	public static partial class GeneralUtils
 	{
 		public static List<VM> ToListVM<E, VM>(this IEnumerable<E> list) where E: IEntity
 		{

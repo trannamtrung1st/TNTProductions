@@ -17,128 +17,13 @@ namespace DataServiceTest.Models.Services
 	{
 	}
 	
-	public partial class ProvinceService : BaseService, IProvinceService
+	public partial class ProvinceService : BaseService<Province, ProvinceViewModel, int>, IProvinceService
 	{
-		private IProvinceRepository repository;
-		
 		public ProvinceService(IUnitOfWork uow)
 		{
 			repository = uow.Scope.Resolve<IProvinceRepository>(uow);
 		}
 		
-		public override bool AutoSave
-		{
-			get
-			{
-				return repository.AutoSave;
-			}
-			set
-			{
-				repository.AutoSave = value;
-			}
-		}
-		
-		#region CRUD Area
-		public Province Add(Province entity)
-		{
-			return repository.Add(entity);
-		}
-		
-		public async Task<Province> AddAsync(Province entity)
-		{
-			return await repository.AddAsync(entity);
-		}
-		
-		public Province Update(Province entity)
-		{
-			return repository.Update(entity);
-		}
-		
-		public async Task<Province> UpdateAsync(Province entity)
-		{
-			return await repository.UpdateAsync(entity);
-		}
-		
-		public Province Delete(Province entity)
-		{
-			return repository.Delete(entity);
-		}
-		
-		public async Task<Province> DeleteAsync(Province entity)
-		{
-			return await repository.DeleteAsync(entity);
-		}
-		
-		public Province Delete(int key)
-		{
-			return repository.Delete(key);
-		}
-		
-		public async Task<Province> DeleteAsync(int key)
-		{
-			return await repository.DeleteAsync(key);
-		}
-		
-		public Province FindById(int key)
-		{
-			return repository.FindActiveById(key);
-		}
-		
-		public async Task<Province> FindByIdAsync(int key)
-		{
-			return await repository.FindActiveByIdAsync(key);
-		}
-		
-		public Province Activate(Province entity)
-		{
-			return repository.Activate(entity);
-		}
-		
-		public Province Activate(int key)
-		{
-			return repository.Activate(key);
-		}
-		
-		public Province Deactivate(Province entity)
-		{
-			return repository.Deactivate(entity);
-		}
-		
-		public Province Deactivate(int key)
-		{
-			return repository.Deactivate(key);
-		}
-		
-		public IQueryable<Province> GetActive()
-		{
-			return repository.GetActive();
-		}
-		
-		public IQueryable<Province> GetActive(Expression<Func<Province, bool>> expr)
-		{
-			return repository.GetActive(expr);
-		}
-		
-		public Province FirstOrDefault()
-		{
-			return repository.FirstOrDefault();
-		}
-		
-		public Province FirstOrDefault(Expression<Func<Province, bool>> expr)
-		{
-			return repository.FirstOrDefault(expr);
-		}
-		
-		public async Task<Province> FirstOrDefaultAsync()
-		{
-			return await repository.FirstOrDefaultAsync();
-		}
-		
-		public async Task<Province> FirstOrDefaultAsync(Expression<Func<Province, bool>> expr)
-		{
-			return await repository.FirstOrDefaultAsync(expr);
-		}
-		#endregion
 		
 		#region Implement for Resource Pooling
 		public ProvinceService()

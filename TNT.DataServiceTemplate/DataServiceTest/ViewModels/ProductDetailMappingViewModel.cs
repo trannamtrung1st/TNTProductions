@@ -11,23 +11,23 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ProductDetailMappingViewModel: BaseViewModel<ProductDetailMapping>
 	{
-		[JsonProperty("productDetailID")]
+		[JsonProperty("product_detail_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProductDetailID { get; set; }
-		[JsonProperty("productID")]
+		[JsonProperty("product_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ProductID { get; set; }
-		[JsonProperty("storeID")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreID { get; set; }
-		[JsonProperty("price")]
+		[JsonProperty("price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> Price { get; set; }
-		[JsonProperty("discountPrice")]
+		[JsonProperty("discount_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> DiscountPrice { get; set; }
-		[JsonProperty("discountPercent")]
+		[JsonProperty("discount_percent", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> DiscountPercent { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> Active { get; set; }
-		[JsonProperty("product")]
+		[JsonProperty("product", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductViewModel ProductVM { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
 		
 		public ProductDetailMappingViewModel(ProductDetailMapping entity) : this()

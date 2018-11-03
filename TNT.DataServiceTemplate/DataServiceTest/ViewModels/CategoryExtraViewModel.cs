@@ -11,13 +11,13 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class CategoryExtraViewModel: BaseViewModel<CategoryExtra>
 	{
-		[JsonProperty("categoryExtraId")]
+		[JsonProperty("category_extra_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CategoryExtraId { get; set; }
-		[JsonProperty("primaryCategoryId")]
+		[JsonProperty("primary_category_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int PrimaryCategoryId { get; set; }
-		[JsonProperty("extraCategoryId")]
+		[JsonProperty("extra_category_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ExtraCategoryId { get; set; }
-		[JsonProperty("isEnable")]
+		[JsonProperty("is_enable", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsEnable { get; set; }
 		
 		public CategoryExtraViewModel(CategoryExtra entity) : this()

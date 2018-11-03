@@ -84,28 +84,28 @@ namespace PromoterDataService.Models.Repositories
 		public override CustomerSegment FindById(CustomerSegmentPK key)
 		{
 			var entity = context.CustomerSegments.FirstOrDefault(
-				e => e.CustomerId == key.CustomerId && e.SegmentId == key.SegmentId);
+				e => e.CustomerIID == key.CustomerIID && e.SegmentIID == key.SegmentIID);
 			return entity;
 		}
 		
 		public override CustomerSegment FindActiveById(CustomerSegmentPK key)
 		{
 			var entity = context.CustomerSegments.FirstOrDefault(
-				e => e.CustomerId == key.CustomerId && e.SegmentId == key.SegmentId);
+				e => e.CustomerIID == key.CustomerIID && e.SegmentIID == key.SegmentIID);
 			return entity;
 		}
 		
 		public override async Task<CustomerSegment> FindByIdAsync(CustomerSegmentPK key)
 		{
 			var entity = await context.CustomerSegments.FirstOrDefaultAsync(
-				e => e.CustomerId == key.CustomerId && e.SegmentId == key.SegmentId);
+				e => e.CustomerIID == key.CustomerIID && e.SegmentIID == key.SegmentIID);
 			return entity;
 		}
 		
 		public override async Task<CustomerSegment> FindActiveByIdAsync(CustomerSegmentPK key)
 		{
 			var entity = await context.CustomerSegments.FirstOrDefaultAsync(
-				e => e.CustomerId == key.CustomerId && e.SegmentId == key.SegmentId);
+				e => e.CustomerIID == key.CustomerIID && e.SegmentIID == key.SegmentIID);
 			return entity;
 		}
 		
@@ -118,7 +118,7 @@ namespace PromoterDataService.Models.Repositories
 			}
 			
 			return dbSet.FirstOrDefault(
-				e => e.CustomerId == key.CustomerId && e.SegmentId == key.SegmentId);
+				e => e.CustomerIID == key.CustomerIID && e.SegmentIID == key.SegmentIID);
 		}
 		
 		public override async Task<CustomerSegment> FindByIdIncludeAsync<TProperty>(CustomerSegmentPK key, params Expression<Func<CustomerSegment, TProperty>>[] members)
@@ -130,7 +130,7 @@ namespace PromoterDataService.Models.Repositories
 			}
 			
 			return await dbSet.FirstOrDefaultAsync(
-				e => e.CustomerId == key.CustomerId && e.SegmentId == key.SegmentId);
+				e => e.CustomerIID == key.CustomerIID && e.SegmentIID == key.SegmentIID);
 		}
 		
 		public override CustomerSegment Activate(CustomerSegment entity)

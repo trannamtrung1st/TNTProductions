@@ -11,25 +11,25 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class EmployeeGroupViewModel: BaseViewModel<EmployeeGroup>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("codeGroup")]
+		[JsonProperty("code_group", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CodeGroup { get; set; }
-		[JsonProperty("nameGroup")]
+		[JsonProperty("name_group", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string NameGroup { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("expandTime")]
+		[JsonProperty("expand_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<System.TimeSpan> ExpandTime { get; set; }
-		[JsonProperty("groupPolicy")]
+		[JsonProperty("group_policy", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> GroupPolicy { get; set; }
-		[JsonProperty("groupSecurity")]
+		[JsonProperty("group_security", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> GroupSecurity { get; set; }
-		[JsonProperty("employees")]
+		[JsonProperty("employees", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<EmployeeViewModel> EmployeesVM { get; set; }
-		[JsonProperty("timeFrames")]
+		[JsonProperty("time_frames", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<TimeFrameViewModel> TimeFramesVM { get; set; }
 		
 		public EmployeeGroupViewModel(EmployeeGroup entity) : this()

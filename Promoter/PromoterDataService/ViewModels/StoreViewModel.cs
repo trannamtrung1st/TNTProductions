@@ -11,10 +11,10 @@ namespace PromoterDataService.ViewModels
 {
 	public partial class StoreViewModel: BaseViewModel<Store>
 	{
-		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public int Id { get; set; }
-		[JsonProperty("code", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public string Code { get; set; }
+		[JsonProperty("iid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public int IID { get; set; }
+		[JsonProperty("sid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public string SID { get; set; }
 		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
 		[JsonProperty("address", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -23,10 +23,12 @@ namespace PromoterDataService.ViewModels
 		public string Phone { get; set; }
 		[JsonProperty("email", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Email { get; set; }
-		[JsonProperty("deactive", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public Nullable<bool> Deactive { get; set; }
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public Nullable<bool> Active { get; set; }
 		[JsonProperty("orders", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<OrderViewModel> OrdersVM { get; set; }
+		[JsonProperty("promotion_store_rules", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public ICollection<PromotionStoreRuleViewModel> PromotionStoreRulesVM { get; set; }
 		
 		public StoreViewModel(Store entity) : this()
 		{
@@ -36,6 +38,7 @@ namespace PromoterDataService.ViewModels
 		public StoreViewModel()
 		{
 			this.OrdersVM = new HashSet<OrderViewModel>();
+			this.PromotionStoreRulesVM = new HashSet<PromotionStoreRuleViewModel>();
 		}
 		
 	}

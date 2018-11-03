@@ -17,128 +17,13 @@ namespace DataServiceTest.Models.Services
 	{
 	}
 	
-	public partial class RoomFloorService : BaseService, IRoomFloorService
+	public partial class RoomFloorService : BaseService<RoomFloor, RoomFloorViewModel, int>, IRoomFloorService
 	{
-		private IRoomFloorRepository repository;
-		
 		public RoomFloorService(IUnitOfWork uow)
 		{
 			repository = uow.Scope.Resolve<IRoomFloorRepository>(uow);
 		}
 		
-		public override bool AutoSave
-		{
-			get
-			{
-				return repository.AutoSave;
-			}
-			set
-			{
-				repository.AutoSave = value;
-			}
-		}
-		
-		#region CRUD Area
-		public RoomFloor Add(RoomFloor entity)
-		{
-			return repository.Add(entity);
-		}
-		
-		public async Task<RoomFloor> AddAsync(RoomFloor entity)
-		{
-			return await repository.AddAsync(entity);
-		}
-		
-		public RoomFloor Update(RoomFloor entity)
-		{
-			return repository.Update(entity);
-		}
-		
-		public async Task<RoomFloor> UpdateAsync(RoomFloor entity)
-		{
-			return await repository.UpdateAsync(entity);
-		}
-		
-		public RoomFloor Delete(RoomFloor entity)
-		{
-			return repository.Delete(entity);
-		}
-		
-		public async Task<RoomFloor> DeleteAsync(RoomFloor entity)
-		{
-			return await repository.DeleteAsync(entity);
-		}
-		
-		public RoomFloor Delete(int key)
-		{
-			return repository.Delete(key);
-		}
-		
-		public async Task<RoomFloor> DeleteAsync(int key)
-		{
-			return await repository.DeleteAsync(key);
-		}
-		
-		public RoomFloor FindById(int key)
-		{
-			return repository.FindActiveById(key);
-		}
-		
-		public async Task<RoomFloor> FindByIdAsync(int key)
-		{
-			return await repository.FindActiveByIdAsync(key);
-		}
-		
-		public RoomFloor Activate(RoomFloor entity)
-		{
-			return repository.Activate(entity);
-		}
-		
-		public RoomFloor Activate(int key)
-		{
-			return repository.Activate(key);
-		}
-		
-		public RoomFloor Deactivate(RoomFloor entity)
-		{
-			return repository.Deactivate(entity);
-		}
-		
-		public RoomFloor Deactivate(int key)
-		{
-			return repository.Deactivate(key);
-		}
-		
-		public IQueryable<RoomFloor> GetActive()
-		{
-			return repository.GetActive();
-		}
-		
-		public IQueryable<RoomFloor> GetActive(Expression<Func<RoomFloor, bool>> expr)
-		{
-			return repository.GetActive(expr);
-		}
-		
-		public RoomFloor FirstOrDefault()
-		{
-			return repository.FirstOrDefault();
-		}
-		
-		public RoomFloor FirstOrDefault(Expression<Func<RoomFloor, bool>> expr)
-		{
-			return repository.FirstOrDefault(expr);
-		}
-		
-		public async Task<RoomFloor> FirstOrDefaultAsync()
-		{
-			return await repository.FirstOrDefaultAsync();
-		}
-		
-		public async Task<RoomFloor> FirstOrDefaultAsync(Expression<Func<RoomFloor, bool>> expr)
-		{
-			return await repository.FirstOrDefaultAsync(expr);
-		}
-		#endregion
 		
 		#region Implement for Resource Pooling
 		public RoomFloorService()

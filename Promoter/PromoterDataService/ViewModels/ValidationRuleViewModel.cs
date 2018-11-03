@@ -12,66 +12,82 @@ namespace PromoterDataService.ViewModels
 	public partial class ValidationRuleViewModel: BaseViewModel<ValidationRule>
 	{
 		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public int Id { get; set; }
-		[JsonProperty("segmentRuleOp", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public int ID { get; set; }
+		[JsonProperty("segment_rule_op", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> SegmentRuleOp { get; set; }
-		[JsonProperty("inSegmentId", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public string InSegmentId { get; set; }
-		[JsonProperty("notInSegmentId", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public string NotInSegmentId { get; set; }
-		[JsonProperty("productRuleOp", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("in_segment_iid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public Nullable<int> InSegmentIID { get; set; }
+		[JsonProperty("not_in_segment_iid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public Nullable<int> NotInSegmentIID { get; set; }
+		[JsonProperty("product_rule_op", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ProductRuleOp { get; set; }
-		[JsonProperty("productCodePattern", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("product_code_pattern", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ProductCodePattern { get; set; }
-		[JsonProperty("minProductPrice", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("min_product_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> MinProductPrice { get; set; }
-		[JsonProperty("maxProductPrice", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("max_product_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> MaxProductPrice { get; set; }
-		[JsonProperty("minProductQuantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("min_product_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MinProductQuantity { get; set; }
-		[JsonProperty("maxProductQuantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("max_product_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MaxProductQuantity { get; set; }
-		[JsonProperty("orderRuleOp", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("order_rule_op", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> OrderRuleOp { get; set; }
-		[JsonProperty("minOrderAmount", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("min_order_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> MinOrderAmount { get; set; }
-		[JsonProperty("maxOrderAmount", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("max_order_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> MaxOrderAmount { get; set; }
-		[JsonProperty("minOrderProductQuantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("min_order_product_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MinOrderProductQuantity { get; set; }
-		[JsonProperty("maxOrderProductQuantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("max_order_product_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MaxOrderProductQuantity { get; set; }
-		[JsonProperty("redemptionRuleOp", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("redemption_rule_op", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> RedemptionRuleOp { get; set; }
-		[JsonProperty("minRedeemTimes", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("min_redeem_times", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MinRedeemTimes { get; set; }
-		[JsonProperty("maxRedeemTimes", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("max_redeem_times", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MaxRedeemTimes { get; set; }
-		[JsonProperty("generalRuleOp", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("general_rule_op", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> GeneralRuleOp { get; set; }
-		[JsonProperty("startDate", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("start_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> StartDate { get; set; }
-		[JsonProperty("expirationDate", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("expiration_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> ExpirationDate { get; set; }
-		[JsonProperty("listApplyHours", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("list_apply_hours", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ListApplyHours { get; set; }
-		[JsonProperty("applyStoresId", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public string ApplyStoresId { get; set; }
-		[JsonProperty("exceptDates", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("except_dates", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ExceptDates { get; set; }
-		[JsonProperty("exceptDOWs", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("except_dows", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ExceptDOWs { get; set; }
-		[JsonProperty("anotherRuleOp", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("membership_rule_op", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public Nullable<int> MembershipRuleOp { get; set; }
+		[JsonProperty("min_point", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public Nullable<double> MinPoint { get; set; }
+		[JsonProperty("max_point", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public Nullable<double> MaxPoint { get; set; }
+		[JsonProperty("membership_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public string MembershipCode { get; set; }
+		[JsonProperty("membership_regex_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public string MembershipRegexCode { get; set; }
+		[JsonProperty("another_rule_op", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> AnotherRuleOp { get; set; }
-		[JsonProperty("anotherRuleId", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public Nullable<int> AnotherRuleId { get; set; }
-		[JsonProperty("validationRule2", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("another_rule_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public Nullable<int> AnotherRuleID { get; set; }
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public Nullable<bool> Active { get; set; }
+		[JsonProperty("segment", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public SegmentViewModel SegmentVM { get; set; }
+		[JsonProperty("segment1", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public SegmentViewModel Segment1VM { get; set; }
+		[JsonProperty("validation_rule2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ValidationRuleViewModel ValidationRule2VM { get; set; }
 		[JsonProperty("campaigns", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<CampaignViewModel> CampaignsVM { get; set; }
 		[JsonProperty("promotions", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<PromotionViewModel> PromotionsVM { get; set; }
-		[JsonProperty("validationRule1", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("promotion_store_rules", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public ICollection<PromotionStoreRuleViewModel> PromotionStoreRulesVM { get; set; }
+		[JsonProperty("validation_rule1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ValidationRuleViewModel> ValidationRule1VM { get; set; }
 		[JsonProperty("vouchers", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<VoucherViewModel> VouchersVM { get; set; }
@@ -85,6 +101,7 @@ namespace PromoterDataService.ViewModels
 		{
 			this.CampaignsVM = new HashSet<CampaignViewModel>();
 			this.PromotionsVM = new HashSet<PromotionViewModel>();
+			this.PromotionStoreRulesVM = new HashSet<PromotionStoreRuleViewModel>();
 			this.ValidationRule1VM = new HashSet<ValidationRuleViewModel>();
 			this.VouchersVM = new HashSet<VoucherViewModel>();
 		}

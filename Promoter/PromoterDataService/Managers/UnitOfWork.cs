@@ -34,7 +34,7 @@ namespace PromoterDataService.Managers
 		public UnitOfWork()
 		{
 			AutoSave = true;
-			Scope = G.TContainer.RequestScope;
+			Scope = G.TContainer.CreateScope();
 			Context = new PromoterEntities();
 			ResourcePool = new Dictionary<Type, object>();
 		}

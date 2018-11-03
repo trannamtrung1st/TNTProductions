@@ -11,27 +11,27 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class WebCustomerFeedbackViewModel: BaseViewModel<WebCustomerFeedback>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("title")]
+		[JsonProperty("title", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Title { get; set; }
-		[JsonProperty("fullname")]
+		[JsonProperty("fullname", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Fullname { get; set; }
-		[JsonProperty("email")]
+		[JsonProperty("email", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Email { get; set; }
-		[JsonProperty("phone")]
+		[JsonProperty("phone", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Phone { get; set; }
-		[JsonProperty("company")]
+		[JsonProperty("company", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Company { get; set; }
-		[JsonProperty("content")]
+		[JsonProperty("content", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Content { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("collection")]
+		[JsonProperty("collection", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Collection { get; set; }
-		[JsonProperty("customFields")]
+		[JsonProperty("custom_fields", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CustomFields { get; set; }
 		
 		public WebCustomerFeedbackViewModel(WebCustomerFeedback entity) : this()

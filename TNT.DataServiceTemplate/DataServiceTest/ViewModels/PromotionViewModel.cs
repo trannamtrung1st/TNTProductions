@@ -11,69 +11,69 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class PromotionViewModel: BaseViewModel<Promotion>
 	{
-		[JsonProperty("promotionID")]
+		[JsonProperty("promotion_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int PromotionID { get; set; }
-		[JsonProperty("promotionCode")]
+		[JsonProperty("promotion_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PromotionCode { get; set; }
-		[JsonProperty("promotionName")]
+		[JsonProperty("promotion_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PromotionName { get; set; }
-		[JsonProperty("promotionClassName")]
+		[JsonProperty("promotion_class_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PromotionClassName { get; set; }
-		[JsonProperty("shortDescription")]
+		[JsonProperty("short_description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ShortDescription { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("imageCss")]
+		[JsonProperty("image_css", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ImageCss { get; set; }
-		[JsonProperty("applyLevel")]
+		[JsonProperty("apply_level", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ApplyLevel { get; set; }
-		[JsonProperty("giftType")]
+		[JsonProperty("gift_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int GiftType { get; set; }
-		[JsonProperty("isForMember")]
+		[JsonProperty("is_for_member", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsForMember { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("fromDate")]
+		[JsonProperty("from_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime FromDate { get; set; }
-		[JsonProperty("toDate")]
+		[JsonProperty("to_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime ToDate { get; set; }
-		[JsonProperty("applyFromTime")]
+		[JsonProperty("apply_from_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ApplyFromTime { get; set; }
-		[JsonProperty("applyToTime")]
+		[JsonProperty("apply_to_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ApplyToTime { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BrandId { get; set; }
-		[JsonProperty("imageUrl")]
+		[JsonProperty("image_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ImageUrl { get; set; }
-		[JsonProperty("isVoucher")]
+		[JsonProperty("is_voucher", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsVoucher { get; set; }
-		[JsonProperty("isApplyOnce")]
+		[JsonProperty("is_apply_once", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsApplyOnce { get; set; }
-		[JsonProperty("voucherQuantity")]
+		[JsonProperty("voucher_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> VoucherQuantity { get; set; }
-		[JsonProperty("voucherUsedQuantity")]
+		[JsonProperty("voucher_used_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> VoucherUsedQuantity { get; set; }
-		[JsonProperty("promotionType")]
+		[JsonProperty("promotion_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int PromotionType { get; set; }
-		[JsonProperty("fromHappyDay")]
+		[JsonProperty("from_happy_day", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> FromHappyDay { get; set; }
-		[JsonProperty("toHappyDay")]
+		[JsonProperty("to_happy_day", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ToHappyDay { get; set; }
-		[JsonProperty("fromHoursHappy")]
+		[JsonProperty("from_hours_happy", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> FromHoursHappy { get; set; }
-		[JsonProperty("toHoursHappy")]
+		[JsonProperty("to_hours_happy", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ToHoursHappy { get; set; }
-		[JsonProperty("usingPoint")]
+		[JsonProperty("using_point", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> UsingPoint { get; set; }
-		[JsonProperty("applyToPartner")]
+		[JsonProperty("apply_to_partner", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ApplyToPartner { get; set; }
-		[JsonProperty("orderDetailPromotionMappings")]
+		[JsonProperty("order_detail_promotion_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<OrderDetailPromotionMappingViewModel> OrderDetailPromotionMappingsVM { get; set; }
-		[JsonProperty("orderPromotionMappings")]
+		[JsonProperty("order_promotion_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<OrderPromotionMappingViewModel> OrderPromotionMappingsVM { get; set; }
-		[JsonProperty("promotionStoreMappings")]
+		[JsonProperty("promotion_store_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<PromotionStoreMappingViewModel> PromotionStoreMappingsVM { get; set; }
-		[JsonProperty("vouchers")]
+		[JsonProperty("vouchers", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<VoucherViewModel> VouchersVM { get; set; }
 		
 		public PromotionViewModel(Promotion entity) : this()

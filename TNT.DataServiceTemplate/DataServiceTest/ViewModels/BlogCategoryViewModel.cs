@@ -11,61 +11,61 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class BlogCategoryViewModel: BaseViewModel<BlogCategory>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("blogCateName")]
+		[JsonProperty("blog_cate_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string BlogCateName { get; set; }
-		[JsonProperty("blogCateName_EN")]
+		[JsonProperty("blog_cate_name__en", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string BlogCateName_EN { get; set; }
-		[JsonProperty("picUrl")]
+		[JsonProperty("pic_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PicUrl { get; set; }
-		[JsonProperty("bannerUrl")]
+		[JsonProperty("banner_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string BannerUrl { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("description_EN")]
+		[JsonProperty("description__en", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description_EN { get; set; }
-		[JsonProperty("feedburnerUrl")]
+		[JsonProperty("feedburner_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string FeedburnerUrl { get; set; }
-		[JsonProperty("pageTitle")]
+		[JsonProperty("page_title", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PageTitle { get; set; }
-		[JsonProperty("pageTitle_EN")]
+		[JsonProperty("page_title__en", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PageTitle_EN { get; set; }
-		[JsonProperty("metaDescription")]
+		[JsonProperty("meta_description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MetaDescription { get; set; }
-		[JsonProperty("urlHandle")]
+		[JsonProperty("url_handle", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string UrlHandle { get; set; }
-		[JsonProperty("isAllowComment")]
+		[JsonProperty("is_allow_comment", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string IsAllowComment { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("isActive")]
+		[JsonProperty("is_active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsActive { get; set; }
-		[JsonProperty("type")]
+		[JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Type { get; set; }
-		[JsonProperty("feedburner")]
+		[JsonProperty("feedburner", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Feedburner { get; set; }
-		[JsonProperty("seoName")]
+		[JsonProperty("seo_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SeoName { get; set; }
-		[JsonProperty("seoKeyword")]
+		[JsonProperty("seo_keyword", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SeoKeyword { get; set; }
-		[JsonProperty("seoDescription")]
+		[JsonProperty("seo_description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SeoDescription { get; set; }
-		[JsonProperty("imageFontAwsomeCss")]
+		[JsonProperty("image_font_awsome_css", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ImageFontAwsomeCss { get; set; }
-		[JsonProperty("parentCateId")]
+		[JsonProperty("parent_cate_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ParentCateId { get; set; }
-		[JsonProperty("position")]
+		[JsonProperty("position", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Position { get; set; }
-		[JsonProperty("positionTopicHomePage")]
+		[JsonProperty("position_topic_home_page", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int PositionTopicHomePage { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("isDisplay")]
+		[JsonProperty("is_display", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsDisplay { get; set; }
-		[JsonProperty("blogPosts")]
+		[JsonProperty("blog_posts", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<BlogPostViewModel> BlogPostsVM { get; set; }
-		[JsonProperty("tagMappings")]
+		[JsonProperty("tag_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<TagMappingViewModel> TagMappingsVM { get; set; }
 		
 		public BlogCategoryViewModel(BlogCategory entity) : this()

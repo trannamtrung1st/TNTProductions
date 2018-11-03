@@ -11,27 +11,27 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class DistrictViewModel: BaseViewModel<District>
 	{
-		[JsonProperty("districtCode")]
+		[JsonProperty("district_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int DistrictCode { get; set; }
-		[JsonProperty("districtName")]
+		[JsonProperty("district_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string DistrictName { get; set; }
-		[JsonProperty("districtType")]
+		[JsonProperty("district_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string DistrictType { get; set; }
-		[JsonProperty("provinceCode")]
+		[JsonProperty("province_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProvinceCode { get; set; }
-		[JsonProperty("priceDelivery")]
+		[JsonProperty("price_delivery", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<decimal> PriceDelivery { get; set; }
-		[JsonProperty("areaDistrictId")]
+		[JsonProperty("area_district_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> AreaDistrictId { get; set; }
-		[JsonProperty("areaDelivery")]
+		[JsonProperty("area_delivery", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public AreaDeliveryViewModel AreaDeliveryVM { get; set; }
-		[JsonProperty("province")]
+		[JsonProperty("province", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProvinceViewModel ProvinceVM { get; set; }
-		[JsonProperty("deliveryInformations")]
+		[JsonProperty("delivery_informations", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<DeliveryInformationViewModel> DeliveryInformationsVM { get; set; }
-		[JsonProperty("orders")]
+		[JsonProperty("orders", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<OrderViewModel> OrdersVM { get; set; }
-		[JsonProperty("wards")]
+		[JsonProperty("wards", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<WardViewModel> WardsVM { get; set; }
 		
 		public DistrictViewModel(District entity) : this()

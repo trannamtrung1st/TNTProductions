@@ -11,25 +11,25 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class WebElementViewModel: BaseViewModel<WebElement>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("parentId")]
+		[JsonProperty("parent_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ParentId { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("detail")]
+		[JsonProperty("detail", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Detail { get; set; }
-		[JsonProperty("imageUrl")]
+		[JsonProperty("image_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ImageUrl { get; set; }
-		[JsonProperty("link")]
+		[JsonProperty("link", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Link { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BrandId { get; set; }
-		[JsonProperty("webElementType")]
+		[JsonProperty("web_element_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public WebElementTypeViewModel WebElementTypeVM { get; set; }
 		
 		public WebElementViewModel(WebElement entity) : this()

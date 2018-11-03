@@ -11,39 +11,39 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class PromotionDetailViewModel: BaseViewModel<PromotionDetail>
 	{
-		[JsonProperty("promotionDetailID")]
+		[JsonProperty("promotion_detail_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int PromotionDetailID { get; set; }
-		[JsonProperty("promotionCode")]
+		[JsonProperty("promotion_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PromotionCode { get; set; }
-		[JsonProperty("promotionDetailCode")]
+		[JsonProperty("promotion_detail_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PromotionDetailCode { get; set; }
-		[JsonProperty("regExCode")]
+		[JsonProperty("reg_ex_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string RegExCode { get; set; }
-		[JsonProperty("minOrderAmount")]
+		[JsonProperty("min_order_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> MinOrderAmount { get; set; }
-		[JsonProperty("maxOrderAmount")]
+		[JsonProperty("max_order_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> MaxOrderAmount { get; set; }
-		[JsonProperty("buyProductCode")]
+		[JsonProperty("buy_product_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string BuyProductCode { get; set; }
-		[JsonProperty("minBuyQuantity")]
+		[JsonProperty("min_buy_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MinBuyQuantity { get; set; }
-		[JsonProperty("maxBuyQuantity")]
+		[JsonProperty("max_buy_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MaxBuyQuantity { get; set; }
-		[JsonProperty("giftProductCode")]
+		[JsonProperty("gift_product_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string GiftProductCode { get; set; }
-		[JsonProperty("giftQuantity")]
+		[JsonProperty("gift_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> GiftQuantity { get; set; }
-		[JsonProperty("discountRate")]
+		[JsonProperty("discount_rate", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> DiscountRate { get; set; }
-		[JsonProperty("discountAmount")]
+		[JsonProperty("discount_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<decimal> DiscountAmount { get; set; }
-		[JsonProperty("pointTrade")]
+		[JsonProperty("point_trade", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> PointTrade { get; set; }
-		[JsonProperty("minPoint")]
+		[JsonProperty("min_point", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MinPoint { get; set; }
-		[JsonProperty("maxPoint")]
+		[JsonProperty("max_point", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MaxPoint { get; set; }
-		[JsonProperty("vouchers")]
+		[JsonProperty("vouchers", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<VoucherViewModel> VouchersVM { get; set; }
 		
 		public PromotionDetailViewModel(PromotionDetail entity) : this()

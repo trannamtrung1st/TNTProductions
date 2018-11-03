@@ -99,13 +99,24 @@ namespace TNT.DataServiceTemplate.ViewModels
                 "\treturn Entity;",
                 "return G.Mapper.Map<E>(this);"));
 
+            var m5 = new ContainerGen();
+            m5.Signature = "public virtual E ToEntity(bool copyToEntity)";
+            m5.Body.Add(new StatementGen(
+                "if (Entity!=null)",
+                "{",
+                "\tif (copyToEntity) CopyTo(Entity);",
+                "\treturn Entity;",
+                "}",
+                "return G.Mapper.Map<E>(this);"));
+
             BaseViewModel.Body.Add(
                 s1, new StatementGen(""),
                 m3, new StatementGen(""),
                 m31, new StatementGen(""),
                 m32, new StatementGen(""),
                 m33, new StatementGen(""),
-                m4, new StatementGen(""));
+                m4, new StatementGen(""),
+                m5, new StatementGen(""));
 
             NamespaceBody.Add(BaseViewModel, new StatementGen(""));
         }

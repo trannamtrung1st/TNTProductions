@@ -11,67 +11,67 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class OrderDetailViewModel: BaseViewModel<OrderDetail>
 	{
-		[JsonProperty("orderDetailID")]
+		[JsonProperty("order_detail_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int OrderDetailID { get; set; }
-		[JsonProperty("rentID")]
+		[JsonProperty("rent_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int RentID { get; set; }
-		[JsonProperty("productID")]
+		[JsonProperty("product_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProductID { get; set; }
-		[JsonProperty("totalAmount")]
+		[JsonProperty("total_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double TotalAmount { get; set; }
-		[JsonProperty("quantity")]
+		[JsonProperty("quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Quantity { get; set; }
-		[JsonProperty("orderDate")]
+		[JsonProperty("order_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime OrderDate { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Status { get; set; }
-		[JsonProperty("finalAmount")]
+		[JsonProperty("final_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double FinalAmount { get; set; }
-		[JsonProperty("isAddition")]
+		[JsonProperty("is_addition", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsAddition { get; set; }
-		[JsonProperty("detailDescription")]
+		[JsonProperty("detail_description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string DetailDescription { get; set; }
-		[JsonProperty("discount")]
+		[JsonProperty("discount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double Discount { get; set; }
-		[JsonProperty("taxPercent")]
+		[JsonProperty("tax_percent", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> TaxPercent { get; set; }
-		[JsonProperty("taxValue")]
+		[JsonProperty("tax_value", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> TaxValue { get; set; }
-		[JsonProperty("unitPrice")]
+		[JsonProperty("unit_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double UnitPrice { get; set; }
-		[JsonProperty("productType")]
+		[JsonProperty("product_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ProductType { get; set; }
-		[JsonProperty("parentId")]
+		[JsonProperty("parent_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ParentId { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreId { get; set; }
-		[JsonProperty("productOrderType")]
+		[JsonProperty("product_order_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ProductOrderType { get; set; }
-		[JsonProperty("itemQuantity")]
+		[JsonProperty("item_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ItemQuantity { get; set; }
-		[JsonProperty("tmpDetailId")]
+		[JsonProperty("tmp_detail_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> TmpDetailId { get; set; }
-		[JsonProperty("orderDetailPromotionMappingId")]
+		[JsonProperty("order_detail_promotion_mapping_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> OrderDetailPromotionMappingId { get; set; }
-		[JsonProperty("orderPromotionMappingId")]
+		[JsonProperty("order_promotion_mapping_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> OrderPromotionMappingId { get; set; }
-		[JsonProperty("orderDetailAtt1")]
+		[JsonProperty("order_detail_att1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string OrderDetailAtt1 { get; set; }
-		[JsonProperty("orderDetailAtt2")]
+		[JsonProperty("order_detail_att2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string OrderDetailAtt2 { get; set; }
-		[JsonProperty("order")]
+		[JsonProperty("order", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public OrderViewModel OrderVM { get; set; }
-		[JsonProperty("orderDetail2")]
+		[JsonProperty("order_detail2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public OrderDetailViewModel OrderDetail2VM { get; set; }
-		[JsonProperty("orderDetailPromotionMapping")]
+		[JsonProperty("order_detail_promotion_mapping", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public OrderDetailPromotionMappingViewModel OrderDetailPromotionMappingVM { get; set; }
-		[JsonProperty("orderPromotionMapping")]
+		[JsonProperty("order_promotion_mapping", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public OrderPromotionMappingViewModel OrderPromotionMappingVM { get; set; }
-		[JsonProperty("product")]
+		[JsonProperty("product", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductViewModel ProductVM { get; set; }
-		[JsonProperty("orderDetail1")]
+		[JsonProperty("order_detail1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<OrderDetailViewModel> OrderDetail1VM { get; set; }
-		[JsonProperty("orderDetailPromotionMappings")]
+		[JsonProperty("order_detail_promotion_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<OrderDetailPromotionMappingViewModel> OrderDetailPromotionMappingsVM { get; set; }
 		
 		public OrderDetailViewModel(OrderDetail entity) : this()

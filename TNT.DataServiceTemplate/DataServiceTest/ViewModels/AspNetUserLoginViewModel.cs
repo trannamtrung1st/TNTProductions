@@ -11,13 +11,13 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class AspNetUserLoginViewModel: BaseViewModel<AspNetUserLogin>
 	{
-		[JsonProperty("loginProvider")]
+		[JsonProperty("login_provider", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string LoginProvider { get; set; }
-		[JsonProperty("providerKey")]
+		[JsonProperty("provider_key", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ProviderKey { get; set; }
-		[JsonProperty("userId")]
+		[JsonProperty("user_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string UserId { get; set; }
-		[JsonProperty("aspNetUser")]
+		[JsonProperty("asp_net_user", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public AspNetUserViewModel AspNetUserVM { get; set; }
 		
 		public AspNetUserLoginViewModel(AspNetUserLogin entity) : this()

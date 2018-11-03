@@ -11,21 +11,21 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ProductImageViewModel: BaseViewModel<ProductImage>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("productId")]
+		[JsonProperty("product_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProductId { get; set; }
-		[JsonProperty("imageUrl")]
+		[JsonProperty("image_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ImageUrl { get; set; }
-		[JsonProperty("title")]
+		[JsonProperty("title", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Title { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("position")]
+		[JsonProperty("position", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Position { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("product")]
+		[JsonProperty("product", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductViewModel ProductVM { get; set; }
 		
 		public ProductImageViewModel(ProductImage entity) : this()

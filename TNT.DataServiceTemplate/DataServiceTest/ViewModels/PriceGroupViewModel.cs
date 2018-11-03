@@ -11,45 +11,45 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class PriceGroupViewModel: BaseViewModel<PriceGroup>
 	{
-		[JsonProperty("priceGroupID")]
+		[JsonProperty("price_group_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int PriceGroupID { get; set; }
-		[JsonProperty("priceGroupName")]
+		[JsonProperty("price_group_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PriceGroupName { get; set; }
-		[JsonProperty("startDayTime")]
+		[JsonProperty("start_day_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime StartDayTime { get; set; }
-		[JsonProperty("endNightTime")]
+		[JsonProperty("end_night_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime EndNightTime { get; set; }
-		[JsonProperty("dayPrice")]
+		[JsonProperty("day_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double DayPrice { get; set; }
-		[JsonProperty("roundMinute")]
+		[JsonProperty("round_minute", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int RoundMinute { get; set; }
-		[JsonProperty("firstHourPrice")]
+		[JsonProperty("first_hour_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double FirstHourPrice { get; set; }
-		[JsonProperty("secondHourPrice")]
+		[JsonProperty("second_hour_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double SecondHourPrice { get; set; }
-		[JsonProperty("thirdHourPrice")]
+		[JsonProperty("third_hour_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double ThirdHourPrice { get; set; }
-		[JsonProperty("nextHourPrice")]
+		[JsonProperty("next_hour_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double NextHourPrice { get; set; }
-		[JsonProperty("nightAdditionPriceID")]
+		[JsonProperty("night_addition_price_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int NightAdditionPriceID { get; set; }
-		[JsonProperty("isAvailable")]
+		[JsonProperty("is_available", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsAvailable { get; set; }
-		[JsonProperty("additionPrice")]
+		[JsonProperty("addition_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double AdditionPrice { get; set; }
-		[JsonProperty("dayLimitTime1")]
+		[JsonProperty("day_limit_time1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int DayLimitTime1 { get; set; }
-		[JsonProperty("dayPriceLimitTime1")]
+		[JsonProperty("day_price_limit_time1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double DayPriceLimitTime1 { get; set; }
-		[JsonProperty("dayLimitTime2")]
+		[JsonProperty("day_limit_time2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int DayLimitTime2 { get; set; }
-		[JsonProperty("dayPriceLimitTime2")]
+		[JsonProperty("day_price_limit_time2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double DayPriceLimitTime2 { get; set; }
-		[JsonProperty("orderFeeItems")]
+		[JsonProperty("order_fee_items", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<OrderFeeItemViewModel> OrderFeeItemsVM { get; set; }
-		[JsonProperty("roomCategoryPriceGroupMappings")]
+		[JsonProperty("room_category_price_group_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<RoomCategoryPriceGroupMappingViewModel> RoomCategoryPriceGroupMappingsVM { get; set; }
-		[JsonProperty("priceNights")]
+		[JsonProperty("price_nights", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<PriceNightViewModel> PriceNightsVM { get; set; }
 		
 		public PriceGroupViewModel(PriceGroup entity) : this()

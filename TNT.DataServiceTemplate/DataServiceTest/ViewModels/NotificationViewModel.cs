@@ -11,31 +11,31 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class NotificationViewModel: BaseViewModel<Notification>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("title")]
+		[JsonProperty("title", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Title { get; set; }
-		[JsonProperty("title_En")]
+		[JsonProperty("title__en", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Title_En { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("description_En")]
+		[JsonProperty("description__en", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description_En { get; set; }
-		[JsonProperty("type")]
+		[JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Type { get; set; }
-		[JsonProperty("createDate")]
+		[JsonProperty("create_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> CreateDate { get; set; }
-		[JsonProperty("updateDate")]
+		[JsonProperty("update_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> UpdateDate { get; set; }
-		[JsonProperty("picUrl")]
+		[JsonProperty("pic_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PicUrl { get; set; }
-		[JsonProperty("opening")]
+		[JsonProperty("opening", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Opening { get; set; }
-		[JsonProperty("content")]
+		[JsonProperty("content", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Content { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> Active { get; set; }
-		[JsonProperty("customerId")]
+		[JsonProperty("customer_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CustomerId { get; set; }
 		
 		public NotificationViewModel(Notification entity) : this()

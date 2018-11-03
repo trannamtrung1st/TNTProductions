@@ -11,25 +11,25 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class CouponViewModel: BaseViewModel<Coupon>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("campaginId")]
+		[JsonProperty("campagin_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CampaginId { get; set; }
-		[JsonProperty("serialNumber")]
+		[JsonProperty("serial_number", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SerialNumber { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Status { get; set; }
-		[JsonProperty("isActive")]
+		[JsonProperty("is_active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsActive { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreId { get; set; }
-		[JsonProperty("dateUse")]
+		[JsonProperty("date_use", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> DateUse { get; set; }
-		[JsonProperty("imageUrl")]
+		[JsonProperty("image_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ImageUrl { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
-		[JsonProperty("couponCampaign")]
+		[JsonProperty("coupon_campaign", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public CouponCampaignViewModel CouponCampaignVM { get; set; }
 		
 		public CouponViewModel(Coupon entity) : this()

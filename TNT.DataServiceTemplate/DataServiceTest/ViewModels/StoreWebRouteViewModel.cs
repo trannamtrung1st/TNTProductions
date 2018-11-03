@@ -11,29 +11,29 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class StoreWebRouteViewModel: BaseViewModel<StoreWebRoute>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("storeWebRouteCopyId")]
+		[JsonProperty("store_web_route_copy_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreWebRouteCopyId { get; set; }
-		[JsonProperty("path")]
+		[JsonProperty("path", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Path { get; set; }
-		[JsonProperty("viewName")]
+		[JsonProperty("view_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ViewName { get; set; }
-		[JsonProperty("layoutName")]
+		[JsonProperty("layout_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string LayoutName { get; set; }
-		[JsonProperty("position")]
+		[JsonProperty("position", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Position { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
-		[JsonProperty("storeWebRoute2")]
+		[JsonProperty("store_web_route2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreWebRouteViewModel StoreWebRoute2VM { get; set; }
-		[JsonProperty("storeWebRoute1")]
+		[JsonProperty("store_web_route1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<StoreWebRouteViewModel> StoreWebRoute1VM { get; set; }
-		[JsonProperty("storeWebRouteModels")]
+		[JsonProperty("store_web_route_models", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<StoreWebRouteModelViewModel> StoreWebRouteModelsVM { get; set; }
 		
 		public StoreWebRouteViewModel(StoreWebRoute entity) : this()

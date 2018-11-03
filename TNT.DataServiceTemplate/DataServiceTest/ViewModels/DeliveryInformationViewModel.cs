@@ -11,41 +11,41 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class DeliveryInformationViewModel: BaseViewModel<DeliveryInformation>
 	{
-		[JsonProperty("iD")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ID { get; set; }
-		[JsonProperty("userId")]
+		[JsonProperty("user_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string UserId { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("phone")]
+		[JsonProperty("phone", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Phone { get; set; }
-		[JsonProperty("email")]
+		[JsonProperty("email", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Email { get; set; }
-		[JsonProperty("city")]
+		[JsonProperty("city", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string City { get; set; }
-		[JsonProperty("district")]
+		[JsonProperty("district", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string District { get; set; }
-		[JsonProperty("ward")]
+		[JsonProperty("ward", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Ward { get; set; }
-		[JsonProperty("typeAddress")]
+		[JsonProperty("type_address", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> TypeAddress { get; set; }
-		[JsonProperty("address")]
+		[JsonProperty("address", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Address { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("isDefault")]
+		[JsonProperty("is_default", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsDefault { get; set; }
-		[JsonProperty("provinceCode")]
+		[JsonProperty("province_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ProvinceCode { get; set; }
-		[JsonProperty("districtCode")]
+		[JsonProperty("district_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> DistrictCode { get; set; }
-		[JsonProperty("aspNetUser")]
+		[JsonProperty("asp_net_user", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public AspNetUserViewModel AspNetUserVM { get; set; }
-		[JsonProperty("aspNetUser1")]
+		[JsonProperty("asp_net_user1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public AspNetUserViewModel AspNetUser1VM { get; set; }
-		[JsonProperty("district1")]
+		[JsonProperty("district1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DistrictViewModel District1VM { get; set; }
-		[JsonProperty("province")]
+		[JsonProperty("province", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProvinceViewModel ProvinceVM { get; set; }
 		
 		public DeliveryInformationViewModel(DeliveryInformation entity) : this()

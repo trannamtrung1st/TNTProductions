@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class WardViewModel: BaseViewModel<Ward>
 	{
-		[JsonProperty("wardCode")]
+		[JsonProperty("ward_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int WardCode { get; set; }
-		[JsonProperty("wardName")]
+		[JsonProperty("ward_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string WardName { get; set; }
-		[JsonProperty("wardType")]
+		[JsonProperty("ward_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string WardType { get; set; }
-		[JsonProperty("districtCode")]
+		[JsonProperty("district_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int DistrictCode { get; set; }
-		[JsonProperty("district")]
+		[JsonProperty("district", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DistrictViewModel DistrictVM { get; set; }
-		[JsonProperty("orders")]
+		[JsonProperty("orders", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<OrderViewModel> OrdersVM { get; set; }
 		
 		public WardViewModel(Ward entity) : this()

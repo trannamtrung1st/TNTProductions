@@ -11,19 +11,19 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ProductComboDetailViewModel: BaseViewModel<ProductComboDetail>
 	{
-		[JsonProperty("comboID")]
+		[JsonProperty("combo_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ComboID { get; set; }
-		[JsonProperty("productID")]
+		[JsonProperty("product_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProductID { get; set; }
-		[JsonProperty("quantity")]
+		[JsonProperty("quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Quantity { get; set; }
-		[JsonProperty("position")]
+		[JsonProperty("position", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Position { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("product")]
+		[JsonProperty("product", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductViewModel ProductVM { get; set; }
-		[JsonProperty("product1")]
+		[JsonProperty("product1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductViewModel Product1VM { get; set; }
 		
 		public ProductComboDetailViewModel(ProductComboDetail entity) : this()

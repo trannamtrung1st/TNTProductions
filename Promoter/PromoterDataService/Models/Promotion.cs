@@ -14,18 +14,18 @@ namespace PromoterDataService.Models
     
     public partial class Promotion
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public string Banner { get; set; }
-        public Nullable<int> ValidationRuleId { get; set; }
-        public Nullable<int> PromotionDetailId { get; set; }
-        public Nullable<int> CampaignId { get; set; }
+        public Nullable<int> ValidationRuleID { get; set; }
+        public Nullable<int> CampaignID { get; set; }
+        public Nullable<int> PromotionDetailID { get; set; }
         public Nullable<int> AvailableTimes { get; set; }
         public Nullable<int> AppliedTimes { get; set; }
         public string AssetsObject { get; set; }
         public string MetadataObject { get; set; }
-        public Nullable<bool> Deactive { get; set; }
+        public Nullable<bool> Active { get; set; }
     
         public virtual Campaign Campaign { get; set; }
         public virtual PromotionDetail PromotionDetail { get; set; }

@@ -11,19 +11,19 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class InventoryDateReportViewModel: BaseViewModel<InventoryDateReport>
 	{
-		[JsonProperty("reportID")]
+		[JsonProperty("report_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ReportID { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("createDate")]
+		[JsonProperty("create_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime CreateDate { get; set; }
-		[JsonProperty("creator")]
+		[JsonProperty("creator", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Creator { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Status { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
-		[JsonProperty("inventoryDateReportItems")]
+		[JsonProperty("inventory_date_report_items", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<InventoryDateReportItemViewModel> InventoryDateReportItemsVM { get; set; }
 		
 		public InventoryDateReportViewModel(InventoryDateReport entity) : this()

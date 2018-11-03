@@ -52,6 +52,16 @@ namespace DataServiceTest.ViewModels
 			return G.Mapper.Map<E>(this);
 		}
 		
+		public virtual E ToEntity(bool copyToEntity)
+		{
+			if (Entity!=null)
+			{
+				if (copyToEntity) CopyTo(Entity);
+				return Entity;
+			}
+			return G.Mapper.Map<E>(this);
+		}
+		
 	}
 	
 }

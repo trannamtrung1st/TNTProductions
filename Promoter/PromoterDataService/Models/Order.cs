@@ -21,14 +21,16 @@ namespace PromoterDataService.Models
             this.PromotionAppliedDetails = new HashSet<PromotionAppliedDetail>();
         }
     
-        public int Id { get; set; }
-        public string Code { get; set; }
+        public int IID { get; set; }
+        public string SID { get; set; }
         public Nullable<double> TotalAmount { get; set; }
         public Nullable<double> FinalAmount { get; set; }
-        public Nullable<int> CustomerId { get; set; }
+        public Nullable<int> CustomerIID { get; set; }
+        public string CustomerSID { get; set; }
         public string CashierObject { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<int> StoreId { get; set; }
+        public Nullable<int> StoreIID { get; set; }
+        public string StoreSID { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Store Store { get; set; }

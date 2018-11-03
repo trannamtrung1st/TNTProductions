@@ -11,27 +11,27 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class RoomCategoryViewModel: BaseViewModel<RoomCategory>
 	{
-		[JsonProperty("categoryID")]
+		[JsonProperty("category_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CategoryID { get; set; }
-		[JsonProperty("categoryName")]
+		[JsonProperty("category_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CategoryName { get; set; }
-		[JsonProperty("iconUrl")]
+		[JsonProperty("icon_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string IconUrl { get; set; }
-		[JsonProperty("shortNane")]
+		[JsonProperty("short_nane", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ShortNane { get; set; }
-		[JsonProperty("priority")]
+		[JsonProperty("priority", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Priority { get; set; }
-		[JsonProperty("storeID")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreID { get; set; }
-		[JsonProperty("isDelete")]
+		[JsonProperty("is_delete", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsDelete { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
-		[JsonProperty("rooms")]
+		[JsonProperty("rooms", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<RoomViewModel> RoomsVM { get; set; }
-		[JsonProperty("roomCategoryPriceGroupMappings")]
+		[JsonProperty("room_category_price_group_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<RoomCategoryPriceGroupMappingViewModel> RoomCategoryPriceGroupMappingsVM { get; set; }
-		[JsonProperty("subRentGroups")]
+		[JsonProperty("sub_rent_groups", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<SubRentGroupViewModel> SubRentGroupsVM { get; set; }
 		
 		public RoomCategoryViewModel(RoomCategory entity) : this()

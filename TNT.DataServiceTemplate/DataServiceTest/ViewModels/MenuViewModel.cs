@@ -11,39 +11,39 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class MenuViewModel: BaseViewModel<Menu>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("menuText")]
+		[JsonProperty("menu_text", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MenuText { get; set; }
-		[JsonProperty("area")]
+		[JsonProperty("area", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Area { get; set; }
-		[JsonProperty("controller")]
+		[JsonProperty("controller", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Controller { get; set; }
-		[JsonProperty("action")]
+		[JsonProperty("action", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Action { get; set; }
-		[JsonProperty("iconCss")]
+		[JsonProperty("icon_css", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string IconCss { get; set; }
-		[JsonProperty("displayOrder")]
+		[JsonProperty("display_order", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int DisplayOrder { get; set; }
-		[JsonProperty("parentMenuId")]
+		[JsonProperty("parent_menu_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ParentMenuId { get; set; }
-		[JsonProperty("menuLevel")]
+		[JsonProperty("menu_level", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int MenuLevel { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Status { get; set; }
-		[JsonProperty("menuTypeCode")]
+		[JsonProperty("menu_type_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int MenuTypeCode { get; set; }
-		[JsonProperty("featureCode")]
+		[JsonProperty("feature_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> FeatureCode { get; set; }
-		[JsonProperty("menuState")]
+		[JsonProperty("menu_state", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MenuState { get; set; }
-		[JsonProperty("menuUrlCode")]
+		[JsonProperty("menu_url_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MenuUrlCode { get; set; }
-		[JsonProperty("menu2")]
+		[JsonProperty("menu2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public MenuViewModel Menu2VM { get; set; }
-		[JsonProperty("aspNetRoles")]
+		[JsonProperty("asp_net_roles", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public AspNetRoleViewModel AspNetRolesVM { get; set; }
-		[JsonProperty("menu1")]
+		[JsonProperty("menu1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<MenuViewModel> Menu1VM { get; set; }
 		
 		public MenuViewModel(Menu entity) : this()

@@ -11,49 +11,49 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ContactViewModel: BaseViewModel<Contact>
 	{
-		[JsonProperty("iD")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ID { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("gender")]
+		[JsonProperty("gender", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> Gender { get; set; }
-		[JsonProperty("email")]
+		[JsonProperty("email", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Email { get; set; }
-		[JsonProperty("profileUrl")]
+		[JsonProperty("profile_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ProfileUrl { get; set; }
-		[JsonProperty("birthday")]
+		[JsonProperty("birthday", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> Birthday { get; set; }
-		[JsonProperty("imageUrl")]
+		[JsonProperty("image_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ImageUrl { get; set; }
-		[JsonProperty("phone")]
+		[JsonProperty("phone", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Phone { get; set; }
-		[JsonProperty("createDate")]
+		[JsonProperty("create_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> CreateDate { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("username")]
+		[JsonProperty("username", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Username { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BrandId { get; set; }
-		[JsonProperty("address")]
+		[JsonProperty("address", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Address { get; set; }
-		[JsonProperty("organization")]
+		[JsonProperty("organization", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Organization { get; set; }
-		[JsonProperty("job")]
+		[JsonProperty("job", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Job { get; set; }
-		[JsonProperty("position")]
+		[JsonProperty("position", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Position { get; set; }
-		[JsonProperty("firstLocationId")]
+		[JsonProperty("first_location_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> FirstLocationId { get; set; }
-		[JsonProperty("fax")]
+		[JsonProperty("fax", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Fax { get; set; }
-		[JsonProperty("totalVisted")]
+		[JsonProperty("total_visted", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> TotalVisted { get; set; }
-		[JsonProperty("typeContactFrom")]
+		[JsonProperty("type_contact_from", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> TypeContactFrom { get; set; }
-		[JsonProperty("lastVisted")]
+		[JsonProperty("last_visted", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> LastVisted { get; set; }
-		[JsonProperty("brand")]
+		[JsonProperty("brand", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public BrandViewModel BrandVM { get; set; }
 		
 		public ContactViewModel(Contact entity) : this()

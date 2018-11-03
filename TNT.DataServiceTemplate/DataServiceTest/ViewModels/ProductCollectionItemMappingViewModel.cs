@@ -11,19 +11,19 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ProductCollectionItemMappingViewModel: BaseViewModel<ProductCollectionItemMapping>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("productCollectionId")]
+		[JsonProperty("product_collection_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProductCollectionId { get; set; }
-		[JsonProperty("productId")]
+		[JsonProperty("product_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProductId { get; set; }
-		[JsonProperty("position")]
+		[JsonProperty("position", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Position { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("product")]
+		[JsonProperty("product", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductViewModel ProductVM { get; set; }
-		[JsonProperty("productCollection")]
+		[JsonProperty("product_collection", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductCollectionViewModel ProductCollectionVM { get; set; }
 		
 		public ProductCollectionItemMappingViewModel(ProductCollectionItemMapping entity) : this()

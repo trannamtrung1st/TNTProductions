@@ -11,21 +11,21 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class PartnerMappingViewModel: BaseViewModel<PartnerMapping>
 	{
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BrandId { get; set; }
-		[JsonProperty("partnerId")]
+		[JsonProperty("partner_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> PartnerId { get; set; }
-		[JsonProperty("config")]
+		[JsonProperty("config", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Config { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> Status { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> Active { get; set; }
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("brand")]
+		[JsonProperty("brand", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public BrandViewModel BrandVM { get; set; }
-		[JsonProperty("partner")]
+		[JsonProperty("partner", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public PartnerViewModel PartnerVM { get; set; }
 		
 		public PartnerMappingViewModel(PartnerMapping entity) : this()

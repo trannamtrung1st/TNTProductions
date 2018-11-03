@@ -84,28 +84,28 @@ namespace PromoterDataService.Models.Repositories
 		public override Promotion FindById(int key)
 		{
 			var entity = context.Promotions.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override Promotion FindActiveById(int key)
 		{
 			var entity = context.Promotions.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<Promotion> FindByIdAsync(int key)
 		{
 			var entity = await context.Promotions.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<Promotion> FindActiveByIdAsync(int key)
 		{
 			var entity = await context.Promotions.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
@@ -118,7 +118,7 @@ namespace PromoterDataService.Models.Repositories
 			}
 			
 			return dbSet.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 		}
 		
 		public override async Task<Promotion> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<Promotion, TProperty>>[] members)
@@ -130,7 +130,7 @@ namespace PromoterDataService.Models.Repositories
 			}
 			
 			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 		}
 		
 		public override Promotion Activate(Promotion entity)

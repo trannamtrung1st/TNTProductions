@@ -21,18 +21,19 @@ namespace PromoterDataService.Models
             this.Vouchers = new HashSet<Voucher>();
         }
     
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public Nullable<int> ValidationRuleId { get; set; }
-        public string VoucherConfig { get; set; }
+        public Nullable<int> VoucherConfigID { get; set; }
         public Nullable<int> VoucherQuantity { get; set; }
         public Nullable<int> VoucherAvailableQuantity { get; set; }
         public string MetadataObject { get; set; }
-        public Nullable<bool> Deactive { get; set; }
+        public Nullable<bool> Active { get; set; }
     
         public virtual ValidationRule ValidationRule { get; set; }
+        public virtual VoucherConfig VoucherConfig { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Promotion> Promotions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

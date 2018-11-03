@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class LanguageKeyViewModel: BaseViewModel<LanguageKey>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
-		[JsonProperty("languageValues")]
+		[JsonProperty("language_values", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<LanguageValueViewModel> LanguageValuesVM { get; set; }
 		
 		public LanguageKeyViewModel(LanguageKey entity) : this()

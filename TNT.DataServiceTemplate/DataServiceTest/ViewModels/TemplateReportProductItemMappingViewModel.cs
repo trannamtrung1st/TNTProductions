@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class TemplateReportProductItemMappingViewModel: BaseViewModel<TemplateReportProductItemMapping>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("inventoryTemplateReportId")]
+		[JsonProperty("inventory_template_report_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int InventoryTemplateReportId { get; set; }
-		[JsonProperty("productItemId")]
+		[JsonProperty("product_item_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProductItemId { get; set; }
-		[JsonProperty("mappingIndex")]
+		[JsonProperty("mapping_index", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int MappingIndex { get; set; }
-		[JsonProperty("inventoryTemplateReport")]
+		[JsonProperty("inventory_template_report", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public InventoryTemplateReportViewModel InventoryTemplateReportVM { get; set; }
-		[JsonProperty("productItem")]
+		[JsonProperty("product_item", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductItemViewModel ProductItemVM { get; set; }
 		
 		public TemplateReportProductItemMappingViewModel(TemplateReportProductItemMapping entity) : this()

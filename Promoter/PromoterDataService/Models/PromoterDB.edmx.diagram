@@ -4,46 +4,69 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="49d763f6a2914794844e8bc7c14c0faa" Name="Diagram1" ZoomLevel="82">
-        <EntityTypeShape EntityType="PromoterModel.Campaign" Width="1.5" PointX="3" PointY="5.625" />
-        <EntityTypeShape EntityType="PromoterModel.Customer" Width="1.5" PointX="2.75" PointY="17" />
-        <EntityTypeShape EntityType="PromoterModel.CustomerSegment" Width="1.5" PointX="5" PointY="19.875" />
-        <EntityTypeShape EntityType="PromoterModel.Event" Width="1.5" PointX="5" PointY="15.625" />
-        <EntityTypeShape EntityType="PromoterModel.Order" Width="1.5" PointX="8" PointY="17.125" />
-        <EntityTypeShape EntityType="PromoterModel.OrderItem" Width="1.5" PointX="10.25" PointY="17.5" />
-        <EntityTypeShape EntityType="PromoterModel.Product" Width="1.5" PointX="8" PointY="13.375" />
-        <EntityTypeShape EntityType="PromoterModel.Promotion" Width="1.5" PointX="8.25" PointY="5.5" />
-        <EntityTypeShape EntityType="PromoterModel.PromotionAppliedDetail" Width="1.5" PointX="12.5" PointY="20.75" />
-        <EntityTypeShape EntityType="PromoterModel.PromotionDetail" Width="1.5" PointX="6" PointY="0.75" />
-        <EntityTypeShape EntityType="PromoterModel.Redemption" Width="1.5" PointX="5" PointY="26.125" />
-        <EntityTypeShape EntityType="PromoterModel.RedemptionRollback" Width="1.5" PointX="7.25" PointY="21.5" />
-        <EntityTypeShape EntityType="PromoterModel.Segment" Width="1.5" PointX="2.75" PointY="21.875" />
-        <EntityTypeShape EntityType="PromoterModel.Store" Width="1.5" PointX="5.75" PointY="11.5" />
-        <EntityTypeShape EntityType="PromoterModel.ValidationRule" Width="1.5" PointX="0.75" PointY="3.875" />
-        <EntityTypeShape EntityType="PromoterModel.Voucher" Width="1.5" PointX="5.25" PointY="5.5" />
-        <AssociationConnector Association="PromoterModel.FK_Campaign_ValidationRule" />
-        <AssociationConnector Association="PromoterModel.FK_Promotion_Campaign" />
-        <AssociationConnector Association="PromoterModel.FK_Voucher_Campaign" />
-        <AssociationConnector Association="PromoterModel.FK_CustomerSegment_Customer" />
-        <AssociationConnector Association="PromoterModel.FK_Event_Customer" />
-        <AssociationConnector Association="PromoterModel.FK_Order_Customer" />
-        <AssociationConnector Association="PromoterModel.FK_Redemption_Customer" />
-        <AssociationConnector Association="PromoterModel.FK_RedemptionRollback_Customer" />
-        <AssociationConnector Association="PromoterModel.FK_CustomerSegment_Segment" />
-        <AssociationConnector Association="PromoterModel.FK_Order_Store" />
-        <AssociationConnector Association="PromoterModel.FK_OrderItem_Order" />
-        <AssociationConnector Association="PromoterModel.FK_PromotionAppliedDetail_Order" />
-        <AssociationConnector Association="PromoterModel.FK_OrderItem_Product" />
-        <AssociationConnector Association="PromoterModel.FK_PromotionAppliedDetail_OrderItem" />
-        <AssociationConnector Association="PromoterModel.FK_Product_Product" />
-        <AssociationConnector Association="PromoterModel.FK_Promotion_PromotionDetail" />
-        <AssociationConnector Association="PromoterModel.FK_Promotion_ValidationRule" />
-        <AssociationConnector Association="PromoterModel.FK_PromotionAppliedDetail_Redemption" />
-        <AssociationConnector Association="PromoterModel.FK_PromotionAppliedDetail_RedemptionRollback" />
-        <AssociationConnector Association="PromoterModel.FK_Voucher_PromotionDetail" />
-        <AssociationConnector Association="PromoterModel.FK_RedemptionRollback_Redemption" />
-        <AssociationConnector Association="PromoterModel.FK_ValidationRule_ValidationRule" />
-        <AssociationConnector Association="PromoterModel.FK_Voucher_ValidationRule" />
+      <Diagram DiagramId="49d763f6a2914794844e8bc7c14c0faa" Name="Diagram1" ZoomLevel="41">
+        <EntityTypeShape EntityType="PromoterModel.AffliatorCashbackDetail" Width="1.5" PointX="13.5" PointY="27" />
+        <EntityTypeShape EntityType="PromoterModel.Campaign" Width="1.5" PointX="8.25" PointY="12.375" />
+        <EntityTypeShape EntityType="PromoterModel.Customer" Width="1.5" PointX="3.75" PointY="5.125" />
+        <EntityTypeShape EntityType="PromoterModel.CustomerCashbackDetail" Width="1.5" PointX="13.5" PointY="36.125" />
+        <EntityTypeShape EntityType="PromoterModel.CustomerSegment" Width="1.5" PointX="6" PointY="10" />
+        <EntityTypeShape EntityType="PromoterModel.Event" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="PromoterModel.GiftAppliedDetail" Width="1.5" PointX="18" PointY="13.125" />
+        <EntityTypeShape EntityType="PromoterModel.GiftDetail" Width="1.5" PointX="16.5" PointY="18.625" />
+        <EntityTypeShape EntityType="PromoterModel.Order" Width="1.5" PointX="13.5" PointY="18.75" />
+        <EntityTypeShape EntityType="PromoterModel.OrderItem" Width="1.5" PointX="13.5" PointY="32" />
+        <EntityTypeShape EntityType="PromoterModel.Partner" Width="1.5" PointX="6" PointY="5.125" />
+        <EntityTypeShape EntityType="PromoterModel.Product" Width="1.5" PointX="11.25" PointY="31.875" />
+        <EntityTypeShape EntityType="PromoterModel.Promotion" Width="1.5" PointX="10.5" PointY="12.25" />
+        <EntityTypeShape EntityType="PromoterModel.PromotionAppliedDetail" Width="1.5" PointX="15.75" PointY="11.375" />
+        <EntityTypeShape EntityType="PromoterModel.PromotionDetail" Width="1.5" PointX="8.25" PointY="4" />
+        <EntityTypeShape EntityType="PromoterModel.PromotionStoreRule" Width="1.5" PointX="5.25" PointY="13.125" />
+        <EntityTypeShape EntityType="PromoterModel.Redemption" Width="1.5" PointX="13.5" PointY="41" />
+        <EntityTypeShape EntityType="PromoterModel.RedemptionRollback" Width="1.5" PointX="13.5" PointY="23.125" />
+        <EntityTypeShape EntityType="PromoterModel.Segment" Width="1.5" PointX="0.75" PointY="10" />
+        <EntityTypeShape EntityType="PromoterModel.Store" Width="1.5" PointX="11.25" PointY="19.125" />
+        <EntityTypeShape EntityType="PromoterModel.ValidationRule" Width="1.5" PointX="3" PointY="9.875" />
+        <EntityTypeShape EntityType="PromoterModel.Voucher" Width="1.5" PointX="13.5" PointY="12.125" />
+        <EntityTypeShape EntityType="PromoterModel.VoucherConfig" Width="1.5" PointX="6" PointY="17" />
+        <AssociationConnector Association="PromoterModel.FK_Info_PromotionAppliedDetail_Promotion_AffliatorCashbackDetail" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_AffliatorCashbackDetail_Promotion_PromotionDetail" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_Campaign_Promotion_ValidationRule" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_Campaign_Promotion_VoucherConfig" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_Promotion_Promotion_Campaign" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_Voucher_Promotion_Campaign" />
+        <AssociationConnector Association="PromoterModel.FK_Info_CustomerSegment_Info_Customer" />
+        <AssociationConnector Association="PromoterModel.FK_Info_Event_Info_Customer" />
+        <AssociationConnector Association="PromoterModel.FK_Info_Order_Info_Customer" />
+        <AssociationConnector Association="PromoterModel.FK_Info_Redemption_Info_Customer" />
+        <AssociationConnector Association="PromoterModel.FK_Info_RedemptionRollback_Info_Customer" />
+        <AssociationConnector Association="PromoterModel.FK_Info_PromotionAppliedDetail_Promotion_CashbackDetail" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_CustomerCashbackDetail_Promotion_PromotionDetail" />
+        <AssociationConnector Association="PromoterModel.FK_Info_CustomerSegment_Info_Segment" />
+        <AssociationConnector Association="PromoterModel.FK_Info_GiftAppliedDetails_Info_Product" />
+        <AssociationConnector Association="PromoterModel.FK_Info_GiftAppliedDetails_Info_PromotionAppliedDetail" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_GiftDetails_Info_Product" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_GiftDetails_Promotion_PromotionDetail" />
+        <AssociationConnector Association="PromoterModel.FK_Info_Order_Info_Store" />
+        <AssociationConnector Association="PromoterModel.FK_Info_OrderItem_Info_Order" />
+        <AssociationConnector Association="PromoterModel.FK_Info_PromotionAppliedDetail_Info_Order" />
+        <AssociationConnector Association="PromoterModel.FK_Info_OrderItem_Info_Product" />
+        <AssociationConnector Association="PromoterModel.FK_Info_PromotionAppliedDetail_Info_OrderItem" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_PromotionDetail_Promotion_Partner" />
+        <AssociationConnector Association="PromoterModel.FK_Info_Product_Info_Product" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_Promotion_Promotion_PromotionDetail" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_Promotion_Promotion_ValidationRule" />
+        <AssociationConnector Association="PromoterModel.FK_Info_PromotionAppliedDetail_Info_Redemption" />
+        <AssociationConnector Association="PromoterModel.FK_Info_PromotionAppliedDetail_Info_RedemptionRollback" />
+        <AssociationConnector Association="PromoterModel.FK_Info_PromotionAppliedDetail_Promotion_Voucher" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_Voucher_Promotion_PromotionDetail" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_PromotionStoreRules_Info_Store" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_PromotionStoreRules_Promotion_ValidationRule" />
+        <AssociationConnector Association="PromoterModel.FK_Info_RedemptionRollback_Info_Redemption" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_ValidationRule_Info_Segment" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_ValidationRule_Info_Segment1" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_ValidationRule_Promotion_ValidationRule" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_Voucher_Promotion_ValidationRule" />
+        <AssociationConnector Association="PromoterModel.FK_Promotion_Voucher_Promotion_VoucherConfig" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

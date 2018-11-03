@@ -11,43 +11,43 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class TimeFrameViewModel: BaseViewModel<TimeFrame>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("startTime")]
+		[JsonProperty("start_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public System.TimeSpan StartTime { get; set; }
-		[JsonProperty("endTime")]
+		[JsonProperty("end_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public System.TimeSpan EndTime { get; set; }
-		[JsonProperty("duration")]
+		[JsonProperty("duration", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public System.TimeSpan Duration { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("employeeGroupId")]
+		[JsonProperty("employee_group_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> EmployeeGroupId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("breakTime")]
+		[JsonProperty("break_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public System.TimeSpan BreakTime { get; set; }
-		[JsonProperty("isOverTime")]
+		[JsonProperty("is_over_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsOverTime { get; set; }
-		[JsonProperty("inMode")]
+		[JsonProperty("in_mode", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int InMode { get; set; }
-		[JsonProperty("outMode")]
+		[JsonProperty("out_mode", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int OutMode { get; set; }
-		[JsonProperty("breakCount")]
+		[JsonProperty("break_count", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BreakCount { get; set; }
-		[JsonProperty("checkInExpandTime")]
+		[JsonProperty("check_in_expand_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<System.TimeSpan> CheckInExpandTime { get; set; }
-		[JsonProperty("checkOutExpandTime")]
+		[JsonProperty("check_out_expand_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<System.TimeSpan> CheckOutExpandTime { get; set; }
-		[JsonProperty("storeFilter")]
+		[JsonProperty("store_filter", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreFilter { get; set; }
-		[JsonProperty("comeLateExpandTime")]
+		[JsonProperty("come_late_expand_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<System.TimeSpan> ComeLateExpandTime { get; set; }
-		[JsonProperty("leaveEarlyExpandTime")]
+		[JsonProperty("leave_early_expand_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<System.TimeSpan> LeaveEarlyExpandTime { get; set; }
-		[JsonProperty("employeeGroup")]
+		[JsonProperty("employee_group", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public EmployeeGroupViewModel EmployeeGroupVM { get; set; }
 		
 		public TimeFrameViewModel(TimeFrame entity) : this()

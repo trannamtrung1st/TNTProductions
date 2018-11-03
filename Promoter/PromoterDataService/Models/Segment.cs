@@ -18,14 +18,20 @@ namespace PromoterDataService.Models
         public Segment()
         {
             this.CustomerSegments = new HashSet<CustomerSegment>();
+            this.ValidationRules = new HashSet<ValidationRule>();
+            this.ValidationRules1 = new HashSet<ValidationRule>();
         }
     
-        public int Id { get; set; }
-        public string Code { get; set; }
+        public int IID { get; set; }
+        public string SID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerSegment> CustomerSegments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ValidationRule> ValidationRules { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ValidationRule> ValidationRules1 { get; set; }
     }
 }

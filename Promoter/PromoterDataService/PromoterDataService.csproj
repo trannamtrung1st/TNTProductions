@@ -82,7 +82,8 @@
     <Reference Include="TNT.DataServiceTemplate">
       <HintPath>..\..\TNT.DataServiceTemplate\TNT.DataServiceTemplate\bin\Debug\TNT.DataServiceTemplate.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Helpers">
+    <Reference Include="TNT.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\TNT.Helpers\TNT.Helpers\bin\Debug\TNT.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="TNT.IoContainer">
@@ -112,19 +113,31 @@
     <Compile Include="Managers\UnitOfWork.cs">
       <DependentUpon>ManagerGen.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AffliatorCashbackDetail.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Campaign.cs">
       <DependentUpon>PromoterDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs">
       <DependentUpon>PromoterDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomerCashbackDetail.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CustomerSegment.cs">
       <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\AffliatorCashbackDetailDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Domains\BaseDomain.cs">
       <DependentUpon>DomainGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Domains\CampaignDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\CustomerCashbackDetailDomain.cs">
       <DependentUpon>DomainGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Domains\CustomerDomain.cs">
@@ -141,10 +154,19 @@
     <Compile Include="Models\Domains\EventDomain.cs">
       <DependentUpon>DomainGen.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Domains\GiftAppliedDetailDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\GiftDetailDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Domains\OrderDomain.cs">
       <DependentUpon>DomainGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Domains\OrderItemDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PartnerDomain.cs">
       <DependentUpon>DomainGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Domains\ProductDomain.cs">
@@ -157,6 +179,9 @@
       <DependentUpon>DomainGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Domains\PromotionDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Domains\PromotionStoreRuleDomain.cs">
       <DependentUpon>DomainGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Domains\RedemptionDomain.cs">
@@ -174,14 +199,22 @@
     <Compile Include="Models\Domains\ValidationRuleDomain.cs">
       <DependentUpon>DomainGen.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Domains\VoucherConfigDomain.cs">
+      <DependentUpon>DomainGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Domains\VoucherDomain.cs">
       <DependentUpon>DomainGen.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Domains\VoucherDomainExtension.cs" />
     <Compile Include="Models\Event.cs">
       <DependentUpon>PromoterDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Extensions\AffliatorCashbackDetailExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Extensions\CampaignExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CustomerCashbackDetailExtension.cs">
       <DependentUpon>ExtensionGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Extensions\CustomerExtension.cs">
@@ -201,10 +234,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExtensionGen.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Extensions\GiftAppliedDetailExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\GiftDetailExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Extensions\OrderExtension.cs">
       <DependentUpon>ExtensionGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Extensions\OrderItemExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PartnerExtension.cs">
       <DependentUpon>ExtensionGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Extensions\ProductExtension.cs">
@@ -217,6 +259,9 @@
       <DependentUpon>ExtensionGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Extensions\PromotionExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PromotionStoreRuleExtension.cs">
       <DependentUpon>ExtensionGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Extensions\RedemptionExtension.cs">
@@ -234,13 +279,25 @@
     <Compile Include="Models\Extensions\ValidationRuleExtension.cs">
       <DependentUpon>ExtensionGen.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Extensions\VoucherConfigExtension.cs">
+      <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Extensions\VoucherExtension.cs">
       <DependentUpon>ExtensionGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiftAppliedDetail.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GiftDetail.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Order.cs">
       <DependentUpon>PromoterDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OrderItem.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Partner.cs">
       <DependentUpon>PromoterDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Product.cs">
@@ -270,16 +327,25 @@
     <Compile Include="Models\PromotionDetail.cs">
       <DependentUpon>PromoterDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PromotionStoreRule.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Redemption.cs">
       <DependentUpon>PromoterDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RedemptionRollback.cs">
       <DependentUpon>PromoterDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repositories\AffliatorCashbackDetailRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Repositories\BaseRepository.cs">
       <DependentUpon>RepositoryGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repositories\CampaignRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\CustomerCashbackDetailRepository.cs">
       <DependentUpon>RepositoryGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repositories\CustomerRepository.cs">
@@ -291,10 +357,19 @@
     <Compile Include="Models\Repositories\EventRepository.cs">
       <DependentUpon>RepositoryGen.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repositories\GiftAppliedDetailRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\GiftDetailRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Repositories\OrderItemRepository.cs">
       <DependentUpon>RepositoryGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repositories\OrderRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PartnerRepository.cs">
       <DependentUpon>RepositoryGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repositories\ProductRepository.cs">
@@ -307,6 +382,9 @@
       <DependentUpon>RepositoryGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repositories\PromotionRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PromotionStoreRuleRepository.cs">
       <DependentUpon>RepositoryGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repositories\RedemptionRepository.cs">
@@ -329,11 +407,17 @@
     <Compile Include="Models\Repositories\ValidationRuleRepository.cs">
       <DependentUpon>RepositoryGen.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repositories\VoucherConfigRepository.cs">
+      <DependentUpon>RepositoryGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Repositories\VoucherRepository.cs">
       <DependentUpon>RepositoryGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Segment.cs">
       <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\AffliatorCashbackDetailService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Services\BaseService.cs">
       <DependentUpon>ServiceGen.tt</DependentUpon>
@@ -341,7 +425,9 @@
     <Compile Include="Models\Services\CampaignService.cs">
       <DependentUpon>ServiceGen.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Services\CampaignServiceExtension.cs" />
+    <Compile Include="Models\Services\CustomerCashbackDetailService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Services\CustomerSegmentService.cs">
       <DependentUpon>ServiceGen.tt</DependentUpon>
     </Compile>
@@ -351,10 +437,19 @@
     <Compile Include="Models\Services\EventService.cs">
       <DependentUpon>ServiceGen.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Services\GiftAppliedDetailService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\GiftDetailService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Services\OrderItemService.cs">
       <DependentUpon>ServiceGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Services\OrderService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PartnerService.cs">
       <DependentUpon>ServiceGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Services\ProductService.cs">
@@ -367,6 +462,9 @@
       <DependentUpon>ServiceGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Services\PromotionService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Services\PromotionStoreRuleService.cs">
       <DependentUpon>ServiceGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Services\RedemptionRollbackService.cs">
@@ -389,6 +487,9 @@
     <Compile Include="Models\Services\ValidationRuleService.cs">
       <DependentUpon>ServiceGen.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Services\VoucherConfigService.cs">
+      <DependentUpon>ServiceGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Services\VoucherService.cs">
       <DependentUpon>ServiceGen.tt</DependentUpon>
     </Compile>
@@ -401,10 +502,12 @@
     <Compile Include="Models\Voucher.cs">
       <DependentUpon>PromoterDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VoucherConfig.cs" />
+    <Compile Include="Models\VoucherConfig.cs">
+      <DependentUpon>PromoterDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\DefaultUtilities.cs">
+    <Compile Include="Utilities\GeneralUtils.cs">
       <DependentUpon>UtilityGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\UtilityGen.cs">
@@ -412,10 +515,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UtilityGen.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AffliatorCashbackDetailViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\BaseViewModel.cs">
       <DependentUpon>ViewModelGen.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CampaignViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerCashbackDetailViewModel.cs">
       <DependentUpon>ViewModelGen.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\CustomerSegmentViewModel.cs">
@@ -427,10 +536,19 @@
     <Compile Include="ViewModels\EventViewModel.cs">
       <DependentUpon>ViewModelGen.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\GiftAppliedDetailViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\GiftDetailViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\OrderItemViewModel.cs">
       <DependentUpon>ViewModelGen.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\OrderViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PartnerViewModel.cs">
       <DependentUpon>ViewModelGen.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ProductViewModel.cs">
@@ -440,6 +558,9 @@
       <DependentUpon>ViewModelGen.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\PromotionDetailViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PromotionStoreRuleViewModel.cs">
       <DependentUpon>ViewModelGen.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\PromotionViewModel.cs">
@@ -465,10 +586,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ViewModelGen.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\VoucherConfigViewModel.cs">
+      <DependentUpon>ViewModelGen.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\VoucherViewModel.cs">
       <DependentUpon>ViewModelGen.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\VoucherViewModelExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -480,6 +603,7 @@
       <DependentUpon>PromoterDB.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="result.json" />
     <None Include="Templates\PromoterDataService.ttinclude" />
   </ItemGroup>
   <ItemGroup>

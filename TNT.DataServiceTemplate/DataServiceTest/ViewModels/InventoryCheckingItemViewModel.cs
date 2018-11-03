@@ -11,19 +11,19 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class InventoryCheckingItemViewModel: BaseViewModel<InventoryCheckingItem>
 	{
-		[JsonProperty("inventoryCheckingID")]
+		[JsonProperty("inventory_checking_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int InventoryCheckingID { get; set; }
-		[JsonProperty("itemID")]
+		[JsonProperty("item_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ItemID { get; set; }
-		[JsonProperty("checkingId")]
+		[JsonProperty("checking_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CheckingId { get; set; }
-		[JsonProperty("quantity")]
+		[JsonProperty("quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double Quantity { get; set; }
-		[JsonProperty("unit")]
+		[JsonProperty("unit", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Unit { get; set; }
-		[JsonProperty("price")]
+		[JsonProperty("price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> Price { get; set; }
-		[JsonProperty("inventoryChecking")]
+		[JsonProperty("inventory_checking", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public InventoryCheckingViewModel InventoryCheckingVM { get; set; }
 		
 		public InventoryCheckingItemViewModel(InventoryCheckingItem entity) : this()

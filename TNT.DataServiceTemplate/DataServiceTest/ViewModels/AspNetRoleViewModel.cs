@@ -11,13 +11,13 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class AspNetRoleViewModel: BaseViewModel<AspNetRole>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("aspNetUsers")]
+		[JsonProperty("asp_net_users", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<AspNetUserViewModel> AspNetUsersVM { get; set; }
-		[JsonProperty("menus")]
+		[JsonProperty("menus", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<MenuViewModel> MenusVM { get; set; }
 		
 		public AspNetRoleViewModel(AspNetRole entity) : this()

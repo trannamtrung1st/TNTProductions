@@ -14,20 +14,30 @@ namespace PromoterDataService.Models
     
     public partial class Voucher
     {
-        public int Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Voucher()
+        {
+            this.PromotionAppliedDetails = new HashSet<PromotionAppliedDetail>();
+        }
+    
+        public int ID { get; set; }
         public string Code { get; set; }
-        public Nullable<int> CampaignId { get; set; }
-        public Nullable<int> PromotionDetailId { get; set; }
-        public Nullable<int> ValidationRuleId { get; set; }
+        public Nullable<int> VoucherConfigID { get; set; }
+        public Nullable<int> CampaignID { get; set; }
+        public Nullable<int> ValidationRuleID { get; set; }
+        public Nullable<int> PromotionDetailID { get; set; }
         public string AssetsObject { get; set; }
         public string MetadataObject { get; set; }
         public Nullable<bool> IsGotten { get; set; }
         public Nullable<int> UsingTimes { get; set; }
         public Nullable<int> UsedTimes { get; set; }
-        public Nullable<bool> Deactive { get; set; }
+        public Nullable<bool> Active { get; set; }
     
         public virtual Campaign Campaign { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PromotionAppliedDetail> PromotionAppliedDetails { get; set; }
         public virtual PromotionDetail PromotionDetail { get; set; }
         public virtual ValidationRule ValidationRule { get; set; }
+        public virtual VoucherConfig VoucherConfig { get; set; }
     }
 }

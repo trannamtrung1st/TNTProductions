@@ -11,23 +11,23 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class MembershipCardTypeViewModel: BaseViewModel<MembershipCardType>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("typeName")]
+		[JsonProperty("type_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string TypeName { get; set; }
-		[JsonProperty("appendCode")]
+		[JsonProperty("append_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string AppendCode { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> Active { get; set; }
-		[JsonProperty("isMobile")]
+		[JsonProperty("is_mobile", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsMobile { get; set; }
-		[JsonProperty("typeLevel")]
+		[JsonProperty("type_level", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> TypeLevel { get; set; }
-		[JsonProperty("typePoint")]
+		[JsonProperty("type_point", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> TypePoint { get; set; }
-		[JsonProperty("membershipCards")]
+		[JsonProperty("membership_cards", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<MembershipCardViewModel> MembershipCardsVM { get; set; }
 		
 		public MembershipCardTypeViewModel(MembershipCardType entity) : this()

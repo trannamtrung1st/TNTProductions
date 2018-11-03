@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class RoomFloorViewModel: BaseViewModel<RoomFloor>
 	{
-		[JsonProperty("floorID")]
+		[JsonProperty("floor_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int FloorID { get; set; }
-		[JsonProperty("floorName")]
+		[JsonProperty("floor_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string FloorName { get; set; }
-		[JsonProperty("position")]
+		[JsonProperty("position", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Position { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("isDelete")]
+		[JsonProperty("is_delete", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsDelete { get; set; }
-		[JsonProperty("rooms")]
+		[JsonProperty("rooms", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<RoomViewModel> RoomsVM { get; set; }
 		
 		public RoomFloorViewModel(RoomFloor entity) : this()

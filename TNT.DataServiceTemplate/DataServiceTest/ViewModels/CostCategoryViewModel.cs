@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class CostCategoryViewModel: BaseViewModel<CostCategory>
 	{
-		[JsonProperty("catID")]
+		[JsonProperty("cat_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CatID { get; set; }
-		[JsonProperty("catName")]
+		[JsonProperty("cat_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CatName { get; set; }
-		[JsonProperty("type")]
+		[JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Type { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BrandId { get; set; }
-		[JsonProperty("costs")]
+		[JsonProperty("costs", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<CostViewModel> CostsVM { get; set; }
 		
 		public CostCategoryViewModel(CostCategory entity) : this()

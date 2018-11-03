@@ -11,25 +11,25 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class DateHotelReportViewModel: BaseViewModel<DateHotelReport>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("date")]
+		[JsonProperty("date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime Date { get; set; }
-		[JsonProperty("createBy")]
+		[JsonProperty("create_by", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CreateBy { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Status { get; set; }
-		[JsonProperty("storeID")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreID { get; set; }
-		[JsonProperty("totalAmount")]
+		[JsonProperty("total_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double TotalAmount { get; set; }
-		[JsonProperty("discount")]
+		[JsonProperty("discount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double Discount { get; set; }
-		[JsonProperty("finalAmount")]
+		[JsonProperty("final_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double FinalAmount { get; set; }
-		[JsonProperty("totalOrderDetail")]
+		[JsonProperty("total_order_detail", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double TotalOrderDetail { get; set; }
-		[JsonProperty("totalOrderFeeItem")]
+		[JsonProperty("total_order_fee_item", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double TotalOrderFeeItem { get; set; }
 		
 		public DateHotelReportViewModel(DateHotelReport entity) : this()

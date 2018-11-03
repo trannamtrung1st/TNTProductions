@@ -19,14 +19,15 @@ namespace PromoterDataService.Models
         {
             this.Campaigns = new HashSet<Campaign>();
             this.Promotions = new HashSet<Promotion>();
+            this.PromotionStoreRules = new HashSet<PromotionStoreRule>();
             this.ValidationRule1 = new HashSet<ValidationRule>();
             this.Vouchers = new HashSet<Voucher>();
         }
     
-        public int Id { get; set; }
+        public int ID { get; set; }
         public Nullable<int> SegmentRuleOp { get; set; }
-        public string InSegmentId { get; set; }
-        public string NotInSegmentId { get; set; }
+        public Nullable<int> InSegmentIID { get; set; }
+        public Nullable<int> NotInSegmentIID { get; set; }
         public Nullable<int> ProductRuleOp { get; set; }
         public string ProductCodePattern { get; set; }
         public Nullable<double> MinProductPrice { get; set; }
@@ -45,16 +46,25 @@ namespace PromoterDataService.Models
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> ExpirationDate { get; set; }
         public string ListApplyHours { get; set; }
-        public string ApplyStoresId { get; set; }
         public string ExceptDates { get; set; }
         public string ExceptDOWs { get; set; }
+        public Nullable<int> MembershipRuleOp { get; set; }
+        public Nullable<double> MinPoint { get; set; }
+        public Nullable<double> MaxPoint { get; set; }
+        public string MembershipCode { get; set; }
+        public string MembershipRegexCode { get; set; }
         public Nullable<int> AnotherRuleOp { get; set; }
-        public Nullable<int> AnotherRuleId { get; set; }
+        public Nullable<int> AnotherRuleID { get; set; }
+        public Nullable<bool> Active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Campaign> Campaigns { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Promotion> Promotions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PromotionStoreRule> PromotionStoreRules { get; set; }
+        public virtual Segment Segment { get; set; }
+        public virtual Segment Segment1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ValidationRule> ValidationRule1 { get; set; }
         public virtual ValidationRule ValidationRule2 { get; set; }

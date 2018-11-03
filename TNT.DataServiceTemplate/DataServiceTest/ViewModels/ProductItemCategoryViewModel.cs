@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ProductItemCategoryViewModel: BaseViewModel<ProductItemCategory>
 	{
-		[JsonProperty("cateID")]
+		[JsonProperty("cate_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CateID { get; set; }
-		[JsonProperty("cateName")]
+		[JsonProperty("cate_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CateName { get; set; }
-		[JsonProperty("type")]
+		[JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Type { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BrandId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("productItems")]
+		[JsonProperty("product_items", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ProductItemViewModel> ProductItemsVM { get; set; }
 		
 		public ProductItemCategoryViewModel(ProductItemCategory entity) : this()

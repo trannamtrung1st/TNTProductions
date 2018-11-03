@@ -11,25 +11,25 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class WebPageViewModel: BaseViewModel<WebPage>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("title")]
+		[JsonProperty("title", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Title { get; set; }
-		[JsonProperty("pageContent")]
+		[JsonProperty("page_content", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PageContent { get; set; }
-		[JsonProperty("pageTitle")]
+		[JsonProperty("page_title", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PageTitle { get; set; }
-		[JsonProperty("metaDescription")]
+		[JsonProperty("meta_description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MetaDescription { get; set; }
-		[JsonProperty("isActive")]
+		[JsonProperty("is_active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsActive { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreId { get; set; }
-		[JsonProperty("seoName")]
+		[JsonProperty("seo_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SeoName { get; set; }
-		[JsonProperty("metaKeyword")]
+		[JsonProperty("meta_keyword", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MetaKeyword { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
 		
 		public WebPageViewModel(WebPage entity) : this()

@@ -11,23 +11,23 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ImageCollectionItemViewModel: BaseViewModel<ImageCollectionItem>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("imageCollectionId")]
+		[JsonProperty("image_collection_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ImageCollectionId { get; set; }
-		[JsonProperty("title")]
+		[JsonProperty("title", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Title { get; set; }
-		[JsonProperty("imageUrl")]
+		[JsonProperty("image_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ImageUrl { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("position")]
+		[JsonProperty("position", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Position { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("link")]
+		[JsonProperty("link", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Link { get; set; }
-		[JsonProperty("imageCollection")]
+		[JsonProperty("image_collection", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ImageCollectionViewModel ImageCollectionVM { get; set; }
 		
 		public ImageCollectionItemViewModel(ImageCollectionItem entity) : this()

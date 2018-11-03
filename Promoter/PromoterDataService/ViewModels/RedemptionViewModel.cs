@@ -15,19 +15,21 @@ namespace PromoterDataService.ViewModels
 		public int Id { get; set; }
 		[JsonProperty("date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> Date { get; set; }
-		[JsonProperty("customerId", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public Nullable<int> CustomerId { get; set; }
-		[JsonProperty("metadataObject", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("customer_iid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public Nullable<int> CustomerIID { get; set; }
+		[JsonProperty("customer_sid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public string CustomerSID { get; set; }
+		[JsonProperty("metadata_object", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MetadataObject { get; set; }
 		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Status { get; set; }
-		[JsonProperty("failureCode", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("failure_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> FailureCode { get; set; }
 		[JsonProperty("customer", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public CustomerViewModel CustomerVM { get; set; }
-		[JsonProperty("promotionAppliedDetails", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("promotion_applied_details", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<PromotionAppliedDetailViewModel> PromotionAppliedDetailsVM { get; set; }
-		[JsonProperty("redemptionRollbacks", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("redemption_rollbacks", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<RedemptionRollbackViewModel> RedemptionRollbacksVM { get; set; }
 		
 		public RedemptionViewModel(Redemption entity) : this()

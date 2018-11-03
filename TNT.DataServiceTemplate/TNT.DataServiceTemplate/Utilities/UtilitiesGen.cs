@@ -41,7 +41,7 @@ namespace TNT.DataServiceTemplate.Utilities
         public void GenerateGeneralExtension()
         {
             GeneralExtension = new ContainerGen();
-            GeneralExtension.Signature = "public static class DefaultUtilities";
+            GeneralExtension.Signature = "public static partial class GeneralUtils";
             GeneralExtensionBody = GeneralExtension.Body;
 
             var m1 = new ContainerGen();

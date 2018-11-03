@@ -11,23 +11,23 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class InventoryReceiptItemViewModel: BaseViewModel<InventoryReceiptItem>
 	{
-		[JsonProperty("receiptID")]
+		[JsonProperty("receipt_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ReceiptID { get; set; }
-		[JsonProperty("itemID")]
+		[JsonProperty("item_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ItemID { get; set; }
-		[JsonProperty("quantity")]
+		[JsonProperty("quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double Quantity { get; set; }
-		[JsonProperty("price")]
+		[JsonProperty("price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double Price { get; set; }
-		[JsonProperty("dateExpired")]
+		[JsonProperty("date_expired", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> DateExpired { get; set; }
-		[JsonProperty("exportedDate")]
+		[JsonProperty("exported_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime ExportedDate { get; set; }
-		[JsonProperty("isUnit1")]
+		[JsonProperty("is_unit1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsUnit1 { get; set; }
-		[JsonProperty("inventoryReceipt")]
+		[JsonProperty("inventory_receipt", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public InventoryReceiptViewModel InventoryReceiptVM { get; set; }
-		[JsonProperty("productItem")]
+		[JsonProperty("product_item", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductItemViewModel ProductItemVM { get; set; }
 		
 		public InventoryReceiptItemViewModel(InventoryReceiptItem entity) : this()

@@ -11,19 +11,19 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class BlogPostImageViewModel: BaseViewModel<BlogPostImage>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("blogPostId")]
+		[JsonProperty("blog_post_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BlogPostId { get; set; }
-		[JsonProperty("title")]
+		[JsonProperty("title", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Title { get; set; }
-		[JsonProperty("imageUrl")]
+		[JsonProperty("image_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ImageUrl { get; set; }
-		[JsonProperty("position")]
+		[JsonProperty("position", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Position { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("blogPost")]
+		[JsonProperty("blog_post", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public BlogPostViewModel BlogPostVM { get; set; }
 		
 		public BlogPostImageViewModel(BlogPostImage entity) : this()

@@ -11,21 +11,21 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ViewCounterViewModel: BaseViewModel<ViewCounter>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("onlineCount")]
+		[JsonProperty("online_count", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int OnlineCount { get; set; }
-		[JsonProperty("todayCount")]
+		[JsonProperty("today_count", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int TodayCount { get; set; }
-		[JsonProperty("thisWeekCount")]
+		[JsonProperty("this_week_count", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ThisWeekCount { get; set; }
-		[JsonProperty("thisMonthCount")]
+		[JsonProperty("this_month_count", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ThisMonthCount { get; set; }
-		[JsonProperty("totalCount")]
+		[JsonProperty("total_count", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int TotalCount { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
 		
 		public ViewCounterViewModel(ViewCounter entity) : this()

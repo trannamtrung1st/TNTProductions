@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ImageCollectionViewModel: BaseViewModel<ImageCollection>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
-		[JsonProperty("imageCollectionItems")]
+		[JsonProperty("image_collection_items", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ImageCollectionItemViewModel> ImageCollectionItemsVM { get; set; }
 		
 		public ImageCollectionViewModel(ImageCollection entity) : this()

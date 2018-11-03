@@ -11,29 +11,29 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class OrderGroupViewModel: BaseViewModel<OrderGroup>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("code")]
+		[JsonProperty("code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Code { get; set; }
-		[JsonProperty("customerID")]
+		[JsonProperty("customer_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CustomerID { get; set; }
-		[JsonProperty("sourceID")]
+		[JsonProperty("source_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int SourceID { get; set; }
-		[JsonProperty("bookingDate")]
+		[JsonProperty("booking_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime BookingDate { get; set; }
-		[JsonProperty("getRoomDate")]
+		[JsonProperty("get_room_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> GetRoomDate { get; set; }
-		[JsonProperty("note")]
+		[JsonProperty("note", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Note { get; set; }
-		[JsonProperty("storeID")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreID { get; set; }
-		[JsonProperty("customer")]
+		[JsonProperty("customer", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public CustomerViewModel CustomerVM { get; set; }
-		[JsonProperty("guests")]
+		[JsonProperty("guests", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<GuestViewModel> GuestsVM { get; set; }
-		[JsonProperty("subRentGroups")]
+		[JsonProperty("sub_rent_groups", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<SubRentGroupViewModel> SubRentGroupsVM { get; set; }
 		
 		public OrderGroupViewModel(OrderGroup entity) : this()

@@ -11,10 +11,10 @@ namespace PromoterDataService.ViewModels
 {
 	public partial class CustomerViewModel: BaseViewModel<Customer>
 	{
-		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public int Id { get; set; }
-		[JsonProperty("code", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public string Code { get; set; }
+		[JsonProperty("iid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public int IID { get; set; }
+		[JsonProperty("sid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public string SID { get; set; }
 		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
 		[JsonProperty("email", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -25,11 +25,13 @@ namespace PromoterDataService.ViewModels
 		public string Address { get; set; }
 		[JsonProperty("phone", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Phone { get; set; }
-		[JsonProperty("metadataObject", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("metadata_object", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MetadataObject { get; set; }
-		[JsonProperty("createdTime", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("created_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> CreatedTime { get; set; }
-		[JsonProperty("customerSegments", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public Nullable<bool> Active { get; set; }
+		[JsonProperty("customer_segments", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<CustomerSegmentViewModel> CustomerSegmentsVM { get; set; }
 		[JsonProperty("events", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<EventViewModel> EventsVM { get; set; }
@@ -37,7 +39,7 @@ namespace PromoterDataService.ViewModels
 		public ICollection<OrderViewModel> OrdersVM { get; set; }
 		[JsonProperty("redemptions", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<RedemptionViewModel> RedemptionsVM { get; set; }
-		[JsonProperty("redemptionRollbacks", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("redemption_rollbacks", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<RedemptionRollbackViewModel> RedemptionRollbacksVM { get; set; }
 		
 		public CustomerViewModel(Customer entity) : this()

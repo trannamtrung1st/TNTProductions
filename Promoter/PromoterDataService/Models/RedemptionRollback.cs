@@ -20,10 +20,11 @@ namespace PromoterDataService.Models
             this.PromotionAppliedDetails = new HashSet<PromotionAppliedDetail>();
         }
     
-        public int Id { get; set; }
+        public int ID { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<int> CustomerId { get; set; }
-        public Nullable<int> RedemptionId { get; set; }
+        public Nullable<int> CustomerIID { get; set; }
+        public string CustomerSID { get; set; }
+        public Nullable<int> RedemptionID { get; set; }
         public string Reason { get; set; }
         public Nullable<bool> Status { get; set; }
         public Nullable<int> FailureCode { get; set; }

@@ -11,39 +11,39 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class CostViewModel: BaseViewModel<Cost>
 	{
-		[JsonProperty("costID")]
+		[JsonProperty("cost_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CostID { get; set; }
-		[JsonProperty("catID")]
+		[JsonProperty("cat_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CatID { get; set; }
-		[JsonProperty("costDescription")]
+		[JsonProperty("cost_description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CostDescription { get; set; }
-		[JsonProperty("costDate")]
+		[JsonProperty("cost_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime CostDate { get; set; }
-		[JsonProperty("amount")]
+		[JsonProperty("amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double Amount { get; set; }
-		[JsonProperty("costStatus")]
+		[JsonProperty("cost_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CostStatus { get; set; }
-		[JsonProperty("paidPerson")]
+		[JsonProperty("paid_person", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PaidPerson { get; set; }
-		[JsonProperty("loggedPerson")]
+		[JsonProperty("logged_person", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string LoggedPerson { get; set; }
-		[JsonProperty("approvedPerson")]
+		[JsonProperty("approved_person", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ApprovedPerson { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreId { get; set; }
-		[JsonProperty("costCategoryType")]
+		[JsonProperty("cost_category_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CostCategoryType { get; set; }
-		[JsonProperty("costCode")]
+		[JsonProperty("cost_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CostCode { get; set; }
-		[JsonProperty("costType")]
+		[JsonProperty("cost_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CostType { get; set; }
-		[JsonProperty("costCategory")]
+		[JsonProperty("cost_category", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public CostCategoryViewModel CostCategoryVM { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
-		[JsonProperty("costInventoryMappings")]
+		[JsonProperty("cost_inventory_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<CostInventoryMappingViewModel> CostInventoryMappingsVM { get; set; }
-		[JsonProperty("payments")]
+		[JsonProperty("payments", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<PaymentViewModel> PaymentsVM { get; set; }
 		
 		public CostViewModel(Cost entity) : this()

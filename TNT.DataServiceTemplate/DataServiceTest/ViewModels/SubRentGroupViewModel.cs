@@ -11,29 +11,29 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class SubRentGroupViewModel: BaseViewModel<SubRentGroup>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("roomType")]
+		[JsonProperty("room_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int RoomType { get; set; }
-		[JsonProperty("fromDate")]
+		[JsonProperty("from_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime FromDate { get; set; }
-		[JsonProperty("toDate")]
+		[JsonProperty("to_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime ToDate { get; set; }
-		[JsonProperty("quantity")]
+		[JsonProperty("quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Quantity { get; set; }
-		[JsonProperty("servicedQuantity")]
+		[JsonProperty("serviced_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ServicedQuantity { get; set; }
-		[JsonProperty("rentGroupID")]
+		[JsonProperty("rent_group_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int RentGroupID { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Status { get; set; }
-		[JsonProperty("sourceId")]
+		[JsonProperty("source_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> SourceId { get; set; }
-		[JsonProperty("orderGroup")]
+		[JsonProperty("order_group", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public OrderGroupViewModel OrderGroupVM { get; set; }
-		[JsonProperty("roomCategory")]
+		[JsonProperty("room_category", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public RoomCategoryViewModel RoomCategoryVM { get; set; }
 		
 		public SubRentGroupViewModel(SubRentGroup entity) : this()

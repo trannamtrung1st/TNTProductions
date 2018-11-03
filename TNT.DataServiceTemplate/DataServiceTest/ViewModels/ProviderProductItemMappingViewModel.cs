@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ProviderProductItemMappingViewModel: BaseViewModel<ProviderProductItemMapping>
 	{
-		[JsonProperty("providerProductItemId")]
+		[JsonProperty("provider_product_item_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProviderProductItemId { get; set; }
-		[JsonProperty("providerID")]
+		[JsonProperty("provider_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProviderID { get; set; }
-		[JsonProperty("productItemID")]
+		[JsonProperty("product_item_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProductItemID { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("productItem")]
+		[JsonProperty("product_item", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductItemViewModel ProductItemVM { get; set; }
-		[JsonProperty("provider")]
+		[JsonProperty("provider", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProviderViewModel ProviderVM { get; set; }
 		
 		public ProviderProductItemMappingViewModel(ProviderProductItemMapping entity) : this()

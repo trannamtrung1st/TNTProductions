@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class InventoryCheckingViewModel: BaseViewModel<InventoryChecking>
 	{
-		[JsonProperty("checkingId")]
+		[JsonProperty("checking_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CheckingId { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("checkingDate")]
+		[JsonProperty("checking_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime CheckingDate { get; set; }
-		[JsonProperty("creator")]
+		[JsonProperty("creator", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Creator { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Status { get; set; }
-		[JsonProperty("inventoryCheckingItems")]
+		[JsonProperty("inventory_checking_items", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<InventoryCheckingItemViewModel> InventoryCheckingItemsVM { get; set; }
 		
 		public InventoryCheckingViewModel(InventoryChecking entity) : this()

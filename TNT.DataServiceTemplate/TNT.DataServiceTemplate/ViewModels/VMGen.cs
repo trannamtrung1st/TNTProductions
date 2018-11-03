@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TNT.DataServiceTemplate.Data;
 using TNT.DataServiceTemplate.Helpers;
 using TNT.TemplateAPI.Generators;
+using static TNT.DataServiceTemplate.Helpers.GeneralHelper;
 
 namespace TNT.DataServiceTemplate.ViewModels
 {
@@ -14,9 +15,10 @@ namespace TNT.DataServiceTemplate.ViewModels
         private EntityInfo EInfo { get; set; }
         private string[] JsonIgnoreProps { get; set; }
         private string[] ExceptProps { get; set; }
-
-        public VMGen(EntityInfo eInfo, string[] jsonIgnoreProps, string[] exceptProps)
+        private JsonPropertyFormatEnum Style { get; set; }
+        public VMGen(EntityInfo eInfo, string[] jsonIgnoreProps, string[] exceptProps, JsonPropertyFormatEnum style)
         {
+            Style = style;
             EInfo = eInfo;
             ResolveMapping.Add("entity", EInfo.EntityName);
             ResolveMapping.Add("entityVM", EInfo.VMClass);
@@ -66,7 +68,7 @@ namespace TNT.DataServiceTemplate.ViewModels
                     if (JsonIgnoreProps.Contains(p.Key))
                         s0.Add("[JsonIgnore]");
                     else
-                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key) + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
+                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key, Style) + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
                     s0.Add("public " + p.Value + " " + p.Key + " { get; set; }");
                 }
             }
@@ -77,7 +79,7 @@ namespace TNT.DataServiceTemplate.ViewModels
                     if (JsonIgnoreProps.Contains(p.Key))
                         s0.Add("[JsonIgnore]");
                     else
-                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key) + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
+                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key, Style) + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
                     s0.Add("public " + p.Value + " " + p.Key + "VM { get; set; }");
                 }
             }
@@ -88,7 +90,7 @@ namespace TNT.DataServiceTemplate.ViewModels
                     if (JsonIgnoreProps.Contains(p.Key))
                         s0.Add("[JsonIgnore]");
                     else
-                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key) + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
+                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key, Style) + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
                     s0.Add("public " + p.Value + " " + p.Key + "VM { get; set; }");
                 }
             }

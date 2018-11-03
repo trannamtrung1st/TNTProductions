@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ProfileViewModel: BaseViewModel<Profile>
 	{
-		[JsonProperty("userId")]
+		[JsonProperty("user_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public System.Guid UserId { get; set; }
-		[JsonProperty("propertyNames")]
+		[JsonProperty("property_names", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PropertyNames { get; set; }
-		[JsonProperty("propertyValueStrings")]
+		[JsonProperty("property_value_strings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PropertyValueStrings { get; set; }
-		[JsonProperty("propertyValueBinary")]
+		[JsonProperty("property_value_binary", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public byte[] PropertyValueBinary { get; set; }
-		[JsonProperty("lastUpdatedDate")]
+		[JsonProperty("last_updated_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime LastUpdatedDate { get; set; }
-		[JsonProperty("user")]
+		[JsonProperty("user", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public UserViewModel UserVM { get; set; }
 		
 		public ProfileViewModel(Profile entity) : this()

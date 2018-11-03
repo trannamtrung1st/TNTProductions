@@ -2559,7 +2559,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\DefaultUtilities.cs">
+    <Compile Include="Utilities\GeneralUtils.cs">
       <DependentUpon>UtilityGen.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\UtilityGen.cs">

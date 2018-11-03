@@ -24,8 +24,8 @@ namespace PromoterDataService.Models
             this.RedemptionRollbacks = new HashSet<RedemptionRollback>();
         }
     
-        public int Id { get; set; }
-        public string Code { get; set; }
+        public int IID { get; set; }
+        public string SID { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Description { get; set; }
@@ -33,6 +33,7 @@ namespace PromoterDataService.Models
         public string Phone { get; set; }
         public string MetadataObject { get; set; }
         public Nullable<System.DateTime> CreatedTime { get; set; }
+        public Nullable<bool> Active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerSegment> CustomerSegments { get; set; }

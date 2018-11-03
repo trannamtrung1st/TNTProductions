@@ -11,45 +11,45 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class MembershipCardViewModel: BaseViewModel<MembershipCard>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("customerId")]
+		[JsonProperty("customer_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CustomerId { get; set; }
-		[JsonProperty("membershipCardCode")]
+		[JsonProperty("membership_card_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MembershipCardCode { get; set; }
-		[JsonProperty("cSV")]
+		[JsonProperty("csv", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CSV { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Status { get; set; }
-		[JsonProperty("createdTime")]
+		[JsonProperty("created_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime CreatedTime { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("c_Level")]
+		[JsonProperty("c_level", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> C_Level { get; set; }
-		[JsonProperty("membershipTypeId")]
+		[JsonProperty("membership_type_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MembershipTypeId { get; set; }
-		[JsonProperty("isSample")]
+		[JsonProperty("is_sample", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsSample { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreId { get; set; }
-		[JsonProperty("productCode")]
+		[JsonProperty("product_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ProductCode { get; set; }
-		[JsonProperty("initialValue")]
+		[JsonProperty("initial_value", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> InitialValue { get; set; }
-		[JsonProperty("createBy")]
+		[JsonProperty("create_by", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CreateBy { get; set; }
-		[JsonProperty("physicalCardCode")]
+		[JsonProperty("physical_card_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PhysicalCardCode { get; set; }
-		[JsonProperty("customer")]
+		[JsonProperty("customer", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public CustomerViewModel CustomerVM { get; set; }
-		[JsonProperty("membershipCardType")]
+		[JsonProperty("membership_card_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public MembershipCardTypeViewModel MembershipCardTypeVM { get; set; }
-		[JsonProperty("accounts")]
+		[JsonProperty("accounts", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<AccountViewModel> AccountsVM { get; set; }
-		[JsonProperty("vouchers")]
+		[JsonProperty("vouchers", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<VoucherViewModel> VouchersVM { get; set; }
 		
 		public MembershipCardViewModel(MembershipCard entity) : this()

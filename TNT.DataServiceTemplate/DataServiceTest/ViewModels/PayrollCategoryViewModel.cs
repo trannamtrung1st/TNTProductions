@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class PayrollCategoryViewModel: BaseViewModel<PayrollCategory>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("mode")]
+		[JsonProperty("mode", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Mode { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("payrollDetails")]
+		[JsonProperty("payroll_details", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<PayrollDetailViewModel> PayrollDetailsVM { get; set; }
 		
 		public PayrollCategoryViewModel(PayrollCategory entity) : this()

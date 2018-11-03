@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PromoterDataService.ViewModels;
+using PromoterDataService.Global;
+
+namespace PromoterDataService.Models
+{
+	public partial class Partner : BaseEntity<PartnerViewModel>
+	{
+		public override PartnerViewModel ToViewModel()
+		{
+			return new PartnerViewModel(this);
+		}
+		
+	}
+}

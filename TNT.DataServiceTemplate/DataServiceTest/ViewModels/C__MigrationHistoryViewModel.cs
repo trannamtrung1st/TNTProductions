@@ -11,13 +11,13 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class C__MigrationHistoryViewModel: BaseViewModel<C__MigrationHistory>
 	{
-		[JsonProperty("migrationId")]
+		[JsonProperty("migration_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MigrationId { get; set; }
-		[JsonProperty("contextKey")]
+		[JsonProperty("context_key", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ContextKey { get; set; }
-		[JsonProperty("model")]
+		[JsonProperty("model", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public byte[] Model { get; set; }
-		[JsonProperty("productVersion")]
+		[JsonProperty("product_version", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ProductVersion { get; set; }
 		
 		public C__MigrationHistoryViewModel(C__MigrationHistory entity) : this()

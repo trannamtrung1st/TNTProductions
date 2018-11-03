@@ -11,27 +11,27 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class GuestViewModel: BaseViewModel<Guest>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("personId")]
+		[JsonProperty("person_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PersonId { get; set; }
-		[JsonProperty("birthYear")]
+		[JsonProperty("birth_year", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BirthYear { get; set; }
-		[JsonProperty("phone")]
+		[JsonProperty("phone", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Phone { get; set; }
-		[JsonProperty("address")]
+		[JsonProperty("address", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Address { get; set; }
-		[JsonProperty("sex")]
+		[JsonProperty("sex", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> Sex { get; set; }
-		[JsonProperty("rentId")]
+		[JsonProperty("rent_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> RentId { get; set; }
-		[JsonProperty("rentGroup")]
+		[JsonProperty("rent_group", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> RentGroup { get; set; }
-		[JsonProperty("note")]
+		[JsonProperty("note", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Note { get; set; }
-		[JsonProperty("orderGroup")]
+		[JsonProperty("order_group", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public OrderGroupViewModel OrderGroupVM { get; set; }
 		
 		public GuestViewModel(Guest entity) : this()

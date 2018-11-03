@@ -17,128 +17,13 @@ namespace DataServiceTest.Models.Services
 	{
 	}
 	
-	public partial class RoomCategoryPriceGroupMappingService : BaseService, IRoomCategoryPriceGroupMappingService
+	public partial class RoomCategoryPriceGroupMappingService : BaseService<RoomCategoryPriceGroupMapping, RoomCategoryPriceGroupMappingViewModel, RoomCategoryPriceGroupMappingPK>, IRoomCategoryPriceGroupMappingService
 	{
-		private IRoomCategoryPriceGroupMappingRepository repository;
-		
 		public RoomCategoryPriceGroupMappingService(IUnitOfWork uow)
 		{
 			repository = uow.Scope.Resolve<IRoomCategoryPriceGroupMappingRepository>(uow);
 		}
 		
-		public override bool AutoSave
-		{
-			get
-			{
-				return repository.AutoSave;
-			}
-			set
-			{
-				repository.AutoSave = value;
-			}
-		}
-		
-		#region CRUD Area
-		public RoomCategoryPriceGroupMapping Add(RoomCategoryPriceGroupMapping entity)
-		{
-			return repository.Add(entity);
-		}
-		
-		public async Task<RoomCategoryPriceGroupMapping> AddAsync(RoomCategoryPriceGroupMapping entity)
-		{
-			return await repository.AddAsync(entity);
-		}
-		
-		public RoomCategoryPriceGroupMapping Update(RoomCategoryPriceGroupMapping entity)
-		{
-			return repository.Update(entity);
-		}
-		
-		public async Task<RoomCategoryPriceGroupMapping> UpdateAsync(RoomCategoryPriceGroupMapping entity)
-		{
-			return await repository.UpdateAsync(entity);
-		}
-		
-		public RoomCategoryPriceGroupMapping Delete(RoomCategoryPriceGroupMapping entity)
-		{
-			return repository.Delete(entity);
-		}
-		
-		public async Task<RoomCategoryPriceGroupMapping> DeleteAsync(RoomCategoryPriceGroupMapping entity)
-		{
-			return await repository.DeleteAsync(entity);
-		}
-		
-		public RoomCategoryPriceGroupMapping Delete(RoomCategoryPriceGroupMappingPK key)
-		{
-			return repository.Delete(key);
-		}
-		
-		public async Task<RoomCategoryPriceGroupMapping> DeleteAsync(RoomCategoryPriceGroupMappingPK key)
-		{
-			return await repository.DeleteAsync(key);
-		}
-		
-		public RoomCategoryPriceGroupMapping FindById(RoomCategoryPriceGroupMappingPK key)
-		{
-			return repository.FindActiveById(key);
-		}
-		
-		public async Task<RoomCategoryPriceGroupMapping> FindByIdAsync(RoomCategoryPriceGroupMappingPK key)
-		{
-			return await repository.FindActiveByIdAsync(key);
-		}
-		
-		public RoomCategoryPriceGroupMapping Activate(RoomCategoryPriceGroupMapping entity)
-		{
-			return repository.Activate(entity);
-		}
-		
-		public RoomCategoryPriceGroupMapping Activate(RoomCategoryPriceGroupMappingPK key)
-		{
-			return repository.Activate(key);
-		}
-		
-		public RoomCategoryPriceGroupMapping Deactivate(RoomCategoryPriceGroupMapping entity)
-		{
-			return repository.Deactivate(entity);
-		}
-		
-		public RoomCategoryPriceGroupMapping Deactivate(RoomCategoryPriceGroupMappingPK key)
-		{
-			return repository.Deactivate(key);
-		}
-		
-		public IQueryable<RoomCategoryPriceGroupMapping> GetActive()
-		{
-			return repository.GetActive();
-		}
-		
-		public IQueryable<RoomCategoryPriceGroupMapping> GetActive(Expression<Func<RoomCategoryPriceGroupMapping, bool>> expr)
-		{
-			return repository.GetActive(expr);
-		}
-		
-		public RoomCategoryPriceGroupMapping FirstOrDefault()
-		{
-			return repository.FirstOrDefault();
-		}
-		
-		public RoomCategoryPriceGroupMapping FirstOrDefault(Expression<Func<RoomCategoryPriceGroupMapping, bool>> expr)
-		{
-			return repository.FirstOrDefault(expr);
-		}
-		
-		public async Task<RoomCategoryPriceGroupMapping> FirstOrDefaultAsync()
-		{
-			return await repository.FirstOrDefaultAsync();
-		}
-		
-		public async Task<RoomCategoryPriceGroupMapping> FirstOrDefaultAsync(Expression<Func<RoomCategoryPriceGroupMapping, bool>> expr)
-		{
-			return await repository.FirstOrDefaultAsync(expr);
-		}
-		#endregion
 		
 		#region Implement for Resource Pooling
 		public RoomCategoryPriceGroupMappingService()

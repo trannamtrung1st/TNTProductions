@@ -17,21 +17,33 @@ namespace PromoterDataService.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PromotionDetail()
         {
+            this.AffliatorCashbackDetails = new HashSet<AffliatorCashbackDetail>();
+            this.CustomerCashbackDetails = new HashSet<CustomerCashbackDetail>();
+            this.GiftDetails = new HashSet<GiftDetail>();
             this.Promotions = new HashSet<Promotion>();
             this.Vouchers = new HashSet<Voucher>();
         }
     
-        public int Id { get; set; }
+        public int ID { get; set; }
         public Nullable<bool> IsDiscount { get; set; }
-        public Nullable<int> DiscountAmount { get; set; }
+        public Nullable<double> DiscountAmount { get; set; }
         public Nullable<int> DiscountUnit { get; set; }
-        public string DiscountUnitValue { get; set; }
+        public Nullable<int> DiscountLevel { get; set; }
         public Nullable<bool> IsGift { get; set; }
-        public string GiftAmounts { get; set; }
-        public string GiftCodesExpr { get; set; }
-        public string GiftUnits { get; set; }
-        public Nullable<bool> Deactive { get; set; }
+        public Nullable<bool> IsCashback { get; set; }
+        public string ExtraInfoObject { get; set; }
+        public Nullable<bool> Active { get; set; }
+        public Nullable<bool> IsPartner { get; set; }
+        public Nullable<int> PartnerIID { get; set; }
+        public string PartnerSID { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AffliatorCashbackDetail> AffliatorCashbackDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CustomerCashbackDetail> CustomerCashbackDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GiftDetail> GiftDetails { get; set; }
+        public virtual Partner Partner { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Promotion> Promotions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

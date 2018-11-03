@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class PromotionStoreMappingViewModel: BaseViewModel<PromotionStoreMapping>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("promotionId")]
+		[JsonProperty("promotion_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int PromotionId { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("promotion")]
+		[JsonProperty("promotion", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public PromotionViewModel PromotionVM { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
 		
 		public PromotionStoreMappingViewModel(PromotionStoreMapping entity) : this()

@@ -11,25 +11,25 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class StoreWebViewCounterViewModel: BaseViewModel<StoreWebViewCounter>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("weeklyViewCount")]
+		[JsonProperty("weekly_view_count", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int WeeklyViewCount { get; set; }
-		[JsonProperty("monthlyViewCount")]
+		[JsonProperty("monthly_view_count", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int MonthlyViewCount { get; set; }
-		[JsonProperty("totalViewCount")]
+		[JsonProperty("total_view_count", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int TotalViewCount { get; set; }
-		[JsonProperty("lastUpdate")]
+		[JsonProperty("last_update", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime LastUpdate { get; set; }
-		[JsonProperty("todayViewCount")]
+		[JsonProperty("today_view_count", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int TodayViewCount { get; set; }
-		[JsonProperty("yearlyViewCount")]
+		[JsonProperty("yearly_view_count", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int YearlyViewCount { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
 		
 		public StoreWebViewCounterViewModel(StoreWebViewCounter entity) : this()

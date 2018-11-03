@@ -11,71 +11,71 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class CustomerViewModel: BaseViewModel<Customer>
 	{
-		[JsonProperty("customerID")]
+		[JsonProperty("customer_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CustomerID { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("address")]
+		[JsonProperty("address", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Address { get; set; }
-		[JsonProperty("phone")]
+		[JsonProperty("phone", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Phone { get; set; }
-		[JsonProperty("fax")]
+		[JsonProperty("fax", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Fax { get; set; }
-		[JsonProperty("contactPerson")]
+		[JsonProperty("contact_person", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ContactPerson { get; set; }
-		[JsonProperty("contactPersonNumber")]
+		[JsonProperty("contact_person_number", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ContactPersonNumber { get; set; }
-		[JsonProperty("website")]
+		[JsonProperty("website", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Website { get; set; }
-		[JsonProperty("email")]
+		[JsonProperty("email", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Email { get; set; }
-		[JsonProperty("type")]
+		[JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Type { get; set; }
-		[JsonProperty("accountID")]
+		[JsonProperty("account_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> AccountID { get; set; }
-		[JsonProperty("iDCard")]
+		[JsonProperty("idcard", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string IDCard { get; set; }
-		[JsonProperty("gender")]
+		[JsonProperty("gender", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> Gender { get; set; }
-		[JsonProperty("birthDay")]
+		[JsonProperty("birth_day", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> BirthDay { get; set; }
-		[JsonProperty("storeRegisterId")]
+		[JsonProperty("store_register_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreRegisterId { get; set; }
-		[JsonProperty("district")]
+		[JsonProperty("district", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string District { get; set; }
-		[JsonProperty("city")]
+		[JsonProperty("city", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string City { get; set; }
-		[JsonProperty("customerCode")]
+		[JsonProperty("customer_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CustomerCode { get; set; }
-		[JsonProperty("customerTypeId")]
+		[JsonProperty("customer_type_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CustomerTypeId { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BrandId { get; set; }
-		[JsonProperty("deliveryInfoDefault")]
+		[JsonProperty("delivery_info_default", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> deliveryInfoDefault { get; set; }
-		[JsonProperty("picURL")]
+		[JsonProperty("pic_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string picURL { get; set; }
-		[JsonProperty("accountPhone")]
+		[JsonProperty("account_phone", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string AccountPhone { get; set; }
-		[JsonProperty("facebookId")]
+		[JsonProperty("facebook_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string FacebookId { get; set; }
-		[JsonProperty("partnerId")]
+		[JsonProperty("partner_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> PartnerId { get; set; }
-		[JsonProperty("customerType")]
+		[JsonProperty("customer_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public CustomerTypeViewModel CustomerTypeVM { get; set; }
-		[JsonProperty("aspNetUsers")]
+		[JsonProperty("asp_net_users", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<AspNetUserViewModel> AspNetUsersVM { get; set; }
-		[JsonProperty("customerProductMappings")]
+		[JsonProperty("customer_product_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<CustomerProductMappingViewModel> CustomerProductMappingsVM { get; set; }
-		[JsonProperty("customerStoreReportMappings")]
+		[JsonProperty("customer_store_report_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<CustomerStoreReportMappingViewModel> CustomerStoreReportMappingsVM { get; set; }
-		[JsonProperty("deliveryInfoes")]
+		[JsonProperty("delivery_infoes", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<DeliveryInfoViewModel> DeliveryInfoesVM { get; set; }
-		[JsonProperty("membershipCards")]
+		[JsonProperty("membership_cards", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<MembershipCardViewModel> MembershipCardsVM { get; set; }
-		[JsonProperty("orders")]
+		[JsonProperty("orders", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<OrderViewModel> OrdersVM { get; set; }
-		[JsonProperty("orderGroups")]
+		[JsonProperty("order_groups", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<OrderGroupViewModel> OrderGroupsVM { get; set; }
 		
 		public CustomerViewModel(Customer entity) : this()

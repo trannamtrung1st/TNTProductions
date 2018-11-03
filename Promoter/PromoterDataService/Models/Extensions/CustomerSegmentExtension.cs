@@ -10,8 +10,8 @@ namespace PromoterDataService.Models
 {
 	public partial class CustomerSegmentPK
 	{
-		public int CustomerId { get; set; }
-		public int SegmentId { get; set; }
+		public int CustomerIID { get; set; }
+		public int SegmentIID { get; set; }
 	}
 	
 	public partial class CustomerSegment : BaseEntity<CustomerSegmentViewModel>

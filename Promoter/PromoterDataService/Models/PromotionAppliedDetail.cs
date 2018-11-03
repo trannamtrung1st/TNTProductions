@@ -14,24 +14,38 @@ namespace PromoterDataService.Models
     
     public partial class PromotionAppliedDetail
     {
-        public int Id { get; set; }
-        public Nullable<int> PromotionType { get; set; }
-        public Nullable<int> OrderId { get; set; }
-        public Nullable<int> OrderItemId { get; set; }
-        public Nullable<int> RedemptionId { get; set; }
-        public Nullable<int> RedemptionRollbackId { get; set; }
-        public string VoucherCode { get; set; }
-        public string PromotionCode { get; set; }
-        public Nullable<int> DiscountPercent { get; set; }
-        public Nullable<double> DiscountAmount { get; set; }
-        public Nullable<int> GiftAmount { get; set; }
-        public string GiftProductCodes { get; set; }
-        public string CouponCodes { get; set; }
-        public Nullable<double> CouponTotalAmount { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PromotionAppliedDetail()
+        {
+            this.GiftAppliedDetails = new HashSet<GiftAppliedDetail>();
+        }
     
+        public int ID { get; set; }
+        public Nullable<int> PromotionType { get; set; }
+        public Nullable<int> OrderIID { get; set; }
+        public string OrderSID { get; set; }
+        public Nullable<int> OrderItemIID { get; set; }
+        public string OrderItemSID { get; set; }
+        public Nullable<int> RedemptionID { get; set; }
+        public Nullable<int> RedemptionRollbackID { get; set; }
+        public Nullable<int> VoucherID { get; set; }
+        public Nullable<int> PromotionID { get; set; }
+        public Nullable<double> DiscountPercent { get; set; }
+        public Nullable<double> DiscountAmount { get; set; }
+        public Nullable<int> CustomerCashbackDetailID { get; set; }
+        public Nullable<double> CustomerCashbackAmount { get; set; }
+        public Nullable<int> AffliatorCashbackDetailID { get; set; }
+        public Nullable<double> AffliatorCashbackAmount { get; set; }
+        public Nullable<bool> IsRuleChecked { get; set; }
+    
+        public virtual AffliatorCashbackDetail AffliatorCashbackDetail { get; set; }
+        public virtual CustomerCashbackDetail CustomerCashbackDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GiftAppliedDetail> GiftAppliedDetails { get; set; }
         public virtual Order Order { get; set; }
         public virtual OrderItem OrderItem { get; set; }
         public virtual Redemption Redemption { get; set; }
         public virtual RedemptionRollback RedemptionRollback { get; set; }
+        public virtual Voucher Voucher { get; set; }
     }
 }

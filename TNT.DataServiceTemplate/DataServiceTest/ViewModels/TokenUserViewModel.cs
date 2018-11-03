@@ -11,15 +11,15 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class TokenUserViewModel: BaseViewModel<TokenUser>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("username")]
+		[JsonProperty("username", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Username { get; set; }
-		[JsonProperty("token")]
+		[JsonProperty("token", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Token { get; set; }
-		[JsonProperty("createTime")]
+		[JsonProperty("create_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> CreateTime { get; set; }
-		[JsonProperty("endTime")]
+		[JsonProperty("end_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> EndTime { get; set; }
 		
 		public TokenUserViewModel(TokenUser entity) : this()

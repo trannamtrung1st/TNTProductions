@@ -11,15 +11,15 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class AspNetUserClaimViewModel: BaseViewModel<AspNetUserClaim>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("userId")]
+		[JsonProperty("user_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string UserId { get; set; }
-		[JsonProperty("claimType")]
+		[JsonProperty("claim_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ClaimType { get; set; }
-		[JsonProperty("claimValue")]
+		[JsonProperty("claim_value", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ClaimValue { get; set; }
-		[JsonProperty("aspNetUser")]
+		[JsonProperty("asp_net_user", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public AspNetUserViewModel AspNetUserVM { get; set; }
 		
 		public AspNetUserClaimViewModel(AspNetUserClaim entity) : this()

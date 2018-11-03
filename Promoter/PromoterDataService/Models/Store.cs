@@ -18,17 +18,20 @@ namespace PromoterDataService.Models
         public Store()
         {
             this.Orders = new HashSet<Order>();
+            this.PromotionStoreRules = new HashSet<PromotionStoreRule>();
         }
     
-        public int Id { get; set; }
-        public string Code { get; set; }
+        public int IID { get; set; }
+        public string SID { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-        public Nullable<bool> Deactive { get; set; }
+        public Nullable<bool> Active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PromotionStoreRule> PromotionStoreRules { get; set; }
     }
 }

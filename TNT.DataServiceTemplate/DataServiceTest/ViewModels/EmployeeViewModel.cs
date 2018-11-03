@@ -11,69 +11,69 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class EmployeeViewModel: BaseViewModel<Employee>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("role")]
+		[JsonProperty("role", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Role { get; set; }
-		[JsonProperty("empEnrollNumber")]
+		[JsonProperty("emp_enroll_number", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string EmpEnrollNumber { get; set; }
-		[JsonProperty("mainStoreId")]
+		[JsonProperty("main_store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int MainStoreId { get; set; }
-		[JsonProperty("address")]
+		[JsonProperty("address", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Address { get; set; }
-		[JsonProperty("phone")]
+		[JsonProperty("phone", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Phone { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int BrandId { get; set; }
-		[JsonProperty("salary")]
+		[JsonProperty("salary", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<decimal> Salary { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Status { get; set; }
-		[JsonProperty("dateStartWork")]
+		[JsonProperty("date_start_work", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> DateStartWork { get; set; }
-		[JsonProperty("employeeGroupId")]
+		[JsonProperty("employee_group_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> EmployeeGroupId { get; set; }
-		[JsonProperty("employeeCode")]
+		[JsonProperty("employee_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string EmployeeCode { get; set; }
-		[JsonProperty("employeeRegency")]
+		[JsonProperty("employee_regency", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string EmployeeRegency { get; set; }
-		[JsonProperty("dateOfBirth")]
+		[JsonProperty("date_of_birth", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> DateOfBirth { get; set; }
-		[JsonProperty("employeeSex")]
+		[JsonProperty("employee_sex", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> EmployeeSex { get; set; }
-		[JsonProperty("personalCardId")]
+		[JsonProperty("personal_card_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PersonalCardId { get; set; }
-		[JsonProperty("datePersonalCard")]
+		[JsonProperty("date_personal_card", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> DatePersonalCard { get; set; }
-		[JsonProperty("placeOfPersonalCard")]
+		[JsonProperty("place_of_personal_card", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PlaceOfPersonalCard { get; set; }
-		[JsonProperty("phoneNumber")]
+		[JsonProperty("phone_number", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PhoneNumber { get; set; }
-		[JsonProperty("email")]
+		[JsonProperty("email", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Email { get; set; }
-		[JsonProperty("mainAddress")]
+		[JsonProperty("main_address", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MainAddress { get; set; }
-		[JsonProperty("employeeHometown")]
+		[JsonProperty("employee_hometown", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string EmployeeHometown { get; set; }
-		[JsonProperty("employeePlaceBorn")]
+		[JsonProperty("employee_place_born", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string EmployeePlaceBorn { get; set; }
-		[JsonProperty("employeeGroup")]
+		[JsonProperty("employee_group", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public EmployeeGroupViewModel EmployeeGroupVM { get; set; }
-		[JsonProperty("aspNetUsers")]
+		[JsonProperty("asp_net_users", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<AspNetUserViewModel> AspNetUsersVM { get; set; }
-		[JsonProperty("attendances")]
+		[JsonProperty("attendances", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<AttendanceViewModel> AttendancesVM { get; set; }
-		[JsonProperty("checkFingers")]
+		[JsonProperty("check_fingers", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<CheckFingerViewModel> CheckFingersVM { get; set; }
-		[JsonProperty("employeeFingers")]
+		[JsonProperty("employee_fingers", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<EmployeeFingerViewModel> EmployeeFingersVM { get; set; }
-		[JsonProperty("employeeInStores")]
+		[JsonProperty("employee_in_stores", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<EmployeeInStoreViewModel> EmployeeInStoresVM { get; set; }
-		[JsonProperty("paySlips")]
+		[JsonProperty("pay_slips", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<PaySlipViewModel> PaySlipsVM { get; set; }
 		
 		public EmployeeViewModel(Employee entity) : this()

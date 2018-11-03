@@ -11,33 +11,33 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class AccountViewModel: BaseViewModel<Account>
 	{
-		[JsonProperty("accountID")]
+		[JsonProperty("account_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int AccountID { get; set; }
-		[JsonProperty("accountCode")]
+		[JsonProperty("account_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string AccountCode { get; set; }
-		[JsonProperty("accountName")]
+		[JsonProperty("account_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string AccountName { get; set; }
-		[JsonProperty("level_")]
+		[JsonProperty("level__", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public short Level_ { get; set; }
-		[JsonProperty("startDate")]
+		[JsonProperty("start_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> StartDate { get; set; }
-		[JsonProperty("finishDate")]
+		[JsonProperty("finish_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> FinishDate { get; set; }
-		[JsonProperty("balance")]
+		[JsonProperty("balance", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<decimal> Balance { get; set; }
-		[JsonProperty("productCode")]
+		[JsonProperty("product_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ProductCode { get; set; }
-		[JsonProperty("membershipCardId")]
+		[JsonProperty("membership_card_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MembershipCardId { get; set; }
-		[JsonProperty("type")]
+		[JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Type { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BrandId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> Active { get; set; }
-		[JsonProperty("membershipCard")]
+		[JsonProperty("membership_card", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public MembershipCardViewModel MembershipCardVM { get; set; }
-		[JsonProperty("transactions")]
+		[JsonProperty("transactions", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<TransactionViewModel> TransactionsVM { get; set; }
 		
 		public AccountViewModel(Account entity) : this()

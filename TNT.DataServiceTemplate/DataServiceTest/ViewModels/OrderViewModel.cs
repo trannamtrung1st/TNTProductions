@@ -11,147 +11,147 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class OrderViewModel: BaseViewModel<Order>
 	{
-		[JsonProperty("rentID")]
+		[JsonProperty("rent_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int RentID { get; set; }
-		[JsonProperty("invoiceID")]
+		[JsonProperty("invoice_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string InvoiceID { get; set; }
-		[JsonProperty("checkInDate")]
+		[JsonProperty("check_in_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> CheckInDate { get; set; }
-		[JsonProperty("checkOutDate")]
+		[JsonProperty("check_out_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> CheckOutDate { get; set; }
-		[JsonProperty("approveDate")]
+		[JsonProperty("approve_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> ApproveDate { get; set; }
-		[JsonProperty("totalAmount")]
+		[JsonProperty("total_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double TotalAmount { get; set; }
-		[JsonProperty("discount")]
+		[JsonProperty("discount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double Discount { get; set; }
-		[JsonProperty("discountOrderDetail")]
+		[JsonProperty("discount_order_detail", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double DiscountOrderDetail { get; set; }
-		[JsonProperty("finalAmount")]
+		[JsonProperty("final_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double FinalAmount { get; set; }
-		[JsonProperty("orderStatus")]
+		[JsonProperty("order_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int OrderStatus { get; set; }
-		[JsonProperty("rentStatus")]
+		[JsonProperty("rent_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> RentStatus { get; set; }
-		[JsonProperty("orderType")]
+		[JsonProperty("order_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int OrderType { get; set; }
-		[JsonProperty("rentType")]
+		[JsonProperty("rent_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int RentType { get; set; }
-		[JsonProperty("notes")]
+		[JsonProperty("notes", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Notes { get; set; }
-		[JsonProperty("feeDescription")]
+		[JsonProperty("fee_description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string FeeDescription { get; set; }
-		[JsonProperty("checkInPerson")]
+		[JsonProperty("check_in_person", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CheckInPerson { get; set; }
-		[JsonProperty("checkOutPerson")]
+		[JsonProperty("check_out_person", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CheckOutPerson { get; set; }
-		[JsonProperty("approvePerson")]
+		[JsonProperty("approve_person", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ApprovePerson { get; set; }
-		[JsonProperty("priceGroupID")]
+		[JsonProperty("price_group_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> PriceGroupID { get; set; }
-		[JsonProperty("bookingDate")]
+		[JsonProperty("booking_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> BookingDate { get; set; }
-		[JsonProperty("arrivalDate")]
+		[JsonProperty("arrival_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> ArrivalDate { get; set; }
-		[JsonProperty("departureDate")]
+		[JsonProperty("departure_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> DepartureDate { get; set; }
-		[JsonProperty("customerID")]
+		[JsonProperty("customer_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CustomerID { get; set; }
-		[JsonProperty("subRentGroupID")]
+		[JsonProperty("sub_rent_group_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> SubRentGroupID { get; set; }
-		[JsonProperty("roomId")]
+		[JsonProperty("room_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> RoomId { get; set; }
-		[JsonProperty("isFixedPrice")]
+		[JsonProperty("is_fixed_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsFixedPrice { get; set; }
-		[JsonProperty("lastRecordDate")]
+		[JsonProperty("last_record_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> LastRecordDate { get; set; }
-		[JsonProperty("servedPerson")]
+		[JsonProperty("served_person", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ServedPerson { get; set; }
-		[JsonProperty("storeID")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreID { get; set; }
-		[JsonProperty("sourceID")]
+		[JsonProperty("source_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> SourceID { get; set; }
-		[JsonProperty("sourceType")]
+		[JsonProperty("source_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int SourceType { get; set; }
-		[JsonProperty("deliveryAddress")]
+		[JsonProperty("delivery_address", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string DeliveryAddress { get; set; }
-		[JsonProperty("deliveryStatus")]
+		[JsonProperty("delivery_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> DeliveryStatus { get; set; }
-		[JsonProperty("orderDetailsTotalQuantity")]
+		[JsonProperty("order_details_total_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> OrderDetailsTotalQuantity { get; set; }
-		[JsonProperty("checkinHour")]
+		[JsonProperty("checkin_hour", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CheckinHour { get; set; }
-		[JsonProperty("totalInvoicePrint")]
+		[JsonProperty("total_invoice_print", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> TotalInvoicePrint { get; set; }
-		[JsonProperty("vAT")]
+		[JsonProperty("vat", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> VAT { get; set; }
-		[JsonProperty("vATAmount")]
+		[JsonProperty("vatamount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> VATAmount { get; set; }
-		[JsonProperty("numberOfGuest")]
+		[JsonProperty("number_of_guest", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> NumberOfGuest { get; set; }
-		[JsonProperty("att1")]
+		[JsonProperty("att1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att1 { get; set; }
-		[JsonProperty("att2")]
+		[JsonProperty("att2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att2 { get; set; }
-		[JsonProperty("att3")]
+		[JsonProperty("att3", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att3 { get; set; }
-		[JsonProperty("att4")]
+		[JsonProperty("att4", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att4 { get; set; }
-		[JsonProperty("att5")]
+		[JsonProperty("att5", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att5 { get; set; }
-		[JsonProperty("groupPaymentStatus")]
+		[JsonProperty("group_payment_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int GroupPaymentStatus { get; set; }
-		[JsonProperty("deliveryReceiver")]
+		[JsonProperty("delivery_receiver", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string DeliveryReceiver { get; set; }
-		[JsonProperty("deliveryPhone")]
+		[JsonProperty("delivery_phone", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string DeliveryPhone { get; set; }
-		[JsonProperty("lastModifiedPayment")]
+		[JsonProperty("last_modified_payment", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> LastModifiedPayment { get; set; }
-		[JsonProperty("lastModifiedOrderDetail")]
+		[JsonProperty("last_modified_order_detail", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> LastModifiedOrderDetail { get; set; }
-		[JsonProperty("paymentStatus")]
+		[JsonProperty("payment_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> PaymentStatus { get; set; }
-		[JsonProperty("deliveryType")]
+		[JsonProperty("delivery_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> DeliveryType { get; set; }
-		[JsonProperty("deliveryPayment")]
+		[JsonProperty("delivery_payment", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> DeliveryPayment { get; set; }
-		[JsonProperty("invoiceStatus")]
+		[JsonProperty("invoice_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> InvoiceStatus { get; set; }
-		[JsonProperty("wardCode")]
+		[JsonProperty("ward_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> WardCode { get; set; }
-		[JsonProperty("districtCode")]
+		[JsonProperty("district_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> DistrictCode { get; set; }
-		[JsonProperty("provinceCode")]
+		[JsonProperty("province_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ProvinceCode { get; set; }
-		[JsonProperty("promotionPartnerId")]
+		[JsonProperty("promotion_partner_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> PromotionPartnerId { get; set; }
-		[JsonProperty("memberPoint")]
+		[JsonProperty("member_point", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<double> MemberPoint { get; set; }
-		[JsonProperty("receiver")]
+		[JsonProperty("receiver", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Receiver { get; set; }
-		[JsonProperty("isSync")]
+		[JsonProperty("is_sync", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> isSync { get; set; }
-		[JsonProperty("isExported")]
+		[JsonProperty("is_exported", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsExported { get; set; }
-		[JsonProperty("customerTypeId")]
+		[JsonProperty("customer_type_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CustomerTypeId { get; set; }
-		[JsonProperty("customer")]
+		[JsonProperty("customer", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public CustomerViewModel CustomerVM { get; set; }
-		[JsonProperty("district")]
+		[JsonProperty("district", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DistrictViewModel DistrictVM { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
-		[JsonProperty("ward")]
+		[JsonProperty("ward", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public WardViewModel WardVM { get; set; }
-		[JsonProperty("orderDetails")]
+		[JsonProperty("order_details", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<OrderDetailViewModel> OrderDetailsVM { get; set; }
-		[JsonProperty("orderFeeItems")]
+		[JsonProperty("order_fee_items", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<OrderFeeItemViewModel> OrderFeeItemsVM { get; set; }
-		[JsonProperty("orderPromotionMappings")]
+		[JsonProperty("order_promotion_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<OrderPromotionMappingViewModel> OrderPromotionMappingsVM { get; set; }
-		[JsonProperty("payments")]
+		[JsonProperty("payments", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<PaymentViewModel> PaymentsVM { get; set; }
-		[JsonProperty("vATOrderMappings")]
+		[JsonProperty("vatorder_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<VATOrderMappingViewModel> VATOrderMappingsVM { get; set; }
 		
 		public OrderViewModel(Order entity) : this()

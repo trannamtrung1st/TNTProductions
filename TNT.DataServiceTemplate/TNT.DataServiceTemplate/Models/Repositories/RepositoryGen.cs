@@ -16,7 +16,8 @@ namespace TNT.DataServiceTemplate.Models.Repositories
             Data = dt;
             Directive.Add("System.Linq.Expressions", dt.ProjectName + ".Models"
                 , dt.ProjectName + ".Managers"
-                , "TNT.IoContainer.Container");
+                , "TNT.IoContainer.Container"
+                , "System.Data.Entity.Infrastructure");
             ResolveMapping.Add("context", dt.ContextName);
 
             //GENERATE
@@ -81,10 +82,8 @@ namespace TNT.DataServiceTemplate.Models.Repositories
                     "Task<E> FirstOrDefaultAsync(Expression<Func<E, bool>> expr);",
                     "E SingleOrDefault(Expression<Func<E, bool>> expr);",
                     "Task<E> SingleOrDefaultAsync(Expression<Func<E, bool>> expr);",
-                    "E SqlQuery(string sql, params object[] parameters);",
-                    "Task<E> SqlQueryAsync(string sql, params object[] parameters);",
-                    "T SqlQuery<T>(string sql, params object[] parameters);",
-                    "Task<T> SqlQueryAsync<T>(string sql, params object[] parameters);"
+                    "DbRawSqlQuery<E> SqlQuery(string sql, params object[] parameters);",
+                    "DbRawSqlQuery<T> SqlQuery<T>(string sql, params object[] parameters);"
                 ));
 
             NamespaceBody.Add(IBaseRepository, new StatementGen(""));
@@ -122,27 +121,19 @@ namespace TNT.DataServiceTemplate.Models.Repositories
             //    "AutoSave = true;"));
 
             var m5 = new ContainerGen();
-            m5.Signature = "public E SqlQuery(string sql, params object[] parameters)";
-            m5.Body.Add(new StatementGen("return context.Database.SqlQuery<E>(sql, parameters).FirstOrDefault();"));
-
-            var m6 = new ContainerGen();
-            m6.Signature = "public async Task<E> SqlQueryAsync(string sql, params object[] parameters)";
-            m6.Body.Add(new StatementGen("return await context.Database.SqlQuery<E>(sql, parameters).FirstOrDefaultAsync();"));
+            m5.Signature = "public DbRawSqlQuery<E> SqlQuery(string sql, params object[] parameters)";
+            m5.Body.Add(new StatementGen("return context.Database.SqlQuery<E>(sql, parameters);"));
 
             var m7 = new ContainerGen();
-            m7.Signature = "public T SqlQuery<T>(string sql, params object[] parameters)";
-            m7.Body.Add(new StatementGen("return context.Database.SqlQuery<T>(sql, parameters).FirstOrDefault();"));
-
-            var m8 = new ContainerGen();
-            m8.Signature = "public async Task<T> SqlQueryAsync<T>(string sql, params object[] parameters)";
-            m8.Body.Add(new StatementGen("return await context.Database.SqlQuery<T>(sql, parameters).FirstOrDefaultAsync();"));
+            m7.Signature = "public DbRawSqlQuery<T> SqlQuery<T>(string sql, params object[] parameters)";
+            m7.Body.Add(new StatementGen("return context.Database.SqlQuery<T>(sql, parameters);"));
 
             var m9 = new ContainerGen();
             m9.Signature = "public void ReInit(params object[] initParams)";
             m9.Body.Add(new StatementGen(
                 "//params order: 0/ uow",
                 "context = ((IUnitOfWork)initParams[0]).Context;"));
-                //"AutoSave = true;"));
+            //"AutoSave = true;"));
 
             var cm10 = new CommentGen(type: CommentType.BLOCK);
             cm10.Add("******************** ABSTRACT AREA *********************");
@@ -180,9 +171,7 @@ namespace TNT.DataServiceTemplate.Models.Repositories
                 c3, new StatementGen(""),
                 c4, new StatementGen("", "#region SqlQuery"),
                 m5, new StatementGen(""),
-                m6, new StatementGen(""),
-                m7, new StatementGen(""),
-                m8, new StatementGen("#endregion", ""),
+                m7, new StatementGen("#endregion", ""),
                 m9, new StatementGen(""),
                 cm10, new StatementGen(""),
                 s11, new StatementGen("")

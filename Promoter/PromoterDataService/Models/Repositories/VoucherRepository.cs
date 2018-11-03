@@ -84,28 +84,28 @@ namespace PromoterDataService.Models.Repositories
 		public override Voucher FindById(int key)
 		{
 			var entity = context.Vouchers.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override Voucher FindActiveById(int key)
 		{
 			var entity = context.Vouchers.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<Voucher> FindByIdAsync(int key)
 		{
 			var entity = await context.Vouchers.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<Voucher> FindActiveByIdAsync(int key)
 		{
 			var entity = await context.Vouchers.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
@@ -118,7 +118,7 @@ namespace PromoterDataService.Models.Repositories
 			}
 			
 			return dbSet.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 		}
 		
 		public override async Task<Voucher> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<Voucher, TProperty>>[] members)
@@ -130,7 +130,7 @@ namespace PromoterDataService.Models.Repositories
 			}
 			
 			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 		}
 		
 		public override Voucher Activate(Voucher entity)

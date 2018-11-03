@@ -12,34 +12,34 @@ namespace PromoterDataService.ViewModels
 	public partial class PromotionViewModel: BaseViewModel<Promotion>
 	{
 		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public int Id { get; set; }
+		public int ID { get; set; }
 		[JsonProperty("code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Code { get; set; }
 		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
 		[JsonProperty("banner", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Banner { get; set; }
-		[JsonProperty("validationRuleId", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public Nullable<int> ValidationRuleId { get; set; }
-		[JsonProperty("promotionDetailId", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public Nullable<int> PromotionDetailId { get; set; }
-		[JsonProperty("campaignId", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public Nullable<int> CampaignId { get; set; }
-		[JsonProperty("availableTimes", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("validation_rule_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public Nullable<int> ValidationRuleID { get; set; }
+		[JsonProperty("campaign_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public Nullable<int> CampaignID { get; set; }
+		[JsonProperty("promotion_detail_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public Nullable<int> PromotionDetailID { get; set; }
+		[JsonProperty("available_times", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> AvailableTimes { get; set; }
-		[JsonProperty("appliedTimes", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("applied_times", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> AppliedTimes { get; set; }
-		[JsonProperty("assetsObject", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("assets_object", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string AssetsObject { get; set; }
-		[JsonProperty("metadataObject", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("metadata_object", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string MetadataObject { get; set; }
-		[JsonProperty("deactive", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public Nullable<bool> Deactive { get; set; }
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public Nullable<bool> Active { get; set; }
 		[JsonProperty("campaign", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public CampaignViewModel CampaignVM { get; set; }
-		[JsonProperty("promotionDetail", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("promotion_detail", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public PromotionDetailViewModel PromotionDetailVM { get; set; }
-		[JsonProperty("validationRule", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("validation_rule", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ValidationRuleViewModel ValidationRuleVM { get; set; }
 		
 		public PromotionViewModel(Promotion entity) : this()

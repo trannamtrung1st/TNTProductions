@@ -11,39 +11,39 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class RoomViewModel: BaseViewModel<Room>
 	{
-		[JsonProperty("roomID")]
+		[JsonProperty("room_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int RoomID { get; set; }
-		[JsonProperty("roomName")]
+		[JsonProperty("room_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string RoomName { get; set; }
-		[JsonProperty("roomDescription")]
+		[JsonProperty("room_description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string RoomDescription { get; set; }
-		[JsonProperty("roomStatus")]
+		[JsonProperty("room_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int RoomStatus { get; set; }
-		[JsonProperty("floorID")]
+		[JsonProperty("floor_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int FloorID { get; set; }
-		[JsonProperty("categoryID")]
+		[JsonProperty("category_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CategoryID { get; set; }
-		[JsonProperty("isDeleted")]
+		[JsonProperty("is_deleted", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsDeleted { get; set; }
-		[JsonProperty("storeID")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreID { get; set; }
-		[JsonProperty("currentRentId")]
+		[JsonProperty("current_rent_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CurrentRentId { get; set; }
-		[JsonProperty("rentStatus")]
+		[JsonProperty("rent_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> RentStatus { get; set; }
-		[JsonProperty("posX")]
+		[JsonProperty("pos_x", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int PosX { get; set; }
-		[JsonProperty("posSpanX")]
+		[JsonProperty("pos_span_x", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int PosSpanX { get; set; }
-		[JsonProperty("posY")]
+		[JsonProperty("pos_y", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int PosY { get; set; }
-		[JsonProperty("posSpanY")]
+		[JsonProperty("pos_span_y", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int PosSpanY { get; set; }
-		[JsonProperty("rentType")]
+		[JsonProperty("rent_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> RentType { get; set; }
-		[JsonProperty("roomCategory")]
+		[JsonProperty("room_category", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public RoomCategoryViewModel RoomCategoryVM { get; set; }
-		[JsonProperty("roomFloor")]
+		[JsonProperty("room_floor", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public RoomFloorViewModel RoomFloorVM { get; set; }
 		
 		public RoomViewModel(Room entity) : this()

@@ -11,67 +11,67 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class BrandViewModel: BaseViewModel<Brand>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("brandName")]
+		[JsonProperty("brand_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string BrandName { get; set; }
-		[JsonProperty("createDate")]
+		[JsonProperty("create_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime CreateDate { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("companyName")]
+		[JsonProperty("company_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CompanyName { get; set; }
-		[JsonProperty("contactPerson")]
+		[JsonProperty("contact_person", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ContactPerson { get; set; }
-		[JsonProperty("phoneNumber")]
+		[JsonProperty("phone_number", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PhoneNumber { get; set; }
-		[JsonProperty("fax")]
+		[JsonProperty("fax", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Fax { get; set; }
-		[JsonProperty("website")]
+		[JsonProperty("website", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Website { get; set; }
-		[JsonProperty("vATCode")]
+		[JsonProperty("vatcode", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string VATCode { get; set; }
-		[JsonProperty("vATTemplate")]
+		[JsonProperty("vattemplate", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> VATTemplate { get; set; }
-		[JsonProperty("address")]
+		[JsonProperty("address", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Address { get; set; }
-		[JsonProperty("apiSMSKey")]
+		[JsonProperty("api_smskey", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ApiSMSKey { get; set; }
-		[JsonProperty("securityApiSMSKey")]
+		[JsonProperty("security_api_smskey", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SecurityApiSMSKey { get; set; }
-		[JsonProperty("sMSType")]
+		[JsonProperty("smstype", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> SMSType { get; set; }
-		[JsonProperty("brandNameSMS")]
+		[JsonProperty("brand_name_sms", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string BrandNameSMS { get; set; }
-		[JsonProperty("jsonConfigUrl")]
+		[JsonProperty("json_config_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string JsonConfigUrl { get; set; }
-		[JsonProperty("brandFeatureFilter")]
+		[JsonProperty("brand_feature_filter", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string BrandFeatureFilter { get; set; }
-		[JsonProperty("wiskyId")]
+		[JsonProperty("wisky_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> WiskyId { get; set; }
-		[JsonProperty("defaultDashBoard")]
+		[JsonProperty("default_dash_board", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string DefaultDashBoard { get; set; }
-		[JsonProperty("partnerMappings")]
+		[JsonProperty("partner_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<PartnerMappingViewModel> PartnerMappingsVM { get; set; }
-		[JsonProperty("contacts")]
+		[JsonProperty("contacts", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ContactViewModel> ContactsVM { get; set; }
-		[JsonProperty("customerFilters")]
+		[JsonProperty("customer_filters", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<CustomerFilterViewModel> CustomerFiltersVM { get; set; }
-		[JsonProperty("customerTypes")]
+		[JsonProperty("customer_types", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<CustomerTypeViewModel> CustomerTypesVM { get; set; }
-		[JsonProperty("inventoryTemplateReports")]
+		[JsonProperty("inventory_template_reports", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<InventoryTemplateReportViewModel> InventoryTemplateReportsVM { get; set; }
-		[JsonProperty("productCategories")]
+		[JsonProperty("product_categories", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ProductCategoryViewModel> ProductCategoriesVM { get; set; }
-		[JsonProperty("productCollections")]
+		[JsonProperty("product_collections", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ProductCollectionViewModel> ProductCollectionsVM { get; set; }
-		[JsonProperty("stores")]
+		[JsonProperty("stores", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<StoreViewModel> StoresVM { get; set; }
-		[JsonProperty("storeGroups")]
+		[JsonProperty("store_groups", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<StoreGroupViewModel> StoreGroupsVM { get; set; }
-		[JsonProperty("vATOrders")]
+		[JsonProperty("vatorders", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<VATOrderViewModel> VATOrdersVM { get; set; }
 		
 		public BrandViewModel(Brand entity) : this()

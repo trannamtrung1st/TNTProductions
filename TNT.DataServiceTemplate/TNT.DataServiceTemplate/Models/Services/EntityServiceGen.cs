@@ -64,7 +64,7 @@ namespace TNT.DataServiceTemplate.Models.Services
         {
             EntityService = new ContainerGen();
             EntityService.Signature =
-                "public partial class `entity`Service : BaseService, I`entity`Service";
+                "public partial class `entity`Service : BaseService<`entity`, `entityVM`, `entityPK`>, I`entity`Service";
             EntityServiceBody = EntityService.Body;
 
             NamespaceBody.Add(EntityService);
@@ -72,114 +72,11 @@ namespace TNT.DataServiceTemplate.Models.Services
 
         public void GenerateEntityServiceBody()
         {
-            var s1 = new StatementGen("private I`entity`Repository repository;");
-
             var c2 = new ContainerGen();
             c2.Signature = "public `entity`Service(IUnitOfWork uow)";
             c2.Body.Add(new StatementGen(
                 "repository = uow.Scope.Resolve<I`entity`Repository>(uow);"));
-
-            var m3 = new ContainerGen();
-            m3.Signature = "public override bool AutoSave";
-            m3.Body.Add(new StatementGen(
-                "get",
-                "{",
-                "\treturn repository.AutoSave;",
-                "}",
-                "set",
-                "{",
-                "\trepository.AutoSave = value;",
-                "}"));
-
-            var m4 = new ContainerGen();
-            m4.Signature = "public `entity` Add(`entity` entity)";
-            m4.Body.Add(new StatementGen(
-                "return repository.Add(entity);"));
-
-            var m5 = new ContainerGen();
-            m5.Signature = "public async Task<`entity`> AddAsync(`entity` entity)";
-            m5.Body.Add(new StatementGen(
-                "return await repository.AddAsync(entity);"));
-
-            var m6 = new ContainerGen();
-            m6.Signature = "public `entity` Update(`entity` entity)";
-            m6.Body.Add(new StatementGen(
-                "return repository.Update(entity);"));
-
-            var m7 = new ContainerGen();
-            m7.Signature = "public async Task<`entity`> UpdateAsync(`entity` entity)";
-            m7.Body.Add(new StatementGen(
-                "return await repository.UpdateAsync(entity);"));
-
-            var m8 = new ContainerGen();
-            m8.Signature = "public `entity` Delete(`entity` entity)";
-            m8.Body.Add(new StatementGen(
-                "return repository.Delete(entity);"));
-
-            var m9 = new ContainerGen();
-            m9.Signature = "public async Task<`entity`> DeleteAsync(`entity` entity)";
-            m9.Body.Add(new StatementGen(
-                "return await repository.DeleteAsync(entity);"));
-
-            var m10 = new ContainerGen();
-            m10.Signature = "public `entity` Delete(`entityPK` key)";
-            m10.Body.Add(new StatementGen(
-                "return repository.Delete(key);"));
-
-            var m11 = new ContainerGen();
-            m11.Signature = "public async Task<`entity`> DeleteAsync(`entityPK` key)";
-            m11.Body.Add(new StatementGen(
-                "return await repository.DeleteAsync(key);"));
-
-            var m12 = new ContainerGen();
-            m12.Signature = "public `entity` FindById(`entityPK` key)";
-            m12.Body.Add(new StatementGen(
-                "return repository.FindActiveById(key);"));
-
-            var m13 = new ContainerGen();
-            m13.Signature = "public async Task<`entity`> FindByIdAsync(`entityPK` key)";
-            m13.Body.Add(new StatementGen("return await repository.FindActiveByIdAsync(key);"));
-
-            var m141 = new ContainerGen();
-            m141.Signature = "public `entity` Activate(`entity` entity)";
-            m141.Body.Add(new StatementGen("return repository.Activate(entity);"));
-
-            var m1411 = new ContainerGen();
-            m1411.Signature = "public `entity` Activate(`entityPK` key)";
-            m1411.Body.Add(new StatementGen("return repository.Activate(key);"));
-
-            var m142 = new ContainerGen();
-            m142.Signature = "public `entity` Deactivate(`entity` entity)";
-            m142.Body.Add(new StatementGen("return repository.Deactivate(entity);"));
-
-            var m1422 = new ContainerGen();
-            m1422.Signature = "public `entity` Deactivate(`entityPK` key)";
-            m1422.Body.Add(new StatementGen("return repository.Deactivate(key);"));
-
-            var m14 = new ContainerGen();
-            m14.Signature = "public IQueryable<`entity`> GetActive()";
-            m14.Body.Add(new StatementGen("return repository.GetActive();"));
-
-            var m15 = new ContainerGen();
-            m15.Signature = "public IQueryable<`entity`> GetActive(Expression<Func<`entity`, bool>> expr)";
-            m15.Body.Add(new StatementGen("return repository.GetActive(expr);"));
-
-            var m16 = new ContainerGen();
-            m16.Signature = "public `entity` FirstOrDefault()";
-            m16.Body.Add(new StatementGen("return repository.FirstOrDefault();"));
-
-            var m161 = new ContainerGen();
-            m161.Signature = "public `entity` FirstOrDefault(Expression<Func<`entity`, bool>> expr)";
-            m161.Body.Add(new StatementGen("return repository.FirstOrDefault(expr);"));
-
-            var m17 = new ContainerGen();
-            m17.Signature = "public async Task<`entity`> FirstOrDefaultAsync()";
-            m17.Body.Add(new StatementGen("return await repository.FirstOrDefaultAsync();"));
-
-            var m171 = new ContainerGen();
-            m171.Signature = "public async Task<`entity`> FirstOrDefaultAsync(Expression<Func<`entity`, bool>> expr)";
-            m171.Body.Add(new StatementGen("return await repository.FirstOrDefaultAsync(expr);"));
-
+           
             var c18 = new ContainerGen();
             c18.Signature = "public `entity`Service()";
             c18.Body.Add(new StatementGen("repository = G.TContainer.Resolve<I`entity`Repository>();"));
@@ -197,29 +94,7 @@ namespace TNT.DataServiceTemplate.Models.Services
             d21.Body.Add(new StatementGen("Dispose(false);"));
 
             EntityServiceBody.Add(
-                s1, new StatementGen(""),
-                c2, new StatementGen(""),
-                m3, new StatementGen("", "#region CRUD Area"),
-                m4, new StatementGen(""),
-                m5, new StatementGen(""),
-                m6, new StatementGen(""),
-                m7, new StatementGen(""),
-                m8, new StatementGen(""),
-                m9, new StatementGen(""),
-                m10, new StatementGen(""),
-                m11, new StatementGen(""),
-                m12, new StatementGen(""),
-                m13, new StatementGen(""),
-                m141, new StatementGen(""),
-                m1411, new StatementGen(""),
-                m142, new StatementGen(""),
-                m1422, new StatementGen(""),
-                m14, new StatementGen(""),
-                m15, new StatementGen(""),
-                m16, new StatementGen(""),
-                m161, new StatementGen(""),
-                m17, new StatementGen(""),
-                m171, new StatementGen("#endregion"));
+                c2, new StatementGen(""));
             if (EInfo.Data.ServicePool)
             {
                 EntityServiceBody.Add(new StatementGen("", "#region Implement for Resource Pooling"),

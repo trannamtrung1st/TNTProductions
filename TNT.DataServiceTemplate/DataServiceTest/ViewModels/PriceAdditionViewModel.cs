@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class PriceAdditionViewModel: BaseViewModel<PriceAddition>
 	{
-		[JsonProperty("additionPriceID")]
+		[JsonProperty("addition_price_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int AdditionPriceID { get; set; }
-		[JsonProperty("earlyHourRange")]
+		[JsonProperty("early_hour_range", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string EarlyHourRange { get; set; }
-		[JsonProperty("earlyPriceRange")]
+		[JsonProperty("early_price_range", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string EarlyPriceRange { get; set; }
-		[JsonProperty("lateHourRange")]
+		[JsonProperty("late_hour_range", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string LateHourRange { get; set; }
-		[JsonProperty("latePriceRange")]
+		[JsonProperty("late_price_range", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string LatePriceRange { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
 		
 		public PriceAdditionViewModel(PriceAddition entity) : this()

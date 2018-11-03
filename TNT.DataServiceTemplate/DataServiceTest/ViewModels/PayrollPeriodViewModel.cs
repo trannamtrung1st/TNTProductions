@@ -11,21 +11,21 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class PayrollPeriodViewModel: BaseViewModel<PayrollPeriod>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("paySlipTemplateId")]
+		[JsonProperty("pay_slip_template_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> PaySlipTemplateId { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("fromDate")]
+		[JsonProperty("from_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> FromDate { get; set; }
-		[JsonProperty("toDate")]
+		[JsonProperty("to_date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> ToDate { get; set; }
-		[JsonProperty("isActive")]
+		[JsonProperty("is_active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsActive { get; set; }
-		[JsonProperty("paySlipTemplate")]
+		[JsonProperty("pay_slip_template", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public PaySlipTemplateViewModel PaySlipTemplateVM { get; set; }
-		[JsonProperty("paySlips")]
+		[JsonProperty("pay_slips", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<PaySlipViewModel> PaySlipsVM { get; set; }
 		
 		public PayrollPeriodViewModel(PayrollPeriod entity) : this()

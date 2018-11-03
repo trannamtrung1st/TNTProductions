@@ -11,85 +11,85 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class DateProductViewModel: BaseViewModel<DateProduct>
 	{
-		[JsonProperty("iD")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ID { get; set; }
-		[JsonProperty("date")]
+		[JsonProperty("date", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime Date { get; set; }
-		[JsonProperty("productId")]
+		[JsonProperty("product_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProductId { get; set; }
-		[JsonProperty("storeID")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreID { get; set; }
-		[JsonProperty("quantity")]
+		[JsonProperty("quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Quantity { get; set; }
-		[JsonProperty("totalAmount")]
+		[JsonProperty("total_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double TotalAmount { get; set; }
-		[JsonProperty("discount")]
+		[JsonProperty("discount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double Discount { get; set; }
-		[JsonProperty("finalAmount")]
+		[JsonProperty("final_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double FinalAmount { get; set; }
-		[JsonProperty("categoryId_")]
+		[JsonProperty("category_id__", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CategoryId_ { get; set; }
-		[JsonProperty("productName_")]
+		[JsonProperty("product_name__", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ProductName_ { get; set; }
-		[JsonProperty("time0Quantity")]
+		[JsonProperty("time0_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time0Quantity { get; set; }
-		[JsonProperty("time1Quantity")]
+		[JsonProperty("time1_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time1Quantity { get; set; }
-		[JsonProperty("time2Quantity")]
+		[JsonProperty("time2_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time2Quantity { get; set; }
-		[JsonProperty("time3Quantity")]
+		[JsonProperty("time3_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time3Quantity { get; set; }
-		[JsonProperty("time4Quantity")]
+		[JsonProperty("time4_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time4Quantity { get; set; }
-		[JsonProperty("time5Quantity")]
+		[JsonProperty("time5_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time5Quantity { get; set; }
-		[JsonProperty("time6Quantity")]
+		[JsonProperty("time6_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time6Quantity { get; set; }
-		[JsonProperty("time7Quantity")]
+		[JsonProperty("time7_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time7Quantity { get; set; }
-		[JsonProperty("time8Quantity")]
+		[JsonProperty("time8_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time8Quantity { get; set; }
-		[JsonProperty("time9Quantity")]
+		[JsonProperty("time9_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time9Quantity { get; set; }
-		[JsonProperty("time10Quantity")]
+		[JsonProperty("time10_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time10Quantity { get; set; }
-		[JsonProperty("time11Quantity")]
+		[JsonProperty("time11_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time11Quantity { get; set; }
-		[JsonProperty("time12Quantity")]
+		[JsonProperty("time12_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time12Quantity { get; set; }
-		[JsonProperty("time13Quantity")]
+		[JsonProperty("time13_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time13Quantity { get; set; }
-		[JsonProperty("time14Quantity")]
+		[JsonProperty("time14_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time14Quantity { get; set; }
-		[JsonProperty("time15Quantity")]
+		[JsonProperty("time15_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time15Quantity { get; set; }
-		[JsonProperty("time16Quantity")]
+		[JsonProperty("time16_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time16Quantity { get; set; }
-		[JsonProperty("time17Quantity")]
+		[JsonProperty("time17_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time17Quantity { get; set; }
-		[JsonProperty("time18Quantity")]
+		[JsonProperty("time18_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time18Quantity { get; set; }
-		[JsonProperty("time19Quantity")]
+		[JsonProperty("time19_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time19Quantity { get; set; }
-		[JsonProperty("time20Quantity")]
+		[JsonProperty("time20_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time20Quantity { get; set; }
-		[JsonProperty("time21Quantity")]
+		[JsonProperty("time21_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time21Quantity { get; set; }
-		[JsonProperty("time22Quantity")]
+		[JsonProperty("time22_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time22Quantity { get; set; }
-		[JsonProperty("time23Quantity")]
+		[JsonProperty("time23_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Time23Quantity { get; set; }
-		[JsonProperty("orderQuantity")]
+		[JsonProperty("order_quantity", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> OrderQuantity { get; set; }
-		[JsonProperty("quantityAtStore")]
+		[JsonProperty("quantity_at_store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> QuantityAtStore { get; set; }
-		[JsonProperty("quantityTakeAway")]
+		[JsonProperty("quantity_take_away", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> QuantityTakeAway { get; set; }
-		[JsonProperty("quantityDelivery")]
+		[JsonProperty("quantity_delivery", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> QuantityDelivery { get; set; }
-		[JsonProperty("product")]
+		[JsonProperty("product", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductViewModel ProductVM { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
 		
 		public DateProductViewModel(DateProduct entity) : this()

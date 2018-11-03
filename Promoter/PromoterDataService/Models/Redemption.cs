@@ -23,7 +23,8 @@ namespace PromoterDataService.Models
     
         public int Id { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<int> CustomerId { get; set; }
+        public Nullable<int> CustomerIID { get; set; }
+        public string CustomerSID { get; set; }
         public string MetadataObject { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<int> FailureCode { get; set; }

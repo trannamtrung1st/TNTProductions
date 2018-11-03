@@ -11,23 +11,23 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class DeliveryInfoViewModel: BaseViewModel<DeliveryInfo>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("customerId")]
+		[JsonProperty("customer_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CustomerId { get; set; }
-		[JsonProperty("customerName")]
+		[JsonProperty("customer_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string CustomerName { get; set; }
-		[JsonProperty("address")]
+		[JsonProperty("address", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Address { get; set; }
-		[JsonProperty("phone")]
+		[JsonProperty("phone", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Phone { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> Active { get; set; }
-		[JsonProperty("type")]
+		[JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Type { get; set; }
-		[JsonProperty("isDefaultDeliveryInfo")]
+		[JsonProperty("is_default_delivery_info", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> isDefaultDeliveryInfo { get; set; }
-		[JsonProperty("customer")]
+		[JsonProperty("customer", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public CustomerViewModel CustomerVM { get; set; }
 		
 		public DeliveryInfoViewModel(DeliveryInfo entity) : this()

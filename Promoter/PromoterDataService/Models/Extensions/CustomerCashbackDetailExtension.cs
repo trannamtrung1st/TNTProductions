@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PromoterDataService.ViewModels;
+using PromoterDataService.Global;
+
+namespace PromoterDataService.Models
+{
+	public partial class CustomerCashbackDetail : BaseEntity<CustomerCashbackDetailViewModel>
+	{
+		public override CustomerCashbackDetailViewModel ToViewModel()
+		{
+			return new CustomerCashbackDetailViewModel(this);
+		}
+		
+	}
+}

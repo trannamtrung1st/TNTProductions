@@ -11,21 +11,21 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class RatingProductViewModel: BaseViewModel<RatingProduct>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("userId")]
+		[JsonProperty("user_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string UserId { get; set; }
-		[JsonProperty("productId")]
+		[JsonProperty("product_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProductId { get; set; }
-		[JsonProperty("createTime")]
+		[JsonProperty("create_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime CreateTime { get; set; }
-		[JsonProperty("star")]
+		[JsonProperty("star", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Star { get; set; }
-		[JsonProperty("reviewContent")]
+		[JsonProperty("review_content", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ReviewContent { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("product")]
+		[JsonProperty("product", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductViewModel ProductVM { get; set; }
 		
 		public RatingProductViewModel(RatingProduct entity) : this()

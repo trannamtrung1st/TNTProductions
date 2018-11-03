@@ -11,55 +11,55 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class AspNetUserViewModel: BaseViewModel<AspNetUser>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Id { get; set; }
-		[JsonProperty("email")]
+		[JsonProperty("email", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Email { get; set; }
-		[JsonProperty("emailConfirmed")]
+		[JsonProperty("email_confirmed", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool EmailConfirmed { get; set; }
-		[JsonProperty("passwordHash")]
+		[JsonProperty("password_hash", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PasswordHash { get; set; }
-		[JsonProperty("securityStamp")]
+		[JsonProperty("security_stamp", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SecurityStamp { get; set; }
-		[JsonProperty("phoneNumber")]
+		[JsonProperty("phone_number", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PhoneNumber { get; set; }
-		[JsonProperty("phoneNumberConfirmed")]
+		[JsonProperty("phone_number_confirmed", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool PhoneNumberConfirmed { get; set; }
-		[JsonProperty("twoFactorEnabled")]
+		[JsonProperty("two_factor_enabled", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool TwoFactorEnabled { get; set; }
-		[JsonProperty("lockoutEndDateUtc")]
+		[JsonProperty("lockout_end_date_utc", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> LockoutEndDateUtc { get; set; }
-		[JsonProperty("lockoutEnabled")]
+		[JsonProperty("lockout_enabled", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool LockoutEnabled { get; set; }
-		[JsonProperty("accessFailedCount")]
+		[JsonProperty("access_failed_count", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int AccessFailedCount { get; set; }
-		[JsonProperty("userName")]
+		[JsonProperty("user_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string UserName { get; set; }
-		[JsonProperty("fullName")]
+		[JsonProperty("full_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string FullName { get; set; }
-		[JsonProperty("adminStoreId")]
+		[JsonProperty("admin_store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> AdminStoreId { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BrandId { get; set; }
-		[JsonProperty("customerId")]
+		[JsonProperty("customer_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> CustomerId { get; set; }
-		[JsonProperty("employeeId")]
+		[JsonProperty("employee_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> EmployeeId { get; set; }
-		[JsonProperty("customer")]
+		[JsonProperty("customer", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public CustomerViewModel CustomerVM { get; set; }
-		[JsonProperty("employee")]
+		[JsonProperty("employee", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public EmployeeViewModel EmployeeVM { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
-		[JsonProperty("aspNetRoles")]
+		[JsonProperty("asp_net_roles", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public AspNetRoleViewModel AspNetRolesVM { get; set; }
-		[JsonProperty("aspNetUserClaims")]
+		[JsonProperty("asp_net_user_claims", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<AspNetUserClaimViewModel> AspNetUserClaimsVM { get; set; }
-		[JsonProperty("aspNetUserLogins")]
+		[JsonProperty("asp_net_user_logins", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<AspNetUserLoginViewModel> AspNetUserLoginsVM { get; set; }
-		[JsonProperty("deliveryInformations")]
+		[JsonProperty("delivery_informations", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<DeliveryInformationViewModel> DeliveryInformationsVM { get; set; }
-		[JsonProperty("deliveryInformations1")]
+		[JsonProperty("delivery_informations1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<DeliveryInformationViewModel> DeliveryInformations1VM { get; set; }
 		
 		public AspNetUserViewModel(AspNetUser entity) : this()

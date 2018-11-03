@@ -11,15 +11,15 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class RoomCategoryPriceGroupMappingViewModel: BaseViewModel<RoomCategoryPriceGroupMapping>
 	{
-		[JsonProperty("categoryID")]
+		[JsonProperty("category_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CategoryID { get; set; }
-		[JsonProperty("priceGroupID")]
+		[JsonProperty("price_group_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int PriceGroupID { get; set; }
-		[JsonProperty("isDefault")]
+		[JsonProperty("is_default", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsDefault { get; set; }
-		[JsonProperty("priceGroup")]
+		[JsonProperty("price_group", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public PriceGroupViewModel PriceGroupVM { get; set; }
-		[JsonProperty("roomCategory")]
+		[JsonProperty("room_category", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public RoomCategoryViewModel RoomCategoryVM { get; set; }
 		
 		public RoomCategoryPriceGroupMappingViewModel(RoomCategoryPriceGroupMapping entity) : this()

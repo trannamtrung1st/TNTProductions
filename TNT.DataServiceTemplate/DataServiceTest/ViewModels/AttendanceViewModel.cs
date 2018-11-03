@@ -11,73 +11,73 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class AttendanceViewModel: BaseViewModel<Attendance>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("employeeId")]
+		[JsonProperty("employee_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int EmployeeId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("checkMin")]
+		[JsonProperty("check_min", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> CheckMin { get; set; }
-		[JsonProperty("checkMax")]
+		[JsonProperty("check_max", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> CheckMax { get; set; }
-		[JsonProperty("totalWorkTime")]
+		[JsonProperty("total_work_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<System.TimeSpan> TotalWorkTime { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Status { get; set; }
-		[JsonProperty("shiftMin")]
+		[JsonProperty("shift_min", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime ShiftMin { get; set; }
-		[JsonProperty("shiftMax")]
+		[JsonProperty("shift_max", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public DateTime ShiftMax { get; set; }
-		[JsonProperty("expandTime")]
+		[JsonProperty("expand_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public System.TimeSpan ExpandTime { get; set; }
-		[JsonProperty("updatePerson")]
+		[JsonProperty("update_person", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string UpdatePerson { get; set; }
-		[JsonProperty("processingStatus")]
+		[JsonProperty("processing_status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ProcessingStatus { get; set; }
-		[JsonProperty("note")]
+		[JsonProperty("note", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Note { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("timeFramId")]
+		[JsonProperty("time_fram_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int TimeFramId { get; set; }
-		[JsonProperty("breakTime")]
+		[JsonProperty("break_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<System.TimeSpan> BreakTime { get; set; }
-		[JsonProperty("requestedCheckOut")]
+		[JsonProperty("requested_check_out", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> RequestedCheckOut { get; set; }
-		[JsonProperty("requestedCheckIn")]
+		[JsonProperty("requested_check_in", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> RequestedCheckIn { get; set; }
-		[JsonProperty("isRequested")]
+		[JsonProperty("is_requested", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> IsRequested { get; set; }
-		[JsonProperty("approvePerson")]
+		[JsonProperty("approve_person", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ApprovePerson { get; set; }
-		[JsonProperty("noteRequest")]
+		[JsonProperty("note_request", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string NoteRequest { get; set; }
-		[JsonProperty("lastCheckBeforeShift")]
+		[JsonProperty("last_check_before_shift", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> LastCheckBeforeShift { get; set; }
-		[JsonProperty("firstCheckAfterShift")]
+		[JsonProperty("first_check_after_shift", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> FirstCheckAfterShift { get; set; }
-		[JsonProperty("isOverTime")]
+		[JsonProperty("is_over_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsOverTime { get; set; }
-		[JsonProperty("inMode")]
+		[JsonProperty("in_mode", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> InMode { get; set; }
-		[JsonProperty("outMode")]
+		[JsonProperty("out_mode", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> OutMode { get; set; }
-		[JsonProperty("breakCount")]
+		[JsonProperty("break_count", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BreakCount { get; set; }
-		[JsonProperty("checkInExpandTime")]
+		[JsonProperty("check_in_expand_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<System.TimeSpan> CheckInExpandTime { get; set; }
-		[JsonProperty("checkOutExpandTime")]
+		[JsonProperty("check_out_expand_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<System.TimeSpan> CheckOutExpandTime { get; set; }
-		[JsonProperty("comeLateExpandTime")]
+		[JsonProperty("come_late_expand_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<System.TimeSpan> ComeLateExpandTime { get; set; }
-		[JsonProperty("leaveEarlyExpandTime")]
+		[JsonProperty("leave_early_expand_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<System.TimeSpan> LeaveEarlyExpandTime { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BrandId { get; set; }
-		[JsonProperty("employee")]
+		[JsonProperty("employee", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public EmployeeViewModel EmployeeVM { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
 		
 		public AttendanceViewModel(Attendance entity) : this()

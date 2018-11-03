@@ -11,15 +11,15 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class PosConfigViewModel: BaseViewModel<PosConfig>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("key")]
+		[JsonProperty("key", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Key { get; set; }
-		[JsonProperty("value")]
+		[JsonProperty("value", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Value { get; set; }
-		[JsonProperty("posFileId")]
+		[JsonProperty("pos_file_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int PosFileId { get; set; }
-		[JsonProperty("posFile")]
+		[JsonProperty("pos_file", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public PosFileViewModel PosFileVM { get; set; }
 		
 		public PosConfigViewModel(PosConfig entity) : this()

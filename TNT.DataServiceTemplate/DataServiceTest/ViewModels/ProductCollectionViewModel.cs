@@ -11,37 +11,37 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ProductCollectionViewModel: BaseViewModel<ProductCollection>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int StoreId { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("nameEng")]
+		[JsonProperty("name_eng", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string NameEng { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("descriptionEng")]
+		[JsonProperty("description_eng", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string DescriptionEng { get; set; }
-		[JsonProperty("sEO")]
+		[JsonProperty("seo", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SEO { get; set; }
-		[JsonProperty("sEODescription")]
+		[JsonProperty("seodescription", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SEODescription { get; set; }
-		[JsonProperty("sEOKeyword")]
+		[JsonProperty("seokeyword", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SEOKeyword { get; set; }
-		[JsonProperty("link")]
+		[JsonProperty("link", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Link { get; set; }
-		[JsonProperty("bannerUrl")]
+		[JsonProperty("banner_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string BannerUrl { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BrandId { get; set; }
-		[JsonProperty("brand")]
+		[JsonProperty("brand", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public BrandViewModel BrandVM { get; set; }
-		[JsonProperty("store")]
+		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public StoreViewModel StoreVM { get; set; }
-		[JsonProperty("productCollectionItemMappings")]
+		[JsonProperty("product_collection_item_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ProductCollectionItemMappingViewModel> ProductCollectionItemMappingsVM { get; set; }
 		
 		public ProductCollectionViewModel(ProductCollection entity) : this()

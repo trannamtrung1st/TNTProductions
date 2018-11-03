@@ -11,17 +11,17 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class CostInventoryMappingViewModel: BaseViewModel<CostInventoryMapping>
 	{
-		[JsonProperty("costID")]
+		[JsonProperty("cost_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CostID { get; set; }
-		[JsonProperty("receiptID")]
+		[JsonProperty("receipt_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ReceiptID { get; set; }
-		[JsonProperty("storeId")]
+		[JsonProperty("store_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> StoreId { get; set; }
-		[JsonProperty("providerID")]
+		[JsonProperty("provider_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ProviderID { get; set; }
-		[JsonProperty("cost")]
+		[JsonProperty("cost", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public CostViewModel CostVM { get; set; }
-		[JsonProperty("inventoryReceipt")]
+		[JsonProperty("inventory_receipt", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public InventoryReceiptViewModel InventoryReceiptVM { get; set; }
 		
 		public CostInventoryMappingViewModel(CostInventoryMapping entity) : this()

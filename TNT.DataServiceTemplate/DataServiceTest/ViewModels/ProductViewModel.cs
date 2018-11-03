@@ -11,139 +11,139 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class ProductViewModel: BaseViewModel<Product>
 	{
-		[JsonProperty("productID")]
+		[JsonProperty("product_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProductID { get; set; }
-		[JsonProperty("productName")]
+		[JsonProperty("product_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ProductName { get; set; }
-		[JsonProperty("productNameEng")]
+		[JsonProperty("product_name_eng", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ProductNameEng { get; set; }
-		[JsonProperty("price")]
+		[JsonProperty("price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double Price { get; set; }
-		[JsonProperty("picURL")]
+		[JsonProperty("pic_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string PicURL { get; set; }
-		[JsonProperty("catID")]
+		[JsonProperty("cat_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int CatID { get; set; }
-		[JsonProperty("isAvailable")]
+		[JsonProperty("is_available", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsAvailable { get; set; }
-		[JsonProperty("code")]
+		[JsonProperty("code", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Code { get; set; }
-		[JsonProperty("discountPercent")]
+		[JsonProperty("discount_percent", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double DiscountPercent { get; set; }
-		[JsonProperty("discountPrice")]
+		[JsonProperty("discount_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public double DiscountPrice { get; set; }
-		[JsonProperty("productType")]
+		[JsonProperty("product_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int ProductType { get; set; }
-		[JsonProperty("displayOrder")]
+		[JsonProperty("display_order", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int DisplayOrder { get; set; }
-		[JsonProperty("hasExtra")]
+		[JsonProperty("has_extra", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool HasExtra { get; set; }
-		[JsonProperty("isFixedPrice")]
+		[JsonProperty("is_fixed_price", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsFixedPrice { get; set; }
-		[JsonProperty("posX")]
+		[JsonProperty("pos_x", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> PosX { get; set; }
-		[JsonProperty("posY")]
+		[JsonProperty("pos_y", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> PosY { get; set; }
-		[JsonProperty("colorGroup")]
+		[JsonProperty("color_group", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> ColorGroup { get; set; }
-		[JsonProperty("group")]
+		[JsonProperty("group", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Group { get; set; }
-		[JsonProperty("groupId")]
+		[JsonProperty("group_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> GroupId { get; set; }
-		[JsonProperty("isMenuDisplay")]
+		[JsonProperty("is_menu_display", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> IsMenuDisplay { get; set; }
-		[JsonProperty("generalProductId")]
+		[JsonProperty("general_product_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> GeneralProductId { get; set; }
-		[JsonProperty("att1")]
+		[JsonProperty("att1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att1 { get; set; }
-		[JsonProperty("att2")]
+		[JsonProperty("att2", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att2 { get; set; }
-		[JsonProperty("att3")]
+		[JsonProperty("att3", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att3 { get; set; }
-		[JsonProperty("att4")]
+		[JsonProperty("att4", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att4 { get; set; }
-		[JsonProperty("att5")]
+		[JsonProperty("att5", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att5 { get; set; }
-		[JsonProperty("att6")]
+		[JsonProperty("att6", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att6 { get; set; }
-		[JsonProperty("att7")]
+		[JsonProperty("att7", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att7 { get; set; }
-		[JsonProperty("att8")]
+		[JsonProperty("att8", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att8 { get; set; }
-		[JsonProperty("att9")]
+		[JsonProperty("att9", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att9 { get; set; }
-		[JsonProperty("att10")]
+		[JsonProperty("att10", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Att10 { get; set; }
-		[JsonProperty("maxExtra")]
+		[JsonProperty("max_extra", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> MaxExtra { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("descriptionEng")]
+		[JsonProperty("description_eng", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string DescriptionEng { get; set; }
-		[JsonProperty("introduction")]
+		[JsonProperty("introduction", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Introduction { get; set; }
-		[JsonProperty("introductionEng")]
+		[JsonProperty("introduction_eng", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string IntroductionEng { get; set; }
-		[JsonProperty("printGroup")]
+		[JsonProperty("print_group", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> PrintGroup { get; set; }
-		[JsonProperty("seoName")]
+		[JsonProperty("seo_name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SeoName { get; set; }
-		[JsonProperty("isHomePage")]
+		[JsonProperty("is_home_page", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> IsHomePage { get; set; }
-		[JsonProperty("webContent")]
+		[JsonProperty("web_content", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string WebContent { get; set; }
-		[JsonProperty("seoKeyWords")]
+		[JsonProperty("seo_key_words", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SeoKeyWords { get; set; }
-		[JsonProperty("seoDescription")]
+		[JsonProperty("seo_description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string SeoDescription { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("isDefaultChildProduct")]
+		[JsonProperty("is_default_child_product", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int IsDefaultChildProduct { get; set; }
-		[JsonProperty("position")]
+		[JsonProperty("position", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Position { get; set; }
-		[JsonProperty("saleType")]
+		[JsonProperty("sale_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> SaleType { get; set; }
-		[JsonProperty("isMostOrdered")]
+		[JsonProperty("is_most_ordered", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool IsMostOrdered { get; set; }
-		[JsonProperty("note")]
+		[JsonProperty("note", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Note { get; set; }
-		[JsonProperty("createTime")]
+		[JsonProperty("create_time", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<DateTime> CreateTime { get; set; }
-		[JsonProperty("ratingTotal")]
+		[JsonProperty("rating_total", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> RatingTotal { get; set; }
-		[JsonProperty("numOfUserVoted")]
+		[JsonProperty("num_of_user_voted", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> NumOfUserVoted { get; set; }
-		[JsonProperty("status")]
+		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Status { get; set; }
-		[JsonProperty("group1")]
+		[JsonProperty("group1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public GroupViewModel Group1VM { get; set; }
-		[JsonProperty("productCategory")]
+		[JsonProperty("product_category", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ProductCategoryViewModel ProductCategoryVM { get; set; }
-		[JsonProperty("customerProductMappings")]
+		[JsonProperty("customer_product_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<CustomerProductMappingViewModel> CustomerProductMappingsVM { get; set; }
-		[JsonProperty("dateProducts")]
+		[JsonProperty("date_products", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<DateProductViewModel> DateProductsVM { get; set; }
-		[JsonProperty("favoriteds")]
+		[JsonProperty("favoriteds", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<FavoritedViewModel> FavoritedsVM { get; set; }
-		[JsonProperty("orderDetails")]
+		[JsonProperty("order_details", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<OrderDetailViewModel> OrderDetailsVM { get; set; }
-		[JsonProperty("productItemCompositionMappings")]
+		[JsonProperty("product_item_composition_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ProductItemCompositionMappingViewModel> ProductItemCompositionMappingsVM { get; set; }
-		[JsonProperty("productComboDetails")]
+		[JsonProperty("product_combo_details", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ProductComboDetailViewModel> ProductComboDetailsVM { get; set; }
-		[JsonProperty("productComboDetails1")]
+		[JsonProperty("product_combo_details1", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ProductComboDetailViewModel> ProductComboDetails1VM { get; set; }
-		[JsonProperty("productCollectionItemMappings")]
+		[JsonProperty("product_collection_item_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ProductCollectionItemMappingViewModel> ProductCollectionItemMappingsVM { get; set; }
-		[JsonProperty("productDetailMappings")]
+		[JsonProperty("product_detail_mappings", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ProductDetailMappingViewModel> ProductDetailMappingsVM { get; set; }
-		[JsonProperty("productImages")]
+		[JsonProperty("product_images", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ProductImageViewModel> ProductImagesVM { get; set; }
-		[JsonProperty("productSpecifications")]
+		[JsonProperty("product_specifications", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<ProductSpecificationViewModel> ProductSpecificationsVM { get; set; }
-		[JsonProperty("ratingProducts")]
+		[JsonProperty("rating_products", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<RatingProductViewModel> RatingProductsVM { get; set; }
-		[JsonProperty("ratingStars")]
+		[JsonProperty("rating_stars", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<RatingStarViewModel> RatingStarsVM { get; set; }
 		
 		public ProductViewModel(Product entity) : this()

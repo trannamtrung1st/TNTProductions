@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TNT.DataServiceTemplate.Data;
 using TNT.DataServiceTemplate.Helpers;
 using TNT.DataServiceTemplate.TTGen;
+using static TNT.DataServiceTemplate.Helpers.GeneralHelper;
 
 namespace TNT.DataServiceTemplate.Auto
 {
@@ -17,6 +18,7 @@ namespace TNT.DataServiceTemplate.Auto
         private string EdmxFile { get; set; }
         private string ProjectName { get; set; }
         private string ProjectPath { get; set; }
+        private JsonPropertyFormatEnum Style { get; set; }
         private DataInfo Data { get; set; }
         private List<string> ExtraDirectives { get; set; }
         private string[] VMJsonIgnoreProps { get; set; } = new string[] { };
@@ -29,6 +31,7 @@ namespace TNT.DataServiceTemplate.Auto
             string templateApiLib,
             string dataServiceTemplateLib,
             string edmxFile,
+            JsonPropertyFormatEnum vmPropStyle,
             bool activeCol = true,
             bool servicePool = false,
             bool requestScope = false
@@ -38,7 +41,7 @@ namespace TNT.DataServiceTemplate.Auto
             if (ProjectPath[ProjectPath.Length - 1] == '\\' || ProjectPath[ProjectPath.Length - 1] == '/')
                 ProjectPath = ProjectPath.Remove(ProjectPath.Length - 1);
             ProjectPath += "/";
-
+            this.Style = vmPropStyle;
             ProjectName = projectName;
 
             TemplateAPILib = "$(ProjectDir)" + templateApiLib;
@@ -98,7 +101,7 @@ namespace TNT.DataServiceTemplate.Auto
 
         private void GenerateViewModel()
         {
-            var vmGen = new AutoViewModelGen(Data, VMJsonIgnoreProps,
+            var vmGen = new AutoViewModelGen(Data, VMJsonIgnoreProps, Style,
                 VMExceptProps, ExtraDirectives.ToArray());
             FileHelper.Write(ProjectPath + "ViewModels", "ViewModelGen.tt", vmGen.Generate());
         }

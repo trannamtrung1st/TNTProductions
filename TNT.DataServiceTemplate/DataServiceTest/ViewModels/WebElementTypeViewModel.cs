@@ -11,29 +11,29 @@ namespace DataServiceTest.ViewModels
 {
 	public partial class WebElementTypeViewModel: BaseViewModel<WebElementType>
 	{
-		[JsonProperty("id")]
+		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public int Id { get; set; }
-		[JsonProperty("webElementId")]
+		[JsonProperty("web_element_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> WebElementId { get; set; }
-		[JsonProperty("name")]
+		[JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Name { get; set; }
-		[JsonProperty("description")]
+		[JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Description { get; set; }
-		[JsonProperty("template")]
+		[JsonProperty("template", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Template { get; set; }
-		[JsonProperty("position")]
+		[JsonProperty("position", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> Position { get; set; }
-		[JsonProperty("showOnContentPage")]
+		[JsonProperty("show_on_content_page", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<bool> ShowOnContentPage { get; set; }
-		[JsonProperty("imageUrl")]
+		[JsonProperty("image_url", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string ImageUrl { get; set; }
-		[JsonProperty("link")]
+		[JsonProperty("link", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public string Link { get; set; }
-		[JsonProperty("brandId")]
+		[JsonProperty("brand_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public Nullable<int> BrandId { get; set; }
-		[JsonProperty("active")]
+		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool Active { get; set; }
-		[JsonProperty("webElements")]
+		[JsonProperty("web_elements", DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public ICollection<WebElementViewModel> WebElementsVM { get; set; }
 		
 		public WebElementTypeViewModel(WebElementType entity) : this()

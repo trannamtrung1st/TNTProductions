@@ -42,7 +42,7 @@ namespace PromoterDataService.Models.Domains
 	{
 		public BaseDomain()
 		{
-			_uow = G.TContainer.ResolveRequestScope<IUnitOfWork>();
+			_uow = G.TContainer.Resolve<IUnitOfWork>();
 			baseService = _uow.Service<S>();
 		}
 		
