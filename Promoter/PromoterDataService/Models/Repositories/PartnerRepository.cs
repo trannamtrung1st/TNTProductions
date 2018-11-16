@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.Partners.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Partner> AddAsync(Partner entity)
-		{
-			
-			entity = context.Partners.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override Partner Delete(Partner entity)
+		public override Partner Remove(Partner entity)
 		{
 			context.Partners.Attach(entity);
 			entity = context.Partners.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Partner> DeleteAsync(Partner entity)
-		{
-			context.Partners.Attach(entity);
-			entity = context.Partners.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override Partner Delete(int key)
+		public override Partner Remove(int key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.Partners.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Partner> DeleteAsync(int key)
+		public override IEnumerable<Partner> RemoveIf(Expression<Func<Partner, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Partners.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.Partners.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<Partner> RemoveRange(IEnumerable<Partner> list)
+		{
+			return context.Partners.RemoveRange(list);
 		}
 		
 		public override Partner FindById(int key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.Partners.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<Partner> UpdateAsync(Partner entity)
-		{
-			entity = context.Partners.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

@@ -26,11 +26,11 @@ namespace PromoterDataService.Models
         }
     
         public virtual DbSet<AffliatorCashbackDetail> AffliatorCashbackDetails { get; set; }
+        public virtual DbSet<AppAction> AppActions { get; set; }
         public virtual DbSet<Campaign> Campaigns { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<CustomerCashbackDetail> CustomerCashbackDetails { get; set; }
         public virtual DbSet<CustomerSegment> CustomerSegments { get; set; }
-        public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<GiftAppliedDetail> GiftAppliedDetails { get; set; }
         public virtual DbSet<GiftDetail> GiftDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
@@ -39,8 +39,10 @@ namespace PromoterDataService.Models
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Promotion> Promotions { get; set; }
         public virtual DbSet<PromotionAppliedDetail> PromotionAppliedDetails { get; set; }
+        public virtual DbSet<PromotionApplySituation> PromotionApplySituations { get; set; }
         public virtual DbSet<PromotionDetail> PromotionDetails { get; set; }
         public virtual DbSet<PromotionStoreRule> PromotionStoreRules { get; set; }
+        public virtual DbSet<PromotionType> PromotionTypes { get; set; }
         public virtual DbSet<Redemption> Redemptions { get; set; }
         public virtual DbSet<RedemptionRollback> RedemptionRollbacks { get; set; }
         public virtual DbSet<Segment> Segments { get; set; }

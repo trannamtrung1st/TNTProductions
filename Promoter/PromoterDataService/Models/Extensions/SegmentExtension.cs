@@ -8,12 +8,7 @@ using PromoterDataService.Global;
 
 namespace PromoterDataService.Models
 {
-	public partial class Segment : BaseEntity<SegmentViewModel>
+	public partial class Segment : BaseEntity
 	{
-		public override SegmentViewModel ToViewModel()
-		{
-			return new SegmentViewModel(this);
-		}
-		
 	}
 }

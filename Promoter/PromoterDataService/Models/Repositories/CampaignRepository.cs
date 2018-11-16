@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.Campaigns.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Campaign> AddAsync(Campaign entity)
-		{
-			
-			entity = context.Campaigns.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override Campaign Delete(Campaign entity)
+		public override Campaign Remove(Campaign entity)
 		{
 			context.Campaigns.Attach(entity);
 			entity = context.Campaigns.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Campaign> DeleteAsync(Campaign entity)
-		{
-			context.Campaigns.Attach(entity);
-			entity = context.Campaigns.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override Campaign Delete(int key)
+		public override Campaign Remove(int key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.Campaigns.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Campaign> DeleteAsync(int key)
+		public override IEnumerable<Campaign> RemoveIf(Expression<Func<Campaign, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Campaigns.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.Campaigns.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<Campaign> RemoveRange(IEnumerable<Campaign> list)
+		{
+			return context.Campaigns.RemoveRange(list);
 		}
 		
 		public override Campaign FindById(int key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.Campaigns.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<Campaign> UpdateAsync(Campaign entity)
-		{
-			entity = context.Campaigns.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

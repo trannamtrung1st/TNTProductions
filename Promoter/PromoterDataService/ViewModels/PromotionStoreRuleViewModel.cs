@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,17 +11,17 @@ namespace PromoterDataService.ViewModels
 {
 	public partial class PromotionStoreRuleViewModel: BaseViewModel<PromotionStoreRule>
 	{
-		[JsonProperty("validation_rule_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("validation_rule_id")]
 		public int ValidationRuleID { get; set; }
-		[JsonProperty("store_iid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("store_iid")]
 		public int StoreIID { get; set; }
-		[JsonProperty("store_sid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("store_sid")]
 		public string StoreSID { get; set; }
-		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("active")]
 		public Nullable<bool> Active { get; set; }
-		[JsonProperty("store", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("store")]
 		public StoreViewModel StoreVM { get; set; }
-		[JsonProperty("validation_rule", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("validation_rule")]
 		public ValidationRuleViewModel ValidationRuleVM { get; set; }
 		
 		public PromotionStoreRuleViewModel(PromotionStoreRule entity) : this()

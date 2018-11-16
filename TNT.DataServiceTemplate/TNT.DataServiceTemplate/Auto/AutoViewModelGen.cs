@@ -50,7 +50,7 @@ namespace TNT.DataServiceTemplate.Auto
         {
             Add(new TemplateCodeBlock(new StatementGen(
                 "var baseVM = new BaseVMGen(dt);",
-                @"manager.StartNewFile(""BaseViewModel.cs"");")),
+                @"manager.StartNewFile(""BaseViewModelGen.cs"");")),
                 new TemplateTextBlock("<#=baseVM.Generate()#>"));
         }
 
@@ -77,7 +77,7 @@ namespace TNT.DataServiceTemplate.Auto
                 new StatementGen(true,
                     "var vmGen = new VMGen(e, jIgnore, except, JsonPropertyFormatEnum." 
                         + Enum.GetName(typeof(JsonPropertyFormatEnum), Style) + ");",
-                    "manager.StartNewFile(e.EntityName+\"ViewModel.cs\");")),
+                    "manager.StartNewFile(e.EntityName+\"ViewModel.txt\");")),
                 new TemplateTextBlock("<#=vmGen.Generate()#>"),
                 new TemplateCodeBlock(new StatementGen(
                     "}",

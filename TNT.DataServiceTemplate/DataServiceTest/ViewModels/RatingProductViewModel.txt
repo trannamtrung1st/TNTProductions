@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class RatingProductViewModel: BaseViewModel<RatingProduct>
+	{
+		[JsonProperty("id")]
+		public int Id { get; set; }
+		[JsonProperty("user_id")]
+		public string UserId { get; set; }
+		[JsonProperty("product_id")]
+		public int ProductId { get; set; }
+		[JsonProperty("create_time")]
+		public DateTime CreateTime { get; set; }
+		[JsonProperty("star")]
+		public int Star { get; set; }
+		[JsonProperty("review_content")]
+		public string ReviewContent { get; set; }
+		[JsonProperty("active")]
+		public bool Active { get; set; }
+		[JsonProperty("product")]
+		public ProductViewModel ProductVM { get; set; }
+		
+		public RatingProductViewModel(RatingProduct entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public RatingProductViewModel()
+		{
+		}
+		
+	}
+}

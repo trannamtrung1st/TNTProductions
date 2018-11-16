@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using PromoterDataService.Utilities;
 using PromoterDataService.Managers;
-using PromoterDataService.ViewModels;
 using PromoterDataService.Models.Repositories;
 using PromoterDataService.Global;
 using TNT.IoContainer.Wrapper;
@@ -17,18 +16,17 @@ namespace PromoterDataService.Models.Services
 	public partial interface IService
 	{
 	}
-	public partial interface IBaseService<E, VM, K> : IService
+	public partial interface IBaseService<E, K> : IService
 	{
-		bool AutoSave { get; set; }
+		int SaveChanges();
+		Task<int> SaveChangesAsync();
 		
 		E Add(E entity);
-		Task<E> AddAsync(E entity);
 		E Update(E entity);
-		Task<E> UpdateAsync(E entity);
-		E Delete(E entity);
-		Task<E> DeleteAsync(E entity);
-		E Delete(K key);
-		Task<E> DeleteAsync(K key);
+		E Remove(E entity);
+		E Remove(K key);
+		IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);
+		IEnumerable<E> RemoveRange(IEnumerable<E> list);
 		E FindById(K key);
 		Task<E> FindByIdAsync(K key);
 		E Activate(E entity);
@@ -43,20 +41,18 @@ namespace PromoterDataService.Models.Services
 		Task<E> FirstOrDefaultAsync(Expression<Func<E, bool>> expr);
 	}
 	
-	public abstract partial class BaseService<E, VM, K> : IBaseService<E, VM, K>
+	public abstract partial class BaseService<E, K> : IBaseService<E, K>
 	{
 		protected IBaseRepository<E, K> repository;
 		
-		public bool AutoSave
+		public int SaveChanges()
 		{
-			get
-			{
-				return repository.AutoSave;
-			}
-			set
-			{
-				repository.AutoSave = value;
-			}
+			return repository.SaveChanges();
+		}
+		
+		public async Task<int> SaveChangesAsync()
+		{
+			return await repository.SaveChangesAsync();
 		}
 		
 		#region CRUD Area
@@ -65,39 +61,29 @@ namespace PromoterDataService.Models.Services
 			return repository.Add(entity);
 		}
 		
-		public async Task<E> AddAsync(E entity)
-		{
-			return await repository.AddAsync(entity);
-		}
-		
 		public E Update(E entity)
 		{
 			return repository.Update(entity);
 		}
 		
-		public async Task<E> UpdateAsync(E entity)
+		public E Remove(E entity)
 		{
-			return await repository.UpdateAsync(entity);
+			return repository.Remove(entity);
 		}
 		
-		public E Delete(E entity)
+		public E Remove(K key)
 		{
-			return repository.Delete(entity);
+			return repository.Remove(key);
 		}
 		
-		public async Task<E> DeleteAsync(E entity)
+		public IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr)
 		{
-			return await repository.DeleteAsync(entity);
+			return repository.RemoveIf(expr);
 		}
 		
-		public E Delete(K key)
+		public IEnumerable<E> RemoveRange(IEnumerable<E> list)
 		{
-			return repository.Delete(key);
-		}
-		
-		public async Task<E> DeleteAsync(K key)
-		{
-			return await repository.DeleteAsync(key);
+			return repository.RemoveRange(list);
 		}
 		
 		public E FindById(K key)

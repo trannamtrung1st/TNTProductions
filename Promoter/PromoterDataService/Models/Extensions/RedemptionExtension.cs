@@ -8,12 +8,7 @@ using PromoterDataService.Global;
 
 namespace PromoterDataService.Models
 {
-	public partial class Redemption : BaseEntity<RedemptionViewModel>
+	public partial class Redemption : BaseEntity
 	{
-		public override RedemptionViewModel ToViewModel()
-		{
-			return new RedemptionViewModel(this);
-		}
-		
 	}
 }

@@ -8,12 +8,7 @@ using PromoterDataService.Global;
 
 namespace PromoterDataService.Models
 {
-	public partial class OrderItem : BaseEntity<OrderItemViewModel>
+	public partial class OrderItem : BaseEntity
 	{
-		public override OrderItemViewModel ToViewModel()
-		{
-			return new OrderItemViewModel(this);
-		}
-		
 	}
 }

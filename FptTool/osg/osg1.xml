@@ -1,0 +1,75 @@
+﻿Which of these statements about files are true?<->
+File is a collection of related information
+File includes block special files and character special files
+File is an abstraction of data stored on HDD
+<PASSALL>
+Real-time system has ___ and ____ real-time system types<->
+hard , soft
+<PASSALL>
+Allow multiple remote users to run jobs on the computer at once
+<->
+time sharing systems
+<PASSALL>
+Which of these statements about address space are true?
+<->
+Address space is decoupled from the physical memory
+Address space is the abstraction that is referenced to the set of addresses a process
+<PASSALL>
+Which OS can provide many services as print, file, Web, email, ect?
+<->
+Server OS
+<PASSALL>
+Server OS serves multiple users at once over a network and allow the users to share ___ and _____ resources
+<->
+hardware, software
+<PASSALL>
+____ offers 3 kinds of services: batch, transaction processing, timesharing
+<->
+Mainframe OS
+<PASSALL>
+Which of these statements about processes are true?
+<->
+Associated with each process is set of resources such as executable code, data, stack, CPU registers value, and other information needing to run a program
+Process table stores all the information of processes
+A program in execution
+<PASSALL>
+_____ process routine job without interactive user present
+<->
+batch systems
+<PASSALL>
+Embedded OS is located in _______
+<->
+ROM
+<PASSALL>
+____ runs on systems that have many CPUs (multi-processors, multi-cores, multi-chips)
+<->
+Multiprocessor OS
+<PASSALL>
+____ systems are used in time-critical environments where reliability is key and data must be processed within a strict time limit.
+<->
+Real-time
+<PASSALL>
+Symbian, Palm, Windows Mobile, Windows CE are ______
+<->
+Handheld OS
+<PASSALL>
+_____ serves multiple users at once over a network and allow the users to share hardware and software resources
+<->
+Server OS
+<PASSALL>
+_____ supports with dozens of programs started up at the boot time
+<->
+Multi-programming
+<PASSALL>
+Handling large numbers of small requests
+<->
+real-time systems
+<PASSALL>
+Allow multiple remote users to run jobs on the computer at once
+<->
+time sharing systems
+<PASSALL>
+Which of these statements about processes are true?
+<->
+Process table stores all the information of processes
+Associated with each process is set of resources such as executable code, data, stack, CPU registers value, and other information needing to run a program

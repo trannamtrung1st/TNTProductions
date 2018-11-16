@@ -8,12 +8,7 @@ using PromoterDataService.Global;
 
 namespace PromoterDataService.Models
 {
-	public partial class RedemptionRollback : BaseEntity<RedemptionRollbackViewModel>
+	public partial class RedemptionRollback : BaseEntity
 	{
-		public override RedemptionRollbackViewModel ToViewModel()
-		{
-			return new RedemptionRollbackViewModel(this);
-		}
-		
 	}
 }

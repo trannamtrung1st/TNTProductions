@@ -13,7 +13,7 @@ namespace TNT.TemplateAPI.Interfaces
         string T();//VisualHelper.PrintTabs()
         string E();//VisualHelper.Enter()
 
-        // ~key~ => value
+        // `key` => value
         IDictionary<string, string> ResolveMapping { get; set; }
         // auto call
         void Resolve();

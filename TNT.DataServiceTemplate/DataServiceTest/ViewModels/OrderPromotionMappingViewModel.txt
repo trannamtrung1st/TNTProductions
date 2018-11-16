@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class OrderPromotionMappingViewModel: BaseViewModel<OrderPromotionMapping>
+	{
+		[JsonProperty("id")]
+		public int Id { get; set; }
+		[JsonProperty("order_id")]
+		public int OrderId { get; set; }
+		[JsonProperty("promotion_id")]
+		public int PromotionId { get; set; }
+		[JsonProperty("promotion_detail_id")]
+		public Nullable<int> PromotionDetailId { get; set; }
+		[JsonProperty("discount_amount")]
+		public decimal DiscountAmount { get; set; }
+		[JsonProperty("discount_rate")]
+		public Nullable<double> DiscountRate { get; set; }
+		[JsonProperty("active")]
+		public bool Active { get; set; }
+		[JsonProperty("mapping_index")]
+		public int MappingIndex { get; set; }
+		[JsonProperty("tmp_mapping_id")]
+		public Nullable<int> TmpMappingId { get; set; }
+		[JsonProperty("order")]
+		public OrderViewModel OrderVM { get; set; }
+		[JsonProperty("promotion")]
+		public PromotionViewModel PromotionVM { get; set; }
+		[JsonProperty("order_details")]
+		public IEnumerable<OrderDetailViewModel> OrderDetailsVM { get; set; }
+		
+		public OrderPromotionMappingViewModel(OrderPromotionMapping entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public OrderPromotionMappingViewModel()
+		{
+			this.OrderDetailsVM = new HashSet<OrderDetailViewModel>();
+		}
+		
+	}
+}

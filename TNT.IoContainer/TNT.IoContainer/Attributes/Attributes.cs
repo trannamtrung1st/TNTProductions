@@ -20,7 +20,7 @@ namespace TNT.IoContainer.Attributes
      * Injectable params must stick with an Id for container to know which to resolve
      * + Must be put above public constructor
      * */
-    [AttributeUsage(AttributeTargets.Constructor)]
+    [AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Method)]
     public class InjectableParams : Attribute
     {
         internal int Id { get; set; }

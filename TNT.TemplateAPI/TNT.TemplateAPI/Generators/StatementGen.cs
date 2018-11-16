@@ -31,7 +31,11 @@ namespace TNT.TemplateAPI.Generators
 
         public void Add(params string[] lines)
         {
-            Contents.AddRange(lines);
+            foreach (var l in lines)
+            {
+                if (l != null)
+                    Contents.Add(l);
+            }
         }
 
         public override string Generate()

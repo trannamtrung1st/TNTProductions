@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.OrderItems.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<OrderItem> AddAsync(OrderItem entity)
-		{
-			
-			entity = context.OrderItems.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override OrderItem Delete(OrderItem entity)
+		public override OrderItem Remove(OrderItem entity)
 		{
 			context.OrderItems.Attach(entity);
 			entity = context.OrderItems.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<OrderItem> DeleteAsync(OrderItem entity)
-		{
-			context.OrderItems.Attach(entity);
-			entity = context.OrderItems.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override OrderItem Delete(int key)
+		public override OrderItem Remove(int key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.OrderItems.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<OrderItem> DeleteAsync(int key)
+		public override IEnumerable<OrderItem> RemoveIf(Expression<Func<OrderItem, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.OrderItems.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.OrderItems.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<OrderItem> RemoveRange(IEnumerable<OrderItem> list)
+		{
+			return context.OrderItems.RemoveRange(list);
 		}
 		
 		public override OrderItem FindById(int key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.OrderItems.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<OrderItem> UpdateAsync(OrderItem entity)
-		{
-			entity = context.OrderItems.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

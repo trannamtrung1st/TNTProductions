@@ -20,9 +20,22 @@
           <Property Name="CardRechargeRate" Type="float" />
           <Property Name="CashbackPercentOfCardRecharge" Type="float" />
           <Property Name="CashbackBySegment" Type="float" />
-          <Property Name="SegmentID" Type="int" />
+          <Property Name="SegmentIID" Type="int" />
           <Property Name="SegmentSID" Type="varchar" MaxLength="100" />
           <Property Name="PromotionDetailID" Type="int" />
+        </EntityType>
+        <EntityType Name="AppAction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Type" Type="int" />
+          <Property Name="CustomerIID" Type="int" />
+          <Property Name="SourceId" Type="varchar" MaxLength="100" />
+          <Property Name="SourceType" Type="int" />
+          <Property Name="Description" Type="ntext" />
+          <Property Name="ContentObject" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Campaign">
           <Key>
@@ -69,7 +82,7 @@
           <Property Name="CardRechargeRate" Type="float" />
           <Property Name="CashbackPercentOfCardRecharge" Type="float" />
           <Property Name="CashbackBySegment" Type="float" />
-          <Property Name="SegmentID" Type="int" />
+          <Property Name="SegmentIID" Type="int" />
           <Property Name="SegmentSID" Type="varchar" MaxLength="100" />
           <Property Name="PromotionDetailID" Type="int" />
         </EntityType>
@@ -84,19 +97,6 @@
           <Property Name="SegmentSID" Type="varchar" MaxLength="100" />
           <Property Name="Active" Type="bit" />
         </EntityType>
-        <EntityType Name="Event">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Date" Type="datetime" />
-          <Property Name="Type" Type="int" />
-          <Property Name="CustomerIID" Type="int" />
-          <Property Name="SourceId" Type="varchar" MaxLength="100" />
-          <Property Name="SourceType" Type="int" />
-          <Property Name="Description" Type="ntext" />
-          <Property Name="ContentObject" Type="nvarchar(max)" />
-        </EntityType>
         <EntityType Name="GiftAppliedDetails">
           <Key>
             <PropertyRef Name="PromotionAppliedDetailID" />
@@ -109,13 +109,17 @@
         </EntityType>
         <EntityType Name="GiftDetails">
           <Key>
-            <PropertyRef Name="ProductIID" />
-            <PropertyRef Name="PromotionDetailID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ProductIID" Type="int" Nullable="false" />
-          <Property Name="PromotionDetailID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductIID" Type="int" />
+          <Property Name="PromotionDetailID" Type="int" />
           <Property Name="ProductSID" Type="varchar" MaxLength="100" />
-          <Property Name="Amount" Type="float" />
+          <Property Name="ProductAmount" Type="float" />
+          <Property Name="VoucherID" Type="int" />
+          <Property Name="VoucherAmount" Type="int" />
+          <Property Name="IsGiftVoucher" Type="bit" />
+          <Property Name="AndDetailID" Type="int" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -206,7 +210,16 @@
           <Property Name="CustomerCashbackAmount" Type="float" />
           <Property Name="AffliatorCashbackDetailID" Type="int" />
           <Property Name="AffliatorCashbackAmount" Type="float" />
-          <Property Name="IsRuleChecked" Type="bit" />
+          <Property Name="StrictRule" Type="bit" />
+        </EntityType>
+        <EntityType Name="PromotionApplySituations">
+          <Key>
+            <PropertyRef Name="PromotionDetailID" />
+            <PropertyRef Name="ApplySituation" />
+          </Key>
+          <Property Name="PromotionDetailID" Type="int" Nullable="false" />
+          <Property Name="ApplySituation" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" />
         </EntityType>
         <EntityType Name="PromotionDetail">
           <Key>
@@ -216,14 +229,14 @@
           <Property Name="IsDiscount" Type="bit" />
           <Property Name="DiscountAmount" Type="float" />
           <Property Name="DiscountUnit" Type="int" />
-          <Property Name="DiscountLevel" Type="int" />
           <Property Name="IsGift" Type="bit" />
           <Property Name="IsCashback" Type="bit" />
           <Property Name="ExtraInfoObject" Type="nvarchar(max)" />
-          <Property Name="Active" Type="bit" />
           <Property Name="IsPartner" Type="bit" />
           <Property Name="PartnerIID" Type="int" />
           <Property Name="PartnerSID" Type="varchar" MaxLength="100" />
+          <Property Name="ApplyLevel" Type="int" />
+          <Property Name="Active" Type="bit" />
         </EntityType>
         <EntityType Name="PromotionStoreRules">
           <Key>
@@ -233,6 +246,15 @@
           <Property Name="ValidationRuleID" Type="int" Nullable="false" />
           <Property Name="StoreIID" Type="int" Nullable="false" />
           <Property Name="StoreSID" Type="varchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="PromotionTypes">
+          <Key>
+            <PropertyRef Name="PromotionDetailID" />
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="PromotionDetailID" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
           <Property Name="Active" Type="bit" />
         </EntityType>
         <EntityType Name="Redemption">
@@ -345,6 +367,30 @@
           <Property Name="Postfix" Type="varchar" MaxLength="100" />
           <Property Name="Pattern" Type="varchar" MaxLength="100" />
         </EntityType>
+        <Association Name="FK_GiftDetails_GiftDetails">
+          <End Role="GiftDetails" Type="Self.GiftDetails" Multiplicity="0..1" />
+          <End Role="GiftDetails1" Type="Self.GiftDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiftDetails">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GiftDetails1">
+              <PropertyRef Name="AndDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GiftDetails_Voucher">
+          <End Role="Voucher" Type="Self.Voucher" Multiplicity="0..1" />
+          <End Role="GiftDetails" Type="Self.GiftDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voucher">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GiftDetails">
+              <PropertyRef Name="VoucherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Info_CustomerSegment_Info_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
           <End Role="CustomerSegment" Type="Self.CustomerSegment" Multiplicity="*" />
@@ -371,12 +417,12 @@
         </Association>
         <Association Name="FK_Info_Event_Info_Customer">
           <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+          <End Role="AppAction" Type="Self.AppAction" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
               <PropertyRef Name="IID" />
             </Principal>
-            <Dependent Role="Event">
+            <Dependent Role="AppAction">
               <PropertyRef Name="CustomerIID" />
             </Dependent>
           </ReferentialConstraint>
@@ -634,7 +680,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Promotion_GiftDetails_Info_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="GiftDetails" Type="Self.GiftDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
@@ -646,7 +692,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Promotion_GiftDetails_Promotion_PromotionDetail">
-          <End Role="PromotionDetail" Type="Self.PromotionDetail" Multiplicity="1" />
+          <End Role="PromotionDetail" Type="Self.PromotionDetail" Multiplicity="0..1" />
           <End Role="GiftDetails" Type="Self.GiftDetails" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PromotionDetail">
@@ -813,13 +859,49 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PromotionAppliedDetail_Promotion">
+          <End Role="Promotion" Type="Self.Promotion" Multiplicity="0..1" />
+          <End Role="PromotionAppliedDetail" Type="Self.PromotionAppliedDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PromotionAppliedDetail">
+              <PropertyRef Name="PromotionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromotionApplyTypes_PromotionDetail">
+          <End Role="PromotionDetail" Type="Self.PromotionDetail" Multiplicity="1" />
+          <End Role="PromotionApplySituations" Type="Self.PromotionApplySituations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PromotionApplySituations">
+              <PropertyRef Name="PromotionDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromotionTypes_PromotionDetail">
+          <End Role="PromotionDetail" Type="Self.PromotionDetail" Multiplicity="1" />
+          <End Role="PromotionTypes" Type="Self.PromotionTypes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PromotionTypes">
+              <PropertyRef Name="PromotionDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PromoterModelStoreContainer">
           <EntitySet Name="AffliatorCashbackDetail" EntityType="Self.AffliatorCashbackDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppAction" EntityType="Self.AppAction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Campaign" EntityType="Self.Campaign" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerCashbackDetail" EntityType="Self.CustomerCashbackDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerSegment" EntityType="Self.CustomerSegment" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GiftAppliedDetails" EntityType="Self.GiftAppliedDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GiftDetails" EntityType="Self.GiftDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
@@ -828,8 +910,10 @@
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Promotion" EntityType="Self.Promotion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PromotionAppliedDetail" EntityType="Self.PromotionAppliedDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromotionApplySituations" EntityType="Self.PromotionApplySituations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PromotionDetail" EntityType="Self.PromotionDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PromotionStoreRules" EntityType="Self.PromotionStoreRules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromotionTypes" EntityType="Self.PromotionTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Redemption" EntityType="Self.Redemption" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RedemptionRollback" EntityType="Self.RedemptionRollback" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Segment" EntityType="Self.Segment" Schema="dbo" store:Type="Tables" />
@@ -837,6 +921,14 @@
           <EntitySet Name="ValidationRule" EntityType="Self.ValidationRule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Voucher" EntityType="Self.Voucher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VoucherConfig" EntityType="Self.VoucherConfig" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_GiftDetails_GiftDetails" Association="Self.FK_GiftDetails_GiftDetails">
+            <End Role="GiftDetails" EntitySet="GiftDetails" />
+            <End Role="GiftDetails1" EntitySet="GiftDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GiftDetails_Voucher" Association="Self.FK_GiftDetails_Voucher">
+            <End Role="Voucher" EntitySet="Voucher" />
+            <End Role="GiftDetails" EntitySet="GiftDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_Info_CustomerSegment_Info_Customer" Association="Self.FK_Info_CustomerSegment_Info_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="CustomerSegment" EntitySet="CustomerSegment" />
@@ -847,7 +939,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_Info_Event_Info_Customer" Association="Self.FK_Info_Event_Info_Customer">
             <End Role="Customer" EntitySet="Customer" />
-            <End Role="Event" EntitySet="Event" />
+            <End Role="AppAction" EntitySet="AppAction" />
           </AssociationSet>
           <AssociationSet Name="FK_Info_GiftAppliedDetails_Info_Product" Association="Self.FK_Info_GiftAppliedDetails_Info_Product">
             <End Role="Product" EntitySet="Product" />
@@ -993,6 +1085,18 @@
             <End Role="VoucherConfig" EntitySet="VoucherConfig" />
             <End Role="Voucher" EntitySet="Voucher" />
           </AssociationSet>
+          <AssociationSet Name="FK_PromotionAppliedDetail_Promotion" Association="Self.FK_PromotionAppliedDetail_Promotion">
+            <End Role="Promotion" EntitySet="Promotion" />
+            <End Role="PromotionAppliedDetail" EntitySet="PromotionAppliedDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromotionApplyTypes_PromotionDetail" Association="Self.FK_PromotionApplyTypes_PromotionDetail">
+            <End Role="PromotionDetail" EntitySet="PromotionDetail" />
+            <End Role="PromotionApplySituations" EntitySet="PromotionApplySituations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromotionTypes_PromotionDetail" Association="Self.FK_PromotionTypes_PromotionDetail">
+            <End Role="PromotionDetail" EntitySet="PromotionDetail" />
+            <End Role="PromotionTypes" EntitySet="PromotionTypes" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -1000,11 +1104,11 @@
       <Schema Namespace="PromoterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="PromoterEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AffliatorCashbackDetails" EntityType="PromoterModel.AffliatorCashbackDetail" />
+          <EntitySet Name="AppActions" EntityType="PromoterModel.AppAction" />
           <EntitySet Name="Campaigns" EntityType="PromoterModel.Campaign" />
           <EntitySet Name="Customers" EntityType="PromoterModel.Customer" />
           <EntitySet Name="CustomerCashbackDetails" EntityType="PromoterModel.CustomerCashbackDetail" />
           <EntitySet Name="CustomerSegments" EntityType="PromoterModel.CustomerSegment" />
-          <EntitySet Name="Events" EntityType="PromoterModel.Event" />
           <EntitySet Name="GiftAppliedDetails" EntityType="PromoterModel.GiftAppliedDetail" />
           <EntitySet Name="GiftDetails" EntityType="PromoterModel.GiftDetail" />
           <EntitySet Name="Orders" EntityType="PromoterModel.Order" />
@@ -1013,8 +1117,10 @@
           <EntitySet Name="Products" EntityType="PromoterModel.Product" />
           <EntitySet Name="Promotions" EntityType="PromoterModel.Promotion" />
           <EntitySet Name="PromotionAppliedDetails" EntityType="PromoterModel.PromotionAppliedDetail" />
+          <EntitySet Name="PromotionApplySituations" EntityType="PromoterModel.PromotionApplySituation" />
           <EntitySet Name="PromotionDetails" EntityType="PromoterModel.PromotionDetail" />
           <EntitySet Name="PromotionStoreRules" EntityType="PromoterModel.PromotionStoreRule" />
+          <EntitySet Name="PromotionTypes" EntityType="PromoterModel.PromotionType" />
           <EntitySet Name="Redemptions" EntityType="PromoterModel.Redemption" />
           <EntitySet Name="RedemptionRollbacks" EntityType="PromoterModel.RedemptionRollback" />
           <EntitySet Name="Segments" EntityType="PromoterModel.Segment" />
@@ -1029,6 +1135,10 @@
           <AssociationSet Name="FK_Promotion_AffliatorCashbackDetail_Promotion_PromotionDetail" Association="PromoterModel.FK_Promotion_AffliatorCashbackDetail_Promotion_PromotionDetail">
             <End Role="PromotionDetail" EntitySet="PromotionDetails" />
             <End Role="AffliatorCashbackDetail" EntitySet="AffliatorCashbackDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Info_Event_Info_Customer" Association="PromoterModel.FK_Info_Event_Info_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="AppAction" EntitySet="AppActions" />
           </AssociationSet>
           <AssociationSet Name="FK_Promotion_Campaign_Promotion_ValidationRule" Association="PromoterModel.FK_Promotion_Campaign_Promotion_ValidationRule">
             <End Role="ValidationRule" EntitySet="ValidationRules" />
@@ -1049,10 +1159,6 @@
           <AssociationSet Name="FK_Info_CustomerSegment_Info_Customer" Association="PromoterModel.FK_Info_CustomerSegment_Info_Customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="CustomerSegment" EntitySet="CustomerSegments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Info_Event_Info_Customer" Association="PromoterModel.FK_Info_Event_Info_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Event" EntitySet="Events" />
           </AssociationSet>
           <AssociationSet Name="FK_Info_Order_Info_Customer" Association="PromoterModel.FK_Info_Order_Info_Customer">
             <End Role="Customer" EntitySet="Customers" />
@@ -1085,6 +1191,14 @@
           <AssociationSet Name="FK_Info_GiftAppliedDetails_Info_PromotionAppliedDetail" Association="PromoterModel.FK_Info_GiftAppliedDetails_Info_PromotionAppliedDetail">
             <End Role="PromotionAppliedDetail" EntitySet="PromotionAppliedDetails" />
             <End Role="GiftAppliedDetail" EntitySet="GiftAppliedDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GiftDetails_GiftDetails" Association="PromoterModel.FK_GiftDetails_GiftDetails">
+            <End Role="GiftDetail" EntitySet="GiftDetails" />
+            <End Role="GiftDetail1" EntitySet="GiftDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GiftDetails_Voucher" Association="PromoterModel.FK_GiftDetails_Voucher">
+            <End Role="Voucher" EntitySet="Vouchers" />
+            <End Role="GiftDetail" EntitySet="GiftDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_Promotion_GiftDetails_Info_Product" Association="PromoterModel.FK_Promotion_GiftDetails_Info_Product">
             <End Role="Product" EntitySet="Products" />
@@ -1130,6 +1244,10 @@
             <End Role="ValidationRule" EntitySet="ValidationRules" />
             <End Role="Promotion" EntitySet="Promotions" />
           </AssociationSet>
+          <AssociationSet Name="FK_PromotionAppliedDetail_Promotion" Association="PromoterModel.FK_PromotionAppliedDetail_Promotion">
+            <End Role="Promotion" EntitySet="Promotions" />
+            <End Role="PromotionAppliedDetail" EntitySet="PromotionAppliedDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_Info_PromotionAppliedDetail_Info_Redemption" Association="PromoterModel.FK_Info_PromotionAppliedDetail_Info_Redemption">
             <End Role="Redemption" EntitySet="Redemptions" />
             <End Role="PromotionAppliedDetail" EntitySet="PromotionAppliedDetails" />
@@ -1142,9 +1260,17 @@
             <End Role="Voucher" EntitySet="Vouchers" />
             <End Role="PromotionAppliedDetail" EntitySet="PromotionAppliedDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_PromotionApplyTypes_PromotionDetail" Association="PromoterModel.FK_PromotionApplyTypes_PromotionDetail">
+            <End Role="PromotionDetail" EntitySet="PromotionDetails" />
+            <End Role="PromotionApplySituation" EntitySet="PromotionApplySituations" />
+          </AssociationSet>
           <AssociationSet Name="FK_Promotion_Voucher_Promotion_PromotionDetail" Association="PromoterModel.FK_Promotion_Voucher_Promotion_PromotionDetail">
             <End Role="PromotionDetail" EntitySet="PromotionDetails" />
             <End Role="Voucher" EntitySet="Vouchers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromotionTypes_PromotionDetail" Association="PromoterModel.FK_PromotionTypes_PromotionDetail">
+            <End Role="PromotionDetail" EntitySet="PromotionDetails" />
+            <End Role="PromotionType" EntitySet="PromotionTypes" />
           </AssociationSet>
           <AssociationSet Name="FK_Promotion_PromotionStoreRules_Info_Store" Association="PromoterModel.FK_Promotion_PromotionStoreRules_Info_Store">
             <End Role="Store" EntitySet="Stores" />
@@ -1194,11 +1320,25 @@
           <Property Name="CardRechargeRate" Type="Double" />
           <Property Name="CashbackPercentOfCardRecharge" Type="Double" />
           <Property Name="CashbackBySegment" Type="Double" />
-          <Property Name="SegmentID" Type="Int32" />
+          <Property Name="SegmentIID" Type="Int32" />
           <Property Name="SegmentSID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="PromotionDetailID" Type="Int32" />
           <NavigationProperty Name="PromotionAppliedDetails" Relationship="PromoterModel.FK_Info_PromotionAppliedDetail_Promotion_AffliatorCashbackDetail" FromRole="AffliatorCashbackDetail" ToRole="PromotionAppliedDetail" />
           <NavigationProperty Name="PromotionDetail" Relationship="PromoterModel.FK_Promotion_AffliatorCashbackDetail_Promotion_PromotionDetail" FromRole="AffliatorCashbackDetail" ToRole="PromotionDetail" />
+        </EntityType>
+        <EntityType Name="AppAction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="CustomerIID" Type="Int32" />
+          <Property Name="SourceId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SourceType" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ContentObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer" Relationship="PromoterModel.FK_Info_Event_Info_Customer" FromRole="AppAction" ToRole="Customer" />
         </EntityType>
         <EntityType Name="Campaign">
           <Key>
@@ -1233,8 +1373,8 @@
           <Property Name="MetadataObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedTime" Type="DateTime" Precision="3" />
           <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="AppActions" Relationship="PromoterModel.FK_Info_Event_Info_Customer" FromRole="Customer" ToRole="AppAction" />
           <NavigationProperty Name="CustomerSegments" Relationship="PromoterModel.FK_Info_CustomerSegment_Info_Customer" FromRole="Customer" ToRole="CustomerSegment" />
-          <NavigationProperty Name="Events" Relationship="PromoterModel.FK_Info_Event_Info_Customer" FromRole="Customer" ToRole="Event" />
           <NavigationProperty Name="Orders" Relationship="PromoterModel.FK_Info_Order_Info_Customer" FromRole="Customer" ToRole="Order" />
           <NavigationProperty Name="Redemptions" Relationship="PromoterModel.FK_Info_Redemption_Info_Customer" FromRole="Customer" ToRole="Redemption" />
           <NavigationProperty Name="RedemptionRollbacks" Relationship="PromoterModel.FK_Info_RedemptionRollback_Info_Customer" FromRole="Customer" ToRole="RedemptionRollback" />
@@ -1254,7 +1394,7 @@
           <Property Name="CardRechargeRate" Type="Double" />
           <Property Name="CashbackPercentOfCardRecharge" Type="Double" />
           <Property Name="CashbackBySegment" Type="Double" />
-          <Property Name="SegmentID" Type="Int32" />
+          <Property Name="SegmentIID" Type="Int32" />
           <Property Name="SegmentSID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="PromotionDetailID" Type="Int32" />
           <NavigationProperty Name="PromotionAppliedDetails" Relationship="PromoterModel.FK_Info_PromotionAppliedDetail_Promotion_CashbackDetail" FromRole="CustomerCashbackDetail" ToRole="PromotionAppliedDetail" />
@@ -1273,20 +1413,6 @@
           <NavigationProperty Name="Customer" Relationship="PromoterModel.FK_Info_CustomerSegment_Info_Customer" FromRole="CustomerSegment" ToRole="Customer" />
           <NavigationProperty Name="Segment" Relationship="PromoterModel.FK_Info_CustomerSegment_Info_Segment" FromRole="CustomerSegment" ToRole="Segment" />
         </EntityType>
-        <EntityType Name="Event">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Precision="3" />
-          <Property Name="Type" Type="Int32" />
-          <Property Name="CustomerIID" Type="Int32" />
-          <Property Name="SourceId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SourceType" Type="Int32" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ContentObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Customer" Relationship="PromoterModel.FK_Info_Event_Info_Customer" FromRole="Event" ToRole="Customer" />
-        </EntityType>
         <EntityType Name="GiftAppliedDetail">
           <Key>
             <PropertyRef Name="PromotionAppliedDetailID" />
@@ -1301,13 +1427,20 @@
         </EntityType>
         <EntityType Name="GiftDetail">
           <Key>
-            <PropertyRef Name="ProductIID" />
-            <PropertyRef Name="PromotionDetailID" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ProductIID" Type="Int32" Nullable="false" />
-          <Property Name="PromotionDetailID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductIID" Type="Int32" />
+          <Property Name="PromotionDetailID" Type="Int32" />
           <Property Name="ProductSID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Amount" Type="Double" />
+          <Property Name="ProductAmount" Type="Double" />
+          <Property Name="VoucherID" Type="Int32" />
+          <Property Name="VoucherAmount" Type="Int32" />
+          <Property Name="IsGiftVoucher" Type="Boolean" />
+          <Property Name="AndDetailID" Type="Int32" />
+          <NavigationProperty Name="GiftDetails1" Relationship="PromoterModel.FK_GiftDetails_GiftDetails" FromRole="GiftDetail" ToRole="GiftDetail1" />
+          <NavigationProperty Name="GiftDetail1" Relationship="PromoterModel.FK_GiftDetails_GiftDetails" FromRole="GiftDetail1" ToRole="GiftDetail" />
+          <NavigationProperty Name="Voucher" Relationship="PromoterModel.FK_GiftDetails_Voucher" FromRole="GiftDetail" ToRole="Voucher" />
           <NavigationProperty Name="Product" Relationship="PromoterModel.FK_Promotion_GiftDetails_Info_Product" FromRole="GiftDetail" ToRole="Product" />
           <NavigationProperty Name="PromotionDetail" Relationship="PromoterModel.FK_Promotion_GiftDetails_Promotion_PromotionDetail" FromRole="GiftDetail" ToRole="PromotionDetail" />
         </EntityType>
@@ -1395,6 +1528,7 @@
           <NavigationProperty Name="Campaign" Relationship="PromoterModel.FK_Promotion_Promotion_Promotion_Campaign" FromRole="Promotion" ToRole="Campaign" />
           <NavigationProperty Name="PromotionDetail" Relationship="PromoterModel.FK_Promotion_Promotion_Promotion_PromotionDetail" FromRole="Promotion" ToRole="PromotionDetail" />
           <NavigationProperty Name="ValidationRule" Relationship="PromoterModel.FK_Promotion_Promotion_Promotion_ValidationRule" FromRole="Promotion" ToRole="ValidationRule" />
+          <NavigationProperty Name="PromotionAppliedDetails" Relationship="PromoterModel.FK_PromotionAppliedDetail_Promotion" FromRole="Promotion" ToRole="PromotionAppliedDetail" />
         </EntityType>
         <EntityType Name="PromotionAppliedDetail">
           <Key>
@@ -1416,15 +1550,26 @@
           <Property Name="CustomerCashbackAmount" Type="Double" />
           <Property Name="AffliatorCashbackDetailID" Type="Int32" />
           <Property Name="AffliatorCashbackAmount" Type="Double" />
-          <Property Name="IsRuleChecked" Type="Boolean" />
+          <Property Name="StrictRule" Type="Boolean" />
           <NavigationProperty Name="AffliatorCashbackDetail" Relationship="PromoterModel.FK_Info_PromotionAppliedDetail_Promotion_AffliatorCashbackDetail" FromRole="PromotionAppliedDetail" ToRole="AffliatorCashbackDetail" />
           <NavigationProperty Name="CustomerCashbackDetail" Relationship="PromoterModel.FK_Info_PromotionAppliedDetail_Promotion_CashbackDetail" FromRole="PromotionAppliedDetail" ToRole="CustomerCashbackDetail" />
           <NavigationProperty Name="GiftAppliedDetails" Relationship="PromoterModel.FK_Info_GiftAppliedDetails_Info_PromotionAppliedDetail" FromRole="PromotionAppliedDetail" ToRole="GiftAppliedDetail" />
           <NavigationProperty Name="Order" Relationship="PromoterModel.FK_Info_PromotionAppliedDetail_Info_Order" FromRole="PromotionAppliedDetail" ToRole="Order" />
           <NavigationProperty Name="OrderItem" Relationship="PromoterModel.FK_Info_PromotionAppliedDetail_Info_OrderItem" FromRole="PromotionAppliedDetail" ToRole="OrderItem" />
+          <NavigationProperty Name="Promotion" Relationship="PromoterModel.FK_PromotionAppliedDetail_Promotion" FromRole="PromotionAppliedDetail" ToRole="Promotion" />
           <NavigationProperty Name="Redemption" Relationship="PromoterModel.FK_Info_PromotionAppliedDetail_Info_Redemption" FromRole="PromotionAppliedDetail" ToRole="Redemption" />
           <NavigationProperty Name="RedemptionRollback" Relationship="PromoterModel.FK_Info_PromotionAppliedDetail_Info_RedemptionRollback" FromRole="PromotionAppliedDetail" ToRole="RedemptionRollback" />
           <NavigationProperty Name="Voucher" Relationship="PromoterModel.FK_Info_PromotionAppliedDetail_Promotion_Voucher" FromRole="PromotionAppliedDetail" ToRole="Voucher" />
+        </EntityType>
+        <EntityType Name="PromotionApplySituation">
+          <Key>
+            <PropertyRef Name="PromotionDetailID" />
+            <PropertyRef Name="ApplySituation" />
+          </Key>
+          <Property Name="PromotionDetailID" Type="Int32" Nullable="false" />
+          <Property Name="ApplySituation" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="PromotionDetail" Relationship="PromoterModel.FK_PromotionApplyTypes_PromotionDetail" FromRole="PromotionApplySituation" ToRole="PromotionDetail" />
         </EntityType>
         <EntityType Name="PromotionDetail">
           <Key>
@@ -1434,20 +1579,22 @@
           <Property Name="IsDiscount" Type="Boolean" />
           <Property Name="DiscountAmount" Type="Double" />
           <Property Name="DiscountUnit" Type="Int32" />
-          <Property Name="DiscountLevel" Type="Int32" />
           <Property Name="IsGift" Type="Boolean" />
           <Property Name="IsCashback" Type="Boolean" />
           <Property Name="ExtraInfoObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Active" Type="Boolean" />
           <Property Name="IsPartner" Type="Boolean" />
           <Property Name="PartnerIID" Type="Int32" />
           <Property Name="PartnerSID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ApplyLevel" Type="Int32" />
+          <Property Name="Active" Type="Boolean" />
           <NavigationProperty Name="AffliatorCashbackDetails" Relationship="PromoterModel.FK_Promotion_AffliatorCashbackDetail_Promotion_PromotionDetail" FromRole="PromotionDetail" ToRole="AffliatorCashbackDetail" />
           <NavigationProperty Name="CustomerCashbackDetails" Relationship="PromoterModel.FK_Promotion_CustomerCashbackDetail_Promotion_PromotionDetail" FromRole="PromotionDetail" ToRole="CustomerCashbackDetail" />
           <NavigationProperty Name="GiftDetails" Relationship="PromoterModel.FK_Promotion_GiftDetails_Promotion_PromotionDetail" FromRole="PromotionDetail" ToRole="GiftDetail" />
           <NavigationProperty Name="Partner" Relationship="PromoterModel.FK_Promotion_PromotionDetail_Promotion_Partner" FromRole="PromotionDetail" ToRole="Partner" />
           <NavigationProperty Name="Promotions" Relationship="PromoterModel.FK_Promotion_Promotion_Promotion_PromotionDetail" FromRole="PromotionDetail" ToRole="Promotion" />
+          <NavigationProperty Name="PromotionApplySituations" Relationship="PromoterModel.FK_PromotionApplyTypes_PromotionDetail" FromRole="PromotionDetail" ToRole="PromotionApplySituation" />
           <NavigationProperty Name="Vouchers" Relationship="PromoterModel.FK_Promotion_Voucher_Promotion_PromotionDetail" FromRole="PromotionDetail" ToRole="Voucher" />
+          <NavigationProperty Name="PromotionTypes" Relationship="PromoterModel.FK_PromotionTypes_PromotionDetail" FromRole="PromotionDetail" ToRole="PromotionType" />
         </EntityType>
         <EntityType Name="PromotionStoreRule">
           <Key>
@@ -1460,6 +1607,16 @@
           <Property Name="Active" Type="Boolean" />
           <NavigationProperty Name="Store" Relationship="PromoterModel.FK_Promotion_PromotionStoreRules_Info_Store" FromRole="PromotionStoreRule" ToRole="Store" />
           <NavigationProperty Name="ValidationRule" Relationship="PromoterModel.FK_Promotion_PromotionStoreRules_Promotion_ValidationRule" FromRole="PromotionStoreRule" ToRole="ValidationRule" />
+        </EntityType>
+        <EntityType Name="PromotionType">
+          <Key>
+            <PropertyRef Name="PromotionDetailID" />
+            <PropertyRef Name="Type" />
+          </Key>
+          <Property Name="PromotionDetailID" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="PromotionDetail" Relationship="PromoterModel.FK_PromotionTypes_PromotionDetail" FromRole="PromotionType" ToRole="PromotionDetail" />
         </EntityType>
         <EntityType Name="Redemption">
           <Key>
@@ -1580,6 +1737,7 @@
           <Property Name="UsedTimes" Type="Int32" />
           <Property Name="Active" Type="Boolean" />
           <NavigationProperty Name="Campaign" Relationship="PromoterModel.FK_Promotion_Voucher_Promotion_Campaign" FromRole="Voucher" ToRole="Campaign" />
+          <NavigationProperty Name="GiftDetails" Relationship="PromoterModel.FK_GiftDetails_Voucher" FromRole="Voucher" ToRole="GiftDetail" />
           <NavigationProperty Name="PromotionAppliedDetails" Relationship="PromoterModel.FK_Info_PromotionAppliedDetail_Promotion_Voucher" FromRole="Voucher" ToRole="PromotionAppliedDetail" />
           <NavigationProperty Name="PromotionDetail" Relationship="PromoterModel.FK_Promotion_Voucher_Promotion_PromotionDetail" FromRole="Voucher" ToRole="PromotionDetail" />
           <NavigationProperty Name="ValidationRule" Relationship="PromoterModel.FK_Promotion_Voucher_Promotion_ValidationRule" FromRole="Voucher" ToRole="ValidationRule" />
@@ -1618,6 +1776,18 @@
             </Principal>
             <Dependent Role="AffliatorCashbackDetail">
               <PropertyRef Name="PromotionDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Info_Event_Info_Customer">
+          <End Type="PromoterModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="PromoterModel.AppAction" Role="AppAction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="IID" />
+            </Principal>
+            <Dependent Role="AppAction">
+              <PropertyRef Name="CustomerIID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1677,18 +1847,6 @@
               <PropertyRef Name="IID" />
             </Principal>
             <Dependent Role="CustomerSegment">
-              <PropertyRef Name="CustomerIID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Info_Event_Info_Customer">
-          <End Type="PromoterModel.Customer" Role="Customer" Multiplicity="0..1" />
-          <End Type="PromoterModel.Event" Role="Event" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="IID" />
-            </Principal>
-            <Dependent Role="Event">
               <PropertyRef Name="CustomerIID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1789,8 +1947,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GiftDetails_GiftDetails">
+          <End Type="PromoterModel.GiftDetail" Role="GiftDetail" Multiplicity="0..1" />
+          <End Type="PromoterModel.GiftDetail" Role="GiftDetail1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GiftDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GiftDetail1">
+              <PropertyRef Name="AndDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GiftDetails_Voucher">
+          <End Type="PromoterModel.Voucher" Role="Voucher" Multiplicity="0..1" />
+          <End Type="PromoterModel.GiftDetail" Role="GiftDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Voucher">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="GiftDetail">
+              <PropertyRef Name="VoucherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Promotion_GiftDetails_Info_Product">
-          <End Type="PromoterModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="PromoterModel.Product" Role="Product" Multiplicity="0..1" />
           <End Type="PromoterModel.GiftDetail" Role="GiftDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
@@ -1802,7 +1984,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Promotion_GiftDetails_Promotion_PromotionDetail">
-          <End Type="PromoterModel.PromotionDetail" Role="PromotionDetail" Multiplicity="1" />
+          <End Type="PromoterModel.PromotionDetail" Role="PromotionDetail" Multiplicity="0..1" />
           <End Type="PromoterModel.GiftDetail" Role="GiftDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PromotionDetail">
@@ -1921,6 +2103,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PromotionAppliedDetail_Promotion">
+          <End Type="PromoterModel.Promotion" Role="Promotion" Multiplicity="0..1" />
+          <End Type="PromoterModel.PromotionAppliedDetail" Role="PromotionAppliedDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PromotionAppliedDetail">
+              <PropertyRef Name="PromotionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Info_PromotionAppliedDetail_Info_Redemption">
           <End Type="PromoterModel.Redemption" Role="Redemption" Multiplicity="0..1" />
           <End Type="PromoterModel.PromotionAppliedDetail" Role="PromotionAppliedDetail" Multiplicity="*" />
@@ -1957,6 +2151,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PromotionApplyTypes_PromotionDetail">
+          <End Type="PromoterModel.PromotionDetail" Role="PromotionDetail" Multiplicity="1" />
+          <End Type="PromoterModel.PromotionApplySituation" Role="PromotionApplySituation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PromotionApplySituation">
+              <PropertyRef Name="PromotionDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Promotion_Voucher_Promotion_PromotionDetail">
           <End Type="PromoterModel.PromotionDetail" Role="PromotionDetail" Multiplicity="0..1" />
           <End Type="PromoterModel.Voucher" Role="Voucher" Multiplicity="*" />
@@ -1965,6 +2171,18 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Voucher">
+              <PropertyRef Name="PromotionDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PromotionTypes_PromotionDetail">
+          <End Type="PromoterModel.PromotionDetail" Role="PromotionDetail" Multiplicity="1" />
+          <End Type="PromoterModel.PromotionType" Role="PromotionType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PromotionType">
               <PropertyRef Name="PromotionDetailID" />
             </Dependent>
           </ReferentialConstraint>
@@ -2076,7 +2294,7 @@
               <MappingFragment StoreEntitySet="AffliatorCashbackDetail">
                 <ScalarProperty Name="PromotionDetailID" ColumnName="PromotionDetailID" />
                 <ScalarProperty Name="SegmentSID" ColumnName="SegmentSID" />
-                <ScalarProperty Name="SegmentID" ColumnName="SegmentID" />
+                <ScalarProperty Name="SegmentIID" ColumnName="SegmentIID" />
                 <ScalarProperty Name="CashbackBySegment" ColumnName="CashbackBySegment" />
                 <ScalarProperty Name="CashbackPercentOfCardRecharge" ColumnName="CashbackPercentOfCardRecharge" />
                 <ScalarProperty Name="CardRechargeRate" ColumnName="CardRechargeRate" />
@@ -2087,6 +2305,20 @@
                 <ScalarProperty Name="CashbackPer1000VND" ColumnName="CashbackPer1000VND" />
                 <ScalarProperty Name="CashbackType" ColumnName="CashbackType" />
                 <ScalarProperty Name="CashbackAccountType" ColumnName="CashbackAccountType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AppActions">
+            <EntityTypeMapping TypeName="PromoterModel.AppAction">
+              <MappingFragment StoreEntitySet="AppAction">
+                <ScalarProperty Name="ContentObject" ColumnName="ContentObject" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="SourceType" ColumnName="SourceType" />
+                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+                <ScalarProperty Name="CustomerIID" ColumnName="CustomerIID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2128,7 +2360,7 @@
               <MappingFragment StoreEntitySet="CustomerCashbackDetail">
                 <ScalarProperty Name="PromotionDetailID" ColumnName="PromotionDetailID" />
                 <ScalarProperty Name="SegmentSID" ColumnName="SegmentSID" />
-                <ScalarProperty Name="SegmentID" ColumnName="SegmentID" />
+                <ScalarProperty Name="SegmentIID" ColumnName="SegmentIID" />
                 <ScalarProperty Name="CashbackBySegment" ColumnName="CashbackBySegment" />
                 <ScalarProperty Name="CashbackPercentOfCardRecharge" ColumnName="CashbackPercentOfCardRecharge" />
                 <ScalarProperty Name="CardRechargeRate" ColumnName="CardRechargeRate" />
@@ -2154,20 +2386,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Events">
-            <EntityTypeMapping TypeName="PromoterModel.Event">
-              <MappingFragment StoreEntitySet="Event">
-                <ScalarProperty Name="ContentObject" ColumnName="ContentObject" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="SourceType" ColumnName="SourceType" />
-                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
-                <ScalarProperty Name="CustomerIID" ColumnName="CustomerIID" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="GiftAppliedDetails">
             <EntityTypeMapping TypeName="PromoterModel.GiftAppliedDetail">
               <MappingFragment StoreEntitySet="GiftAppliedDetails">
@@ -2181,10 +2399,15 @@
           <EntitySetMapping Name="GiftDetails">
             <EntityTypeMapping TypeName="PromoterModel.GiftDetail">
               <MappingFragment StoreEntitySet="GiftDetails">
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="AndDetailID" ColumnName="AndDetailID" />
+                <ScalarProperty Name="IsGiftVoucher" ColumnName="IsGiftVoucher" />
+                <ScalarProperty Name="VoucherAmount" ColumnName="VoucherAmount" />
+                <ScalarProperty Name="VoucherID" ColumnName="VoucherID" />
+                <ScalarProperty Name="ProductAmount" ColumnName="ProductAmount" />
                 <ScalarProperty Name="ProductSID" ColumnName="ProductSID" />
                 <ScalarProperty Name="PromotionDetailID" ColumnName="PromotionDetailID" />
                 <ScalarProperty Name="ProductIID" ColumnName="ProductIID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2265,7 +2488,7 @@
           <EntitySetMapping Name="PromotionAppliedDetails">
             <EntityTypeMapping TypeName="PromoterModel.PromotionAppliedDetail">
               <MappingFragment StoreEntitySet="PromotionAppliedDetail">
-                <ScalarProperty Name="IsRuleChecked" ColumnName="IsRuleChecked" />
+                <ScalarProperty Name="StrictRule" ColumnName="StrictRule" />
                 <ScalarProperty Name="AffliatorCashbackAmount" ColumnName="AffliatorCashbackAmount" />
                 <ScalarProperty Name="AffliatorCashbackDetailID" ColumnName="AffliatorCashbackDetailID" />
                 <ScalarProperty Name="CustomerCashbackAmount" ColumnName="CustomerCashbackAmount" />
@@ -2285,17 +2508,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="PromotionApplySituations">
+            <EntityTypeMapping TypeName="PromoterModel.PromotionApplySituation">
+              <MappingFragment StoreEntitySet="PromotionApplySituations">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ApplySituation" ColumnName="ApplySituation" />
+                <ScalarProperty Name="PromotionDetailID" ColumnName="PromotionDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PromotionDetails">
             <EntityTypeMapping TypeName="PromoterModel.PromotionDetail">
               <MappingFragment StoreEntitySet="PromotionDetail">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ApplyLevel" ColumnName="ApplyLevel" />
                 <ScalarProperty Name="PartnerSID" ColumnName="PartnerSID" />
                 <ScalarProperty Name="PartnerIID" ColumnName="PartnerIID" />
                 <ScalarProperty Name="IsPartner" ColumnName="IsPartner" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="ExtraInfoObject" ColumnName="ExtraInfoObject" />
                 <ScalarProperty Name="IsCashback" ColumnName="IsCashback" />
                 <ScalarProperty Name="IsGift" ColumnName="IsGift" />
-                <ScalarProperty Name="DiscountLevel" ColumnName="DiscountLevel" />
                 <ScalarProperty Name="DiscountUnit" ColumnName="DiscountUnit" />
                 <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
                 <ScalarProperty Name="IsDiscount" ColumnName="IsDiscount" />
@@ -2310,6 +2542,15 @@
                 <ScalarProperty Name="StoreSID" ColumnName="StoreSID" />
                 <ScalarProperty Name="StoreIID" ColumnName="StoreIID" />
                 <ScalarProperty Name="ValidationRuleID" ColumnName="ValidationRuleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PromotionTypes">
+            <EntityTypeMapping TypeName="PromoterModel.PromotionType">
+              <MappingFragment StoreEntitySet="PromotionTypes">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="PromotionDetailID" ColumnName="PromotionDetailID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

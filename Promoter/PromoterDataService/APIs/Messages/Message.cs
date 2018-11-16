@@ -16,21 +16,16 @@ namespace PromoterDataService.APIs.Messages
         public string Type { get; }
         [JsonProperty("detail")]
         public string Detail { get; }
+        [JsonProperty("extra_detail")]
+        public string ExtraDetail { get; }
 
-        private Message(MessageCode code, string type = "message", string customDetail = null)
+        private Message(MessageCode code, string type = "message", string extraDetail = null)
         {
             this.Code = code;
             this.Type = type;
-            this.Detail = customDetail ?? detailsMapping[code];
+            this.Detail = detailsMapping[code];
+            this.ExtraDetail = extraDetail;
         }
-
-        private static IDictionary<MessageCode, string> detailsMapping =
-            new Dictionary<MessageCode, string>()
-            {
-                { MessageCode.General_Success, "Thành công"},
-                { MessageCode.General_UnknownError, "Lỗi chưa xác định"},
-                { MessageCode.Voucher_TooManyDuplication, "Voucher code bị trùng nhiều lần trong quá trình tạo"},
-            };
 
         public static Message Success
         {
@@ -44,7 +39,7 @@ namespace PromoterDataService.APIs.Messages
         {
             get
             {
-                return new Message(MessageCode.General_UnknownError, "error");
+                return new Message(MessageCode.General_UnknownError);
             }
         }
 
@@ -55,13 +50,27 @@ namespace PromoterDataService.APIs.Messages
 
         public static Message GetError(ErrorMessage e)
         {
-            return new Message(e.Code, e.Type, e.Detail);
+            return new Message(e.Code, e.Type, e.ExtraDetail);
+        }
+
+        public static Message GetError(Exception e)
+        {
+            return new Message(MessageCode.General_UnknownError, JsonConvert.SerializeObject(e));
         }
 
         public static Message GetError(MessageCode code, string customDetail = null)
         {
             return GetError(new ErrorMessage(code, customDetail));
         }
+
+        #region Message mappings
+        private static IDictionary<MessageCode, string> detailsMapping =
+            new Dictionary<MessageCode, string>()
+            {
+                { MessageCode.General_UnknownError, "Lỗi chưa xác định"},
+                { MessageCode.General_Success, "Thành công"},
+            };
+        #endregion
 
     }
 }

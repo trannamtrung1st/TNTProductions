@@ -14,11 +14,26 @@ namespace PromoterDataService.Models
     
     public partial class GiftDetail
     {
-        public int ProductIID { get; set; }
-        public int PromotionDetailID { get; set; }
-        public string ProductSID { get; set; }
-        public Nullable<double> Amount { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public GiftDetail()
+        {
+            this.GiftDetails1 = new HashSet<GiftDetail>();
+        }
     
+        public int ID { get; set; }
+        public Nullable<int> ProductIID { get; set; }
+        public Nullable<int> PromotionDetailID { get; set; }
+        public string ProductSID { get; set; }
+        public Nullable<double> ProductAmount { get; set; }
+        public Nullable<int> VoucherID { get; set; }
+        public Nullable<int> VoucherAmount { get; set; }
+        public Nullable<bool> IsGiftVoucher { get; set; }
+        public Nullable<int> AndDetailID { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GiftDetail> GiftDetails1 { get; set; }
+        public virtual GiftDetail GiftDetail1 { get; set; }
+        public virtual Voucher Voucher { get; set; }
         public virtual Product Product { get; set; }
         public virtual PromotionDetail PromotionDetail { get; set; }
     }

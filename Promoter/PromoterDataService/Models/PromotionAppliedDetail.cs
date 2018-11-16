@@ -36,7 +36,7 @@ namespace PromoterDataService.Models
         public Nullable<double> CustomerCashbackAmount { get; set; }
         public Nullable<int> AffliatorCashbackDetailID { get; set; }
         public Nullable<double> AffliatorCashbackAmount { get; set; }
-        public Nullable<bool> IsRuleChecked { get; set; }
+        public Nullable<bool> StrictRule { get; set; }
     
         public virtual AffliatorCashbackDetail AffliatorCashbackDetail { get; set; }
         public virtual CustomerCashbackDetail CustomerCashbackDetail { get; set; }
@@ -44,6 +44,7 @@ namespace PromoterDataService.Models
         public virtual ICollection<GiftAppliedDetail> GiftAppliedDetails { get; set; }
         public virtual Order Order { get; set; }
         public virtual OrderItem OrderItem { get; set; }
+        public virtual Promotion Promotion { get; set; }
         public virtual Redemption Redemption { get; set; }
         public virtual RedemptionRollback RedemptionRollback { get; set; }
         public virtual Voucher Voucher { get; set; }

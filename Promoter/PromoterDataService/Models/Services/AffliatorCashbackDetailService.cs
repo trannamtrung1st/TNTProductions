@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using PromoterDataService.Utilities;
 using PromoterDataService.Managers;
-using PromoterDataService.ViewModels;
 using PromoterDataService.Models.Repositories;
 using PromoterDataService.Global;
 using TNT.IoContainer.Wrapper;
 
 namespace PromoterDataService.Models.Services
 {
-	public partial interface IAffliatorCashbackDetailService : IBaseService<AffliatorCashbackDetail, AffliatorCashbackDetailViewModel, int>
+	public partial interface IAffliatorCashbackDetailService : IBaseService<AffliatorCashbackDetail, int>
 	{
 	}
 	
-	public partial class AffliatorCashbackDetailService : BaseService<AffliatorCashbackDetail, AffliatorCashbackDetailViewModel, int>, IAffliatorCashbackDetailService
+	public partial class AffliatorCashbackDetailService : BaseService<AffliatorCashbackDetail, int>, IAffliatorCashbackDetailService
 	{
 		public AffliatorCashbackDetailService(IUnitOfWork uow)
 		{

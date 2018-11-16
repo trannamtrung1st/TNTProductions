@@ -25,7 +25,8 @@ namespace TNT.TemplateAPI.Generators
         public void Add(params string[] namespaces)
         {
             foreach (var n in namespaces)
-                Namespaces.Add(n);
+                if (n != null)
+                    Namespaces.Add(n);
         }
 
         public override string Generate()

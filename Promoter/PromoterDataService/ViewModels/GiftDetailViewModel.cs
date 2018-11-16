@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,18 +11,34 @@ namespace PromoterDataService.ViewModels
 {
 	public partial class GiftDetailViewModel: BaseViewModel<GiftDetail>
 	{
-		[JsonProperty("product_iid", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public int ProductIID { get; set; }
-		[JsonProperty("promotion_detail_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public int PromotionDetailID { get; set; }
-		[JsonProperty("product_sid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("id")]
+		public int ID { get; set; }
+		[JsonProperty("product_iid")]
+		public Nullable<int> ProductIID { get; set; }
+		[JsonProperty("promotion_detail_id")]
+		public Nullable<int> PromotionDetailID { get; set; }
+		[JsonProperty("product_sid")]
 		public string ProductSID { get; set; }
-		[JsonProperty("amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public Nullable<double> Amount { get; set; }
-		[JsonProperty("product", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("product_amount")]
+		public Nullable<double> ProductAmount { get; set; }
+		[JsonProperty("voucher_id")]
+		public Nullable<int> VoucherID { get; set; }
+		[JsonProperty("voucher_amount")]
+		public Nullable<int> VoucherAmount { get; set; }
+		[JsonProperty("is_gift_voucher")]
+		public Nullable<bool> IsGiftVoucher { get; set; }
+		[JsonProperty("and_detail_id")]
+		public Nullable<int> AndDetailID { get; set; }
+		[JsonProperty("and_detail")]
+		public GiftDetailViewModel AndDetailVM { get; set; }
+		[JsonProperty("voucher")]
+		public VoucherViewModel VoucherVM { get; set; }
+		[JsonProperty("product")]
 		public ProductViewModel ProductVM { get; set; }
-		[JsonProperty("promotion_detail", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("promotion_detail")]
 		public PromotionDetailViewModel PromotionDetailVM { get; set; }
+		//[JsonProperty("gift_details1")]
+		//public IEnumerable<GiftDetailViewModel> GiftDetails1VM { get; set; }
 		
 		public GiftDetailViewModel(GiftDetail entity) : this()
 		{

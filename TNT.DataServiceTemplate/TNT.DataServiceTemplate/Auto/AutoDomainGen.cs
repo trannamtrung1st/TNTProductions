@@ -23,7 +23,7 @@ namespace TNT.DataServiceTemplate.Auto
 
             GenerateInitManager();
             GenerateBaseDomain();
-            GenerateEntityDomain();
+            //GenerateEntityDomain();
         }
 
         private void GenerateInitManager()
@@ -41,22 +41,24 @@ namespace TNT.DataServiceTemplate.Auto
         {
             Add(new TemplateCodeBlock(new StatementGen(
                 "var dGen = new BaseDomainGen(dt);",
-                @"manager.StartNewFile(""BaseDomain.cs"");")),
-                new TemplateTextBlock("<#=dGen.Generate()#>"));
-        }
-
-        private void GenerateEntityDomain()
-        {
-            Add(new TemplateCodeBlock(new StatementGen(
-                "foreach (var e in dt.Entities)", "{"),
-                new StatementGen(true,
-                    "var idGen = new EntityDomainGen(e);",
-                    "manager.StartNewFile(e.EntityName+\"Domain.cs\");")),
-                new TemplateTextBlock("<#=idGen.Generate()#>"),
+                @"manager.StartNewFile(""BaseDomainGen.cs"");")),
+                new TemplateTextBlock("<#=dGen.Generate()#>"),
                 new TemplateCodeBlock(new StatementGen(
-                    "}",
                     "manager.Process();")));
         }
+
+        //private void GenerateEntityDomain()
+        //{
+        //    Add(new TemplateCodeBlock(new StatementGen(
+        //        "foreach (var e in dt.Entities)", "{"),
+        //        new StatementGen(true,
+        //            "var idGen = new EntityDomainGen(e);",
+        //            "manager.StartNewFile(e.EntityName+\"Domain.cs\");")),
+        //        new TemplateTextBlock("<#=idGen.Generate()#>"),
+        //new TemplateCodeBlock(new StatementGen(
+        //            "}",
+        //            "manager.Process();")));
+        //}
 
     }
 }

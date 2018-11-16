@@ -17,6 +17,7 @@ namespace PromoterDataService.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Voucher()
         {
+            this.GiftDetails = new HashSet<GiftDetail>();
             this.PromotionAppliedDetails = new HashSet<PromotionAppliedDetail>();
         }
     
@@ -34,6 +35,8 @@ namespace PromoterDataService.Models
         public Nullable<bool> Active { get; set; }
     
         public virtual Campaign Campaign { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GiftDetail> GiftDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PromotionAppliedDetail> PromotionAppliedDetails { get; set; }
         public virtual PromotionDetail PromotionDetail { get; set; }

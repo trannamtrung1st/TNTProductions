@@ -11,13 +11,12 @@ namespace PromoterDataService.APIs.Messages
     {
         public MessageCode Code { get; set; }
         public string Type { get; } = "error";
-        public string Detail { get; set; }
+        public string ExtraDetail { get; set; }
 
-        public ErrorMessage(MessageCode code, string detail = null)
+        public ErrorMessage(MessageCode code, string extraDetail = null)
         {
             this.Code = code;
-            this.Detail = detail;
+            this.ExtraDetail = extraDetail;
         }
-
     }
 }

@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class StoreWebViewCounterViewModel: BaseViewModel<StoreWebViewCounter>
+	{
+		[JsonProperty("id")]
+		public int Id { get; set; }
+		[JsonProperty("store_id")]
+		public int StoreId { get; set; }
+		[JsonProperty("weekly_view_count")]
+		public int WeeklyViewCount { get; set; }
+		[JsonProperty("monthly_view_count")]
+		public int MonthlyViewCount { get; set; }
+		[JsonProperty("total_view_count")]
+		public int TotalViewCount { get; set; }
+		[JsonProperty("last_update")]
+		public DateTime LastUpdate { get; set; }
+		[JsonProperty("today_view_count")]
+		public int TodayViewCount { get; set; }
+		[JsonProperty("yearly_view_count")]
+		public int YearlyViewCount { get; set; }
+		[JsonProperty("active")]
+		public bool Active { get; set; }
+		[JsonProperty("store")]
+		public StoreViewModel StoreVM { get; set; }
+		
+		public StoreWebViewCounterViewModel(StoreWebViewCounter entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public StoreWebViewCounterViewModel()
+		{
+		}
+		
+	}
+}

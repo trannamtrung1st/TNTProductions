@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.CustomerCashbackDetails.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<CustomerCashbackDetail> AddAsync(CustomerCashbackDetail entity)
-		{
-			
-			entity = context.CustomerCashbackDetails.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override CustomerCashbackDetail Delete(CustomerCashbackDetail entity)
+		public override CustomerCashbackDetail Remove(CustomerCashbackDetail entity)
 		{
 			context.CustomerCashbackDetails.Attach(entity);
 			entity = context.CustomerCashbackDetails.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<CustomerCashbackDetail> DeleteAsync(CustomerCashbackDetail entity)
-		{
-			context.CustomerCashbackDetails.Attach(entity);
-			entity = context.CustomerCashbackDetails.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override CustomerCashbackDetail Delete(int key)
+		public override CustomerCashbackDetail Remove(int key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.CustomerCashbackDetails.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<CustomerCashbackDetail> DeleteAsync(int key)
+		public override IEnumerable<CustomerCashbackDetail> RemoveIf(Expression<Func<CustomerCashbackDetail, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.CustomerCashbackDetails.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.CustomerCashbackDetails.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<CustomerCashbackDetail> RemoveRange(IEnumerable<CustomerCashbackDetail> list)
+		{
+			return context.CustomerCashbackDetails.RemoveRange(list);
 		}
 		
 		public override CustomerCashbackDetail FindById(int key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.CustomerCashbackDetails.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<CustomerCashbackDetail> UpdateAsync(CustomerCashbackDetail entity)
-		{
-			entity = context.CustomerCashbackDetails.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

@@ -142,7 +142,7 @@ namespace TNT.DataServiceTemplate.Data
                     {
                         if (role2multiplicity.Equals("*"))
                         {
-                            navColProp.Add(name, "ICollection<" + role2Type + "ViewModel>");
+                            navColProp.Add(name, "IEnumerable<" + role2Type + "ViewModel>");
                         }
                         else
                         {

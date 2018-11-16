@@ -1,0 +1,501 @@
+わたし, 私<->tôi
+<PASSALL>
+あなた<->bạn
+<PASSALL>
+なまえ<->tên
+<PASSALL>
+くに, 国<->đất nước
+<PASSALL>
+にほん, 日本<->Nhật Bản
+<PASSALL>
+アメリカ<->Nước Mỹ
+<PASSALL>
+イタリア<->Nước Ý
+<PASSALL>
+オーストラリア<->Nước Úc
+<PASSALL>
+かんこく, 韓国<->Hàn Quốc
+<PASSALL>
+タイ<->Thailand
+<PASSALL>
+ちゅうごく, 中国<->Trung Quốc
+<PASSALL>
+ロシア<->Nước Nga
+<PASSALL>
+だいがく<->Đại học
+<PASSALL>
+にほんごがっこう<->Trường tiếng Nhật
+<PASSALL>
+しごと, 仕事<->Công việc
+<PASSALL>
+がくせい, 学生<->Học sinh, sinh viên
+<PASSALL>
+せんせい, 先生<->Giáo viên (thầy, cô)
+<PASSALL>
+きょうし, 教師<->Giáo viên (nghề nghiệp)
+<PASSALL>
+かいしゃいん, 会社員<->Nhân viên
+<PASSALL>
+（の）しゃいん<->Nhân viên (của công ty nào)
+<PASSALL>
+さん<->(tên) + sàn
+<PASSALL>
+じん, 人<->(quốc gia) + jin
+<PASSALL>
+どちら<->Ở đâu
+<PASSALL>
+はじめまして<->
+Hân hạnh gặp lần đầu
+Rất vui được biết bạn
+<PASSALL>
+（どうぞ）よろしくおねがいします<->Rất mong được giúp đỡ
+<PASSALL>
+こちらこそ<->Chính tôi mới là người được giúp đỡ
+<PASSALL>
+あのう<->À, Ừa 
+<PASSALL>
+すみません<->Xin lỗi
+<PASSALL>
+そうですか<->Vậy à
+<PASSALL>
+はい<->Vâng
+<PASSALL>
+いいえ<->Không
+<PASSALL>
+きょう<->hôm nay
+<PASSALL>
+あね<->chị (tự xưng hô)
+<PASSALL>
+おねえさん<->chị (xưng hô người khác)
+<PASSALL>
+ことし<->năm nay
+<PASSALL>
+あした<->ngày mai
+<PASSALL>
+からきました<->Đến từ ___
+<PASSALL>
+せんもん<->Chuyên môn, ngành
+<PASSALL>
+おなじ<->Tôi cũng vậy
+<PASSALL>
+おんなのひと<->bạn nam
+<PASSALL>
+おとこのひと<->bạn nữ
+<PASSALL>
+たんじょうび, 誕生日<->Sinh nhật
+<PASSALL>
+ブラジル<->Brazil
+<PASSALL>
+Thứ trong tuần<->
+Thứ 2 - げつようび
+Thứ 3 - かようび
+Thứ 4 - すいようび
+Thứ 5 - もくようび
+Thứ 6 - きんようび
+Thứ 7 - どようび
+Chủ nhật - にちようび
+Thứ mấy - なんようび
+<PASSALL>
+Ngày trong tháng (1-10) (日)<->
+ngày 1 - ついたち
+ngày 2 - ふつか
+ngày 3 - みっか
+ngày 4 - よっか
+ngày 5 - いつか
+ngày 6 - むいか
+ngày 7 - なのか
+ngày 8 - ようか
+ngày 9 - ここのか
+ngày 10 - とおか
+<PASSALL>
+Ngày trong tháng (11-20) (日)<->
+ngày 11 - じゅういちにち
+ngày 12 - じゅうににち
+ngày 13 - じゅうさんにち
+ngày 14 - じゅうよっか
+ngày 15 - じゅうごにち
+ngày 16 - じゅうろくにち
+ngày 17 - じゅうしちにち
+ngày 18 - じゅうはちにち
+ngày 19 - じゅうくにち
+ngày 20 - はつか
+<PASSALL>
+Ngày trong tháng (21-31) (日) <->
+ngày 21 - にじゅういちにち
+ngày 22 - にじゅうににち
+ngày 23 - にじゅうさんにち
+ngày 24 - にじゅうよっか
+ngày 25 - にじゅうごにち
+ngày 26 - にじゅうろくにち
+ngày 27 - にじゅうしちにち
+ngày 28 - にじゅうはちにち
+ngày 29 - にじゅうくにち
+ngày 30 - さんじゅうにち
+ngày 31 - さんじゅういちにち
+<PASSALL>
+Tháng trong năm (月)<->
+Tháng 1 - いちがつ
+Tháng 2 - にがつ
+Tháng 3 - さんがつ
+Tháng 4 - しがつ
+Tháng 5 - ごがつ
+Tháng 6 - ろくがつ
+Tháng 7 - しちがつ
+Tháng 8 - はちがつ
+Tháng 9 - くがつ
+Tháng 10 - じゅうがつ
+Tháng 11 - じゅういちがつ
+Tháng 12 - じゅうにがつ
+Tháng mấy - なんがつ
+<PASSALL>
+さい(歳)<->tuổi
+<PASSALL>
+いつ<->Khi nào
+<PASSALL>
+しゅみ<->Sở thích
+<PASSALL>
+スポーツ<->Thể thao
+<PASSALL>
+サッカー<->Bóng đá
+<PASSALL>
+テニス<->Tennis
+<PASSALL>
+すいえい<->bơi lội
+<PASSALL>
+えいが<->Phim ảnh
+<PASSALL>
+おんがく<->Âm nhạc, bài hát
+<PASSALL>
+どくしょ<->đọc sách (sở thích)
+<PASSALL>
+りょこう<->du lịch
+<PASSALL>
+りょうり<->Nấu ăn
+<PASSALL>
+なん<->cái gì
+<PASSALL>
+ここ / こちら<->Ở đây / phìa này
+<PASSALL>
+そこ / そちら<->Ở đó / Phía đó
+<PASSALL>
+あそこ / あちら<->Ở kia / Phía đằng kia (xa cả 2)
+<PASSALL>
+どこ / どちら<->Ở đâu
+<PASSALL>
+インフォメーション<->Thông tin
+<PASSALL>
+ATM（エーティーエム）<->ATM
+<PASSALL>
+エスカレーター<->Thang cuốn
+<PASSALL>
+エレベーター<->Thang máy
+<PASSALL>
+きつえんじょ<->Nơi hút thuốc
+<PASSALL>
+トイレ<->nhà vệ sinh
+<PASSALL>
+レジ<->máy tính tiền
+<PASSALL>
+きっさてん<->quán nước/ giải khát
+<PASSALL>
+スーパー<->siêu thị
+<PASSALL>
+100円(えん)ショップ<->cửa hàng đồng giá 100 yên
+<PASSALL>
+レストラン<->Nhà hàng
+<PASSALL>
+ちか<->Tầng hầm
+<PASSALL>
+カメラ<->Máy ảnh
+<PASSALL>
+でんわ<->Điện thoại
+<PASSALL>
+けんたいでんわ<->Điện thoại di động
+<PASSALL>
+じしょ<->Từ điển
+<PASSALL>
+でんしじしょ<->Kim từ điển
+<PASSALL>
+パソコン<->Laptop
+<PASSALL>
+くつ<->đôi giày
+<PASSALL>
+けしゴム<->Cục gôm
+<PASSALL>
+ペン<->bút bi
+<PASSALL>
+トイレットペーパー<->giấy vệ sinh
+<PASSALL>
+ほん, 本<->Sách
+<PASSALL>
+あぶら<->Dầu mỡ
+<PASSALL>
+ケーキ<->Bánh kem, bánh gatô
+<PASSALL>
+こめ<->Gạo
+<PASSALL>
+たまご<->trứng
+<PASSALL>
+パン<->bánh mì
+<PASSALL>
+みず<->nước lọc
+<PASSALL>
+てんいん<->Nhân viên cửa tiệm
+<PASSALL>
+かい<->Tầng
+<PASSALL>
+~や<->cửa tiệm (gì đó)
+<PASSALL>
+いらっしゃいませ<->Xin mời quý khách vào
+<PASSALL>
+（どうも）ありがとうございます<->Cảm ơn nhiều
+<PASSALL>
+とこや<->tiệm hớt tóc
+<PASSALL>
+かいもの<->mua sắm
+<PASSALL>
+しょくじ<->dùng bữa
+<PASSALL>
+これ<->cái này
+<PASSALL>
+それ<->cái đó
+<PASSALL>
+あれ<->cái kia
+<PASSALL>
+どれ<->
+<PASSALL>
+この~<->(đồ vật) này
+<PASSALL>
+その<->(đồ vật) đó
+<PASSALL>
+あの<->(đồ vật) kia 
+<PASSALL>
+どの<->(đồ vật) nào
+<PASSALL>
+かばん<->Túi xách, cặp, balô, giỏ
+<PASSALL>
+どこの<->Hỏi nguồn gốc ở đâu
+<PASSALL>
+なんの<->hỏi về cái gì
+<PASSALL>
+ズボン<->quần dài
+<PASSALL>
+Tシャツ<->áo thun
+<PASSALL>
+とけい<->đồng hồ
+<PASSALL>
+えん, 円<->yên Nhật
+<PASSALL>
+いくら<->bao nhiêu tiền
+<PASSALL>
+じゃ<->vậy thì, thế thì
+<PASSALL>
+さかな<->cá
+<PASSALL>
+にく<->thịt
+<PASSALL>
+ぎゅうにく<->thịt bò
+<PASSALL>
+とりにく<->thịt gà
+<PASSALL>
+ぶたにく<->thịt heo
+<PASSALL>
+やさい<->rau
+<PASSALL>
+いちご<->dâu tây
+<PASSALL>
+りんご<->táo
+<PASSALL>
+りょうり<->món ăn
+<PASSALL>
+カレー<->cà ri
+<PASSALL>
+スープ<->soup, canh
+<PASSALL>
+とんかつ<->Món Tokatsu (thịt heo chiên xốt)
+<PASSALL>
+ハンバーガー<->hamburgur
+<PASSALL>
+ごはん<->cơm
+<PASSALL>
+ライス<->gạo
+<PASSALL>
+ジュース<->nước ép trái cây
+<PASSALL>
+コーヒー<->cà phê
+<PASSALL>
+こうちゃ<->hồng trà
+<PASSALL>
+おちゃ<->trà
+<PASSALL>
+ビール<->bia
+<PASSALL>
+ワイン<->rượu vang
+<PASSALL>
+インド<->Ấn độ
+<PASSALL>
+ドイツ<->Đức
+<PASSALL>
+フランス<->Pháp
+<PASSALL>
+さいふ<->ví, bóp
+<PASSALL>
+～ご<->tiếng (quốc gia)
+<PASSALL>
+だれ<->Ai?
+<PASSALL>
+ちゅうもんをおねがいします<->Vui lòng gọi món ăn
+<PASSALL>
+どうぞ<->xin mời
+<PASSALL>
+いま<->bây giờ, hiện tại
+<PASSALL>
+ごぜん<->Giờ sáng (AM)
+<PASSALL>
+ごご<->Giờ tối (PM)
+<PASSALL>
+ひる<->buổi trưa
+<PASSALL>
+ぎんこう<->ngân hàng
+<PASSALL>
+たいいくかん<->nhà thi đấu
+<PASSALL>
+としょかん<->thư viện
+<PASSALL>
+びょういん<->bệnh viện
+<PASSALL>
+ゆうびんきょく<->bưu điện
+<PASSALL>
+じゅぎょう<->giờ học
+<PASSALL>
+テスト<->bài kiểm tra
+<PASSALL>
+やすみ<->nghỉ, vắng mặt
+<PASSALL>
+じかん<->thời gian
+<PASSALL>
+じ<->giờ
+<PASSALL>
+ふん<->phút
+<PASSALL>
+はん<->30 phút (rưỡi)
+<PASSALL>
+スケジュール<->lịch, thời khóa biểu
+<PASSALL>
+アルバイト<->việc làm thêm
+<PASSALL>
+スキー<->Trượt tuyết
+<PASSALL>
+パーティー<->Tiệc
+<PASSALL>
+バーベキュー<->Tiệc nướng
+<PASSALL>
+はなび<->Pháo hoa
+<PASSALL>
+（お）はなみ<->Ngắm hoa
+<PASSALL>
+ホームステイ<->Homestay
+<PASSALL>
+（お）まつり<->lễ hội
+<PASSALL>
+うみ<->biển
+<PASSALL>
+こうえん<->công viên
+<PASSALL>
+さくら<->hoa đào
+<PASSALL>
+（お）さけ<->rượu
+<PASSALL>
+（お）すし<->sushi
+<PASSALL>
+バス<->xe bus
+<PASSALL>
+（お）べんとう<->cơm hộp
+<PASSALL>
+りゅうがくせい<->Du học sinh
+<PASSALL>
+１ねん<->1 năm
+<PASSALL>
+はる<->mùa xuân
+<PASSALL>
+なつ<->mùa hè
+<PASSALL>
+あき<->mùa thu
+<PASSALL>
+ふゆ<->mùa đông
+<PASSALL>
+ゴールデンウイーク<->nghỉ tuần lễ vàng
+<PASSALL>
+なに<->(làm) cái gì
+<PASSALL>
+いきます<->đi
+<PASSALL>
+きます<->đến
+<PASSALL>
+かえります<->trở về
+<PASSALL>
+のみます<->uống
+<PASSALL>
+たべます<->ăn
+<PASSALL>
+みます<->xem, nhìn
+<PASSALL>
+します<->làm
+<PASSALL>
+いいですね<->tốt quá nhỉ
+<PASSALL>
+えっ<->hả
+<PASSALL>
+へえ<->À; Ê; Hà (khi ngạc nhiên)
+<PASSALL>
+あさ<->buổi sáng
+<PASSALL>
+ばん<->buổi tối
+<PASSALL>
+よる<->khuya
+<PASSALL>
+まいにち<->mỗi ngày
+<PASSALL>
+あさごはん<->ăn sáng
+<PASSALL>
+ひるごはん<->ăn trưa
+<PASSALL>
+うち<->nhà, bên trong
+<PASSALL>
+かいしゃ<->công ty
+<PASSALL>
+がっこう<->trường học
+<PASSALL>
+コンビニ<->cửa hàng tiện lợi
+<PASSALL>
+ぎゅうにゅう<->sữa bò
+<PASSALL>
+くだもの<->trái cây
+<PASSALL>
+サラダ<->salad, xà lách
+<PASSALL>
+チーズ<->phô mai
+<PASSALL>
+インターネット<->internet
+<PASSALL>
+しんぶん<->báo
+<PASSALL>
+テレビ<->tivi
+<PASSALL>
+CD<->CD
+<PASSALL>
+DVD<->DVD
+<PASSALL>
+かいます<->mua
+<PASSALL>
+ききます<->hỏi, nghe
+<PASSALL>
+はたらきます<->làm việc
+<PASSALL>
+よみます<->đọc
+<PASSALL>
+おきます<->thức dậy
+<PASSALL>
+ねます<->ngủ, nằm
+<PASSALL>
+べんきょうします<->học

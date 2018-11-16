@@ -16,16 +16,15 @@ namespace PromoterDataService.Models.Repositories
 	}
 	public partial interface IBaseRepository<E, K> : IRepository
 	{
-		bool AutoSave { get; set; }
+		int SaveChanges();
+		Task<int> SaveChangesAsync();
 		
 		E Add(E entity);
-		Task<E> AddAsync(E entity);
 		E Update(E entity);
-		Task < E > UpdateAsync(E entity);
-		E Delete(E entity);
-		Task<E> DeleteAsync(E entity);
-		E Delete(K key);
-		Task<E> DeleteAsync(K key);
+		E Remove(E entity);
+		E Remove(K key);
+		IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);
+		IEnumerable<E> RemoveRange(IEnumerable<E> list);
 		E FindById(K key);
 		Task<E> FindByIdAsync(K key);
 		E FindActiveById(K key);
@@ -51,7 +50,6 @@ namespace PromoterDataService.Models.Repositories
 	public abstract partial class BaseRepository<E, K> : IBaseRepository<E, K> where E : class
 	{
 		protected PromoterEntities context;
-		public bool AutoSave { get; set; }
 		
 		public BaseRepository(IUnitOfWork uow)
 		{
@@ -60,6 +58,16 @@ namespace PromoterDataService.Models.Repositories
 		
 		public BaseRepository()
 		{
+		}
+		
+		public int SaveChanges()
+		{
+			return context.SaveChanges();
+		}
+		
+		public async Task<int> SaveChangesAsync()
+		{
+			return await context.SaveChangesAsync();
 		}
 		
 		#region SqlQuery
@@ -85,13 +93,11 @@ namespace PromoterDataService.Models.Repositories
 		*/
 		
 		public abstract E Add(E entity);
-		public abstract Task<E> AddAsync(E entity);
 		public abstract E Update(E entity);
-		public abstract Task<E> UpdateAsync(E entity);
-		public abstract E Delete(E entity);
-		public abstract Task<E> DeleteAsync(E entity);
-		public abstract E Delete(K key);
-		public abstract Task<E> DeleteAsync(K key);
+		public abstract E Remove(E entity);
+		public abstract E Remove(K key);
+		public abstract IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);
+		public abstract IEnumerable<E> RemoveRange(IEnumerable<E> list);
 		public abstract E FindById(K key);
 		public abstract Task<E> FindByIdAsync(K key);
 		public abstract E FindActiveById(K key);

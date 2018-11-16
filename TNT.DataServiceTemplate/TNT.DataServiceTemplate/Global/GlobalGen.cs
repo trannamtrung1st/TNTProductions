@@ -56,7 +56,8 @@ namespace TNT.DataServiceTemplate.Global
             GlobalClassBody.Add(
                 new StatementGen(
                     "public static IMapper Mapper;",
-                    "public static ITContainer TContainer;"
+                    "public static ITContainer TContainer;",
+                    "private static ITContainerBuilder Builder = new TContainerBuilder();"
                 ));
 
             NamespaceBody.Add(GlobalClass);
@@ -65,65 +66,34 @@ namespace TNT.DataServiceTemplate.Global
         private void GenerateMapperConfig()
         {
             #region MapperConfig
-            var mapperConfig = new StatementGen("private static List<Action<IMapperConfigurationExpression>> MapperConfigs { get; set; }");
+            var mapperConfig = new StatementGen("private static List<Action<IMapperConfigurationExpression>> MapperConfigs");
             var open = new StatementGen(
-                "= new List<Action<IMapperConfigurationExpression>>()", "{");
-            var mapConfig = new StatementGen(true, "cfg =>", "{");
+                "\t= new List<Action<IMapperConfigurationExpression>>();", "//{");
+            var mapConfig = new StatementGen(true, "//cfg =>", "//{");
             foreach (var e in Data.Entities)
             {
-                mapConfig.Add("\tcfg.CreateMap<Models." + e.EntityName + ", " + e.VMClass + ">().ReverseMap();");
+                mapConfig.Add("//\tcfg.CreateMap<" + e.EntityName + ", " + e.VMClass + ">().ReverseMap();");
             }
-            var close = new StatementGen("\t}", "};");
+            var close = new StatementGen("//\t}", "//};");
             GlobalClassBody.Add(
                 mapperConfig,
                 open,
                 mapConfig,
                 close);
             #endregion
-
-            var addMapMethod = new ContainerGen();
-            addMapMethod.Signature = "public static void AddMapperConfig(Action<IMapperConfigurationExpression> cfg)";
-            addMapMethod.Body.Add(new StatementGen("MapperConfigs.Add(cfg);"));
-            GlobalClassBody.Add(addMapMethod);
         }
 
         private void GenerateInitMethod()
         {
             var initMethod = new ContainerGen();
-            initMethod.Signature = "public static void DefaultConfigure()";//HttpApplication webApp = null
+            initMethod.Signature = "private static void DefaultConfigure()";
 
             initMethod.Body.Add(
                 new StatementGen("ConfigureAutomapper();"),
                 new StatementGen("ConfigureIoContainer();")
-                //new StatementGen("ConfigureHttpApplication(webApp);")
                 );
 
             GlobalClassBody.Add(initMethod, new StatementGen(""));
-        }
-
-        private void GenerateHttpApp()
-        {
-            var method = new ContainerGen();
-            method.Signature = "private static void ConfigureHttpApplication(HttpApplication webApp)";
-
-            method.Body.Add(
-                new StatementGen(
-                    "if (webApp == null)",
-                    "\treturn;",
-                    "webApp.BeginRequest += (sender, args) =>",
-                    "{",
-                    "\tUnitOfWork.BeginRequestScope();",
-                    "};",
-                    "webApp.EndRequest += (sender, args) =>",
-                    "{",
-                    "\tUnitOfWork.EndRequestScope();",
-                    "};",
-                    "webApp.Error += (sender, args) =>",
-                    "{",
-                    "\tUnitOfWork.EndRequestScope();",
-                    "};"));
-
-            GlobalClassBody.Add(method, new StatementGen(""));
         }
 
         private void GenerateInitMapper()
@@ -156,23 +126,23 @@ namespace TNT.DataServiceTemplate.Global
             method.Signature = "private static void ConfigureIoContainer()";
 
             var s2 = new StatementGen("//IoContainer",
-                "G.TContainer = new TContainer();",
-                "G.TContainer.RegisterRequestScopeHandlerModule();",
-                "G.TContainer.RegisterType<IUnitOfWork, UnitOfWork>();");
+                Data.RequestScope ? "Builder.RegisterRequestScopeHandlerModule();" : null,
+                "Builder.RegisterType<IUnitOfWork, UnitOfWork>();");
 
             foreach (var e in Data.Entities)
             {
-                s2.Add("G.TContainer.RegisterType<I" + e.EntityName + "Repository, " + e.EntityName + "Repository>();");
+                s2.Add("Builder.RegisterType<I" + e.EntityName + "Repository, " + e.EntityName + "Repository>();");
             }
 
             foreach (var e in Data.Entities)
             {
                 if (Data.ServicePool)
-                    s2.Add("G.TContainer.RegisterToPool<I" + e.EntityName + "Service, " + e.EntityName + "Service>(10, 100);");
+                    s2.Add("Builder.RegisterToPool<I" + e.EntityName + "Service, " + e.EntityName + "Service>(10, 100);");
                 else
-                    s2.Add("G.TContainer.RegisterType<I" + e.EntityName + "Service, " + e.EntityName + "Service>();");
+                    s2.Add("Builder.RegisterType<I" + e.EntityName + "Service, " + e.EntityName + "Service>();");
             }
 
+            s2.Add("G.TContainer = Builder.Build();");
             method.Body.Add(s2);
             GlobalClassBody.Add(method, new StatementGen(""));
 

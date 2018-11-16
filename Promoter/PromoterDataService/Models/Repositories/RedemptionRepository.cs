@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.Redemptions.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Redemption> AddAsync(Redemption entity)
-		{
-			
-			entity = context.Redemptions.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override Redemption Delete(Redemption entity)
+		public override Redemption Remove(Redemption entity)
 		{
 			context.Redemptions.Attach(entity);
 			entity = context.Redemptions.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Redemption> DeleteAsync(Redemption entity)
-		{
-			context.Redemptions.Attach(entity);
-			entity = context.Redemptions.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override Redemption Delete(int key)
+		public override Redemption Remove(int key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.Redemptions.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Redemption> DeleteAsync(int key)
+		public override IEnumerable<Redemption> RemoveIf(Expression<Func<Redemption, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Redemptions.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.Redemptions.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<Redemption> RemoveRange(IEnumerable<Redemption> list)
+		{
+			return context.Redemptions.RemoveRange(list);
 		}
 		
 		public override Redemption FindById(int key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.Redemptions.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<Redemption> UpdateAsync(Redemption entity)
-		{
-			entity = context.Redemptions.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

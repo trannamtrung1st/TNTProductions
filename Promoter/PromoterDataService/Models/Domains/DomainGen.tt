@@ -16,7 +16,7 @@
 <#
 	var projectPath = Host.ResolveAssemblyReference("$(ProjectDir)");
 	var dt = new EdmxParser(projectPath+@"Models/PromoterDB.edmx","PromoterDataService").Data;
-	
+	dt.RequestScope = true;
 	var manager = TemplateFileManager.Create(this);
 #>
 <#
@@ -24,12 +24,5 @@
 	manager.StartNewFile("BaseDomain.cs");
 #>
 <#=dGen.Generate()#><#
-	foreach (var e in dt.Entities)
-	{
-		var idGen = new EntityDomainGen(e);
-		manager.StartNewFile(e.EntityName+"Domain.cs");
-#>
-<#=idGen.Generate()#><#
-	}
 	manager.Process();
 #>

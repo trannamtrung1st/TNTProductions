@@ -7,24 +7,17 @@ using PromoterDataService.Global;
 
 namespace PromoterDataService.Models
 {
-	public partial interface IEntity
+	public partial interface IBaseEntity
 	{
-		IVM To<IVM>();
+		E To<E>();
 		void CopyTo(object dest);
 	}
 	
-	public partial interface IBaseEntity<VM>: IEntity
+	public abstract partial class BaseEntity : IBaseEntity
 	{
-		VM ToViewModel();
-	}
-	
-	public abstract partial class BaseEntity<VM> : IBaseEntity<VM>
-	{
-		public abstract VM ToViewModel();
-		
-		public virtual IVM To<IVM>()
+		public virtual E To<E>()
 		{
-			return G.Mapper.Map<IVM>(this);
+			return G.Mapper.Map<E>(this);
 		}
 		
 		public virtual void CopyTo(object dest)

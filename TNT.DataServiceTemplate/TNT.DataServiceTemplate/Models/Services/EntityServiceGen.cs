@@ -19,11 +19,10 @@ namespace TNT.DataServiceTemplate.Models.Services
             Directive.Add("System.Linq.Expressions",
                 dt.ProjectName + ".Utilities",
                 dt.ProjectName + ".Managers",
-                dt.ProjectName + ".ViewModels", dt.ProjectName + ".Models.Repositories",
+                dt.ProjectName + ".Models.Repositories",
                 dt.ProjectName + ".Global", "TNT.IoContainer.Wrapper");
             //ResolveMapping.Add("context", EInfo.Data.ContextName);
             ResolveMapping.Add("entity", EInfo.EntityName);
-            ResolveMapping.Add("entityVM", EInfo.VMClass);
             ResolveMapping.Add("entityPK", EInfo.PKClass);
 
             //GENERATE
@@ -51,7 +50,7 @@ namespace TNT.DataServiceTemplate.Models.Services
         public void GenerateIEntityService()
         {
             IEntityService = new ContainerGen();
-            IEntityService.Signature = "public partial interface I`entity`Service : IBaseService<`entity`, `entity`ViewModel, `entityPK`>";
+            IEntityService.Signature = "public partial interface I`entity`Service : IBaseService<`entity`, `entityPK`>";
             IEntityServiceBody = IEntityService.Body;
 
             NamespaceBody.Add(IEntityService, new StatementGen(""));
@@ -64,7 +63,7 @@ namespace TNT.DataServiceTemplate.Models.Services
         {
             EntityService = new ContainerGen();
             EntityService.Signature =
-                "public partial class `entity`Service : BaseService<`entity`, `entityVM`, `entityPK`>, I`entity`Service";
+                "public partial class `entity`Service : BaseService<`entity`, `entityPK`>, I`entity`Service";
             EntityServiceBody = EntityService.Body;
 
             NamespaceBody.Add(EntityService);

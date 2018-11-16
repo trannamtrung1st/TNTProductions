@@ -70,6 +70,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KbHook.cs" />
+    <Compile Include="ScreenManager.cs" />
     <Compile Include="HookManager\UserActivityHook.cs" />
     <Compile Include="ProcessProtector.cs" />
     <Compile Include="ProcessThread.cs" />

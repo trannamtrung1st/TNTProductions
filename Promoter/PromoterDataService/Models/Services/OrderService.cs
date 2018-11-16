@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using PromoterDataService.Utilities;
 using PromoterDataService.Managers;
-using PromoterDataService.ViewModels;
 using PromoterDataService.Models.Repositories;
 using PromoterDataService.Global;
 using TNT.IoContainer.Wrapper;
 
 namespace PromoterDataService.Models.Services
 {
-	public partial interface IOrderService : IBaseService<Order, OrderViewModel, int>
+	public partial interface IOrderService : IBaseService<Order, int>
 	{
 	}
 	
-	public partial class OrderService : BaseService<Order, OrderViewModel, int>, IOrderService
+	public partial class OrderService : BaseService<Order, int>, IOrderService
 	{
 		public OrderService(IUnitOfWork uow)
 		{

@@ -14,6 +14,12 @@ namespace PromoterDataService.Models
     
     public partial class Promotion
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Promotion()
+        {
+            this.PromotionAppliedDetails = new HashSet<PromotionAppliedDetail>();
+        }
+    
         public int ID { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
@@ -30,5 +36,7 @@ namespace PromoterDataService.Models
         public virtual Campaign Campaign { get; set; }
         public virtual PromotionDetail PromotionDetail { get; set; }
         public virtual ValidationRule ValidationRule { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PromotionAppliedDetail> PromotionAppliedDetails { get; set; }
     }
 }

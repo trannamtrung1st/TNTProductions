@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.PromotionAppliedDetails.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<PromotionAppliedDetail> AddAsync(PromotionAppliedDetail entity)
-		{
-			
-			entity = context.PromotionAppliedDetails.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override PromotionAppliedDetail Delete(PromotionAppliedDetail entity)
+		public override PromotionAppliedDetail Remove(PromotionAppliedDetail entity)
 		{
 			context.PromotionAppliedDetails.Attach(entity);
 			entity = context.PromotionAppliedDetails.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<PromotionAppliedDetail> DeleteAsync(PromotionAppliedDetail entity)
-		{
-			context.PromotionAppliedDetails.Attach(entity);
-			entity = context.PromotionAppliedDetails.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override PromotionAppliedDetail Delete(int key)
+		public override PromotionAppliedDetail Remove(int key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.PromotionAppliedDetails.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<PromotionAppliedDetail> DeleteAsync(int key)
+		public override IEnumerable<PromotionAppliedDetail> RemoveIf(Expression<Func<PromotionAppliedDetail, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.PromotionAppliedDetails.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.PromotionAppliedDetails.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<PromotionAppliedDetail> RemoveRange(IEnumerable<PromotionAppliedDetail> list)
+		{
+			return context.PromotionAppliedDetails.RemoveRange(list);
 		}
 		
 		public override PromotionAppliedDetail FindById(int key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.PromotionAppliedDetails.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<PromotionAppliedDetail> UpdateAsync(PromotionAppliedDetail entity)
-		{
-			entity = context.PromotionAppliedDetails.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

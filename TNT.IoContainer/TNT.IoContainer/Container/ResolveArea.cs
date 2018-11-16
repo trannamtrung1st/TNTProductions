@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using TNT.IoContainer.Attributes;
 using TNT.IoContainer.Wrapper;
 
@@ -24,30 +25,16 @@ namespace TNT.IoContainer.Container
         /*
          * RESOLVE AREA
          */
-        public Type Resolve<Type>(Params parameters = null)
-        {
-            var resolveType = typeof(Type);
-            return (Type)Resolve(resolveType, parameters);
-        }
-
         public Type Resolve<Type>(params object[] parameters)
         {
             var resolveType = typeof(Type);
-            return (Type)Resolve(resolveType, parameters);
+            return (Type)ResolveConstructor(resolveType, parameters);
         }
 
-        public object Resolve(Type type, Params parameters = null)
+        public Type Resolve<Type>(Params parameters)
         {
-            if (parameters != null)
-                switch (parameters.Policy)
-                {
-                    case ParamsPolicy.Constructor:
-                        return ResolveConstructor(type, parameters);
-                    default:
-                        return ResolveInjectableConstructor(type, parameters);
-                }
-
-            return ResolveConstructor(type);
+            var resolveType = typeof(Type);
+            return (Type)Resolve(resolveType, parameters);
         }
 
         public object Resolve(Type type, params object[] parameters)
@@ -55,117 +42,26 @@ namespace TNT.IoContainer.Container
             return ResolveConstructor(type, parameters);
         }
 
-        //final resolve for inject obj
-        private object ResolveConstructor(Type type, Params parameters = null)
+        public object Resolve(Type type, Params parameters)
         {
-            var baseObj = typeMapping[type];
-            var implObj = baseObj.Implementer; //implement type
-
-            if (baseObj.IsSimple && parameters == null)
-                return CreateInstance(implObj.WrappedType);
-
-            object[] initParams = null;
             if (parameters != null)
-                initParams = parameters.Parameters;
-            initParams = initParams ?? implObj.DefaultInitParams;
-            object instance = null;
-            try
-            {
-                instance = CreateInstance(implObj.WrappedType, initParams);//create instance
-            }
-            catch (Exception e)
-            {
-                var consBinding = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
-                var constructors = implObj.WrappedType.GetConstructors(consBinding);
-                bool called = false;
-                foreach (var c in constructors)
+                switch (parameters.Policy)
                 {
-                    try
-                    {
-                        instance = c.Invoke(initParams);
-                        called = true;
-                        break;
-                    }
-                    catch (Exception e1)
-                    {
-                    }
+                    case ParamsPolicy.Constructor:
+                        return ResolveConstructor(type, parameters.Parameters);
+                    default:
+                        return ResolveInjectableConstructor(type, parameters);
                 }
-                if (!called)
-                    return ResolveInjectableConstructor(type, Params.InjectAll(0));
-                //try call default injectable params constructor
-            }
 
-            if (baseObj.IsSimple)
-                return instance;
-
-            //inject (create) instance of injectable properties
-            foreach (var p in baseObj.InjectableProperties)
-            {
-                var val = ResolveConstructor(p.PropertyType);
-                p.SetValue(instance, val);
-            }
-
-            //process injectable methods
-            foreach (var m in baseObj.InjectableMethods)
-            {
-                var mParams = m.GetParameters();
-                object[] resolvedParam = null;
-                if (mParams != null && mParams.Length > 0)
-                    resolvedParam = ResolveInjectableParams(mParams);
-                m.Invoke(instance, resolvedParam);
-            }
-
-            //do post constructs (after all injection)
-            foreach (var m in baseObj.PostConstructs)
-            {
-                try
-                {
-                    m.Invoke(instance, initParams);
-                    break;
-                }
-                catch (Exception e) { }
-            }
-
-            return instance;
+            return ResolveConstructor(type);
         }
 
         //final resolve for inject obj
         private object ResolveConstructor(Type type, params object[] initParams)
         {
             var baseObj = typeMapping[type];
-            var implObj = baseObj.Implementer; //implement type
 
-            if (baseObj.IsSimple && initParams == null)
-                return CreateInstance(implObj.WrappedType);
-
-            initParams = initParams ?? implObj.DefaultInitParams;
-            object instance = null;
-            try
-            {
-                instance = CreateInstance(implObj.WrappedType, initParams);//create instance
-            }
-            catch (Exception e)
-            {
-                var consBinding = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
-                var constructors = implObj.WrappedType.GetConstructors(consBinding);
-                bool called = false;
-                foreach (var c in constructors)
-                {
-                    try
-                    {
-                        instance = c.Invoke(initParams);
-                        called = true;
-                        break;
-                    }
-                    catch (Exception e1)
-                    {
-                    }
-                }
-                if (!called)
-                    return ResolveInjectableConstructor(type, Params.InjectAll(0));
-                //try call default injectable params constructor
-            }
-
+            var instance = CreateInstance(baseObj.ImplType, initParams);//create instance
             if (baseObj.IsSimple)
                 return instance;
 
@@ -237,7 +133,7 @@ namespace TNT.IoContainer.Container
         {
             var id = parameters.Id;
             var consBinding = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
-            var constructors = typeMapping[type].Implementer.WrappedType.GetConstructors(consBinding);
+            var constructors = typeMapping[type].ImplType.GetConstructors(consBinding);
             foreach (var c in constructors)
             {
                 var attr = c.GetCustomAttribute<InjectableParams>(true);
@@ -250,6 +146,185 @@ namespace TNT.IoContainer.Container
                 }
             }
             throw new Exception("Cannot find suitable injectable method/constructor with id " + id);
+        }
+
+        public Type ResolveRequestScope<Type>(params object[] parameters)
+        {
+            var resolveType = typeof(Type);
+            return (Type)ResolveRequestScope(resolveType, parameters);
+        }
+
+        public Type ResolveRequestScope<Type>(Params parameters)
+        {
+            var resolveType = typeof(Type);
+            return (Type)ResolveRequestScope(resolveType, parameters);
+        }
+
+        public object ResolveRequestScope(Type type, params object[] parameters)
+        {
+            var items = HttpContext.Current.Items;
+            var obj = items[type];
+            if (obj == null)
+            {
+                var reqScopeContainer = items[typeof(ITContainer)];
+                if (reqScopeContainer == null)
+                {
+                    reqScopeContainer = CreateRequestScope();
+                }
+                obj = ((ITContainer)reqScopeContainer).Resolve(type, parameters);
+            }
+            return obj;
+        }
+
+        public object ResolveRequestScope(Type type, Params parameters)
+        {
+            var items = HttpContext.Current.Items;
+            var obj = items[type];
+            if (obj == null)
+            {
+                var reqScopeContainer = items[typeof(ITContainer)];
+                if (reqScopeContainer == null)
+                {
+                    reqScopeContainer = CreateRequestScope();
+                }
+                obj = ((ITContainer)reqScopeContainer).Resolve(type, parameters);
+            }
+            return obj;
+        }
+
+        public ITContainer RequestScope
+        {
+            get
+            {
+                return (ITContainer)HttpContext.Current.Items[typeof(ITContainer)];
+            }
+        }
+
+        public ITContainer CreateRequestScope()
+        {
+            var container = CreateScope();
+            HttpContext.Current.Items[typeof(ITContainer)] = container;
+            return container;
+        }
+
+        public ITContainer CreateScope(HttpContext context)
+        {
+            var container = CreateScope();
+            context.Items[typeof(ITContainer)] = container;
+            return container;
+        }
+
+        private object[] GetResolvedParams(Type type, Params parameters)
+        {
+            var id = parameters.Id;
+            var consBinding = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance;
+            var constructors = typeMapping[type].ImplType.GetConstructors(consBinding);
+            foreach (var c in constructors)
+            {
+                var attr = c.GetCustomAttribute<InjectableParams>(true);
+                if (attr != null && attr.Id == id)
+                {
+                    var resolvedParams = parameters.Policy == ParamsPolicy.AllInjectables ?
+                        ResolveInjectableParams(c.GetParameters()) :
+                        ResolveInjectableParams(c.GetParameters(), parameters);
+                    return resolvedParams;
+                }
+            }
+            return null;
+        }
+
+        private object[] GetParameters(Type type, Params parameters)
+        {
+            if (parameters != null)
+            {
+                switch (parameters.Policy)
+                {
+                    case ParamsPolicy.Constructor:
+                        return parameters.Parameters;
+                    default:
+                        return GetResolvedParams(type, parameters);
+                }
+            }
+            return null;
+        }
+
+        public Type ResolveFromPool<Type>(Params parameters) where Type : class, IResource
+        {
+            var type = typeof(Type);
+            return (Type)ResolveFromPool(type, parameters);
+        }
+
+        public object ResolveFromPool(Type type, Params parameters)
+        {
+            var pool = poolMapping[type];
+
+            lock (pool)
+            {
+                var res = pool.GetResource();
+                if (res != null)
+                {
+                    object[] initParams = null;
+                    if (parameters != null)
+                    {
+                        initParams = GetParameters(type, parameters);
+                    }
+                    res.ReInit(initParams);
+                }
+                else
+                {
+                    var resourceType = pool.resourceType;
+                    parameters = parameters ?? pool.defaultInitParams;
+                    var resource = (Resource)Resolve(type, parameters);
+                    resource.pool = pool;
+                    pool.EnqueueResource(resource);
+                    res = resource;
+                }
+                if (ResourcesControlModeOn)
+                    ManageResources(res);
+                return res;
+            }
+        }
+
+        public Type ResolveFromPool<Type>(params object[] parameters) where Type : class, IResource
+        {
+            var type = typeof(Type);
+            return (Type)ResolveFromPool(type, parameters);
+        }
+
+        public object ResolveFromPool(Type type, params object[] parameters)
+        {
+            var pool = poolMapping[type];
+
+            lock (pool)
+            {
+                var res = pool.GetResource();
+                if (res != null)
+                {
+                    res.ReInit(parameters);
+                }
+                else
+                {
+                    var resourceType = pool.resourceType;
+                    var resource = (Resource)Resolve(type, parameters);
+                    resource.pool = pool;
+                    pool.currentSize++;
+                    pool.EnqueueResource(resource);
+                    res = resource;
+                }
+                if (ResourcesControlModeOn)
+                    ManageResources(res);
+                return res;
+            }
+        }
+
+        public Type ResolveSingleton<Type>()
+        {
+            return (Type)singletonResources[typeof(Type)];
+        }
+
+        public object ResolveSingleton(Type type)
+        {
+            return singletonResources[type];
         }
 
     }

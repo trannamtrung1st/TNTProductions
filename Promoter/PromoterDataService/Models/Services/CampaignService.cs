@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using PromoterDataService.Utilities;
 using PromoterDataService.Managers;
-using PromoterDataService.ViewModels;
 using PromoterDataService.Models.Repositories;
 using PromoterDataService.Global;
 using TNT.IoContainer.Wrapper;
 
 namespace PromoterDataService.Models.Services
 {
-	public partial interface ICampaignService : IBaseService<Campaign, CampaignViewModel, int>
+	public partial interface ICampaignService : IBaseService<Campaign, int>
 	{
 	}
 	
-	public partial class CampaignService : BaseService<Campaign, CampaignViewModel, int>, ICampaignService
+	public partial class CampaignService : BaseService<Campaign, int>, ICampaignService
 	{
 		public CampaignService(IUnitOfWork uow)
 		{

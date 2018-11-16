@@ -49,7 +49,7 @@ namespace TNT.DataServiceTemplate.Managers
             IUnitOfWorkBody = IUnitOfWork.Body;
 
             var s1 = new StatementGen(
-                "bool AutoSave { get; set; }",
+                //"bool AutoSave { get; set; }",
                 "ITContainer Scope { get; set; }",
                 "`context` Context { get; set; }",
                 "S Service<S>() where S : class, IService;",
@@ -74,7 +74,7 @@ namespace TNT.DataServiceTemplate.Managers
             UnitOfWorkBody = UnitOfWork.Body;
 
             var s1 = new StatementGen(
-                "public bool AutoSave { get; set; }",
+                //"public bool AutoSave { get; set; }",
                 "public ITContainer Scope { get; set; }",
                 "public `context` Context { get; set; }",
                 "private IDictionary<Type, object> ResourcePool { get; set; }");
@@ -82,8 +82,8 @@ namespace TNT.DataServiceTemplate.Managers
             var c2 = new ContainerGen();
             c2.Signature = "public UnitOfWork()";
             c2.Body.Add(new StatementGen(
-                "AutoSave = true;",
-                (Data.RequestScope ? "Scope = G.TContainer.RequestScope;" : "Scope = G.TContainer.CreateScope();"),
+                //"AutoSave = true;",
+                "Scope = G.TContainer.RequestScope;",
                 "Context = new `context`();",
                 "ResourcePool = new Dictionary<Type, object>();"
                 /*"Scope.ManageResources(Context);"*/));
@@ -91,22 +91,21 @@ namespace TNT.DataServiceTemplate.Managers
             var c21 = new ContainerGen();
             c21.Signature = "public UnitOfWork(ITContainer scope)";
             c21.Body.Add(new StatementGen(
-                "AutoSave = true;",
+                //"AutoSave = true;",
                 "Scope = scope;",
-                "Scope.ManageResources(this);",
                 "Context = new `context`();",
                 "ResourcePool = new Dictionary<Type, object>();"
                 /*"Scope.ManageResources(Context);"*/));
 
-            var c22 = new ContainerGen();
-            c22.Signature = "public UnitOfWork(bool reqScope)";
-            c22.Body.Add(new StatementGen(
-                "AutoSave = true;",
-                "Scope = reqScope ? G.TContainer.CreateRequestScope() : G.TContainer.CreateScope();",
-                "Scope.ManageResources(this);",
-                "Context = new `context`();",
-                "ResourcePool = new Dictionary<Type, object>();"
-                /*"Scope.ManageResources(Context);"*/));
+            //var c22 = new ContainerGen();
+            //c22.Signature = "public UnitOfWork(bool reqScope)";
+            //c22.Body.Add(new StatementGen(
+            //    "AutoSave = true;",
+            //    "Scope = reqScope ? G.TContainer.CreateRequestScope() : G.TContainer.CreateScope();",
+            //    "Scope.ManageResources(this);",
+            //    "Context = new `context`();",
+            //    "ResourcePool = new Dictionary<Type, object>();"
+            //    /*"Scope.ManageResources(Context);"*/));
 
             var m3 = new ContainerGen();
             m3.Signature = "public S Service<S>() where S : class, IService";
@@ -150,13 +149,18 @@ namespace TNT.DataServiceTemplate.Managers
                 "{",
                 "}", "",
                 "disposedValue = true;",
-                "if (AutoSave)",
-                "try",
-                "{",
-                "\tContext.SaveChanges();",
-                "}",
-                "catch (Exception) { }",
                 "Context.Dispose();"),
+                //"if (AutoSave)",
+                //"try",
+                //"{",
+                //"\tContext.SaveChanges();",
+                //"\tContext.Dispose();",
+                //"}",
+                //"catch (Exception e)",
+                //"{",
+                //"\tContext.Dispose();",
+                //"\tthrow e;",
+                //"}"),
                 new StatementGen("}"));
 
             var m9 = new ContainerGen();
@@ -170,11 +174,15 @@ namespace TNT.DataServiceTemplate.Managers
             m11.Signature = "~UnitOfWork()";
             m11.Body.Add(new StatementGen("Dispose(false);"));
 
+            if (Data.RequestScope)
+            {
+                UnitOfWorkBody.Add(c2, new StatementGen(""));
+            }
+
             UnitOfWorkBody.Add(
-                s1, new StatementGen(""),
-                c2, new StatementGen(""),
                 c21, new StatementGen(""),
-                c22, new StatementGen(""),
+                s1, new StatementGen(""),
+                //c22, new StatementGen(""),
                 m3, new StatementGen(""),
                 m4, new StatementGen(""),
                 m5, new StatementGen(""),

@@ -50,7 +50,9 @@ namespace TNT.DataServiceTemplate.TTGen
 
         public void Add(params ITemplate[] temps)
         {
-            Contents.AddRange(temps);
+            foreach (var t in temps)
+                if (t != null)
+                    Contents.Add(t);
         }
 
         public void AddDirectives(params string[] directives)
@@ -129,7 +131,9 @@ namespace TNT.DataServiceTemplate.TTGen
         public void Add(params IGenerator[] members)
         {
             if (members != null)
-                Members.AddRange(members);
+                foreach (var m in members)
+                    if (m != null)
+                        Members.Add(m);
         }
 
         public override string Generate()

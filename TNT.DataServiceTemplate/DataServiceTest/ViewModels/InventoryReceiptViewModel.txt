@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class InventoryReceiptViewModel: BaseViewModel<InventoryReceipt>
+	{
+		[JsonProperty("receipt_id")]
+		public int ReceiptID { get; set; }
+		[JsonProperty("change_date")]
+		public DateTime ChangeDate { get; set; }
+		[JsonProperty("receipt_type")]
+		public int ReceiptType { get; set; }
+		[JsonProperty("status")]
+		public int Status { get; set; }
+		[JsonProperty("notes")]
+		public string Notes { get; set; }
+		[JsonProperty("name")]
+		public string Name { get; set; }
+		[JsonProperty("creator")]
+		public string Creator { get; set; }
+		[JsonProperty("store_id")]
+		public Nullable<int> StoreId { get; set; }
+		[JsonProperty("in_store_id")]
+		public Nullable<int> InStoreId { get; set; }
+		[JsonProperty("out_store_id")]
+		public Nullable<int> OutStoreId { get; set; }
+		[JsonProperty("provider_id")]
+		public Nullable<int> ProviderId { get; set; }
+		[JsonProperty("create_date")]
+		public Nullable<DateTime> CreateDate { get; set; }
+		[JsonProperty("invoice_number")]
+		public string InvoiceNumber { get; set; }
+		[JsonProperty("amount")]
+		public Nullable<double> Amount { get; set; }
+		[JsonProperty("start_date")]
+		public Nullable<DateTime> StartDate { get; set; }
+		[JsonProperty("end_date")]
+		public Nullable<DateTime> EndDate { get; set; }
+		[JsonProperty("provider")]
+		public ProviderViewModel ProviderVM { get; set; }
+		[JsonProperty("store")]
+		public StoreViewModel StoreVM { get; set; }
+		[JsonProperty("store1")]
+		public StoreViewModel Store1VM { get; set; }
+		[JsonProperty("store2")]
+		public StoreViewModel Store2VM { get; set; }
+		[JsonProperty("cost_inventory_mappings")]
+		public IEnumerable<CostInventoryMappingViewModel> CostInventoryMappingsVM { get; set; }
+		[JsonProperty("inventory_receipt_items")]
+		public IEnumerable<InventoryReceiptItemViewModel> InventoryReceiptItemsVM { get; set; }
+		
+		public InventoryReceiptViewModel(InventoryReceipt entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public InventoryReceiptViewModel()
+		{
+			this.CostInventoryMappingsVM = new HashSet<CostInventoryMappingViewModel>();
+			this.InventoryReceiptItemsVM = new HashSet<InventoryReceiptItemViewModel>();
+		}
+		
+	}
+}

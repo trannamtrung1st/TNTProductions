@@ -15,7 +15,6 @@ namespace PromoterDataService.Managers
 {
 	public partial interface IUnitOfWork : IDisposable
 	{
-		bool AutoSave { get; set; }
 		ITContainer Scope { get; set; }
 		PromoterEntities Context { get; set; }
 		S Service<S>() where S : class, IService;
@@ -26,36 +25,23 @@ namespace PromoterDataService.Managers
 	}
 	public partial class UnitOfWork : IUnitOfWork
 	{
-		public bool AutoSave { get; set; }
-		public ITContainer Scope { get; set; }
-		public PromoterEntities Context { get; set; }
-		private IDictionary<Type, object> ResourcePool { get; set; }
-		
 		public UnitOfWork()
 		{
-			AutoSave = true;
-			Scope = G.TContainer.CreateScope();
+			Scope = G.TContainer.RequestScope;
 			Context = new PromoterEntities();
 			ResourcePool = new Dictionary<Type, object>();
 		}
 		
 		public UnitOfWork(ITContainer scope)
 		{
-			AutoSave = true;
 			Scope = scope;
-			Scope.ManageResources(this);
 			Context = new PromoterEntities();
 			ResourcePool = new Dictionary<Type, object>();
 		}
 		
-		public UnitOfWork(bool reqScope)
-		{
-			AutoSave = true;
-			Scope = reqScope ? G.TContainer.CreateRequestScope() : G.TContainer.CreateScope();
-			Scope.ManageResources(this);
-			Context = new PromoterEntities();
-			ResourcePool = new Dictionary<Type, object>();
-		}
+		public ITContainer Scope { get; set; }
+		public PromoterEntities Context { get; set; }
+		private IDictionary<Type, object> ResourcePool { get; set; }
 		
 		public S Service<S>() where S : class, IService
 		{
@@ -96,12 +82,6 @@ namespace PromoterDataService.Managers
 				}
 				
 				disposedValue = true;
-				if (AutoSave)
-				try
-				{
-					Context.SaveChanges();
-				}
-				catch (Exception) { }
 				Context.Dispose();
 			}
 		}

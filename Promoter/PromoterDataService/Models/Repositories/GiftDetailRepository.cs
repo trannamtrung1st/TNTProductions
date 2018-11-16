@@ -10,11 +10,11 @@ using System.Data.Entity;
 
 namespace PromoterDataService.Models.Repositories
 {
-	public partial interface IGiftDetailRepository : IBaseRepository<GiftDetail, GiftDetailPK>
+	public partial interface IGiftDetailRepository : IBaseRepository<GiftDetail, int>
 	{
 	}
 	
-	public partial class GiftDetailRepository : BaseRepository<GiftDetail, GiftDetailPK>, IGiftDetailRepository
+	public partial class GiftDetailRepository : BaseRepository<GiftDetail, int>, IGiftDetailRepository
 	{
 		public GiftDetailRepository() : base()
 		{
@@ -29,87 +29,63 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.GiftDetails.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<GiftDetail> AddAsync(GiftDetail entity)
-		{
-			
-			entity = context.GiftDetails.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override GiftDetail Delete(GiftDetail entity)
+		public override GiftDetail Remove(GiftDetail entity)
 		{
 			context.GiftDetails.Attach(entity);
 			entity = context.GiftDetails.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<GiftDetail> DeleteAsync(GiftDetail entity)
-		{
-			context.GiftDetails.Attach(entity);
-			entity = context.GiftDetails.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override GiftDetail Delete(GiftDetailPK key)
+		public override GiftDetail Remove(int key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.GiftDetails.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<GiftDetail> DeleteAsync(GiftDetailPK key)
+		public override IEnumerable<GiftDetail> RemoveIf(Expression<Func<GiftDetail, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.GiftDetails.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.GiftDetails.RemoveRange(GetActive(expr).ToList());
 		}
 		
-		public override GiftDetail FindById(GiftDetailPK key)
+		public override IEnumerable<GiftDetail> RemoveRange(IEnumerable<GiftDetail> list)
+		{
+			return context.GiftDetails.RemoveRange(list);
+		}
+		
+		public override GiftDetail FindById(int key)
 		{
 			var entity = context.GiftDetails.FirstOrDefault(
-				e => e.ProductIID == key.ProductIID && e.PromotionDetailID == key.PromotionDetailID);
+				e => e.ID == key);
 			return entity;
 		}
 		
-		public override GiftDetail FindActiveById(GiftDetailPK key)
+		public override GiftDetail FindActiveById(int key)
 		{
 			var entity = context.GiftDetails.FirstOrDefault(
-				e => e.ProductIID == key.ProductIID && e.PromotionDetailID == key.PromotionDetailID);
+				e => e.ID == key);
 			return entity;
 		}
 		
-		public override async Task<GiftDetail> FindByIdAsync(GiftDetailPK key)
+		public override async Task<GiftDetail> FindByIdAsync(int key)
 		{
 			var entity = await context.GiftDetails.FirstOrDefaultAsync(
-				e => e.ProductIID == key.ProductIID && e.PromotionDetailID == key.PromotionDetailID);
+				e => e.ID == key);
 			return entity;
 		}
 		
-		public override async Task<GiftDetail> FindActiveByIdAsync(GiftDetailPK key)
+		public override async Task<GiftDetail> FindActiveByIdAsync(int key)
 		{
 			var entity = await context.GiftDetails.FirstOrDefaultAsync(
-				e => e.ProductIID == key.ProductIID && e.PromotionDetailID == key.PromotionDetailID);
+				e => e.ID == key);
 			return entity;
 		}
 		
-		public override GiftDetail FindByIdInclude<TProperty>(GiftDetailPK key, params Expression<Func<GiftDetail, TProperty>>[] members)
+		public override GiftDetail FindByIdInclude<TProperty>(int key, params Expression<Func<GiftDetail, TProperty>>[] members)
 		{
 			IQueryable<GiftDetail> dbSet = context.GiftDetails;
 			foreach (var m in members)
@@ -118,10 +94,10 @@ namespace PromoterDataService.Models.Repositories
 			}
 			
 			return dbSet.FirstOrDefault(
-				e => e.ProductIID == key.ProductIID && e.PromotionDetailID == key.PromotionDetailID);
+				e => e.ID == key);
 		}
 		
-		public override async Task<GiftDetail> FindByIdIncludeAsync<TProperty>(GiftDetailPK key, params Expression<Func<GiftDetail, TProperty>>[] members)
+		public override async Task<GiftDetail> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<GiftDetail, TProperty>>[] members)
 		{
 			IQueryable<GiftDetail> dbSet = context.GiftDetails;
 			foreach (var m in members)
@@ -130,7 +106,7 @@ namespace PromoterDataService.Models.Repositories
 			}
 			
 			return await dbSet.FirstOrDefaultAsync(
-				e => e.ProductIID == key.ProductIID && e.PromotionDetailID == key.PromotionDetailID);
+				e => e.ID == key);
 		}
 		
 		public override GiftDetail Activate(GiftDetail entity)
@@ -138,7 +114,7 @@ namespace PromoterDataService.Models.Repositories
 			throw new Exception("Entity's not activable. Check if table has 'Active/Deactive' column");
 		}
 		
-		public override GiftDetail Activate(GiftDetailPK key)
+		public override GiftDetail Activate(int key)
 		{
 			throw new Exception("Entity's not activable. Check if table has 'Active/Deactive' column");
 		}
@@ -148,7 +124,7 @@ namespace PromoterDataService.Models.Repositories
 			throw new Exception("Entity's not activable. Check if table has 'Active/Deactive' column");
 		}
 		
-		public override GiftDetail Deactivate(GiftDetailPK key)
+		public override GiftDetail Deactivate(int key)
 		{
 			throw new Exception("Entity's not activable. Check if table has 'Active/Deactive' column");
 		}
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.GiftDetails.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<GiftDetail> UpdateAsync(GiftDetail entity)
-		{
-			entity = context.GiftDetails.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

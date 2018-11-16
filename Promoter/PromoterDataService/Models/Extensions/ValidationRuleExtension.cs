@@ -8,12 +8,7 @@ using PromoterDataService.Global;
 
 namespace PromoterDataService.Models
 {
-	public partial class ValidationRule : BaseEntity<ValidationRuleViewModel>
+	public partial class ValidationRule : BaseEntity
 	{
-		public override ValidationRuleViewModel ToViewModel()
-		{
-			return new ValidationRuleViewModel(this);
-		}
-		
 	}
 }

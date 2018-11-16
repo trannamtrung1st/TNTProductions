@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.Stores.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Store> AddAsync(Store entity)
-		{
-			
-			entity = context.Stores.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override Store Delete(Store entity)
+		public override Store Remove(Store entity)
 		{
 			context.Stores.Attach(entity);
 			entity = context.Stores.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Store> DeleteAsync(Store entity)
-		{
-			context.Stores.Attach(entity);
-			entity = context.Stores.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override Store Delete(int key)
+		public override Store Remove(int key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.Stores.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Store> DeleteAsync(int key)
+		public override IEnumerable<Store> RemoveIf(Expression<Func<Store, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Stores.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.Stores.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<Store> RemoveRange(IEnumerable<Store> list)
+		{
+			return context.Stores.RemoveRange(list);
 		}
 		
 		public override Store FindById(int key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.Stores.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<Store> UpdateAsync(Store entity)
-		{
-			entity = context.Stores.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

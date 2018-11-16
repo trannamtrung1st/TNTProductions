@@ -13,6 +13,8 @@ using TestApi.Models.Transfer;
 using System.Web.Http.Results;
 using System.Web;
 using System.Dynamic;
+using TNT.Helpers.Data;
+using TNT.Helpers.WebApi;
 
 namespace TestApi.Controllers.APIs
 {
@@ -20,13 +22,14 @@ namespace TestApi.Controllers.APIs
     {
         [Route("test")]
         [HttpGet]
-        public JsonResult<long> Test()
+        public HttpResponseMessage Test(string arr)
         {
             var sw = Stopwatch.StartNew();
-            var pDomain = new VoucherDomain();
-            pDomain.FindById(2031);
-            var a = pDomain.GetActive(v => v.VoucherCode.StartsWith("6231")).ToList();
-            return Json(sw.ElapsedMilliseconds);
+            using (var u = new passioTestEntities())
+            {
+                var v = u.Promotions.ToList();
+                return Http.OkBase(null, sw.ElapsedMilliseconds);
+            }
         }
 
     }

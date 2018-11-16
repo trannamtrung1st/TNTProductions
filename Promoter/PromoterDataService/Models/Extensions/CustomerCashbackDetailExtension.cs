@@ -8,12 +8,7 @@ using PromoterDataService.Global;
 
 namespace PromoterDataService.Models
 {
-	public partial class CustomerCashbackDetail : BaseEntity<CustomerCashbackDetailViewModel>
+	public partial class CustomerCashbackDetail : BaseEntity
 	{
-		public override CustomerCashbackDetailViewModel ToViewModel()
-		{
-			return new CustomerCashbackDetailViewModel(this);
-		}
-		
 	}
 }

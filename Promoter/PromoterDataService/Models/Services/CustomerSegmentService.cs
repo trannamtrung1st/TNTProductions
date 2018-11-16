@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using PromoterDataService.Utilities;
 using PromoterDataService.Managers;
-using PromoterDataService.ViewModels;
 using PromoterDataService.Models.Repositories;
 using PromoterDataService.Global;
 using TNT.IoContainer.Wrapper;
 
 namespace PromoterDataService.Models.Services
 {
-	public partial interface ICustomerSegmentService : IBaseService<CustomerSegment, CustomerSegmentViewModel, CustomerSegmentPK>
+	public partial interface ICustomerSegmentService : IBaseService<CustomerSegment, CustomerSegmentPK>
 	{
 	}
 	
-	public partial class CustomerSegmentService : BaseService<CustomerSegment, CustomerSegmentViewModel, CustomerSegmentPK>, ICustomerSegmentService
+	public partial class CustomerSegmentService : BaseService<CustomerSegment, CustomerSegmentPK>, ICustomerSegmentService
 	{
 		public CustomerSegmentService(IUnitOfWork uow)
 		{

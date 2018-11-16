@@ -11,8 +11,28 @@ namespace TNT.Helpers.Data
 {
     public static class DataExtension
     {
+        #region Get properties of type
+        private static IDictionary<Type, IDictionary<string, PropertyInfo>> ReflectionCaches;
+        static DataExtension()
+        {
+            ReflectionCaches = new Dictionary<Type, IDictionary<string, PropertyInfo>>();
+        }
+
+        public static void CachePropertiesOfType(Type t)
+        {
+            var props = t.GetProperties();
+            var mappings = new Dictionary<string, PropertyInfo>();
+            foreach (var p in props)
+            {
+                mappings[p.Name] = p;
+            }
+            ReflectionCaches[t] = mappings;
+        }
+
         private static IDictionary<string, PropertyInfo> GetPropMappings(Type type)
         {
+            if (ReflectionCaches.ContainsKey(type))
+                return ReflectionCaches[type];
             var mappings = new Dictionary<string, PropertyInfo>();
             var props = type.GetProperties();
             foreach (var p in props)
@@ -21,10 +41,11 @@ namespace TNT.Helpers.Data
             }
             return mappings;
         }
+        #endregion
 
         #region Dynamic type 
         private static Type DynamicBuildType(
-            int no, bool keepStructure,
+            ref int no, bool keepStructure,
             IDictionary<string, PropertyInfo> inpMappings, params string[] properties)
         {
             var builder = CreateTypeBuilder(
@@ -44,10 +65,11 @@ namespace TNT.Helpers.Data
                         {
                             var prType = inpMappings[prName].PropertyType;
                             var newMappings = GetPropMappings(prType);
-                            var sames = properties.Where(pr => pr.StartsWith(prName));
+                            var sames = properties.Where(pr => pr.StartsWith(prName + "."));
                             sames = sames.Select(pr => pr.Substring(pr.IndexOf('.') + 1));
+                            ++no;
                             CreateAutoImplementedProperty(
-                                builder, prName, DynamicBuildType(++no, keepStructure, newMappings, sames.ToArray()));
+                                builder, prName, DynamicBuildType(ref no, keepStructure, newMappings, sames.ToArray()));
                             checkedList.Add(prName);
                         }
                     }
@@ -61,9 +83,15 @@ namespace TNT.Helpers.Data
                     var sames = properties.Where(p => p.Contains(kvp.Key + "."))
                         .Select(p => p.Substring(p.IndexOf('.') + 1)).ToArray();
                     var newMappings = GetPropMappings(kvp.Value.PropertyType);
-                    CreateAutoImplementedProperty(builder, kvp.Key,
-                        sames.Length > 0 ? DynamicBuildType(++no, keepStructure, newMappings, sames) :
-                        kvp.Value.PropertyType);
+                    Type newType = null;
+                    if (sames.Length > 0)
+                    {
+                        ++no;
+                        newType = DynamicBuildType(ref no, keepStructure, newMappings, sames);
+                    }
+                    else
+                        newType = kvp.Value.PropertyType;
+                    CreateAutoImplementedProperty(builder, kvp.Key, newType);
                 }
             return builder.CreateType();
         }
@@ -139,15 +167,19 @@ namespace TNT.Helpers.Data
 
         #region Select only (self selection)
         private static MemberInitExpression CreateNew(
-            int no, bool keepStructure, bool init,
+            ref int no, bool keepStructure, bool init,
             Type inpType, Type srcType,
             Expression src, params string[] properties)
         {
             int orgNo = no;
-            var inpMappings = GetPropMappings(inpType);
             var srcMappings = GetPropMappings(srcType);
             Type outType;
-            outType = init ? DynamicBuildType(no++, keepStructure, inpMappings, properties) : inpType;
+            if (init)
+            {
+                no++;
+                outType = DynamicBuildType(ref no, keepStructure, GetPropMappings(inpType), properties);
+            }
+            else outType = inpType;
             var outMappings = GetPropMappings(outType);
 
             NewExpression newObj = Expression.New(outType);
@@ -166,11 +198,12 @@ namespace TNT.Helpers.Data
                     {
                         var prInfo = outMappings[prName];
                         var prType = prInfo.PropertyType;
-                        var sames = properties.Where(pr => pr.StartsWith(prName));
+                        var sames = properties.Where(pr => pr.StartsWith(prName + "."));
                         sames = sames.Select(pr => pr.Substring(pr.IndexOf('.') + 1));
-                        var newSrc = Expression.Property(src, inpMappings[prName]);
-                        var initPr = CreateNew(++no
-                            , keepStructure, false, prType, inpMappings[prName].PropertyType, newSrc, sames.ToArray());
+                        var newSrc = Expression.Property(src, srcMappings[prName]);
+                        ++no;
+                        var initPr = CreateNew(ref no, keepStructure, false,
+                            prType, srcMappings[prName].PropertyType, newSrc, sames.ToArray());
                         listAssignments.Add(Expression.Bind(prInfo, initPr));
                         checkedList.Add(prName);
                     }
@@ -209,7 +242,7 @@ namespace TNT.Helpers.Data
                     {
                         var prInfo = srcMappings[prName];
                         var prType = prInfo.PropertyType;
-                        var sames = properties.Where(pr => pr.StartsWith(prName));
+                        var sames = properties.Where(pr => pr.StartsWith(prName + "."));
                         sames = sames.Select(pr => pr.Substring(pr.IndexOf('.') + 1));
                         var newSrc = Expression.Property(src, srcMappings[prName]);
                         var initPr = CreateNew(prType, newSrc, sames.ToArray());
@@ -232,7 +265,8 @@ namespace TNT.Helpers.Data
         {
             var inpType = typeof(In);
             ParameterExpression inp = Expression.Parameter(typeof(In), "inp");
-            var initObj = CreateNew(0, keepStructure, true, inpType, inpType, inp, properties);
+            var no = 0;
+            var initObj = CreateNew(ref no, keepStructure, true, inpType, inpType, inp, properties);
             var lambda = Expression.Lambda<Func<In, object>>(initObj, inp);
             return query.Select(lambda);
         }
@@ -241,7 +275,8 @@ namespace TNT.Helpers.Data
         {
             var inpType = typeof(In);
             ParameterExpression inp = Expression.Parameter(typeof(In), "inp");
-            var initObj = CreateNew(0, keepStructure, true, inpType, inpType, inp, properties);
+            var no = 0;
+            var initObj = CreateNew(ref no, keepStructure, true, inpType, inpType, inp, properties);
             var lambda = Expression.Lambda<Func<In, object>>(initObj, inp).Compile();
             return query.Select(lambda);
         }
@@ -273,7 +308,6 @@ namespace TNT.Helpers.Data
         {
             var outMappings = GetPropMappings(outType);
             var srcMappings = GetPropMappings(srcType);
-            var properties = propMappings.Select(p => p.Split('=')[0].Trim()).ToArray();
 
             NewExpression newObj = Expression.New(outType);
             var listAssignments = new List<MemberAssignment>();
@@ -289,34 +323,11 @@ namespace TNT.Helpers.Data
                     var prName = outStr.Substring(0, outStr.IndexOf('.'));
                     if (!checkedList.Contains(prName))
                     {
-                        Expression newSrc;
-                        Type newType = null;
-                        if (srcStr.Contains('.'))
-                        {
-                            IDictionary<string, PropertyInfo> tmpMappings = srcMappings;
-                            Expression tmpSrc = src;
-                            var tmpStr = srcStr;
-                            while (tmpStr.Contains('.'))
-                            {
-                                var srcPrName = tmpStr.Substring(0, tmpStr.IndexOf('.'));
-                                var srcPrInfo = tmpMappings[srcPrName];
-                                newType = srcPrInfo.PropertyType;
-                                tmpSrc = Expression.Property(tmpSrc, srcPrInfo);
-                                tmpStr = tmpStr.Substring(tmpStr.IndexOf('.') + 1);
-                            }
-                            newSrc = tmpSrc;
-                        }
-                        else
-                        {
-                            var srcPrInfo = srcMappings[srcStr];
-                            newSrc = Expression.Property(src, srcPrInfo);
-                            newType = srcPrInfo.PropertyType;
-                        }
                         var prInfo = outMappings[prName];
                         var prType = prInfo.PropertyType;
-                        var sames = properties.Where(pr => pr.StartsWith(prName));
+                        var sames = propMappings.Where(pr => pr.Split('=')[0].StartsWith(prName + "."));
                         sames = sames.Select(pr => pr.Substring(pr.IndexOf('.') + 1));
-                        var initPr = CreateNew(0, true, false, prType, newType, newSrc, sames.ToArray());
+                        var initPr = CreateNew<object>(prType, srcType, src, sames.ToArray());
                         listAssignments.Add(Expression.Bind(prInfo, initPr));
                         checkedList.Add(prName);
                     }
@@ -324,9 +335,31 @@ namespace TNT.Helpers.Data
                 else
                 {
                     var outProp = outMappings[outStr];
-                    var srcProp = srcMappings[srcStr];
-                    var srcMember = Expression.Property(src, srcProp);
-                    listAssignments.Add(Expression.Bind(outProp, srcMember));
+                    Expression newSrc;
+                    Type newType = null;
+                    if (srcStr.Contains('.'))
+                    {
+                        IDictionary<string, PropertyInfo> tmpMappings = srcMappings;
+                        Expression tmpSrc = src;
+                        var tmpStr = srcStr;
+                        while (tmpStr.Contains('.'))
+                        {
+                            var srcPrName = tmpStr.Substring(0, tmpStr.IndexOf('.'));
+                            var srcPrInfo = tmpMappings[srcPrName];
+                            newType = srcPrInfo.PropertyType;
+                            tmpSrc = Expression.Property(tmpSrc, srcPrInfo);
+                            tmpStr = tmpStr.Substring(tmpStr.IndexOf('.') + 1);
+                            tmpMappings = GetPropMappings(newType);
+                        }
+                        newSrc = Expression.Property(tmpSrc, tmpMappings[tmpStr]);
+                    }
+                    else
+                    {
+                        var srcPrInfo = srcMappings[srcStr];
+                        newSrc = Expression.Property(src, srcPrInfo);
+                        newType = srcPrInfo.PropertyType;
+                    }
+                    listAssignments.Add(Expression.Bind(outProp, newSrc));
                 }
 
             }
@@ -340,7 +373,7 @@ namespace TNT.Helpers.Data
             var inpType = typeof(In);
             var outType = typeof(Out);
             ParameterExpression inp = Expression.Parameter(typeof(In), "inp");
-            var initObj = CreateNew<Out>(inpType, outType, inp, propMappings);
+            var initObj = CreateNew<Out>(outType, inpType, inp, propMappings);
             var lambda = Expression.Lambda<Func<In, Out>>(initObj, inp);
             return query.Select(lambda);
         }
@@ -350,7 +383,7 @@ namespace TNT.Helpers.Data
             var inpType = typeof(In);
             var outType = typeof(Out);
             ParameterExpression inp = Expression.Parameter(typeof(In), "inp");
-            var initObj = CreateNew<Out>(inpType, outType, inp, propMappings);
+            var initObj = CreateNew<Out>(outType, inpType, inp, propMappings);
             var lambda = Expression.Lambda<Func<In, Out>>(initObj, inp).Compile();
             return query.Select(lambda);
         }

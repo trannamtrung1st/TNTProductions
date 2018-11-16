@@ -46,7 +46,7 @@ namespace TNT.DataServiceTemplate.Auto
 
             TemplateAPILib = "$(ProjectDir)" + templateApiLib;
             DataServiceLib = "$(ProjectDir)" + dataServiceTemplateLib;
-            var includeFile = "$(ProjectDir)" + "Templates/" + ProjectName + ".ttinclude";
+            var includeFile = "$(ProjectDir)" + "Templates/TTManager.ttinclude";
             ExtraDirectives = new List<string>()
             {
                 "assembly name=\""+TemplateAPILib+"\"",
@@ -91,55 +91,55 @@ namespace TNT.DataServiceTemplate.Auto
         private void GenerateUtility()
         {
             var uGen = new AutoUtilityGen(Data, ExtraDirectives.ToArray());
-            FileHelper.Write(ProjectPath + "Utilities", "UtilityGen.tt", uGen.Generate());
+            FileHelper.Write(ProjectPath + "Utilities", "UtilityTemplate.tt", uGen.Generate());
         }
 
         private void GenerateTemplateManager()
         {
-            FileHelper.Write(ProjectPath + "Templates", ProjectName + ".ttinclude", TemplateManagerGen.Text);
+            FileHelper.Write(ProjectPath + "Templates", "TTManager.ttinclude", TemplateManagerGen.Text);
         }
 
         private void GenerateViewModel()
         {
             var vmGen = new AutoViewModelGen(Data, VMJsonIgnoreProps, Style,
                 VMExceptProps, ExtraDirectives.ToArray());
-            FileHelper.Write(ProjectPath + "ViewModels", "ViewModelGen.tt", vmGen.Generate());
+            FileHelper.Write(ProjectPath + "ViewModels", "ViewModelTemplate.tt", vmGen.Generate());
         }
 
         private void GenerateGlobal()
         {
             var gGen = new AutoGlobalGen(Data, ExtraDirectives.ToArray());
-            FileHelper.Write(ProjectPath + "Global", "GlobalGen.tt", gGen.Generate());
+            FileHelper.Write(ProjectPath + "Global", "GlobalTemplate.tt", gGen.Generate());
         }
 
         private void GenerateEntityExtension()
         {
             var eGen = new AutoEExtensionGen(Data, ExtraDirectives.ToArray());
-            FileHelper.Write(ProjectPath + "Models/Extensions", "ExtensionGen.tt", eGen.Generate());
+            FileHelper.Write(ProjectPath + "Models/Extensions", "ExtensionTemplate.tt", eGen.Generate());
         }
 
         private void GenerateRepository()
         {
             var rGen = new AutoRepositoryGen(Data, ExtraDirectives.ToArray());
-            FileHelper.Write(ProjectPath + "Models/Repositories", "RepositoryGen.tt", rGen.Generate());
+            FileHelper.Write(ProjectPath + "Models/Repositories", "RepositoryTemplate.tt", rGen.Generate());
         }
 
         private void GenerateService()
         {
             var sGen = new AutoServiceGen(Data, ExtraDirectives.ToArray());
-            FileHelper.Write(ProjectPath + "Models/Services", "ServiceGen.tt", sGen.Generate());
+            FileHelper.Write(ProjectPath + "Models/Services", "ServiceTemplate.tt", sGen.Generate());
         }
 
         private void GenerateManager()
         {
             var mGen = new AutoManagerGen(Data, ExtraDirectives.ToArray());
-            FileHelper.Write(ProjectPath + "Managers", "ManagerGen.tt", mGen.Generate());
+            FileHelper.Write(ProjectPath + "Managers", "ManagerTemplate.tt", mGen.Generate());
         }
 
         private void GenerateDomain()
         {
             var dGen = new AutoDomainGen(Data, ExtraDirectives.ToArray());
-            FileHelper.Write(ProjectPath + "Models/Domains", "DomainGen.tt", dGen.Generate());
+            FileHelper.Write(ProjectPath + "Models/Domains", "DomainTemplate.tt", dGen.Generate());
         }
 
         private void GenerateReadmeText()

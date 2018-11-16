@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class EmployeeGroupViewModel: BaseViewModel<EmployeeGroup>
+	{
+		[JsonProperty("id")]
+		public int Id { get; set; }
+		[JsonProperty("code_group")]
+		public string CodeGroup { get; set; }
+		[JsonProperty("name_group")]
+		public string NameGroup { get; set; }
+		[JsonProperty("brand_id")]
+		public int BrandId { get; set; }
+		[JsonProperty("active")]
+		public bool Active { get; set; }
+		[JsonProperty("expand_time")]
+		public Nullable<System.TimeSpan> ExpandTime { get; set; }
+		[JsonProperty("group_policy")]
+		public Nullable<int> GroupPolicy { get; set; }
+		[JsonProperty("group_security")]
+		public Nullable<int> GroupSecurity { get; set; }
+		[JsonProperty("employees")]
+		public IEnumerable<EmployeeViewModel> EmployeesVM { get; set; }
+		[JsonProperty("time_frames")]
+		public IEnumerable<TimeFrameViewModel> TimeFramesVM { get; set; }
+		
+		public EmployeeGroupViewModel(EmployeeGroup entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public EmployeeGroupViewModel()
+		{
+			this.EmployeesVM = new HashSet<EmployeeViewModel>();
+			this.TimeFramesVM = new HashSet<TimeFrameViewModel>();
+		}
+		
+	}
+}

@@ -17,7 +17,7 @@ namespace TNT.DataServiceTemplate.Models.Services
             Directive.Add("System.Linq.Expressions",
                 dt.ProjectName + ".Utilities",
                 dt.ProjectName + ".Managers",
-                dt.ProjectName + ".ViewModels", dt.ProjectName + ".Models.Repositories",
+                dt.ProjectName + ".Models.Repositories",
                 dt.ProjectName + ".Global", "TNT.IoContainer.Wrapper", "TNT.IoContainer.Container");
             //GENERATE
             GenerateNamespace();
@@ -48,21 +48,25 @@ namespace TNT.DataServiceTemplate.Models.Services
             NamespaceBody.Add(IService);
 
             IBaseService = new ContainerGen();
-            IBaseService.Signature = "public partial interface IBaseService<E, VM, K> : IService";
+            IBaseService.Signature = "public partial interface IBaseService<E, K> : IService";
             IBaseServiceBody = IBaseService.Body;
 
             IBaseServiceBody.Add(
                 new StatementGen(
-                    "bool AutoSave { get; set; }",
+                    //"bool AutoSave { get; set; }",
+                    "int SaveChanges();",
+                    "Task<int> SaveChangesAsync();",
                     "",
                     "E Add(E entity);",
-                    "Task<E> AddAsync(E entity);",
+                    //"Task<E> AddAsync(E entity);",
                     "E Update(E entity);",
-                    "Task<E> UpdateAsync(E entity);",
-                    "E Delete(E entity);",
-                    "Task<E> DeleteAsync(E entity);",
-                    "E Delete(K key);",
-                    "Task<E> DeleteAsync(K key);",
+                    //"Task<E> UpdateAsync(E entity);",
+                    "E Remove(E entity);",
+                    //"Task<E> RemoveAsync(E entity);",
+                    "E Remove(K key);",
+                    "IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);",
+                    "IEnumerable<E> RemoveRange(IEnumerable<E> list);",
+                    //"Task<E> RemoveAsync(K key);",
                     "E FindById(K key);",
                     "Task<E> FindByIdAsync(K key);",
                     "E Activate(E entity);",
@@ -88,7 +92,7 @@ namespace TNT.DataServiceTemplate.Models.Services
         {
             BaseService = new ContainerGen();
             BaseService.Signature =
-                "public abstract partial class BaseService<E, VM, K> : " + (Data.ServicePool ? "Resource, " : "") + "IBaseService<E, VM, K>";
+                "public abstract partial class BaseService<E, K> : " + (Data.ServicePool ? "Resource, " : "") + "IBaseService<E, K>";
             BaseServiceBody = BaseService.Body;
 
             NamespaceBody.Add(BaseService);
@@ -98,57 +102,77 @@ namespace TNT.DataServiceTemplate.Models.Services
         {
             var s1 = new StatementGen("protected IBaseRepository<E, K> repository;");
 
-            var m3 = new ContainerGen();
-            m3.Signature = "public bool AutoSave";
-            m3.Body.Add(new StatementGen(
-                "get",
-                "{",
-                "\treturn repository.AutoSave;",
-                "}",
-                "set",
-                "{",
-                "\trepository.AutoSave = value;",
-                "}"));
+            //var m3 = new ContainerGen();
+            //m3.Signature = "public bool AutoSave";
+            //m3.Body.Add(new StatementGen(
+            //    "get",
+            //    "{",
+            //    "\treturn repository.AutoSave;",
+            //    "}",
+            //    "set",
+            //    "{",
+            //    "\trepository.AutoSave = value;",
+            //    "}"));
+
+            var m31 = new ContainerGen();
+            m31.Signature = "public int SaveChanges()";
+            m31.Body.Add(new StatementGen(
+                "return repository.SaveChanges();"));
+
+            var m32 = new ContainerGen();
+            m32.Signature = "public async Task<int> SaveChangesAsync()";
+            m32.Body.Add(new StatementGen(
+                "return await repository.SaveChangesAsync();"));
 
             var m4 = new ContainerGen();
             m4.Signature = "public E Add(E entity)";
             m4.Body.Add(new StatementGen(
                 "return repository.Add(entity);"));
 
-            var m5 = new ContainerGen();
-            m5.Signature = "public async Task<E> AddAsync(E entity)";
-            m5.Body.Add(new StatementGen(
-                "return await repository.AddAsync(entity);"));
+            //var m5 = new ContainerGen();
+            //m5.Signature = "public async Task<E> AddAsync(E entity)";
+            //m5.Body.Add(new StatementGen(
+            //    "return await repository.AddAsync(entity);"));
 
             var m6 = new ContainerGen();
             m6.Signature = "public E Update(E entity)";
             m6.Body.Add(new StatementGen(
                 "return repository.Update(entity);"));
 
-            var m7 = new ContainerGen();
-            m7.Signature = "public async Task<E> UpdateAsync(E entity)";
-            m7.Body.Add(new StatementGen(
-                "return await repository.UpdateAsync(entity);"));
+            //var m7 = new ContainerGen();
+            //m7.Signature = "public async Task<E> UpdateAsync(E entity)";
+            //m7.Body.Add(new StatementGen(
+            //    "return await repository.UpdateAsync(entity);"));
 
             var m8 = new ContainerGen();
-            m8.Signature = "public E Delete(E entity)";
+            m8.Signature = "public E Remove(E entity)";
             m8.Body.Add(new StatementGen(
-                "return repository.Delete(entity);"));
+                "return repository.Remove(entity);"));
 
-            var m9 = new ContainerGen();
-            m9.Signature = "public async Task<E> DeleteAsync(E entity)";
-            m9.Body.Add(new StatementGen(
-                "return await repository.DeleteAsync(entity);"));
+            //var m9 = new ContainerGen();
+            //m9.Signature = "public async Task<E> RemoveAsync(E entity)";
+            //m9.Body.Add(new StatementGen(
+            //    "return await repository.RemoveAsync(entity);"));
 
             var m10 = new ContainerGen();
-            m10.Signature = "public E Delete(K key)";
+            m10.Signature = "public E Remove(K key)";
             m10.Body.Add(new StatementGen(
-                "return repository.Delete(key);"));
+                "return repository.Remove(key);"));
 
-            var m11 = new ContainerGen();
-            m11.Signature = "public async Task<E> DeleteAsync(K key)";
-            m11.Body.Add(new StatementGen(
-                "return await repository.DeleteAsync(key);"));
+            var m101 = new ContainerGen();
+            m101.Signature = "public IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr)";
+            m101.Body.Add(new StatementGen(
+                "return repository.RemoveIf(expr);"));
+
+            var m102 = new ContainerGen();
+            m102.Signature = "public IEnumerable<E> RemoveRange(IEnumerable<E> list)";
+            m102.Body.Add(new StatementGen(
+                "return repository.RemoveRange(list);"));
+
+            //var m11 = new ContainerGen();
+            //m11.Signature = "public async Task<E> RemoveAsync(K key)";
+            //m11.Body.Add(new StatementGen(
+            //    "return await repository.RemoveAsync(key);"));
 
             var m12 = new ContainerGen();
             m12.Signature = "public E FindById(K key)";
@@ -201,15 +225,19 @@ namespace TNT.DataServiceTemplate.Models.Services
 
             BaseServiceBody.Add(
                 s1, new StatementGen(""),
-                m3, new StatementGen("", "#region CRUD Area"),
+                m31, new StatementGen(""),
+                m32, new StatementGen("", "#region CRUD Area"),
+                //m3, new StatementGen("" ),
                 m4, new StatementGen(""),
-                m5, new StatementGen(""),
+                //m5, new StatementGen(""),
                 m6, new StatementGen(""),
-                m7, new StatementGen(""),
+                //m7, new StatementGen(""),
                 m8, new StatementGen(""),
-                m9, new StatementGen(""),
+                //m9, new StatementGen(""),
                 m10, new StatementGen(""),
-                m11, new StatementGen(""),
+                m101, new StatementGen(""),
+                m102, new StatementGen(""),
+                //m11, new StatementGen(""),
                 m12, new StatementGen(""),
                 m13, new StatementGen(""),
                 m141, new StatementGen(""),

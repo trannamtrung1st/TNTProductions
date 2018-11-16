@@ -1,4 +1,0 @@
-
-// Generated helper templates
-// Generated items
-// TNT.DataServiceTemplate\DataServiceTest\Managers\UnitOfWork.cs

@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.Customers.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Customer> AddAsync(Customer entity)
-		{
-			
-			entity = context.Customers.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override Customer Delete(Customer entity)
+		public override Customer Remove(Customer entity)
 		{
 			context.Customers.Attach(entity);
 			entity = context.Customers.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Customer> DeleteAsync(Customer entity)
-		{
-			context.Customers.Attach(entity);
-			entity = context.Customers.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override Customer Delete(int key)
+		public override Customer Remove(int key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.Customers.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Customer> DeleteAsync(int key)
+		public override IEnumerable<Customer> RemoveIf(Expression<Func<Customer, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Customers.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.Customers.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<Customer> RemoveRange(IEnumerable<Customer> list)
+		{
+			return context.Customers.RemoveRange(list);
 		}
 		
 		public override Customer FindById(int key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.Customers.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<Customer> UpdateAsync(Customer entity)
-		{
-			entity = context.Customers.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

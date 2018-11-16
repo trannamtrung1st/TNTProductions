@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,38 +11,38 @@ namespace PromoterDataService.ViewModels
 {
 	public partial class AffliatorCashbackDetailViewModel: BaseViewModel<AffliatorCashbackDetail>
 	{
-		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("id")]
 		public int ID { get; set; }
-		[JsonProperty("cashback_account_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("cashback_account_type")]
 		public Nullable<int> CashbackAccountType { get; set; }
-		[JsonProperty("cashback_type", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("cashback_type")]
 		public Nullable<int> CashbackType { get; set; }
-		[JsonProperty("cashback_per1000_vnd", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("cashback_per1000_vnd")]
 		public Nullable<double> CashbackPer1000VND { get; set; }
-		[JsonProperty("cashback_percent_of_order", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("cashback_percent_of_order")]
 		public Nullable<double> CashbackPercentOfOrder { get; set; }
-		[JsonProperty("cashback_by_rank_amount", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("cashback_by_rank_amount")]
 		public Nullable<double> CashbackByRankAmount { get; set; }
-		[JsonProperty("rank_sid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("rank_sid")]
 		public string RankSID { get; set; }
-		[JsonProperty("cashback_by_card_recharge_rate", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("cashback_by_card_recharge_rate")]
 		public Nullable<double> CashbackByCardRechargeRate { get; set; }
-		[JsonProperty("card_recharge_rate", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("card_recharge_rate")]
 		public Nullable<double> CardRechargeRate { get; set; }
-		[JsonProperty("cashback_percent_of_card_recharge", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("cashback_percent_of_card_recharge")]
 		public Nullable<double> CashbackPercentOfCardRecharge { get; set; }
-		[JsonProperty("cashback_by_segment", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("cashback_by_segment")]
 		public Nullable<double> CashbackBySegment { get; set; }
-		[JsonProperty("segment_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public Nullable<int> SegmentID { get; set; }
-		[JsonProperty("segment_sid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("segment_iid")]
+		public Nullable<int> SegmentIID { get; set; }
+		[JsonProperty("segment_sid")]
 		public string SegmentSID { get; set; }
-		[JsonProperty("promotion_detail_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("promotion_detail_id")]
 		public Nullable<int> PromotionDetailID { get; set; }
-		[JsonProperty("promotion_detail", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("promotion_detail")]
 		public PromotionDetailViewModel PromotionDetailVM { get; set; }
-		[JsonProperty("promotion_applied_details", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public ICollection<PromotionAppliedDetailViewModel> PromotionAppliedDetailsVM { get; set; }
+		[JsonProperty("promotion_applied_details")]
+		public IEnumerable<PromotionAppliedDetailViewModel> PromotionAppliedDetailsVM { get; set; }
 		
 		public AffliatorCashbackDetailViewModel(AffliatorCashbackDetail entity) : this()
 		{

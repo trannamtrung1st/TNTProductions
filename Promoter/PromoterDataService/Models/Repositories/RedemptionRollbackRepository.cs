@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.RedemptionRollbacks.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<RedemptionRollback> AddAsync(RedemptionRollback entity)
-		{
-			
-			entity = context.RedemptionRollbacks.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override RedemptionRollback Delete(RedemptionRollback entity)
+		public override RedemptionRollback Remove(RedemptionRollback entity)
 		{
 			context.RedemptionRollbacks.Attach(entity);
 			entity = context.RedemptionRollbacks.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<RedemptionRollback> DeleteAsync(RedemptionRollback entity)
-		{
-			context.RedemptionRollbacks.Attach(entity);
-			entity = context.RedemptionRollbacks.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override RedemptionRollback Delete(int key)
+		public override RedemptionRollback Remove(int key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.RedemptionRollbacks.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<RedemptionRollback> DeleteAsync(int key)
+		public override IEnumerable<RedemptionRollback> RemoveIf(Expression<Func<RedemptionRollback, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.RedemptionRollbacks.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.RedemptionRollbacks.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<RedemptionRollback> RemoveRange(IEnumerable<RedemptionRollback> list)
+		{
+			return context.RedemptionRollbacks.RemoveRange(list);
 		}
 		
 		public override RedemptionRollback FindById(int key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.RedemptionRollbacks.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<RedemptionRollback> UpdateAsync(RedemptionRollback entity)
-		{
-			entity = context.RedemptionRollbacks.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

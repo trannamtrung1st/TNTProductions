@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,26 +11,26 @@ namespace PromoterDataService.ViewModels
 {
 	public partial class RedemptionViewModel: BaseViewModel<Redemption>
 	{
-		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("id")]
 		public int Id { get; set; }
-		[JsonProperty("date", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("date")]
 		public Nullable<DateTime> Date { get; set; }
-		[JsonProperty("customer_iid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("customer_iid")]
 		public Nullable<int> CustomerIID { get; set; }
-		[JsonProperty("customer_sid", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("customer_sid")]
 		public string CustomerSID { get; set; }
-		[JsonProperty("metadata_object", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("metadata_object")]
 		public string MetadataObject { get; set; }
-		[JsonProperty("status", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("status")]
 		public Nullable<int> Status { get; set; }
-		[JsonProperty("failure_code", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("failure_code")]
 		public Nullable<int> FailureCode { get; set; }
-		[JsonProperty("customer", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("customer")]
 		public CustomerViewModel CustomerVM { get; set; }
-		[JsonProperty("promotion_applied_details", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public ICollection<PromotionAppliedDetailViewModel> PromotionAppliedDetailsVM { get; set; }
-		[JsonProperty("redemption_rollbacks", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public ICollection<RedemptionRollbackViewModel> RedemptionRollbacksVM { get; set; }
+		[JsonProperty("promotion_applied_details")]
+		public IEnumerable<PromotionAppliedDetailViewModel> PromotionAppliedDetailsVM { get; set; }
+		[JsonProperty("redemption_rollbacks")]
+		public IEnumerable<RedemptionRollbackViewModel> RedemptionRollbacksVM { get; set; }
 		
 		public RedemptionViewModel(Redemption entity) : this()
 		{

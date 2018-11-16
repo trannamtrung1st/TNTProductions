@@ -14,12 +14,7 @@ namespace PromoterDataService.Models
 		public int StoreIID { get; set; }
 	}
 	
-	public partial class PromotionStoreRule : BaseEntity<PromotionStoreRuleViewModel>
+	public partial class PromotionStoreRule : BaseEntity
 	{
-		public override PromotionStoreRuleViewModel ToViewModel()
-		{
-			return new PromotionStoreRuleViewModel(this);
-		}
-		
 	}
 }

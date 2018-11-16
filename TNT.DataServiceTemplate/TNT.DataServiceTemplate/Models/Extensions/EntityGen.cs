@@ -35,29 +35,16 @@ namespace TNT.DataServiceTemplate.Models.Extensions
         }
 
         //generate IBaseEntity
-        private ContainerGen IBaseEntity { get; set; }
-        private BodyGen IBaseEntityBody { get; set; }
         public void GenerateIEntity()
         {
             var IEntity = new ContainerGen();
-            IEntity.Signature = "public partial interface IEntity";
+            IEntity.Signature = "public partial interface IBaseEntity";
             IEntity.Body.Add(
                 new StatementGen(
-                    "IVM To<IVM>();",
+                    "E To<E>();",
                     "void CopyTo(object dest);"
                 ));
             NamespaceBody.Add(IEntity, new StatementGen(""));
-
-            IBaseEntity = new ContainerGen();
-            IBaseEntity.Signature = "public partial interface IBaseEntity<VM>: IEntity";
-            IBaseEntityBody = IBaseEntity.Body;
-
-            IBaseEntityBody.Add(
-                new StatementGen(
-                    "VM ToViewModel();"
-                ));
-
-            NamespaceBody.Add(IBaseEntity, new StatementGen(""));
         }
 
         //generate BaseEntity
@@ -66,14 +53,12 @@ namespace TNT.DataServiceTemplate.Models.Extensions
         public void GenerateBaseEntity()
         {
             var baseEntity = new ContainerGen();
-            baseEntity.Signature = "public abstract partial class BaseEntity<VM> : IBaseEntity<VM>";
-
-            var m1 = new StatementGen("public abstract VM ToViewModel();");
+            baseEntity.Signature = "public abstract partial class BaseEntity : IBaseEntity";
 
             var m2 = new ContainerGen();
-            m2.Signature = "public virtual IVM To<IVM>()";
+            m2.Signature = "public virtual E To<E>()";
             m2.Body.Add(new StatementGen(
-                "return G.Mapper.Map<IVM>(this);"));
+                "return G.Mapper.Map<E>(this);"));
 
             var m3 = new ContainerGen();
             m3.Signature = "public virtual void CopyTo(object dest)";
@@ -81,7 +66,6 @@ namespace TNT.DataServiceTemplate.Models.Extensions
                 "G.Mapper.Map(this, dest);"));
 
             baseEntity.Body.Add(
-                m1, new StatementGen(""),
                 m2, new StatementGen(""),
                 m3, new StatementGen(""));
 

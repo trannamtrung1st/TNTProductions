@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.GiftAppliedDetails.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<GiftAppliedDetail> AddAsync(GiftAppliedDetail entity)
-		{
-			
-			entity = context.GiftAppliedDetails.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override GiftAppliedDetail Delete(GiftAppliedDetail entity)
+		public override GiftAppliedDetail Remove(GiftAppliedDetail entity)
 		{
 			context.GiftAppliedDetails.Attach(entity);
 			entity = context.GiftAppliedDetails.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<GiftAppliedDetail> DeleteAsync(GiftAppliedDetail entity)
-		{
-			context.GiftAppliedDetails.Attach(entity);
-			entity = context.GiftAppliedDetails.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override GiftAppliedDetail Delete(GiftAppliedDetailPK key)
+		public override GiftAppliedDetail Remove(GiftAppliedDetailPK key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.GiftAppliedDetails.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<GiftAppliedDetail> DeleteAsync(GiftAppliedDetailPK key)
+		public override IEnumerable<GiftAppliedDetail> RemoveIf(Expression<Func<GiftAppliedDetail, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.GiftAppliedDetails.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.GiftAppliedDetails.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<GiftAppliedDetail> RemoveRange(IEnumerable<GiftAppliedDetail> list)
+		{
+			return context.GiftAppliedDetails.RemoveRange(list);
 		}
 		
 		public override GiftAppliedDetail FindById(GiftAppliedDetailPK key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.GiftAppliedDetails.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<GiftAppliedDetail> UpdateAsync(GiftAppliedDetail entity)
-		{
-			entity = context.GiftAppliedDetails.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

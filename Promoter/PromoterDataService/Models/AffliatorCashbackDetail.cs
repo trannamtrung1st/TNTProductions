@@ -31,7 +31,7 @@ namespace PromoterDataService.Models
         public Nullable<double> CardRechargeRate { get; set; }
         public Nullable<double> CashbackPercentOfCardRecharge { get; set; }
         public Nullable<double> CashbackBySegment { get; set; }
-        public Nullable<int> SegmentID { get; set; }
+        public Nullable<int> SegmentIID { get; set; }
         public string SegmentSID { get; set; }
         public Nullable<int> PromotionDetailID { get; set; }
     

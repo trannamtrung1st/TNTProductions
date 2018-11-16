@@ -78,56 +78,66 @@ namespace TNT.DataServiceTemplate.Models.Repositories
             m3.Body.Add(new StatementGen(
                 EInfo.Activable ? (EInfo.Data.ActiveCol ? "entity.Active = true;" : "entity.Deactive = false;") : "",
                 "entity = context.`entities`.Add(entity);",
-                "if (AutoSave)",
-                "\tcontext.SaveChanges();",
+                //"if (AutoSave)",
+                //"\tcontext.SaveChanges();",
                 "return entity;"));
 
-            var m4 = new ContainerGen();
-            m4.Signature = "public override async Task<`entity`> AddAsync(`entity` entity)";
-            m4.Body.Add(new StatementGen(
-                EInfo.Activable ? (EInfo.Data.ActiveCol ? "entity.Active = true;" : "entity.Deactive = false;") : "",
-                "entity = context.`entities`.Add(entity);",
-                "if (AutoSave)",
-                "\tawait context.SaveChangesAsync();",
-                "return entity;"));
+            //var m4 = new ContainerGen();
+            //m4.Signature = "public override async Task<`entity`> AddAsync(`entity` entity)";
+            //m4.Body.Add(new StatementGen(
+            //    EInfo.Activable ? (EInfo.Data.ActiveCol ? "entity.Active = true;" : "entity.Deactive = false;") : "",
+            //    "entity = context.`entities`.Add(entity);",
+            //    //"if (AutoSave)",
+            //    //"\tawait context.SaveChangesAsync();",
+            //    "return entity;"));
 
             var m5 = new ContainerGen();
-            m5.Signature = "public override `entity` Delete(`entity` entity)";
+            m5.Signature = "public override `entity` Remove(`entity` entity)";
             m5.Body.Add(new StatementGen(
                 "context.`entities`.Attach(entity);",
                 "entity = context.`entities`.Remove(entity);",
-                "if (AutoSave)",
-                "\tcontext.SaveChanges();",
+                //"if (AutoSave)",
+                //"\tcontext.SaveChanges();",
                 "return entity;"));
 
-            var m6 = new ContainerGen();
-            m6.Signature = "public override async Task<`entity`> DeleteAsync(`entity` entity)";
-            m6.Body.Add(new StatementGen(
-                "context.`entities`.Attach(entity);",
-                "entity = context.`entities`.Remove(entity);",
-                "if (AutoSave)",
-                "\tawait context.SaveChangesAsync();",
-                "return entity;"));
+            //var m6 = new ContainerGen();
+            //m6.Signature = "public override async Task<`entity`> RemoveAsync(`entity` entity)";
+            //m6.Body.Add(new StatementGen(
+            //    "context.`entities`.Attach(entity);",
+            //    "entity = context.`entities`.Remove(entity);",
+            //    //"if (AutoSave)",
+            //    //"\tawait context.SaveChangesAsync();",
+            //    "return entity;"));
 
             var m7 = new ContainerGen();
-            m7.Signature = "public override `entity` Delete(`entityPK` key)";
+            m7.Signature = "public override `entity` Remove(`entityPK` key)";
             m7.Body.Add(new StatementGen(
                 "var entity = FindById(key);",
                 "if (entity!=null)",
                 "\tentity = context.`entities`.Remove(entity);",
-                "if (AutoSave)",
-                "\tcontext.SaveChanges();",
+                //"if (AutoSave)",
+                //"\tcontext.SaveChanges();",
                 "return entity;"));
 
             var m8 = new ContainerGen();
-            m8.Signature = "public override async Task<`entity`> DeleteAsync(`entityPK` key)";
+            m8.Signature = "public override IEnumerable<`entity`> RemoveIf(Expression<Func<`entity`, bool>> expr)";
             m8.Body.Add(new StatementGen(
-                "var entity = FindById(key);",
-                "if (entity!=null)",
-                "\tentity = context.`entities`.Remove(entity);",
-                "if (AutoSave)",
-                "\tawait context.SaveChangesAsync();",
-                "return entity;"));
+                "return context.`entities`.RemoveRange(GetActive(expr).ToList());"));
+
+            var m81 = new ContainerGen();
+            m81.Signature = "public override IEnumerable<`entity`> RemoveRange(IEnumerable<`entity`> list)";
+            m81.Body.Add(new StatementGen(
+                "return context.`entities`.RemoveRange(list);"));
+
+            //var m8 = new ContainerGen();
+            //m8.Signature = "public override async Task<`entity`> RemoveAsync(`entityPK` key)";
+            //m8.Body.Add(new StatementGen(
+            //    "var entity = FindById(key);",
+            //    "if (entity!=null)",
+            //    "\tentity = context.`entities`.Remove(entity);",
+            //    //"if (AutoSave)",
+            //    //"\tawait context.SaveChangesAsync();",
+            //    "return entity;"));
 
             var m9 = new ContainerGen();
             m9.Signature = "public override `entity` FindById(`entityPK` key)";
@@ -280,28 +290,29 @@ namespace TNT.DataServiceTemplate.Models.Repositories
             m19.Body.Add(new StatementGen(
                 "entity = context.`entities`.Attach(entity);",
                 "context.Entry(entity).State = EntityState.Modified;",
-                "if (AutoSave)",
-                "\tcontext.SaveChanges();",
+                //"if (AutoSave)",
+                //"\tcontext.SaveChanges();",
                 "return entity;"));
 
-            var m20 = new ContainerGen();
-            m20.Signature = "public override async Task<`entity`> UpdateAsync(`entity` entity)";
-            m20.Body.Add(new StatementGen(
-                "entity = context.`entities`.Attach(entity);",
-                "context.Entry(entity).State = EntityState.Modified;",
-                "if (AutoSave)",
-                "\tawait context.SaveChangesAsync();",
-                "return entity;"));
+            //var m20 = new ContainerGen();
+            //m20.Signature = "public override async Task<`entity`> UpdateAsync(`entity` entity)";
+            //m20.Body.Add(new StatementGen(
+            //    "entity = context.`entities`.Attach(entity);",
+            //    "context.Entry(entity).State = EntityState.Modified;",
+            //    //"if (AutoSave)",
+            //    //"\tawait context.SaveChangesAsync();",
+            //    "return entity;"));
 
             EntityRepositoryBody.Add(
                 c1, new StatementGen(""),
                 c2, new StatementGen("", "#region CRUD Area"),
                 m3, new StatementGen(""),
-                m4, new StatementGen(""),
+                //m4, new StatementGen(""),
                 m5, new StatementGen(""),
-                m6, new StatementGen(""),
+                //m6, new StatementGen(""),
                 m7, new StatementGen(""),
                 m8, new StatementGen(""),
+                m81, new StatementGen(""),
                 m9, new StatementGen(""),
                 m91, new StatementGen(""),
                 m10, new StatementGen(""),
@@ -320,8 +331,8 @@ namespace TNT.DataServiceTemplate.Models.Repositories
                 m161, new StatementGen(""),
                 m17, new StatementGen(""),
                 m18, new StatementGen(""),
-                m19, new StatementGen(""),
-                m20, new StatementGen("#endregion", ""));
+                m19, new StatementGen("#endregion", ""));
+            //m20, new StatementGen("#endregion", ""));
 
         }
 

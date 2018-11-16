@@ -8,12 +8,7 @@ using PromoterDataService.Global;
 
 namespace PromoterDataService.Models
 {
-	public partial class AffliatorCashbackDetail : BaseEntity<AffliatorCashbackDetailViewModel>
+	public partial class AffliatorCashbackDetail : BaseEntity
 	{
-		public override AffliatorCashbackDetailViewModel ToViewModel()
-		{
-			return new AffliatorCashbackDetailViewModel(this);
-		}
-		
 	}
 }

@@ -42,13 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\Attributes.cs" />
-    <Compile Include="Container\RequestScopeArea.cs" />
+    <Compile Include="Container\Builder\TContainerBuilder.cs" />
+    <Compile Include="Container\Builder\RequestScopeArea.cs" />
     <Compile Include="Container\TContainer.cs" />
     <Compile Include="Container\LifetimeManagerArea.cs" />
-    <Compile Include="Container\RegisterArea.cs" />
+    <Compile Include="Container\Builder\RegisterArea.cs" />
     <Compile Include="Container\ResolveArea.cs" />
-    <Compile Include="Container\ResourcesPoolingArea.cs" />
-    <Compile Include="Container\SingletonArea.cs" />
+    <Compile Include="Container\Builder\ResourcesPoolingArea.cs" />
+    <Compile Include="Container\Builder\SingletonArea.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wrapper\BaseType.cs" />
     <Compile Include="Wrapper\ImplementType.cs" />

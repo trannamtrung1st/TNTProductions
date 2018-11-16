@@ -54,7 +54,10 @@ namespace TNT.DataServiceTemplate.Models.Domains
 
             var c0 = new ContainerGen();
             c0.Signature = "public `entity`Domain() : base()";
-            EntityDomainBody.Add(c0);
+            if (EInfo.Data.RequestScope)
+            {
+                EntityDomainBody.Add(c0);
+            }
 
             var c1 = new ContainerGen();
             c1.Signature = "public `entity`Domain(IUnitOfWork uow) : base(uow)";

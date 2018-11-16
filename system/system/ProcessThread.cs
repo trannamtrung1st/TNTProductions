@@ -35,9 +35,6 @@ namespace system
             {
                 switch (key)
                 {
-                    case Keys.Oem4:
-                        LookupResource();
-                        break;
                     case Keys.Oem6:
                         var text = Clipboard.GetText();
                         Translate(text, "vi", "ja");
@@ -50,7 +47,7 @@ namespace system
             }
         }
 
-        private static void LookupResource()
+        public static void LookupResource()
         {
             var word = Clipboard.GetText().Trim().ToLower();
             var compareInfo = CultureInfo.InvariantCulture.CompareInfo;
@@ -64,7 +61,7 @@ namespace system
             {
                 var currResult = Program.Results.Dequeue();
                 Clipboard.SetText(currResult.Value);
-                Program.CurrentResult = currResult.Key + ": " + currResult.Value;
+                Program.CurrentResult = currResult.Key + "\r\n------------------------------\r\n" + currResult.Value;
                 Program.Results.Enqueue(currResult);
             }
             else
@@ -76,26 +73,37 @@ namespace system
 
         public static void LoadResource()
         {
-            var config = File.ReadAllLines("config.txt");
-            var file = config[0];
-            var lines = File.ReadAllLines(file);
-            foreach (var l in lines)
+            try
             {
-                var kvp = l.Split('=');
-                var val1 = kvp[0].Trim().ToLower();
-                var val2 = kvp[1].Trim().ToLower();
-
-                if (!mappings.ContainsKey(val1))
+                var config = File.ReadAllLines("config.txt");
+                foreach (var file in config)
                 {
-                    mappings[val1] = val2;
-                }
-                else mappings[val1] += ", " + val2;
+                    var text = File.ReadAllText(file);
+                    var parts = text.Split(new[] { "<PASSALL>" }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var p in parts)
+                    {
+                        var kvp = p.Split(new[] { "<->" }, StringSplitOptions.RemoveEmptyEntries);
+                        var val1 = kvp[0].Trim().ToLower();
+                        var val2 = kvp[1].Trim().ToLower();
 
-                if (!mappings.ContainsKey(val2))
-                {
-                    mappings[val2] = val1;
+                        if (!mappings.ContainsKey(val1))
+                        {
+                            mappings[val1] = val2;
+                        }
+                        else mappings[val1] += "\r\n-----\r\n" + val2;
+
+                        if (!mappings.ContainsKey(val2))
+                        {
+                            mappings[val2] = val1;
+                        }
+                        else mappings[val2] += "\r\n-----\r\n" + val1;
+                    }
                 }
-                else mappings[val2] += ", " + val1;
+            }
+            catch (Exception e)
+            {
+                File.WriteAllText("log.txt", e.Message);
+                throw e;
             }
         }
 

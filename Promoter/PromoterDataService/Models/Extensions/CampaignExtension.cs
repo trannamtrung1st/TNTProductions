@@ -8,12 +8,7 @@ using PromoterDataService.Global;
 
 namespace PromoterDataService.Models
 {
-	public partial class Campaign : BaseEntity<CampaignViewModel>
+	public partial class Campaign : BaseEntity
 	{
-		public override CampaignViewModel ToViewModel()
-		{
-			return new CampaignViewModel(this);
-		}
-		
 	}
 }

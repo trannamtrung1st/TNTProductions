@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\Constanst.cs" />
+    <Compile Include="Constants\Constants.cs" />
     <Compile Include="Generators\BodyGen.cs" />
     <Compile Include="Generators\CommentGen.cs" />
     <Compile Include="Generators\ContainerGen.cs" />
@@ -49,6 +49,7 @@
     <Compile Include="Generators\StatementGen.cs" />
     <Compile Include="Generators\TemplateGen.cs" />
     <Compile Include="Generators\TemplateManagerGen.cs" />
+    <Compile Include="Generators\TextGen.cs" />
     <Compile Include="Helpers\VisualHelper.cs" />
     <Compile Include="Interfaces\Generator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

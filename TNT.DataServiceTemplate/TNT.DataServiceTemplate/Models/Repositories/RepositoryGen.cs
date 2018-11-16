@@ -54,16 +54,20 @@ namespace TNT.DataServiceTemplate.Models.Repositories
 
             IBaseRepositoryBody.Add(
                 new StatementGen(
-                    "bool AutoSave { get; set; }",
+                    //"bool AutoSave { get; set; }",
+                    "int SaveChanges();",
+                    "Task<int> SaveChangesAsync();",
                     "",
                     "E Add(E entity);",
-                    "Task<E> AddAsync(E entity);",
+                    //"Task<E> AddAsync(E entity);",
                     "E Update(E entity);",
-                    "Task < E > UpdateAsync(E entity);",
-                    "E Delete(E entity);",
-                    "Task<E> DeleteAsync(E entity);",
-                    "E Delete(K key);",
-                    "Task<E> DeleteAsync(K key);",
+                    //"Task <E> UpdateAsync(E entity);",
+                    "E Remove(E entity);",
+                    //"Task<E> RemoveAsync(E entity);",
+                    "E Remove(K key);",
+                    "IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);",
+                    "IEnumerable<E> RemoveRange(IEnumerable<E> list);",
+                    //"Task<E> RemoveAsync(K key);",
                     "E FindById(K key);",
                     "Task<E> FindByIdAsync(K key);",
                     "E FindActiveById(K key);",
@@ -106,8 +110,8 @@ namespace TNT.DataServiceTemplate.Models.Repositories
         public void GenerateBaseRepositoryBody()
         {
             var s12 = new StatementGen(
-                "protected `context` context;",
-                "public bool AutoSave { get; set; }");
+                "protected `context` context;");
+            //"public bool AutoSave { get; set; }");
 
             var c3 = new ContainerGen();
             c3.Signature = "public BaseRepository(IUnitOfWork uow)";
@@ -119,6 +123,16 @@ namespace TNT.DataServiceTemplate.Models.Repositories
             c4.Signature = "public BaseRepository()";
             //c4.Body.Add(new StatementGen(
             //    "AutoSave = true;"));
+
+            var m31 = new ContainerGen();
+            m31.Signature = "public int SaveChanges()";
+            m31.Body.Add(new StatementGen(
+                "return context.SaveChanges();"));
+
+            var m32 = new ContainerGen();
+            m32.Signature = "public async Task<int> SaveChangesAsync()";
+            m32.Body.Add(new StatementGen(
+                "return await context.SaveChangesAsync();"));
 
             var m5 = new ContainerGen();
             m5.Signature = "public DbRawSqlQuery<E> SqlQuery(string sql, params object[] parameters)";
@@ -140,13 +154,15 @@ namespace TNT.DataServiceTemplate.Models.Repositories
 
             var s11 = new StatementGen(
                 "public abstract E Add(E entity);",
-                "public abstract Task<E> AddAsync(E entity);",
+                //"public abstract Task<E> AddAsync(E entity);",
                 "public abstract E Update(E entity);",
-                "public abstract Task<E> UpdateAsync(E entity);",
-                "public abstract E Delete(E entity);",
-                "public abstract Task<E> DeleteAsync(E entity);",
-                "public abstract E Delete(K key);",
-                "public abstract Task<E> DeleteAsync(K key);",
+                //"public abstract Task<E> UpdateAsync(E entity);",
+                "public abstract E Remove(E entity);",
+                //"public abstract Task<E> RemoveAsync(E entity);",
+                "public abstract E Remove(K key);",
+                "public abstract IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);",
+                "public abstract IEnumerable<E> RemoveRange(IEnumerable<E> list);",
+                //"public abstract Task<E> RemoveAsync(K key);",
                 "public abstract E FindById(K key);",
                 "public abstract Task<E> FindByIdAsync(K key);",
                 "public abstract E FindActiveById(K key);",
@@ -169,7 +185,9 @@ namespace TNT.DataServiceTemplate.Models.Repositories
             BaseRepositoryBody.Add(
                 s12, new StatementGen(""),
                 c3, new StatementGen(""),
-                c4, new StatementGen("", "#region SqlQuery"),
+                c4, new StatementGen(""),
+                m31, new StatementGen(""),
+                m32, new StatementGen("", "#region SqlQuery"),
                 m5, new StatementGen(""),
                 m7, new StatementGen("#endregion", ""),
                 m9, new StatementGen(""),

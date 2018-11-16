@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.AffliatorCashbackDetails.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<AffliatorCashbackDetail> AddAsync(AffliatorCashbackDetail entity)
-		{
-			
-			entity = context.AffliatorCashbackDetails.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override AffliatorCashbackDetail Delete(AffliatorCashbackDetail entity)
+		public override AffliatorCashbackDetail Remove(AffliatorCashbackDetail entity)
 		{
 			context.AffliatorCashbackDetails.Attach(entity);
 			entity = context.AffliatorCashbackDetails.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<AffliatorCashbackDetail> DeleteAsync(AffliatorCashbackDetail entity)
-		{
-			context.AffliatorCashbackDetails.Attach(entity);
-			entity = context.AffliatorCashbackDetails.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override AffliatorCashbackDetail Delete(int key)
+		public override AffliatorCashbackDetail Remove(int key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.AffliatorCashbackDetails.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<AffliatorCashbackDetail> DeleteAsync(int key)
+		public override IEnumerable<AffliatorCashbackDetail> RemoveIf(Expression<Func<AffliatorCashbackDetail, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.AffliatorCashbackDetails.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.AffliatorCashbackDetails.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<AffliatorCashbackDetail> RemoveRange(IEnumerable<AffliatorCashbackDetail> list)
+		{
+			return context.AffliatorCashbackDetails.RemoveRange(list);
 		}
 		
 		public override AffliatorCashbackDetail FindById(int key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.AffliatorCashbackDetails.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<AffliatorCashbackDetail> UpdateAsync(AffliatorCashbackDetail entity)
-		{
-			entity = context.AffliatorCashbackDetails.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

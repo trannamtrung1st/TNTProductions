@@ -39,7 +39,7 @@ namespace TNT.DataServiceTemplate.Auto
         {
             Add(new TemplateCodeBlock(new StatementGen(
                 "var uGen = new UtilitiesGen(dt);",
-                @"manager.StartNewFile(""GeneralUtils.cs"");")),
+                @"manager.StartNewFile(""GeneralUtilsGen.cs"");")),
                 new TemplateTextBlock("<#=uGen.Generate()#>"),
                 new TemplateCodeBlock(new StatementGen("manager.Process();")));
         }

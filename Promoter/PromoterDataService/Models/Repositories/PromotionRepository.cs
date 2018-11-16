@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.Promotions.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Promotion> AddAsync(Promotion entity)
-		{
-			
-			entity = context.Promotions.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override Promotion Delete(Promotion entity)
+		public override Promotion Remove(Promotion entity)
 		{
 			context.Promotions.Attach(entity);
 			entity = context.Promotions.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Promotion> DeleteAsync(Promotion entity)
-		{
-			context.Promotions.Attach(entity);
-			entity = context.Promotions.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override Promotion Delete(int key)
+		public override Promotion Remove(int key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.Promotions.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Promotion> DeleteAsync(int key)
+		public override IEnumerable<Promotion> RemoveIf(Expression<Func<Promotion, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Promotions.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.Promotions.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<Promotion> RemoveRange(IEnumerable<Promotion> list)
+		{
+			return context.Promotions.RemoveRange(list);
 		}
 		
 		public override Promotion FindById(int key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.Promotions.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<Promotion> UpdateAsync(Promotion entity)
-		{
-			entity = context.Promotions.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

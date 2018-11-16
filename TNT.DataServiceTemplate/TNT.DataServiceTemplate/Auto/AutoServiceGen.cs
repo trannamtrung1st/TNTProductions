@@ -42,7 +42,7 @@ namespace TNT.DataServiceTemplate.Auto
         {
             Add(new TemplateCodeBlock(new StatementGen(
                 "var baseSVGen = new ServiceGen(dt);",
-                @"manager.StartNewFile(""BaseService.cs"");")),
+                @"manager.StartNewFile(""BaseServiceGen.cs"");")),
                 new TemplateTextBlock("<#=baseSVGen.Generate()#>"));
         }
 
@@ -52,7 +52,7 @@ namespace TNT.DataServiceTemplate.Auto
                 "foreach (var e in dt.Entities)", "{"),
                 new StatementGen(true,
                     "var sGen = new EntityServiceGen(e);",
-                    "manager.StartNewFile(e.EntityName+\"Service.cs\");")),
+                    "manager.StartNewFile(e.EntityName+\"ServiceGen.cs\");")),
                 new TemplateTextBlock("<#=sGen.Generate()#>"),
                 new TemplateCodeBlock(new StatementGen(
                     "}",

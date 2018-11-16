@@ -14,12 +14,7 @@ namespace PromoterDataService.Models
 		public int ProductIID { get; set; }
 	}
 	
-	public partial class GiftAppliedDetail : BaseEntity<GiftAppliedDetailViewModel>
+	public partial class GiftAppliedDetail : BaseEntity
 	{
-		public override GiftAppliedDetailViewModel ToViewModel()
-		{
-			return new GiftAppliedDetailViewModel(this);
-		}
-		
 	}
 }

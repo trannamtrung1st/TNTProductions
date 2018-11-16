@@ -13,8 +13,10 @@ namespace TestApi.Configurations
 
         public static void Configure()
         {
-            G.DefaultConfigure();
+            G.Configure();
         }
 
     }
+
+
 }

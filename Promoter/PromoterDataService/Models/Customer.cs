@@ -17,8 +17,8 @@ namespace PromoterDataService.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()
         {
+            this.AppActions = new HashSet<AppAction>();
             this.CustomerSegments = new HashSet<CustomerSegment>();
-            this.Events = new HashSet<Event>();
             this.Orders = new HashSet<Order>();
             this.Redemptions = new HashSet<Redemption>();
             this.RedemptionRollbacks = new HashSet<RedemptionRollback>();
@@ -36,9 +36,9 @@ namespace PromoterDataService.Models
         public Nullable<bool> Active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerSegment> CustomerSegments { get; set; }
+        public virtual ICollection<AppAction> AppActions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Event> Events { get; set; }
+        public virtual ICollection<CustomerSegment> CustomerSegments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

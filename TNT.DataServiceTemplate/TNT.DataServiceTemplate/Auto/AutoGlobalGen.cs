@@ -30,7 +30,8 @@ namespace TNT.DataServiceTemplate.Auto
             var init = new TemplateCodeBlock(new StatementGen(
                 @"var projectPath = Host.ResolveAssemblyReference(""$(ProjectDir)"");",
                 @"var dt = new EdmxParser(projectPath+@""" + Data.EdmxPath + @""",""`project`"").Data;",
-                (Data.ServicePool ? "dt.ServicePool = true;" : ""),
+                (Data.ServicePool ? "dt.ServicePool = true;" : null),
+                (Data.RequestScope ? "dt.RequestScope = true;" : null),
                 "var manager = TemplateFileManager.Create(this);"
                 ));
             Add(init);
@@ -40,7 +41,7 @@ namespace TNT.DataServiceTemplate.Auto
         {
             Add(new TemplateCodeBlock(new StatementGen(
                 "var gGen = new GlobalGen(dt);",
-                @"manager.StartNewFile(""Global.cs"");")),
+                @"manager.StartNewFile(""GlobalGen.cs"");")),
                 new TemplateTextBlock("<#=gGen.Generate()#>"),
                 new TemplateCodeBlock(new StatementGen("manager.Process();")));
         }

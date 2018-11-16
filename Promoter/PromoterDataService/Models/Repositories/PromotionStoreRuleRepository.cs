@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.PromotionStoreRules.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<PromotionStoreRule> AddAsync(PromotionStoreRule entity)
-		{
-			
-			entity = context.PromotionStoreRules.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override PromotionStoreRule Delete(PromotionStoreRule entity)
+		public override PromotionStoreRule Remove(PromotionStoreRule entity)
 		{
 			context.PromotionStoreRules.Attach(entity);
 			entity = context.PromotionStoreRules.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<PromotionStoreRule> DeleteAsync(PromotionStoreRule entity)
-		{
-			context.PromotionStoreRules.Attach(entity);
-			entity = context.PromotionStoreRules.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override PromotionStoreRule Delete(PromotionStoreRulePK key)
+		public override PromotionStoreRule Remove(PromotionStoreRulePK key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.PromotionStoreRules.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<PromotionStoreRule> DeleteAsync(PromotionStoreRulePK key)
+		public override IEnumerable<PromotionStoreRule> RemoveIf(Expression<Func<PromotionStoreRule, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.PromotionStoreRules.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.PromotionStoreRules.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<PromotionStoreRule> RemoveRange(IEnumerable<PromotionStoreRule> list)
+		{
+			return context.PromotionStoreRules.RemoveRange(list);
 		}
 		
 		public override PromotionStoreRule FindById(PromotionStoreRulePK key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.PromotionStoreRules.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<PromotionStoreRule> UpdateAsync(PromotionStoreRule entity)
-		{
-			entity = context.PromotionStoreRules.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

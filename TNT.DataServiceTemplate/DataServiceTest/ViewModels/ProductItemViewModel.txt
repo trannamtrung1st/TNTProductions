@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class ProductItemViewModel: BaseViewModel<ProductItem>
+	{
+		[JsonProperty("item_id")]
+		public int ItemID { get; set; }
+		[JsonProperty("item_name")]
+		public string ItemName { get; set; }
+		[JsonProperty("unit")]
+		public string Unit { get; set; }
+		[JsonProperty("is_available")]
+		public Nullable<bool> IsAvailable { get; set; }
+		[JsonProperty("image_url")]
+		public string ImageUrl { get; set; }
+		[JsonProperty("cat_id")]
+		public Nullable<int> CatID { get; set; }
+		[JsonProperty("price")]
+		public Nullable<double> Price { get; set; }
+		[JsonProperty("unit2")]
+		public string Unit2 { get; set; }
+		[JsonProperty("unit_rate")]
+		public Nullable<double> UnitRate { get; set; }
+		[JsonProperty("index_priority")]
+		public Nullable<int> IndexPriority { get; set; }
+		[JsonProperty("create_date")]
+		public Nullable<DateTime> CreateDate { get; set; }
+		[JsonProperty("item_type")]
+		public Nullable<int> ItemType { get; set; }
+		[JsonProperty("item_code")]
+		public string ItemCode { get; set; }
+		[JsonProperty("product_item_category")]
+		public ProductItemCategoryViewModel ProductItemCategoryVM { get; set; }
+		[JsonProperty("inventory_date_report_items")]
+		public IEnumerable<InventoryDateReportItemViewModel> InventoryDateReportItemsVM { get; set; }
+		[JsonProperty("inventory_receipt_items")]
+		public IEnumerable<InventoryReceiptItemViewModel> InventoryReceiptItemsVM { get; set; }
+		[JsonProperty("product_item_composition_mappings")]
+		public IEnumerable<ProductItemCompositionMappingViewModel> ProductItemCompositionMappingsVM { get; set; }
+		[JsonProperty("provider_product_item_mappings")]
+		public IEnumerable<ProviderProductItemMappingViewModel> ProviderProductItemMappingsVM { get; set; }
+		[JsonProperty("template_report_product_item_mappings")]
+		public IEnumerable<TemplateReportProductItemMappingViewModel> TemplateReportProductItemMappingsVM { get; set; }
+		
+		public ProductItemViewModel(ProductItem entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public ProductItemViewModel()
+		{
+			this.InventoryDateReportItemsVM = new HashSet<InventoryDateReportItemViewModel>();
+			this.InventoryReceiptItemsVM = new HashSet<InventoryReceiptItemViewModel>();
+			this.ProductItemCompositionMappingsVM = new HashSet<ProductItemCompositionMappingViewModel>();
+			this.ProviderProductItemMappingsVM = new HashSet<ProviderProductItemMappingViewModel>();
+			this.TemplateReportProductItemMappingsVM = new HashSet<TemplateReportProductItemMappingViewModel>();
+		}
+		
+	}
+}

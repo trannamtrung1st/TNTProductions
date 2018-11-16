@@ -60,7 +60,7 @@ namespace TNT.Helpers.WebApi
             };
         }
 
-        public static HttpResponseMessage OK(
+        public static HttpResponseMessage Ok(
             object obj = null,
             string reasonPhrase = null)
         {

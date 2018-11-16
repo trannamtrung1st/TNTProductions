@@ -26,7 +26,6 @@ namespace TNT.DataServiceTemplate.Models.Extensions
             GenerateNamespace();
             GenerateEntityPKClass();
             GenerateEntityExtension();
-            GenerateExtensionMethod();
         }
 
         //generate namespace
@@ -71,21 +70,10 @@ namespace TNT.DataServiceTemplate.Models.Extensions
         public void GenerateEntityExtension()
         {
             EntityExtension = new ContainerGen();
-            EntityExtension.Signature = "public partial class `entity` : BaseEntity<`entityVM`>";
+            EntityExtension.Signature = "public partial class `entity` : BaseEntity";
             EntityExtensionBody = EntityExtension.Body;
 
             NamespaceBody.Add(EntityExtension);
-        }
-
-        public void GenerateExtensionMethod()
-        {
-            var m1 = new ContainerGen();
-            m1.Signature = "public override `entityVM` ToViewModel()";
-            m1.Body.Add(new StatementGen(
-                "return new `entityVM`(this);"));
-
-            EntityExtensionBody.Add(
-                m1, new StatementGen(""));
         }
 
     }

@@ -14,14 +14,16 @@ namespace TNT.IoContainer.Wrapper
         HashSet<PropertyInfo> InjectableProperties { get; set; }
         HashSet<MethodInfo> InjectableMethods { get; set; }
         HashSet<MethodInfo> PostConstructs { get; set; }
-        IImplementType Implementer { get; set; }
+        //IImplementType ImplType { get; set; }
+        Type ImplType { get; set; }
         bool IsSimple { get; set; }
     }
 
     internal class BaseType : IBaseType
     {
         public Type WrappedType { get; set; }
-        public IImplementType Implementer { get; set; }
+        //public IImplementType ImplType { get; set; }
+        public Type ImplType { get; set; }
         public HashSet<PropertyInfo> InjectableProperties { get; set; }
         public HashSet<MethodInfo> InjectableMethods { get; set; }
         public HashSet<MethodInfo> PostConstructs { get; set; }

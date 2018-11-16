@@ -8,18 +8,7 @@ using PromoterDataService.Global;
 
 namespace PromoterDataService.Models
 {
-	public partial class GiftDetailPK
+	public partial class GiftDetail : BaseEntity
 	{
-		public int ProductIID { get; set; }
-		public int PromotionDetailID { get; set; }
-	}
-	
-	public partial class GiftDetail : BaseEntity<GiftDetailViewModel>
-	{
-		public override GiftDetailViewModel ToViewModel()
-		{
-			return new GiftDetailViewModel(this);
-		}
-		
 	}
 }

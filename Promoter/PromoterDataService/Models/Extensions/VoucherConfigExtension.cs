@@ -8,12 +8,7 @@ using PromoterDataService.Global;
 
 namespace PromoterDataService.Models
 {
-	public partial class VoucherConfig : BaseEntity<VoucherConfigViewModel>
+	public partial class VoucherConfig : BaseEntity
 	{
-		public override VoucherConfigViewModel ToViewModel()
-		{
-			return new VoucherConfigViewModel(this);
-		}
-		
 	}
 }

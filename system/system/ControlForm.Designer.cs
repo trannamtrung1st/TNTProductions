@@ -48,9 +48,10 @@
             this.Result.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Result.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Result.Location = new System.Drawing.Point(0, 0);
+            this.Result.Multiline = true;
             this.Result.Name = "Result";
             this.Result.ReadOnly = true;
-            this.Result.Size = new System.Drawing.Size(65, 16);
+            this.Result.Size = new System.Drawing.Size(65, 20);
             this.Result.TabIndex = 3;
             this.Result.Text = "Result";
             // 
@@ -79,6 +80,6 @@
 
         #endregion
         private System.Windows.Forms.Label ResultLabel;
-        private System.Windows.Forms.TextBox Result;
+        public System.Windows.Forms.TextBox Result;
     }
 }

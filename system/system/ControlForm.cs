@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,9 @@ namespace system
         {
             this.ResultLabel.Text = text;
             this.Result.Text = text;
-            this.Result.Size = this.ResultLabel.Size;
+            this.Result.Width = this.ResultLabel.Width;
+            this.Result.Height = this.ResultLabel.Height + 10;
+
         }
 
     }

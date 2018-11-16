@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.CustomerSegments.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<CustomerSegment> AddAsync(CustomerSegment entity)
-		{
-			
-			entity = context.CustomerSegments.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override CustomerSegment Delete(CustomerSegment entity)
+		public override CustomerSegment Remove(CustomerSegment entity)
 		{
 			context.CustomerSegments.Attach(entity);
 			entity = context.CustomerSegments.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<CustomerSegment> DeleteAsync(CustomerSegment entity)
-		{
-			context.CustomerSegments.Attach(entity);
-			entity = context.CustomerSegments.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override CustomerSegment Delete(CustomerSegmentPK key)
+		public override CustomerSegment Remove(CustomerSegmentPK key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.CustomerSegments.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<CustomerSegment> DeleteAsync(CustomerSegmentPK key)
+		public override IEnumerable<CustomerSegment> RemoveIf(Expression<Func<CustomerSegment, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.CustomerSegments.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.CustomerSegments.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<CustomerSegment> RemoveRange(IEnumerable<CustomerSegment> list)
+		{
+			return context.CustomerSegments.RemoveRange(list);
 		}
 		
 		public override CustomerSegment FindById(CustomerSegmentPK key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.CustomerSegments.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<CustomerSegment> UpdateAsync(CustomerSegment entity)
-		{
-			entity = context.CustomerSegments.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

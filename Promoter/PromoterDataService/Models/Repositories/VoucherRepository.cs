@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.Vouchers.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Voucher> AddAsync(Voucher entity)
-		{
-			
-			entity = context.Vouchers.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override Voucher Delete(Voucher entity)
+		public override Voucher Remove(Voucher entity)
 		{
 			context.Vouchers.Attach(entity);
 			entity = context.Vouchers.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Voucher> DeleteAsync(Voucher entity)
-		{
-			context.Vouchers.Attach(entity);
-			entity = context.Vouchers.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override Voucher Delete(int key)
+		public override Voucher Remove(int key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.Vouchers.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<Voucher> DeleteAsync(int key)
+		public override IEnumerable<Voucher> RemoveIf(Expression<Func<Voucher, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Vouchers.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.Vouchers.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<Voucher> RemoveRange(IEnumerable<Voucher> list)
+		{
+			return context.Vouchers.RemoveRange(list);
 		}
 		
 		public override Voucher FindById(int key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.Vouchers.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<Voucher> UpdateAsync(Voucher entity)
-		{
-			entity = context.Vouchers.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

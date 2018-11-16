@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,20 +11,20 @@ namespace PromoterDataService.ViewModels
 {
 	public partial class VoucherConfigViewModel: BaseViewModel<VoucherConfig>
 	{
-		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("id")]
 		public int ID { get; set; }
-		[JsonProperty("length", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("length")]
 		public Nullable<int> Length { get; set; }
-		[JsonProperty("prefix", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("prefix")]
 		public string Prefix { get; set; }
-		[JsonProperty("postfix", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("postfix")]
 		public string Postfix { get; set; }
-		[JsonProperty("pattern", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("pattern")]
 		public string Pattern { get; set; }
-		[JsonProperty("campaigns", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public ICollection<CampaignViewModel> CampaignsVM { get; set; }
-		[JsonProperty("vouchers", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public ICollection<VoucherViewModel> VouchersVM { get; set; }
+		[JsonProperty("campaigns")]
+		public IEnumerable<CampaignViewModel> CampaignsVM { get; set; }
+		[JsonProperty("vouchers")]
+		public IEnumerable<VoucherViewModel> VouchersVM { get; set; }
 		
 		public VoucherConfigViewModel(VoucherConfig entity) : this()
 		{

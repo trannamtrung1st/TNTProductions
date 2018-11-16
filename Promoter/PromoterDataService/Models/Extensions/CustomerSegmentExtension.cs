@@ -14,12 +14,7 @@ namespace PromoterDataService.Models
 		public int SegmentIID { get; set; }
 	}
 	
-	public partial class CustomerSegment : BaseEntity<CustomerSegmentViewModel>
+	public partial class CustomerSegment : BaseEntity
 	{
-		public override CustomerSegmentViewModel ToViewModel()
-		{
-			return new CustomerSegmentViewModel(this);
-		}
-		
 	}
 }

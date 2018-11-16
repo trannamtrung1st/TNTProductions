@@ -37,19 +37,19 @@ namespace TNT.DataServiceTemplate.Auto
             Add(init);
         }
 
-        private void GenrateContextManager()
-        {
-            Add(new TemplateCodeBlock(new StatementGen(
-                "var cGen = new ContextManagerGen(dt);",
-                @"manager.StartNewFile(""ContextManager.cs"");")),
-                new TemplateTextBlock("<#=cGen.Generate()#>"));
-        }
+        //private void GenrateContextManager()
+        //{
+        //    Add(new TemplateCodeBlock(new StatementGen(
+        //        "var cGen = new ContextManagerGen(dt);",
+        //        @"manager.StartNewFile(""ContextManagerGen.cs"");")),
+        //        new TemplateTextBlock("<#=cGen.Generate()#>"));
+        //}
 
         private void GenerateUnitOfWork()
         {
             Add(new TemplateCodeBlock(new StatementGen(
                 "var uowGen = new UnitOfWorkGen(dt);",
-                @"manager.StartNewFile(""UnitOfWork.cs"");")),
+                @"manager.StartNewFile(""UnitOfWorkGen.cs"");")),
                 new TemplateTextBlock("<#=uowGen.Generate()#>"),
                 new TemplateCodeBlock(new StatementGen("manager.Process();")));
         }

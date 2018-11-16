@@ -8,12 +8,7 @@ using PromoterDataService.Global;
 
 namespace PromoterDataService.Models
 {
-	public partial class Promotion : BaseEntity<PromotionViewModel>
+	public partial class Promotion : BaseEntity
 	{
-		public override PromotionViewModel ToViewModel()
-		{
-			return new PromotionViewModel(this);
-		}
-		
 	}
 }

@@ -29,56 +29,32 @@ namespace PromoterDataService.Models.Repositories
 		{
 			
 			entity = context.ValidationRules.Add(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<ValidationRule> AddAsync(ValidationRule entity)
-		{
-			
-			entity = context.ValidationRules.Add(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override ValidationRule Delete(ValidationRule entity)
+		public override ValidationRule Remove(ValidationRule entity)
 		{
 			context.ValidationRules.Attach(entity);
 			entity = context.ValidationRules.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<ValidationRule> DeleteAsync(ValidationRule entity)
-		{
-			context.ValidationRules.Attach(entity);
-			entity = context.ValidationRules.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
-		}
-		
-		public override ValidationRule Delete(int key)
+		public override ValidationRule Remove(int key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
 				entity = context.ValidationRules.Remove(entity);
-			if (AutoSave)
-				context.SaveChanges();
 			return entity;
 		}
 		
-		public override async Task<ValidationRule> DeleteAsync(int key)
+		public override IEnumerable<ValidationRule> RemoveIf(Expression<Func<ValidationRule, bool>> expr)
 		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.ValidationRules.Remove(entity);
-			if (AutoSave)
-				await context.SaveChangesAsync();
-			return entity;
+			return context.ValidationRules.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public override IEnumerable<ValidationRule> RemoveRange(IEnumerable<ValidationRule> list)
+		{
+			return context.ValidationRules.RemoveRange(list);
 		}
 		
 		public override ValidationRule FindById(int key)
@@ -197,17 +173,6 @@ namespace PromoterDataService.Models.Repositories
 		{
 			entity = context.ValidationRules.Attach(entity);
 			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				context.SaveChanges();
-			return entity;
-		}
-		
-		public override async Task<ValidationRule> UpdateAsync(ValidationRule entity)
-		{
-			entity = context.ValidationRules.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			if (AutoSave)
-				await context.SaveChangesAsync();
 			return entity;
 		}
 		#endregion

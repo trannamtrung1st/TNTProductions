@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class RoomCategoryPriceGroupMappingViewModel: BaseViewModel<RoomCategoryPriceGroupMapping>
+	{
+		[JsonProperty("category_id")]
+		public int CategoryID { get; set; }
+		[JsonProperty("price_group_id")]
+		public int PriceGroupID { get; set; }
+		[JsonProperty("is_default")]
+		public bool IsDefault { get; set; }
+		[JsonProperty("price_group")]
+		public PriceGroupViewModel PriceGroupVM { get; set; }
+		[JsonProperty("room_category")]
+		public RoomCategoryViewModel RoomCategoryVM { get; set; }
+		
+		public RoomCategoryPriceGroupMappingViewModel(RoomCategoryPriceGroupMapping entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public RoomCategoryPriceGroupMappingViewModel()
+		{
+		}
+		
+	}
+}

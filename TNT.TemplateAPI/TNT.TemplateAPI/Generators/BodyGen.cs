@@ -20,7 +20,11 @@ namespace TNT.TemplateAPI.Generators
 
         public void Add(params IGenerator[] members)
         {
-            Members.AddRange(members);
+            foreach (var m in members)
+            {
+                if (m != null)
+                    Members.Add(m);
+            }
         }
 
         public override string Generate()

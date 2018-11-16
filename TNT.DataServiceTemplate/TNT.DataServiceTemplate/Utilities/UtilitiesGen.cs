@@ -45,7 +45,7 @@ namespace TNT.DataServiceTemplate.Utilities
             GeneralExtensionBody = GeneralExtension.Body;
 
             var m1 = new ContainerGen();
-            m1.Signature = "public static List<VM> ToListVM<E, VM>(this IEnumerable<E> list) where E: IEntity";
+            m1.Signature = "public static List<VM> ToListVM<E, VM>(this IEnumerable<E> list) where E: IBaseEntity";
             m1.Body.Add(new StatementGen("return list.Select(e => e.To<VM>()).ToList();"));
 
             var m2 = new ContainerGen();

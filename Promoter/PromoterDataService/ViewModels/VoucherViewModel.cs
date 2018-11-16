@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,40 +11,42 @@ namespace PromoterDataService.ViewModels
 {
 	public partial class VoucherViewModel: BaseViewModel<Voucher>
 	{
-		[JsonProperty("id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("id")]
 		public int ID { get; set; }
-		[JsonProperty("code", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("code")]
 		public string Code { get; set; }
-		[JsonProperty("voucher_config_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("voucher_config_id")]
 		public Nullable<int> VoucherConfigID { get; set; }
-		[JsonProperty("campaign_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("campaign_id")]
 		public Nullable<int> CampaignID { get; set; }
-		[JsonProperty("validation_rule_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("validation_rule_id")]
 		public Nullable<int> ValidationRuleID { get; set; }
-		[JsonProperty("promotion_detail_id", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("promotion_detail_id")]
 		public Nullable<int> PromotionDetailID { get; set; }
-		[JsonProperty("assets_object", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("assets_object")]
 		public string AssetsObject { get; set; }
-		[JsonProperty("metadata_object", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("metadata_object")]
 		public string MetadataObject { get; set; }
-		[JsonProperty("is_gotten", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("is_gotten")]
 		public Nullable<bool> IsGotten { get; set; }
-		[JsonProperty("using_times", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("using_times")]
 		public Nullable<int> UsingTimes { get; set; }
-		[JsonProperty("used_times", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("used_times")]
 		public Nullable<int> UsedTimes { get; set; }
-		[JsonProperty("active", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("active")]
 		public Nullable<bool> Active { get; set; }
-		[JsonProperty("campaign", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("campaign")]
 		public CampaignViewModel CampaignVM { get; set; }
-		[JsonProperty("promotion_detail", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("promotion_detail")]
 		public PromotionDetailViewModel PromotionDetailVM { get; set; }
-		[JsonProperty("validation_rule", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("validation_rule")]
 		public ValidationRuleViewModel ValidationRuleVM { get; set; }
-		[JsonProperty("voucher_config", DefaultValueHandling = DefaultValueHandling.Ignore)]
+		[JsonProperty("voucher_config")]
 		public VoucherConfigViewModel VoucherConfigVM { get; set; }
-		[JsonProperty("promotion_applied_details", DefaultValueHandling = DefaultValueHandling.Ignore)]
-		public ICollection<PromotionAppliedDetailViewModel> PromotionAppliedDetailsVM { get; set; }
+		[JsonProperty("gift_details")]
+		public IEnumerable<GiftDetailViewModel> GiftDetailsVM { get; set; }
+		[JsonProperty("promotion_applied_details")]
+		public IEnumerable<PromotionAppliedDetailViewModel> PromotionAppliedDetailsVM { get; set; }
 		
 		public VoucherViewModel(Voucher entity) : this()
 		{
@@ -53,6 +55,7 @@ namespace PromoterDataService.ViewModels
 		
 		public VoucherViewModel()
 		{
+			this.GiftDetailsVM = new HashSet<GiftDetailViewModel>();
 			this.PromotionAppliedDetailsVM = new HashSet<PromotionAppliedDetailViewModel>();
 		}
 		

@@ -52,13 +52,13 @@ namespace TNT.AppObserver
 
         internal static void Start()
         {
-            var sleepMin = int.Parse(ConfigurationManager.AppSettings["SleepMin"]);
+            var sleepMin = double.Parse(ConfigurationManager.AppSettings["SleepMin"]);
             while (true)
             {
                 if (!ProcessManager.IsProcessRunning("AppObserverKeeper"))
                     ProcessManager.StartProcess("AppObserverKeeper", "AppObserverKeeper.exe");
                 Check();
-                Thread.Sleep(sleepMin * 60 * 1000);
+                Thread.Sleep((int)(sleepMin * 60 * 1000));
             }
         }
 

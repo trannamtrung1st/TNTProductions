@@ -10,7 +10,7 @@ namespace PromoterDataService.Utilities
 {
 	public static partial class GeneralUtils
 	{
-		public static List<VM> ToListVM<E, VM>(this IEnumerable<E> list) where E: IEntity
+		public static List<VM> ToListVM<E, VM>(this IEnumerable<E> list) where E: IBaseEntity
 		{
 			return list.Select(e => e.To<VM>()).ToList();
 		}
