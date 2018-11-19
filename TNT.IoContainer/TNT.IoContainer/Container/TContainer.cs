@@ -54,7 +54,7 @@ namespace TNT.IoContainer.Container
         internal HashSet<IDisposable> resolvedResources;
         internal Dictionary<Type, object> singletonResources;
         internal Dictionary<Type, ResourcePool> poolMapping;
-        
+
         //INIT
         public TContainer()
         {
@@ -64,6 +64,5 @@ namespace TNT.IoContainer.Container
             poolMapping = new Dictionary<Type, ResourcePool>();
             ResourcesControlModeOn = true;
         }
-
     }
 }
