@@ -18,8 +18,8 @@ namespace SecureWebApi.Controllers.Apis
     public class SecurityController : ApiController
     {
 
-        [BasicAuthenticate]
-        [UserAuthorize]
+        //[BasicAuthenticate]
+        //[UserAuthorize]
         [Route("token")]
         [HttpGet]
         public HttpResponseMessage GetToken()
@@ -32,8 +32,8 @@ namespace SecureWebApi.Controllers.Apis
             return Http.OkBase(user.ToViewModel(), "Success");
         }
 
-        [BearerAuthenticate]
-        [UserAuthorize]
+        //[BearerAuthenticate]
+        //[UserAuthorize]
         [Route("logout")]
         [HttpGet]
         public HttpResponseMessage LogOut()
@@ -46,8 +46,8 @@ namespace SecureWebApi.Controllers.Apis
             return Http.OkBase(null, "Log out successfully");
         }
 
-        [BearerAuthenticate]
-        [UserAuthorize]
+        //[BearerAuthenticate]
+        //[UserAuthorize]
         [Route("user")]
         [HttpGet]
         public HttpResponseMessage GetUser()
@@ -56,8 +56,8 @@ namespace SecureWebApi.Controllers.Apis
             return Http.OkBase(user, "Success");
         }
 
-        [BearerAuthenticate]
-        [RoleAuthorize("Administrator", "Manager")]
+        //[BearerAuthenticate]
+        //[RoleAuthorize("Administrator", "Manager")]
         [Route("create-resource")]
         [HttpGet]
         public HttpResponseMessage CreateResource()

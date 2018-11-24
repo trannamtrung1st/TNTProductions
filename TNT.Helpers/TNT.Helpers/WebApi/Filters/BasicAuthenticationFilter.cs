@@ -47,10 +47,12 @@ namespace TNT.Helpers.WebApi.Filters
             var rawUsername = credentials[0];
             var rawPassword = credentials[1];
 
-            await AuthenticateAsync(rawUsername, rawPassword);
+            var principal = await AuthenticateAsync(rawUsername, rawPassword);
+            if (principal != null)
+                SetPrincipal(principal);
         }
 
-        protected abstract Task AuthenticateAsync(string rawUsername, string rawPassword);
+        protected abstract Task<IPrincipal> AuthenticateAsync(string rawUsername, string rawPassword);
 
         protected abstract IHttpActionResult MissingCredential { get; }
         protected abstract IHttpActionResult InvalidCredential { get; }

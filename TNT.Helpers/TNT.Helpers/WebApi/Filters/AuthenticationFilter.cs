@@ -31,16 +31,12 @@ namespace TNT.Helpers.WebApi.Filters
             return Task.FromResult(0);
         }
 
-        protected void SetPrincipal(IPrincipal principal, HttpAuthenticationContext authContext = null)
+        protected void SetPrincipal(IPrincipal principal)
         {
             Thread.CurrentPrincipal = principal;
             if (HttpContext.Current != null)
             {
                 HttpContext.Current.User = principal;
-            }
-            if (authContext != null)
-            {
-                authContext.Principal = principal;
             }
         }
 

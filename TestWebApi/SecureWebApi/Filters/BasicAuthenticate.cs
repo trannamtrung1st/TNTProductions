@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -28,9 +29,9 @@ namespace SecureWebApi.Filters
             }
         }
 
-        protected override async Task AuthenticateAsync(string rawUsername, string rawPassword)
+        protected override async Task<IPrincipal> AuthenticateAsync(string rawUsername, string rawPassword)
         {
-            await Task.Run(() =>
+            return await Task.Run(() =>
             {
                 var user = User.Mappings.Values.Where(
                     u => u.Username == rawUsername
@@ -38,9 +39,9 @@ namespace SecureWebApi.Filters
                 if (user == null)
                 {
                     this.context.ErrorResult = new AuthResult("Invalid username or password");
-                    return;
+                    return null;
                 }
-                SetPrincipal(new UserPrincipal(user.ToViewModel()), context);
+                return new UserPrincipal(new UserViewModel(user));
             });
         }
     }

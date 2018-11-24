@@ -21,7 +21,7 @@ namespace TNT.DataServiceTemplate.Models.Services
                 dt.ProjectName + ".Managers",
                 dt.ProjectName + ".Models.Repositories",
                 dt.ProjectName + ".Global", "TNT.IoContainer.Wrapper");
-            //ResolveMapping.Add("context", EInfo.Data.ContextName);
+            ResolveMapping.Add("context", EInfo.Data.ContextName);
             ResolveMapping.Add("entity", EInfo.EntityName);
             ResolveMapping.Add("entityPK", EInfo.PKClass);
 
@@ -75,7 +75,12 @@ namespace TNT.DataServiceTemplate.Models.Services
             c2.Signature = "public `entity`Service(IUnitOfWork uow)";
             c2.Body.Add(new StatementGen(
                 "repository = uow.Scope.Resolve<I`entity`Repository>(uow);"));
-           
+
+            var c21 = new ContainerGen();
+            c21.Signature = "public `entity`Service(`context` context)";
+            c21.Body.Add(new StatementGen("repository = G.TContainer.Resolve<I`entity`Repository>(context);"));
+
+
             var c18 = new ContainerGen();
             c18.Signature = "public `entity`Service()";
             c18.Body.Add(new StatementGen("repository = G.TContainer.Resolve<I`entity`Repository>();"));
@@ -93,7 +98,9 @@ namespace TNT.DataServiceTemplate.Models.Services
             d21.Body.Add(new StatementGen("Dispose(false);"));
 
             EntityServiceBody.Add(
-                c2, new StatementGen(""));
+                c2, new StatementGen(""),
+                c21, new StatementGen(""));
+
             if (EInfo.Data.ServicePool)
             {
                 EntityServiceBody.Add(new StatementGen("", "#region Implement for Resource Pooling"),

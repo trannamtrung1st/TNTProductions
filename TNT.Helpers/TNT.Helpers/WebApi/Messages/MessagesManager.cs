@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TNT.Helpers.WebApi
 {
-    public abstract class Message<MessCode>
+    public abstract class GenericMessage<MessCode>
     {
         [JsonProperty("detail")]
         public string Detail { get; set; }
@@ -19,7 +19,7 @@ namespace TNT.Helpers.WebApi
         public dynamic InnerObject { get; set; }
     }
 
-    public abstract class ErrorMessage<MessCode> : Exception
+    public abstract class GenericErrorMessage<MessCode> : Exception
     {
         public string Detail { get; private set; }
         public MessCode Code { get; private set; }

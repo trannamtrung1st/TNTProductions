@@ -5,7 +5,9 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureWebApi", "SecureWebApi\SecureWebApi.csproj", "{0C53FAEA-0BA3-4CED-8F86-AE22A609F031}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuthWebApi", "OAuthWebApi\OAuthWebApi.csproj", "{FB6A1AAE-BE93-4DEF-A2D0-E463BAFC4BE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataService", "TestDataService\TestDataService.csproj", "{55623D64-DC22-49F7-B239-BFCCF2E7213B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthorizationServer", "AuthorizationServer\AuthorizationServer.csproj", "{46EF1ECB-1856-4617-8CB9-64D517D2B6D7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNT.Helpers", "..\TNT.Helpers\TNT.Helpers\TNT.Helpers.csproj", "{3D048823-00FC-4320-839A-923A425A0738}"
 EndProject
@@ -19,10 +21,14 @@ Global
 		{0C53FAEA-0BA3-4CED-8F86-AE22A609F031}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C53FAEA-0BA3-4CED-8F86-AE22A609F031}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C53FAEA-0BA3-4CED-8F86-AE22A609F031}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB6A1AAE-BE93-4DEF-A2D0-E463BAFC4BE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB6A1AAE-BE93-4DEF-A2D0-E463BAFC4BE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB6A1AAE-BE93-4DEF-A2D0-E463BAFC4BE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB6A1AAE-BE93-4DEF-A2D0-E463BAFC4BE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55623D64-DC22-49F7-B239-BFCCF2E7213B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55623D64-DC22-49F7-B239-BFCCF2E7213B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55623D64-DC22-49F7-B239-BFCCF2E7213B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55623D64-DC22-49F7-B239-BFCCF2E7213B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46EF1ECB-1856-4617-8CB9-64D517D2B6D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46EF1ECB-1856-4617-8CB9-64D517D2B6D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46EF1ECB-1856-4617-8CB9-64D517D2B6D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46EF1ECB-1856-4617-8CB9-64D517D2B6D7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3D048823-00FC-4320-839A-923A425A0738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3D048823-00FC-4320-839A-923A425A0738}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D048823-00FC-4320-839A-923A425A0738}.Release|Any CPU.ActiveCfg = Release|Any CPU

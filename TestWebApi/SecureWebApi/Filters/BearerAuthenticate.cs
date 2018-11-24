@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web.Http;
 using TNT.Helpers.WebApi;
@@ -21,25 +22,25 @@ namespace SecureWebApi.Filters
             }
         }
 
-        protected override async Task AuthenticateAsync(string rawToken)
+        protected override async Task<IPrincipal> AuthenticateAsync(string rawToken)
         {
-            await Task.Run(() =>
+            return await Task.Run(() =>
             {
                 var user = User.Mappings.Values.Where(u => u.Token == rawToken).FirstOrDefault();
                 if (user == null)
                 {
                     this.context.ErrorResult = new AuthResult("Invalid token");
-                    return;
+                    return null;
                 }
                 if (user.TokenExpiryTime < DateTime.Now)
                 {
                     this.context.ErrorResult = new AuthResult("Token expired");
-                    return;
+                    return null;
                 }
                 var timespan = user.TokenExpiryTime.Value.Subtract(DateTime.Now).TotalSeconds;
                 if (timespan < (int)(0.5 * 60))
                     user.TokenExpiryTime = user.TokenExpiryTime.Value.AddMinutes(1);
-                SetPrincipal(new UserPrincipal(user.ToViewModel()), context);
+                return new UserPrincipal(new UserViewModel(user));
             });
         }
 

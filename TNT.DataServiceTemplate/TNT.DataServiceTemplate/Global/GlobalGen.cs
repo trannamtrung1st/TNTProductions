@@ -128,6 +128,7 @@ namespace TNT.DataServiceTemplate.Global
             var s2 = new StatementGen("//IoContainer",
                 Data.RequestScope ? "Builder.RegisterRequestScopeHandlerModule();" : null,
                 "Builder.RegisterType<IUnitOfWork, UnitOfWork>();");
+            s2.Add("Builder.RegisterType<" + Data.ContextName + ">();");
 
             foreach (var e in Data.Entities)
             {

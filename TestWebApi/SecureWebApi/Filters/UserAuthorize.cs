@@ -9,7 +9,7 @@ using TNT.Helpers.WebApi.Filters;
 namespace SecureWebApi.Filters
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = false)]
-    public class UserAuthorize : AuthorizationFilter
+    public class UserAuthorize : UserAuthorizationFilter
     {
         protected override HttpResponseMessage AnonymousNotAllowed
         {

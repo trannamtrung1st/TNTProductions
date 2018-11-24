@@ -36,10 +36,12 @@ namespace TNT.Helpers.WebApi.Filters
                 return;
             }
 
-            await AuthenticateAsync(rawToken);
+            var principal = await AuthenticateAsync(rawToken);
+            if (principal != null)
+                SetPrincipal(principal);
         }
 
-        protected abstract Task AuthenticateAsync(string rawToken);
+        protected abstract Task<IPrincipal> AuthenticateAsync(string rawToken);
 
         protected abstract IHttpActionResult MissingToken { get; }
     }

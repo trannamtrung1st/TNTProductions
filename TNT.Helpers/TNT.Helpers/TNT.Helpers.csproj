@@ -84,7 +84,7 @@
     <Compile Include="WebApi\BaseResponse.cs" />
     <Compile Include="WebApi\Filters\AuthChallenge.cs" />
     <Compile Include="WebApi\Filters\AuthenticationFilter.cs" />
-    <Compile Include="WebApi\Filters\AuthorizationFilter.cs" />
+    <Compile Include="WebApi\Filters\UserAuthorizationFilter.cs" />
     <Compile Include="WebApi\Filters\BasicAuthenticationFilter.cs" />
     <Compile Include="WebApi\Filters\BearerAuthenticationFilter.cs" />
     <Compile Include="WebApi\Filters\RoleAuthorizationFilter.cs" />

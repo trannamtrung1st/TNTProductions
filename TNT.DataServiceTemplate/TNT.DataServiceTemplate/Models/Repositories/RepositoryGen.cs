@@ -120,9 +120,9 @@ namespace TNT.DataServiceTemplate.Models.Repositories
                 "this.context = uow.Context;"));
 
             var c4 = new ContainerGen();
-            c4.Signature = "public BaseRepository()";
-            //c4.Body.Add(new StatementGen(
-            //    "AutoSave = true;"));
+            c4.Signature = "public BaseRepository(`context` context)";
+            c4.Body.Add(new StatementGen(
+                "this.context = context;"));
 
             var m31 = new ContainerGen();
             m31.Signature = "public int SaveChanges()";

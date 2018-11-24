@@ -69,7 +69,7 @@ namespace TNT.DataServiceTemplate.Models.Repositories
         public void GenerateEntityRepositoryBody()
         {
             var c1 = new ContainerGen();
-            c1.Signature = "public `entity`Repository() : base()";
+            c1.Signature = "public `entity`Repository(`context` context) : base(context)";
             var c2 = new ContainerGen();
             c2.Signature = "public `entity`Repository(IUnitOfWork uow) : base(uow)";
 
