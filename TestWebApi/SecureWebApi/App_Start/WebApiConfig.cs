@@ -11,10 +11,10 @@ namespace SecureWebApi
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            
+
             //global auth
             //config.Filters.Add(new AuthFilter());
-
+            config.SuppressHostPrincipal();
             // Web API routes
             config.MapHttpAttributeRoutes();
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TNT.TemplateAPI.Helpers;
 using TNT.TemplateAPI.Interfaces;
 
-namespace TNT.DataServiceTemplate.TTGen
+namespace TNT.TemplateAPI.Generators
 {
     public interface ITemplate : IGenerator
     {

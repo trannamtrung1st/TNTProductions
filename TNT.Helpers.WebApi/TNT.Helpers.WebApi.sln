@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNT.Helpers.WebApi", "TNT.Helpers.WebApi\TNT.Helpers.WebApi.csproj", "{F04435E1-3486-48CB-AEEA-15C5B466A376}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNT.Helpers", "..\TNT.Helpers\TNT.Helpers\TNT.Helpers.csproj", "{3D048823-00FC-4320-839A-923A425A0738}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNT.Helpers.WebApi.Owin", "TNT.Helpers.WebApi.Owin\TNT.Helpers.WebApi.Owin.csproj", "{61E31151-2E0E-4B6D-BB64-E50A127634DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OwinOAuthWeb", "..\TestWebApi\OwinOAuthWeb\OwinOAuthWeb.csproj", "{4863C3BE-068B-4783-943B-F91B64644D24}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F04435E1-3486-48CB-AEEA-15C5B466A376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F04435E1-3486-48CB-AEEA-15C5B466A376}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F04435E1-3486-48CB-AEEA-15C5B466A376}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F04435E1-3486-48CB-AEEA-15C5B466A376}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D048823-00FC-4320-839A-923A425A0738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D048823-00FC-4320-839A-923A425A0738}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D048823-00FC-4320-839A-923A425A0738}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D048823-00FC-4320-839A-923A425A0738}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61E31151-2E0E-4B6D-BB64-E50A127634DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61E31151-2E0E-4B6D-BB64-E50A127634DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61E31151-2E0E-4B6D-BB64-E50A127634DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61E31151-2E0E-4B6D-BB64-E50A127634DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4863C3BE-068B-4783-943B-F91B64644D24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4863C3BE-068B-4783-943B-F91B64644D24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4863C3BE-068B-4783-943B-F91B64644D24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4863C3BE-068B-4783-943B-F91B64644D24}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

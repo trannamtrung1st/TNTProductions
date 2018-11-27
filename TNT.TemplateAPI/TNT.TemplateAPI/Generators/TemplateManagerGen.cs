@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TNT.DataServiceTemplate.TTGen
+namespace TNT.TemplateAPI.Generators
 {
     public class TemplateManagerGen
     {

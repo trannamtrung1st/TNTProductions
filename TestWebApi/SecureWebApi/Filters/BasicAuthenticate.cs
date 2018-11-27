@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using TNT.Helpers.WebApi.Filters;
+using TNT.Helpers.WebApi.OAuth.Filters;
 
 namespace SecureWebApi.Filters
 {
@@ -17,7 +18,7 @@ namespace SecureWebApi.Filters
         {
             get
             {
-                return new AuthResult("Invalid credential");
+                return new UnauthorizedResult("Invalid credential");
             }
         }
 
@@ -25,24 +26,25 @@ namespace SecureWebApi.Filters
         {
             get
             {
-                return new AuthResult("Missing credential");
+                return new UnauthorizedResult("Missing credential");
             }
         }
 
-        protected override async Task<IPrincipal> AuthenticateAsync(string rawUsername, string rawPassword)
+        protected override Task AuthenticateAsync(string rawUsername, string rawPassword)
         {
-            return await Task.Run(() =>
+            var user = User.Mappings.Values.Where(
+                u => u.Username == rawUsername
+                && u.Password == rawPassword).FirstOrDefault();
+            if (user == null)
             {
-                var user = User.Mappings.Values.Where(
-                    u => u.Username == rawUsername
-                    && u.Password == rawPassword).FirstOrDefault();
-                if (user == null)
-                {
-                    this.context.ErrorResult = new AuthResult("Invalid username or password");
-                    return null;
-                }
-                return new UserPrincipal(new UserViewModel(user));
-            });
+                this.context.ErrorResult = new UnauthorizedResult("Invalid username or password");
+                return null;
+            }
+            var userVM = new UserViewModel(user);
+            userVM.AddClaim(new Claim(ClaimTypes.Authentication, "Application"));
+            var principal = new UserPrincipal(userVM);
+            this.SetPrincipal(principal);
+            return Task.FromResult(0);
         }
     }
 }

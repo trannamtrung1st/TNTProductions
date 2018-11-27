@@ -10,30 +10,37 @@ using System.Security.Claims;
 using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Filters;
+using TNT.Helpers.Cryptography;
 using TNT.Helpers.WebApi;
 
 namespace SecureWebApi.Controllers.Apis
 {
+    [Authorize]
+    [BearerAuthenticate]
     [RoutePrefix("api/security")]
     public class SecurityController : ApiController
     {
-
-        //[BasicAuthenticate]
-        //[UserAuthorize]
+        [OverrideAuthentication]
+        [ProviderBasedAuthenticate]
+        [BasicAuthenticate]
         [Route("token")]
         [HttpGet]
         public HttpResponseMessage GetToken()
         {
-            var user = (Thread.CurrentPrincipal.Identity as UserViewModel).ToEntity();
+            var userVM = (Thread.CurrentPrincipal.Identity as UserViewModel);
+            var user = userVM.ToEntity();
+            if (userVM.HasClaim(ClaimTypes.Authentication, "Application"))
+            {
+                user.Token = GetAuthToken();
+            }
+            else
+                user.Token = userVM.Token;
             var now = DateTime.Now;
-            user.Token = GetAuthToken();
             user.TokenGenTime = now;
             user.TokenExpiryTime = now.AddMinutes(1);
             return Http.OkBase(user.ToViewModel(), "Success");
         }
 
-        //[BearerAuthenticate]
-        //[UserAuthorize]
         [Route("logout")]
         [HttpGet]
         public HttpResponseMessage LogOut()
@@ -46,8 +53,6 @@ namespace SecureWebApi.Controllers.Apis
             return Http.OkBase(null, "Log out successfully");
         }
 
-        //[BearerAuthenticate]
-        //[UserAuthorize]
         [Route("user")]
         [HttpGet]
         public HttpResponseMessage GetUser()
@@ -56,8 +61,6 @@ namespace SecureWebApi.Controllers.Apis
             return Http.OkBase(user, "Success");
         }
 
-        //[BearerAuthenticate]
-        //[RoleAuthorize("Administrator", "Manager")]
         [Route("create-resource")]
         [HttpGet]
         public HttpResponseMessage CreateResource()
@@ -65,10 +68,11 @@ namespace SecureWebApi.Controllers.Apis
             return Http.OkBase(null, "OK");
         }
 
+        private static TokenGenerator tokenGen = new TokenGenerator(256);
         private string GetAuthToken()
         {
             //test;
-            return Guid.NewGuid().ToString();
+            return tokenGen.Generate();
         }
 
     }

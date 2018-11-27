@@ -18,15 +18,31 @@ namespace SecureWebApi.Models
             {
                 Username = "TNT",
                 Password = "123",
-                UserId = 1,
+                UserId = "1",
                 Roles = new List<string>() { "Administrator" }
+            });
+
+            Mappings.Add("TrungTranGG", new User()
+            {
+                Username = "TrungTranGG",
+                Password = null,
+                UserId = "107863564601151415208",
+                Roles = new List<string>() { "Guest" }
+            });
+
+            Mappings.Add("TranTrungFB", new User()
+            {
+                Username = "TranTrungFB",
+                Password = null,
+                UserId = "1085396321635305",
+                Roles = new List<string>() { "Guest" }
             });
 
             Mappings.Add("ABC", new User()
             {
                 Username = "ABC",
                 Password = "123",
-                UserId = 2,
+                UserId = "2",
                 Roles = new List<string>() { "Manager" }
             });
 
@@ -34,14 +50,14 @@ namespace SecureWebApi.Models
             {
                 Username = "DEF",
                 Password = "123",
-                UserId = 3,
+                UserId = "3",
                 Roles = new List<string>() { "Guest" }
             });
         }
         //-------------------
 
         public IEnumerable<string> Roles { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Token { get; set; }
@@ -58,7 +74,7 @@ namespace SecureWebApi.Models
     public class UserViewModel : GenericIdentity
     {
         public string Username { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public IEnumerable<string> Roles { get; set; }
         public string Token { get; set; }
         public DateTime? TokenGenTime { get; set; }

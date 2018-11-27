@@ -157,7 +157,11 @@
     </Reference>
     <Reference Include="TNT.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\TNT.Helpers\TNT.Helpers\bin\Debug\TNT.Helpers.dll</HintPath>
+      <HintPath>..\..\TNT.Helpers.WebApi\TNT.Helpers.WebApi\bin\Debug\TNT.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="TNT.Helpers.WebApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\TNT.Helpers.WebApi\TNT.Helpers.WebApi\bin\Debug\TNT.Helpers.WebApi.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -207,11 +211,10 @@
     <Compile Include="Controllers\Apis\SecurityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Filters\UserAuthorize.cs" />
-    <Compile Include="Filters\AuthResult.cs" />
+    <Compile Include="Filters\UnauthorizedResult.cs" />
     <Compile Include="Filters\BasicAuthenticate.cs" />
     <Compile Include="Filters\BearerAuthenticate.cs" />
-    <Compile Include="Filters\RoleAuthorize.cs" />
+    <Compile Include="Filters\ProviderBasedAuthenticate.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -301,7 +304,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50365</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50365/</IISUrl>
+          <IISUrl>http://localhost:9999/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
