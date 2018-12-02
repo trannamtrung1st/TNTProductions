@@ -7,19 +7,6 @@ using System.Threading.Tasks;
 
 namespace TNT.Helpers.Cryptography
 {
-    public static class RsaFactory
-    {
-        public static RsaKeyProvider CreateKeyProvider(int size)
-        {
-            return new RsaKeyProvider(size);
-        }
-
-        public static RsaCryptor CreateCryptor(string publicBase64Key, string privateBase64Key, bool fOEAP)
-        {
-            return new RsaCryptor(publicBase64Key, privateBase64Key, fOEAP);
-        }
-    }
-
     public class RsaKeyProvider : IDisposable
     {
         protected RSACryptoServiceProvider rsa;
@@ -44,7 +31,7 @@ namespace TNT.Helpers.Cryptography
         }
     }
 
-    public class RsaCryptor : IDisposable
+    public class RsaCryptor : ICryptor, IDisposable
     {
         protected RSACryptoServiceProvider rsaEncrypt;
         protected RSACryptoServiceProvider rsaDecrypt;
@@ -56,6 +43,12 @@ namespace TNT.Helpers.Cryptography
 
             rsaEncrypt.ImportCspBlob(Convert.FromBase64String(publicBase64Key));
             rsaDecrypt.ImportCspBlob(Convert.FromBase64String(privateBase64Key));
+            this.fOEAP = fOEAP;
+        }
+
+        public RsaCryptor(bool fOEAP)
+        {
+            rsaEncrypt = rsaDecrypt = new RSACryptoServiceProvider();
             this.fOEAP = fOEAP;
         }
 

@@ -12,6 +12,9 @@ using System.Collections.Generic;
 using TNT.Helpers.WebApi.Owin.Externals;
 using TNT.Helpers.WebApi.Externals;
 using System.Linq;
+using TNT.Helpers.Cryptography;
+using Newtonsoft.Json;
+using Microsoft.Owin.Cors;
 
 [assembly: OwinStartup(typeof(OwinOAuthWeb.Owin.OwinStartup))]
 
@@ -21,42 +24,24 @@ namespace OwinOAuthWeb.Owin
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseCors(CorsOptions.AllowAll);
             app.AttachOwinEnvironmentPerRequest();
             ConfigureAuthorizationServer(app);
-            ConfigureAuthentication(app);
+            //ConfigureAuthentication(app);
         }
 
-        public void ConfigureAuthentication(IAppBuilder app)
+        private void ConfigureAuthentication(IAppBuilder app)
         {
             app.UseProviderBasedAuthentication<ProviderAuthenticateMiddleware>(AuthenticationMode.Passive);
         }
 
         private void ConfigureAuthorizationServer(IAppBuilder app)
         {
-            //app.UseOAuthAuthorizationServer(new OAuthAuthorizationServerOptions
-            //{
-            //    AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(5),
-            //    AuthorizationCodeExpireTimeSpan = TimeSpan.FromMinutes(5),
-            //    Provider = new AuthorizationServer(),
-            //    AccessTokenProvider = new AccessTokenProvider(),
-            //    AuthorizationCodeProvider = new AuthenticationTokenProvider(),
-            //    RefreshTokenProvider = new RefreshTokenProvider(),
-            //    AccessTokenFormat = new AccessTokenFormat(),
-            //    AllowInsecureHttp = true,
-            //    ApplicationCanDisplayErrors = false,
-            //    AuthenticationMode = AuthenticationMode.Active,
-            //    AuthenticationType = "Application",
-            //    AuthorizationCodeFormat = new AuthorizationCodeFormat(),
-            //    AuthorizeEndpointPath = new PathString(),
-            //    FormPostEndpoint = new PathString(),
-            //    RefreshTokenFormat = new RefreshTokenFormat(),
-            //    //SystemClock = //... default utc
-            //    TokenEndpointPath = new PathString(),
-            //});
-
+            app.SetupOAuthAuthorizationServer(new AppAuthServerOptions(), true, true);
         }
     }
 
+    #region Authentication middleware
     public class ProviderAuthenticateMiddleware : ProviderBasedAuthenticationMiddleware
     {
         public ProviderAuthenticateMiddleware(OwinMiddleware next, ProviderBasedAuthenticationOptions options) : base(next, options)
@@ -159,66 +144,158 @@ namespace OwinOAuthWeb.Owin
         }
 
     }
+    #endregion
 
-    #region Auth server
-    public class AuthorizationServer : OAuthAuthorizationServerProvider
+    #region Authorization server
+    public class AppAuthServerOptions : AuthorizationServerOptions
     {
-        public AuthorizationServer() : base()
+        public AppAuthServerOptions()
         {
+            this.AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(2);
+            this.RegenerateRefreshToken = false;
+            this.RefreshTokenExpireTimeSpan = TimeSpan.FromMinutes(1);
+            this.AllowInsecureHttp = true;
+            this.ApplicationCanDisplayErrors = false;
+            this.AuthenticationMode = AuthenticationMode.Active;
+            this.AuthenticationType = "Application";
+            this.AccessTokenFormat = new ServerAccessTokenFormat();
+            this.RefreshTokenFormat = new ServerRefreshTokenFormat();
+            this.AccessTokenCookieKey = "TNT";
+            this.SetAccessTokenCookie = true;
+            this.AccessTokenCookieOptions = tokenExpire =>
+            {
+                return new CookieOptions()
+                {
+                    Domain = "localhost",
+                    Expires = tokenExpire,
+                    HttpOnly = false,
+                    Path = "/",
+                    Secure = false
+                };
+            };
+            this.TokenEndpointPath = new PathString("/token");
+            this.Provider = new AuthorizationServer(this);
+            this.RefreshTokenProvider = new RefreshTokenProvider(this);
         }
     }
 
-    public class AuthorizationCodeFormat : ISecureDataFormat<AuthenticationTicket>
+    public class AuthorizationServer : AuthorizationServerProvider
     {
+        public AuthorizationServer(AuthorizationServerOptions options) : base(options)
+        {
+        }
+
+        public override Task<AuthenticationTicket> AuthenticateAsync(string rawUsername, string rawPassword)
+        {
+            var user = Users.ListUsers.Where(u => u.Username == rawUsername && u.Password == rawPassword).FirstOrDefault();
+            if (user == null)
+                return Task.FromResult<AuthenticationTicket>(null);
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Name, user.Username));
+            var identity = new ClaimsIdentity(claims, "Application");
+            var props = new AuthenticationProperties();
+            props.Dictionary["additional"] = user.Username;
+            var ticket = new AuthenticationTicket(identity, props);
+            return Task.FromResult(ticket);
+        }
+
+    }
+
+    public class ServerRefreshTokenFormat : ISecureDataFormat<AuthenticationTicket>
+    {
+        protected TokenGenerator tokenGen = new TokenGenerator(128);
         public string Protect(AuthenticationTicket data)
         {
-            throw new NotImplementedException();
+            var user = Users.ListUsers.Where(u => u.Username == data.Identity.Name).FirstOrDefault();
+            if (user == null)
+                return null;
+            user.RefreshToken = tokenGen.Generate();
+            user.RefreshTokenIssuedDate = data.Properties.IssuedUtc.Value.UtcDateTime;
+            user.RefreshTokenExpireDate = data.Properties.ExpiresUtc.Value.UtcDateTime;
+            return user.RefreshToken;
         }
 
         public AuthenticationTicket Unprotect(string protectedText)
         {
-            throw new NotImplementedException();
+            var user = Users.ListUsers.Where(u => u.RefreshToken == protectedText).FirstOrDefault();
+            if (user == null)
+                return null;
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Name, user.Username));
+            var identity = new ClaimsIdentity(claims, "Application");
+            var props = new AuthenticationProperties();
+            props.Dictionary["additional"] = user.Username;
+            props.IssuedUtc = user.RefreshTokenIssuedDate;
+            props.ExpiresUtc = user.RefreshTokenExpireDate;
+            var ticket = new AuthenticationTicket(identity, props);
+            return ticket;
         }
     }
 
-    public class RefreshTokenFormat : ISecureDataFormat<AuthenticationTicket>
+    public class ServerAccessTokenFormat : ISecureDataFormat<AuthenticationTicket>
     {
+        protected TokenGenerator tokenGen = new TokenGenerator(128);
         public string Protect(AuthenticationTicket data)
         {
-            throw new NotImplementedException();
+            var user = Users.ListUsers.Where(u => u.Username == data.Identity.Name).FirstOrDefault();
+            if (user == null)
+                return null;
+            user.AccessToken = tokenGen.Generate();
+            user.TokenIssuedDate = data.Properties.IssuedUtc.Value.UtcDateTime;
+            user.TokenExpireDate = data.Properties.ExpiresUtc.Value.UtcDateTime;
+            return user.AccessToken;
         }
 
         public AuthenticationTicket Unprotect(string protectedText)
         {
-            throw new NotImplementedException();
+            var user = Users.ListUsers.Where(u => u.AccessToken == protectedText).FirstOrDefault();
+            if (user == null)
+                return null;
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Name, user.Username));
+            var identity = new ClaimsIdentity(claims, "Application");
+            var props = new AuthenticationProperties();
+            props.Dictionary["additional"] = user.Username;
+            props.IssuedUtc = user.TokenIssuedDate;
+            props.ExpiresUtc = user.TokenExpireDate;
+            var ticket = new AuthenticationTicket(identity, props);
+            return ticket;
         }
     }
+    #endregion
 
-    public class AccessTokenFormat : ISecureDataFormat<AuthenticationTicket>
+    #region User
+    public class Users
     {
-        public string Protect(AuthenticationTicket data)
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string AccessToken { get; set; }
+        public string RefreshToken { get; set; }
+        public DateTime? TokenIssuedDate { get; set; }
+        public DateTime? TokenExpireDate { get; set; }
+        public DateTime? RefreshTokenIssuedDate { get; set; }
+        public DateTime? RefreshTokenExpireDate { get; set; }
+
+        public static List<Users> ListUsers = new List<Users>()
         {
-            throw new NotImplementedException();
-        }
+            new Users()
+            {
+                Username = "tnt",
+                Password = "123",
+            },
+            new Users()
+            {
+                Username = "abc",
+                Password = "456",
+            },
+            new Users()
+            {
+                Username = "def",
+                Password = "789",
+            },
+        };
 
-        public AuthenticationTicket Unprotect(string protectedText)
-        {
-            throw new NotImplementedException();
-        }
-    }
 
-    public class RefreshTokenProvider : AuthenticationTokenProvider
-    {
-
-    }
-
-    public class AuthorizationTokenProvider : AuthenticationTokenProvider
-    {
-
-    }
-
-    public class AccessTokenProvider : AuthenticationTokenProvider
-    {
 
     }
     #endregion

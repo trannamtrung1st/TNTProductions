@@ -20,6 +20,13 @@ namespace OwinOAuthWeb.Controllers
             return new string[] { "value1", "value2" };
         }
 
+        [Route("test")]
+        [HttpGet]
+        public HttpResponseMessage test()
+        {
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
         // GET api/values/5
         public string Get(int id)
         {

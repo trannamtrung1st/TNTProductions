@@ -13,11 +13,11 @@ namespace TNT.Helpers.WebApi.Owin.Externals
     public abstract class GoogleProvider : IAuthenticationProvider<ProviderBasedAuthenticationHandler, ProviderBasedAuthenticationOptions>
     {
         public string AuthenticationType { get; set; } = "Google";
-        public Google Provider { get; set; }
+        public GoogleClient Provider { get; set; }
 
         public GoogleProvider(string clientId, string clientSecret)
         {
-            Provider = new Google(clientId, clientSecret);
+            Provider = new GoogleClient(clientId, clientSecret);
         }
 
         public async Task<AuthenticationTicket> AuthenticateAsync(ProviderBasedAuthenticationHandler handler)

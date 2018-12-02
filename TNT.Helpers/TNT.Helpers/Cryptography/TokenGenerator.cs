@@ -7,7 +7,13 @@ using System.Threading.Tasks;
 
 namespace TNT.Helpers.Cryptography
 {
-    public class TokenGenerator : IDisposable
+    public interface ITokenGenerator
+    {
+        string Generate();
+        string Generate(int newSize);
+    }
+
+    public class TokenGenerator : ITokenGenerator, IDisposable
     {
         protected int size;
         protected RNGCryptoServiceProvider rng;

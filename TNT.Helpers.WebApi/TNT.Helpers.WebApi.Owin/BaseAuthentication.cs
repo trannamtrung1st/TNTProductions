@@ -23,6 +23,10 @@ namespace TNT.Helpers.WebApi.Owin
             }
             return Task.FromResult(0);
         }
+    }
+
+    public abstract class AuthorizationHeaderHandler<TOptions> : BaseAuthenticationHandler<TOptions> where TOptions : AuthenticationOptions
+    {
 
         public virtual string[] GetAuthHeader()
         {
@@ -36,5 +40,7 @@ namespace TNT.Helpers.WebApi.Owin
                 return null;
             return headerParts;
         }
+
     }
+
 }

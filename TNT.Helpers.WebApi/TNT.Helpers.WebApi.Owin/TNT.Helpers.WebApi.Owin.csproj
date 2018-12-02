@@ -73,6 +73,8 @@
     <Compile Include="BaseAuthentication.cs" />
     <Compile Include="BasicAuthentication.cs" />
     <Compile Include="BearerAuthentication.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="CookieAuthentication.cs" />
     <Compile Include="Externals\GoogleProvider.cs" />
     <Compile Include="Externals\FacebookProvider.cs" />
     <Compile Include="OwinExtensions.cs" />
@@ -80,6 +82,10 @@
     <Compile Include="ProviderBasedAuthentication.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\TNT.Helpers\TNT.Helpers\TNT.Helpers.csproj">
+      <Project>{3d048823-00fc-4320-839a-923a425a0738}</Project>
+      <Name>TNT.Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TNT.Helpers.WebApi\TNT.Helpers.WebApi.csproj">
       <Project>{F04435E1-3486-48CB-AEEA-15C5B466A376}</Project>
       <Name>TNT.Helpers.WebApi</Name>

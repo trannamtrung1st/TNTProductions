@@ -77,13 +77,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TNT.Helpers">
-      <HintPath>..\..\TNT.Helpers\TNT.Helpers\bin\Debug\TNT.Helpers.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Externals\Facebook.cs" />
-    <Compile Include="Externals\Google.cs" />
+    <Compile Include="Externals\FacebookClient.cs" />
+    <Compile Include="Externals\GoogleClient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseResponse.cs" />
@@ -102,6 +99,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TNT.Helpers\TNT.Helpers\TNT.Helpers.csproj">
+      <Project>{3d048823-00fc-4320-839a-923a425a0738}</Project>
+      <Name>TNT.Helpers</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

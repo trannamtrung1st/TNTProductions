@@ -11,12 +11,12 @@ namespace TNT.Helpers.WebApi.OAuth.Providers
     public abstract class GoogleOAuthProvider : IAuthenticationProvider<ProviderBasedAuthenticationFilter>
     {
 
-        public Google Provider { get; set; }
+        public GoogleClient Provider { get; set; }
         public abstract string AuthenticationType { get; set; }
 
         public GoogleOAuthProvider(string clientId, string clientSecret)
         {
-            Provider = new Google(clientId, clientSecret);
+            Provider = new GoogleClient(clientId, clientSecret);
         }
 
 

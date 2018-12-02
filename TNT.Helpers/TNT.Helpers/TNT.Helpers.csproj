@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cryptography\AesProvider.cs" />
+    <Compile Include="Cryptography\Cryptography.cs" />
     <Compile Include="Cryptography\DataHasher.cs" />
     <Compile Include="Cryptography\RsaProvider.cs" />
     <Compile Include="Cryptography\TokenGenerator.cs" />

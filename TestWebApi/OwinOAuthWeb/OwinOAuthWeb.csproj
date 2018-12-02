@@ -224,6 +224,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -295,6 +296,10 @@
     <ProjectReference Include="..\..\TNT.Helpers.WebApi\TNT.Helpers.WebApi\TNT.Helpers.WebApi.csproj">
       <Project>{F04435E1-3486-48CB-AEEA-15C5B466A376}</Project>
       <Name>TNT.Helpers.WebApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TNT.Helpers\TNT.Helpers\TNT.Helpers.csproj">
+      <Project>{3D048823-00FC-4320-839A-923A425A0738}</Project>
+      <Name>TNT.Helpers</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

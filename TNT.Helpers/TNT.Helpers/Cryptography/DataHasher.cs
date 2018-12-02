@@ -7,7 +7,12 @@ using System.Threading.Tasks;
 
 namespace TNT.Helpers.Cryptography
 {
-    public abstract class DataHasher : IDisposable
+    public interface IDataHasher
+    {
+        string Hash(string data);
+    }
+
+    public abstract class DataHasher : IDataHasher, IDisposable
     {
 
         protected SHA256Cng shaHash;
@@ -34,7 +39,13 @@ namespace TNT.Helpers.Cryptography
         }
 
         public abstract string DataTransform(string originalData);
+    }
 
-
+    public class DefaultDataHasher : DataHasher
+    {
+        public override string DataTransform(string originalData)
+        {
+            return originalData;
+        }
     }
 }

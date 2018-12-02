@@ -1,6 +1,7 @@
 ﻿using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Infrastructure;
+using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,20 @@ using System.Threading.Tasks;
 
 namespace TNT.Helpers.WebApi.Owin
 {
-    public abstract class BearerAuthenticationMiddleware : AuthenticationMiddleware<BearerAuthenticationOptions>
+    #region Base Bearer Authentication
+    public abstract class BearerAuthenticationMiddleware<TOptions> : AuthenticationMiddleware<TOptions> where TOptions : AuthenticationOptions
+    {
+        public BearerAuthenticationMiddleware(OwinMiddleware next, TOptions options) : base(next, options)
+        {
+        }
+
+    }
+
+    public abstract class BearerAuthenticationMiddleware : BearerAuthenticationMiddleware<BearerAuthenticationOptions>
     {
         public BearerAuthenticationMiddleware(OwinMiddleware next, BearerAuthenticationOptions options) : base(next, options)
         {
         }
-
     }
 
     public class BearerAuthenticationOptions : AuthenticationOptions
@@ -24,7 +33,7 @@ namespace TNT.Helpers.WebApi.Owin
         }
     }
 
-    public abstract class BearerAuthenticationHandler : BaseAuthenticationHandler<BearerAuthenticationOptions>
+    public abstract class BearerAuthenticationHandler<TOptions> : AuthorizationHeaderHandler<TOptions> where TOptions : AuthenticationOptions
     {
         protected override async Task<AuthenticationTicket> AuthenticateCoreAsync()
         {
@@ -42,6 +51,11 @@ namespace TNT.Helpers.WebApi.Owin
         }
 
         protected abstract Task<AuthenticationTicket> AuthenticateAsync(string bearer);
-
     }
+
+    public abstract class BearerAuthenticationHandler : BearerAuthenticationHandler<BearerAuthenticationOptions>
+    {
+    }
+    #endregion
+
 }

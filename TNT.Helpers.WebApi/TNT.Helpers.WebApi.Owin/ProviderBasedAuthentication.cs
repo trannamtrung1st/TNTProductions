@@ -24,7 +24,7 @@ namespace TNT.Helpers.WebApi.Owin
         }
     }
 
-    public abstract class ProviderBasedAuthenticationHandler : BaseAuthenticationHandler<ProviderBasedAuthenticationOptions>
+    public abstract class ProviderBasedAuthenticationHandler : AuthorizationHeaderHandler<ProviderBasedAuthenticationOptions>
     {
         public abstract IEnumerable<string> AuthenticationTypes { get; set; }
         protected string[] authHeaders;

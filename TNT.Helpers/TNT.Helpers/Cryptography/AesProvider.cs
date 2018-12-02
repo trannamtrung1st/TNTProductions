@@ -8,23 +8,31 @@ using System.Threading.Tasks;
 
 namespace TNT.Helpers.Cryptography
 {
-    public static class AesFactory
+    public class AesKeyProvider : IDisposable
     {
-
-        public static AesCryptor CreateCryptor()
+        protected AesCryptoServiceProvider aes;
+        public AesKeyProvider()
         {
-            return new AesCryptor();
+            aes = new AesCryptoServiceProvider();
         }
 
-        public static AesCryptor CreateCryptor(string base64key, string base64iv)
+        public string GetBase64Key()
         {
-            return new AesCryptor(base64key, base64iv);
-
+            return Convert.ToBase64String(aes.Key);
         }
 
+        public string GetBase64IV()
+        {
+            return Convert.ToBase64String(aes.IV);
+        }
+
+        public void Dispose()
+        {
+            aes.Dispose();
+        }
     }
 
-    public class AesCryptor : IDisposable
+    public class AesCryptor : ICryptor, IDisposable
     {
         protected AesCryptoServiceProvider aesAlg;
 
@@ -82,6 +90,5 @@ namespace TNT.Helpers.Cryptography
             aesAlg.Dispose();
         }
     }
-
 
 }

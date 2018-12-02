@@ -13,11 +13,11 @@ namespace TNT.Helpers.WebApi.Owin.Externals
     public abstract class FacebookProvider : IAuthenticationProvider<ProviderBasedAuthenticationHandler, ProviderBasedAuthenticationOptions>
     {
         public string AuthenticationType { get; set; } = "Facebook";
-        public Facebook Provider { get; set; }
+        public FacebookClient Provider { get; set; }
 
         public FacebookProvider(string appId, string appSecret)
         {
-            Provider = new Facebook(appId, appSecret);
+            Provider = new FacebookClient(appId, appSecret);
         }
 
         public async Task<AuthenticationTicket> AuthenticateAsync(ProviderBasedAuthenticationHandler handler)

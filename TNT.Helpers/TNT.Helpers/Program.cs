@@ -15,19 +15,16 @@ namespace abc
         public static void Main(string[] args)
         {
             string password = "muzikmylife4ever";
-            using (var kp = RsaFactory.CreateKeyProvider(1024))
-            using (var rsa = RsaFactory.CreateCryptor(kp.GetPublicBase64Key(), kp.GetPrivateBase64Key(), false))
-            {
-                var test = rsa.EncryptToBase64(password);
-                Console.WriteLine(test);
-                Console.WriteLine(rsa.DecryptFromBase64(test));
+            var p = CryptoFactory.DefaultCryptoProvider;
+            var enc = p.Rsa.EncryptToBase64(password);
+            var dec = p.Rsa.DecryptFromBase64(enc);
+            Console.WriteLine(enc + "\n" + dec);
 
-                test = rsa.EncryptToBase64(password + "123123");
-                Console.WriteLine(test);
-                Console.WriteLine(rsa.DecryptFromBase64(test));
-                test = rsa.EncryptToBase64(password + "vn82123");
-                Console.WriteLine(test);
-                Console.WriteLine(rsa.DecryptFromBase64(test));
+            using (p)
+            {
+                enc = p.Rsa.EncryptToBase64(password);
+                dec = p.Rsa.DecryptFromBase64(enc);
+                Console.WriteLine(enc + "\n" + dec);
             }
         }
     }

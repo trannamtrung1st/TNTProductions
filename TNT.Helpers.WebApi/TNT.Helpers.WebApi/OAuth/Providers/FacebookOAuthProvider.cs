@@ -11,12 +11,12 @@ namespace TNT.Helpers.WebApi.OAuth.Providers
 
     public abstract class FacebookOAuthProvider : IAuthenticationProvider<ProviderBasedAuthenticationFilter>
     {
-        public Facebook Provider { get; set; }
+        public FacebookClient Provider { get; set; }
         public abstract string AuthenticationType { get; set; }
 
         public FacebookOAuthProvider(string appId, string appSecret)
         {
-            Provider = new Facebook(appId, appSecret);
+            Provider = new FacebookClient(appId, appSecret);
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.OAuth;
 using Owin;
 using System;
 using System.Collections.Generic;
@@ -63,5 +64,41 @@ namespace TNT.Helpers.WebApi.Owin
             });
         }
 
+        public static void SetupOAuthAuthorizationServer(this IAppBuilder app, AuthorizationServerOptions options,
+            bool useBearerAuthentication,
+            bool useCookieAuthentication)
+        {
+            app.UseOAuthAuthorizationServer(options);
+
+            if (useBearerAuthentication)
+                app.Use<OAuthBasedBearerAuthenticationMiddleware>(
+                    new OAuthBasedBearerAuthenticationOptions()
+                    {
+                        AuthServerOptions = options,
+                    });
+
+            if (useCookieAuthentication)
+                app.Use<OAuthBasedCookieAuthenticationMiddleware>(
+                    new OAuthBasedCookieAuthenticationOptions()
+                    {
+                        AuthServerOptions = options,
+                    });
+        }
+
+        public static void DeleteCookie(this IOwinContext owin, string key)
+        {
+            owin.Response.Cookies.Append(key, "", new CookieOptions()
+            {
+                Expires = Constants.LongTimeAgo
+            });
+        }
+
+        public static void DeleteCookie(this IOwinResponse resp, string key)
+        {
+            resp.Cookies.Append(key, "", new CookieOptions()
+            {
+                Expires = Constants.LongTimeAgo
+            });
+        }
     }
 }

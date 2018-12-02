@@ -24,7 +24,7 @@ namespace TNT.Helpers.WebApi.Owin
         }
     }
 
-    public abstract class BasicAuthenticationHandler : BaseAuthenticationHandler<BasicAuthenticationOptions>
+    public abstract class BasicAuthenticationHandler : AuthorizationHeaderHandler<BasicAuthenticationOptions>
     {
         protected override async Task<AuthenticationTicket> AuthenticateCoreAsync()
         {
