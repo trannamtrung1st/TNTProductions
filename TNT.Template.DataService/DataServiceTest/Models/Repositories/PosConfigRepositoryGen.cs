@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class PosConfigRepository : BaseRepository<PosConfig, int>, IPosConfigRepository
 	{
-		public PosConfigRepository() : base()
+		public PosConfigRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override PosConfig Add(PosConfig entity)
-		{
-			
-			entity = context.PosConfigs.Add(entity);
-			return entity;
-		}
-		
-		public override PosConfig Remove(PosConfig entity)
-		{
-			context.PosConfigs.Attach(entity);
-			entity = context.PosConfigs.Remove(entity);
-			return entity;
-		}
-		
-		public override PosConfig Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.PosConfigs.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<PosConfig> RemoveIf(Expression<Func<PosConfig, bool>> expr)
-		{
-			return context.PosConfigs.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<PosConfig> RemoveRange(IEnumerable<PosConfig> list)
-		{
-			return context.PosConfigs.RemoveRange(list);
-		}
-		
 		public override PosConfig FindById(int key)
 		{
-			var entity = context.PosConfigs.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override PosConfig FindActiveById(int key)
 		{
-			var entity = context.PosConfigs.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<PosConfig> FindByIdAsync(int key)
 		{
-			var entity = await context.PosConfigs.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<PosConfig> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.PosConfigs.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
-		}
-		
-		public override PosConfig FindByIdInclude<TProperty>(int key, params Expression<Func<PosConfig, TProperty>>[] members)
-		{
-			IQueryable<PosConfig> dbSet = context.PosConfigs;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<PosConfig> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<PosConfig, TProperty>>[] members)
-		{
-			IQueryable<PosConfig> dbSet = context.PosConfigs;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override PosConfig Activate(PosConfig entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<PosConfig> GetActive()
 		{
-			return context.PosConfigs;
+			return dbSet;
 		}
 		
 		public override IQueryable<PosConfig> GetActive(Expression<Func<PosConfig, bool>> expr)
 		{
-			return context.PosConfigs.Where(expr);
-		}
-		
-		public override PosConfig FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override PosConfig FirstOrDefault(Expression<Func<PosConfig, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<PosConfig> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<PosConfig> FirstOrDefaultAsync(Expression<Func<PosConfig, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override PosConfig SingleOrDefault(Expression<Func<PosConfig, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<PosConfig> SingleOrDefaultAsync(Expression<Func<PosConfig, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override PosConfig Update(PosConfig entity)
-		{
-			entity = context.PosConfigs.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

@@ -21,7 +21,9 @@ namespace DataServiceTest.Models.Services
 		int SaveChanges();
 		Task<int> SaveChangesAsync();
 		
+		void Reload(E entity);
 		E Add(E entity);
+		IEnumerable<E> AddRange(IEnumerable<E> entities);
 		E Update(E entity);
 		E Remove(E entity);
 		E Remove(K key);
@@ -56,9 +58,19 @@ namespace DataServiceTest.Models.Services
 		}
 		
 		#region CRUD Area
+		public void Reload(E entity)
+		{
+			repository.Reload(entity);
+		}
+		
 		public E Add(E entity)
 		{
 			return repository.Add(entity);
+		}
+		
+		public IEnumerable<E> AddRange(IEnumerable<E> entities)
+		{
+			return repository.AddRange(entities);
 		}
 		
 		public E Update(E entity)

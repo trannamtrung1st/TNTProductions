@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class ProductDetailMappingRepository : BaseRepository<ProductDetailMapping, int>, IProductDetailMappingRepository
 	{
-		public ProductDetailMappingRepository() : base()
+		public ProductDetailMappingRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override ProductDetailMapping Add(ProductDetailMapping entity)
-		{
-			
-			entity = context.ProductDetailMappings.Add(entity);
-			return entity;
-		}
-		
-		public override ProductDetailMapping Remove(ProductDetailMapping entity)
-		{
-			context.ProductDetailMappings.Attach(entity);
-			entity = context.ProductDetailMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override ProductDetailMapping Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.ProductDetailMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<ProductDetailMapping> RemoveIf(Expression<Func<ProductDetailMapping, bool>> expr)
-		{
-			return context.ProductDetailMappings.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<ProductDetailMapping> RemoveRange(IEnumerable<ProductDetailMapping> list)
-		{
-			return context.ProductDetailMappings.RemoveRange(list);
-		}
-		
 		public override ProductDetailMapping FindById(int key)
 		{
-			var entity = context.ProductDetailMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ProductDetailID == key);
 			return entity;
 		}
 		
 		public override ProductDetailMapping FindActiveById(int key)
 		{
-			var entity = context.ProductDetailMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ProductDetailID == key);
 			return entity;
 		}
 		
 		public override async Task<ProductDetailMapping> FindByIdAsync(int key)
 		{
-			var entity = await context.ProductDetailMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ProductDetailID == key);
 			return entity;
 		}
 		
 		public override async Task<ProductDetailMapping> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.ProductDetailMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ProductDetailID == key);
 			return entity;
-		}
-		
-		public override ProductDetailMapping FindByIdInclude<TProperty>(int key, params Expression<Func<ProductDetailMapping, TProperty>>[] members)
-		{
-			IQueryable<ProductDetailMapping> dbSet = context.ProductDetailMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.ProductDetailID == key);
-		}
-		
-		public override async Task<ProductDetailMapping> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<ProductDetailMapping, TProperty>>[] members)
-		{
-			IQueryable<ProductDetailMapping> dbSet = context.ProductDetailMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.ProductDetailID == key);
 		}
 		
 		public override ProductDetailMapping Activate(ProductDetailMapping entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<ProductDetailMapping> GetActive()
 		{
-			return context.ProductDetailMappings;
+			return dbSet;
 		}
 		
 		public override IQueryable<ProductDetailMapping> GetActive(Expression<Func<ProductDetailMapping, bool>> expr)
 		{
-			return context.ProductDetailMappings.Where(expr);
-		}
-		
-		public override ProductDetailMapping FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override ProductDetailMapping FirstOrDefault(Expression<Func<ProductDetailMapping, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<ProductDetailMapping> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<ProductDetailMapping> FirstOrDefaultAsync(Expression<Func<ProductDetailMapping, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override ProductDetailMapping SingleOrDefault(Expression<Func<ProductDetailMapping, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<ProductDetailMapping> SingleOrDefaultAsync(Expression<Func<ProductDetailMapping, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override ProductDetailMapping Update(ProductDetailMapping entity)
-		{
-			entity = context.ProductDetailMappings.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

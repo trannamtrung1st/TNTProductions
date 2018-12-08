@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class TransactionRepository : BaseRepository<Transaction, int>, ITransactionRepository
 	{
-		public TransactionRepository() : base()
+		public TransactionRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override Transaction Add(Transaction entity)
-		{
-			
-			entity = context.Transactions.Add(entity);
-			return entity;
-		}
-		
-		public override Transaction Remove(Transaction entity)
-		{
-			context.Transactions.Attach(entity);
-			entity = context.Transactions.Remove(entity);
-			return entity;
-		}
-		
-		public override Transaction Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Transactions.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<Transaction> RemoveIf(Expression<Func<Transaction, bool>> expr)
-		{
-			return context.Transactions.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<Transaction> RemoveRange(IEnumerable<Transaction> list)
-		{
-			return context.Transactions.RemoveRange(list);
-		}
-		
 		public override Transaction FindById(int key)
 		{
-			var entity = context.Transactions.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override Transaction FindActiveById(int key)
 		{
-			var entity = context.Transactions.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<Transaction> FindByIdAsync(int key)
 		{
-			var entity = await context.Transactions.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<Transaction> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.Transactions.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
-		}
-		
-		public override Transaction FindByIdInclude<TProperty>(int key, params Expression<Func<Transaction, TProperty>>[] members)
-		{
-			IQueryable<Transaction> dbSet = context.Transactions;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<Transaction> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<Transaction, TProperty>>[] members)
-		{
-			IQueryable<Transaction> dbSet = context.Transactions;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override Transaction Activate(Transaction entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<Transaction> GetActive()
 		{
-			return context.Transactions;
+			return dbSet;
 		}
 		
 		public override IQueryable<Transaction> GetActive(Expression<Func<Transaction, bool>> expr)
 		{
-			return context.Transactions.Where(expr);
-		}
-		
-		public override Transaction FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override Transaction FirstOrDefault(Expression<Func<Transaction, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<Transaction> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<Transaction> FirstOrDefaultAsync(Expression<Func<Transaction, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override Transaction SingleOrDefault(Expression<Func<Transaction, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<Transaction> SingleOrDefaultAsync(Expression<Func<Transaction, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override Transaction Update(Transaction entity)
-		{
-			entity = context.Transactions.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

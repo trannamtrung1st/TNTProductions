@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class FavoritedRepository : BaseRepository<Favorited, int>, IFavoritedRepository
 	{
-		public FavoritedRepository() : base()
+		public FavoritedRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override Favorited Add(Favorited entity)
-		{
-			entity.Active = true;
-			entity = context.Favoriteds.Add(entity);
-			return entity;
-		}
-		
-		public override Favorited Remove(Favorited entity)
-		{
-			context.Favoriteds.Attach(entity);
-			entity = context.Favoriteds.Remove(entity);
-			return entity;
-		}
-		
-		public override Favorited Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Favoriteds.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<Favorited> RemoveIf(Expression<Func<Favorited, bool>> expr)
-		{
-			return context.Favoriteds.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<Favorited> RemoveRange(IEnumerable<Favorited> list)
-		{
-			return context.Favoriteds.RemoveRange(list);
-		}
-		
 		public override Favorited FindById(int key)
 		{
-			var entity = context.Favoriteds.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override Favorited FindActiveById(int key)
 		{
-			var entity = context.Favoriteds.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<Favorited> FindByIdAsync(int key)
 		{
-			var entity = await context.Favoriteds.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<Favorited> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.Favoriteds.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key && e.Active);
 			return entity;
-		}
-		
-		public override Favorited FindByIdInclude<TProperty>(int key, params Expression<Func<Favorited, TProperty>>[] members)
-		{
-			IQueryable<Favorited> dbSet = context.Favoriteds;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<Favorited> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<Favorited, TProperty>>[] members)
-		{
-			IQueryable<Favorited> dbSet = context.Favoriteds;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override Favorited Activate(Favorited entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<Favorited> GetActive()
 		{
-			return context.Favoriteds.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<Favorited> GetActive(Expression<Func<Favorited, bool>> expr)
 		{
-			return context.Favoriteds.Where(e => e.Active).Where(expr);
-		}
-		
-		public override Favorited FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override Favorited FirstOrDefault(Expression<Func<Favorited, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<Favorited> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<Favorited> FirstOrDefaultAsync(Expression<Func<Favorited, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override Favorited SingleOrDefault(Expression<Func<Favorited, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<Favorited> SingleOrDefaultAsync(Expression<Func<Favorited, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override Favorited Update(Favorited entity)
-		{
-			entity = context.Favoriteds.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

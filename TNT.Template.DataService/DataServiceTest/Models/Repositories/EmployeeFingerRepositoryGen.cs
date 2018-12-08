@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class EmployeeFingerRepository : BaseRepository<EmployeeFinger, int>, IEmployeeFingerRepository
 	{
-		public EmployeeFingerRepository() : base()
+		public EmployeeFingerRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override EmployeeFinger Add(EmployeeFinger entity)
-		{
-			entity.Active = true;
-			entity = context.EmployeeFingers.Add(entity);
-			return entity;
-		}
-		
-		public override EmployeeFinger Remove(EmployeeFinger entity)
-		{
-			context.EmployeeFingers.Attach(entity);
-			entity = context.EmployeeFingers.Remove(entity);
-			return entity;
-		}
-		
-		public override EmployeeFinger Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.EmployeeFingers.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<EmployeeFinger> RemoveIf(Expression<Func<EmployeeFinger, bool>> expr)
-		{
-			return context.EmployeeFingers.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<EmployeeFinger> RemoveRange(IEnumerable<EmployeeFinger> list)
-		{
-			return context.EmployeeFingers.RemoveRange(list);
-		}
-		
 		public override EmployeeFinger FindById(int key)
 		{
-			var entity = context.EmployeeFingers.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override EmployeeFinger FindActiveById(int key)
 		{
-			var entity = context.EmployeeFingers.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<EmployeeFinger> FindByIdAsync(int key)
 		{
-			var entity = await context.EmployeeFingers.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<EmployeeFinger> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.EmployeeFingers.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key && e.Active);
 			return entity;
-		}
-		
-		public override EmployeeFinger FindByIdInclude<TProperty>(int key, params Expression<Func<EmployeeFinger, TProperty>>[] members)
-		{
-			IQueryable<EmployeeFinger> dbSet = context.EmployeeFingers;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<EmployeeFinger> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<EmployeeFinger, TProperty>>[] members)
-		{
-			IQueryable<EmployeeFinger> dbSet = context.EmployeeFingers;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override EmployeeFinger Activate(EmployeeFinger entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<EmployeeFinger> GetActive()
 		{
-			return context.EmployeeFingers.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<EmployeeFinger> GetActive(Expression<Func<EmployeeFinger, bool>> expr)
 		{
-			return context.EmployeeFingers.Where(e => e.Active).Where(expr);
-		}
-		
-		public override EmployeeFinger FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override EmployeeFinger FirstOrDefault(Expression<Func<EmployeeFinger, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<EmployeeFinger> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<EmployeeFinger> FirstOrDefaultAsync(Expression<Func<EmployeeFinger, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override EmployeeFinger SingleOrDefault(Expression<Func<EmployeeFinger, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<EmployeeFinger> SingleOrDefaultAsync(Expression<Func<EmployeeFinger, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override EmployeeFinger Update(EmployeeFinger entity)
-		{
-			entity = context.EmployeeFingers.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

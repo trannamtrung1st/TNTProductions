@@ -7,11 +7,12 @@ using System.Linq.Expressions;
 using Promoter.DataService.Models;
 using Promoter.DataService.Managers;
 using TNT.IoContainer.Container;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
 namespace Promoter.DataService.Models.Repositories
 {
-	public partial interface IRepository: IReusable
+	public partial interface IRepository
 	{
 	}
 	public partial interface IBaseRepository<E, K> : IRepository
@@ -19,7 +20,9 @@ namespace Promoter.DataService.Models.Repositories
 		int SaveChanges();
 		Task<int> SaveChangesAsync();
 		
+		void Reload(E entity);
 		E Add(E entity);
+		IEnumerable<E> AddRange(IEnumerable<E> entities);
 		E Update(E entity);
 		E Remove(E entity);
 		E Remove(K key);
@@ -29,8 +32,6 @@ namespace Promoter.DataService.Models.Repositories
 		Task<E> FindByIdAsync(K key);
 		E FindActiveById(K key);
 		Task<E> FindActiveByIdAsync(K key);
-		E FindByIdInclude<TProperty>(K key, params Expression<Func<E, TProperty>>[] members);
-		Task<E> FindByIdIncludeAsync<TProperty>(K key, params Expression<Func<E, TProperty>>[] members);
 		E Activate(E entity);
 		E Activate(K key);
 		E Deactivate(E entity);
@@ -49,16 +50,19 @@ namespace Promoter.DataService.Models.Repositories
 	
 	public abstract partial class BaseRepository<E, K> : IBaseRepository<E, K> where E : class
 	{
-		protected PromoterEntities context;
+		protected DbContext context;
+		protected DbSet<E> dbSet;
 		
 		public BaseRepository(IUnitOfWork uow)
 		{
 			this.context = uow.Context;
+			this.dbSet = context.Set<E>();
 		}
 		
-		public BaseRepository(PromoterEntities context)
+		public BaseRepository(DbContext context)
 		{
 			this.context = context;
+			this.dbSet = context.Set<E>();
 		}
 		
 		public int SaveChanges()
@@ -71,7 +75,6 @@ namespace Promoter.DataService.Models.Repositories
 			return await context.SaveChangesAsync();
 		}
 		
-		#region SqlQuery
 		public DbRawSqlQuery<E> SqlQuery(string sql, params object[] parameters)
 		{
 			return context.Database.SqlQuery<E>(sql, parameters);
@@ -81,42 +84,98 @@ namespace Promoter.DataService.Models.Repositories
 		{
 			return context.Database.SqlQuery<T>(sql, parameters);
 		}
-		#endregion
 		
-		public void ReInit(params object[] initParams)
+		public void Reload(E entity)
 		{
-			//params order: 0/ uow
-			context = ((IUnitOfWork)initParams[0]).Context;
+			context.Entry(entity).Reload();
+		}
+		
+		public E Add(E entity)
+		{
+			entity = dbSet.Add(entity);
+			return entity;
+		}
+		
+		public IEnumerable<E> AddRange(IEnumerable<E> entities)
+		{
+			return dbSet.AddRange(entities);
+		}
+		
+		public E Remove(E entity)
+		{
+			entity = dbSet.Remove(entity);
+			return entity;
+		}
+		
+		public E Remove(K key)
+		{
+			var entity = FindById(key);
+			if (entity!=null)
+				entity = dbSet.Remove(entity);
+			return entity;
+		}
+		
+		public IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr)
+		{
+			return dbSet.RemoveRange(GetActive(expr).ToList());
+		}
+		
+		public IEnumerable<E> RemoveRange(IEnumerable<E> list)
+		{
+			return dbSet.RemoveRange(list);
+		}
+		
+		public E Update(E entity)
+		{
+			entity = dbSet.Attach(entity);
+			context.Entry(entity).State = EntityState.Modified;
+			return entity;
+		}
+		
+		public E FirstOrDefault()
+		{
+			return GetActive().FirstOrDefault();
+		}
+		
+		public E FirstOrDefault(Expression<Func<E, bool>> expr)
+		{
+			return GetActive().FirstOrDefault(expr);
+		}
+		
+		public async Task<E> FirstOrDefaultAsync()
+		{
+			return await GetActive().FirstOrDefaultAsync();
+		}
+		
+		public async Task<E> FirstOrDefaultAsync(Expression<Func<E, bool>> expr)
+		{
+			return await GetActive().FirstOrDefaultAsync(expr);
+		}
+		
+		public E SingleOrDefault(Expression<Func<E, bool>> expr)
+		{
+			return GetActive().SingleOrDefault(expr);
+		}
+		
+		public async Task<E> SingleOrDefaultAsync(Expression<Func<E, bool>> expr)
+		{
+			return await GetActive().SingleOrDefaultAsync(expr);
 		}
 		
 		/*
 		********************* ABSTRACT AREA *********************
 		*/
 		
-		public abstract E Add(E entity);
-		public abstract E Update(E entity);
-		public abstract E Remove(E entity);
-		public abstract E Remove(K key);
-		public abstract IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);
-		public abstract IEnumerable<E> RemoveRange(IEnumerable<E> list);
 		public abstract E FindById(K key);
 		public abstract Task<E> FindByIdAsync(K key);
 		public abstract E FindActiveById(K key);
 		public abstract Task<E> FindActiveByIdAsync(K key);
-		public abstract E FindByIdInclude<TProperty>(K key, params Expression<Func<E, TProperty>>[] members);
-		public abstract Task<E> FindByIdIncludeAsync<TProperty>(K key, params Expression<Func<E, TProperty>>[] members);
 		public abstract E Activate(E entity);
 		public abstract E Activate(K key);
 		public abstract E Deactivate(E entity);
 		public abstract E Deactivate(K key);
 		public abstract IQueryable<E> GetActive();
 		public abstract IQueryable<E> GetActive(Expression<Func<E, bool>> expr);
-		public abstract E FirstOrDefault();
-		public abstract E FirstOrDefault(Expression<Func<E, bool>> expr);
-		public abstract Task<E> FirstOrDefaultAsync();
-		public abstract Task<E> FirstOrDefaultAsync(Expression<Func<E, bool>> expr);
-		public abstract E SingleOrDefault(Expression<Func<E, bool>> expr);
-		public abstract Task<E> SingleOrDefaultAsync(Expression<Func<E, bool>> expr);
 		
 	}
 }

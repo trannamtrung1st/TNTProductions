@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class MachineConnectRepository : BaseRepository<MachineConnect, int>, IMachineConnectRepository
 	{
-		public MachineConnectRepository() : base()
+		public MachineConnectRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override MachineConnect Add(MachineConnect entity)
-		{
-			entity.Active = true;
-			entity = context.MachineConnects.Add(entity);
-			return entity;
-		}
-		
-		public override MachineConnect Remove(MachineConnect entity)
-		{
-			context.MachineConnects.Attach(entity);
-			entity = context.MachineConnects.Remove(entity);
-			return entity;
-		}
-		
-		public override MachineConnect Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.MachineConnects.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<MachineConnect> RemoveIf(Expression<Func<MachineConnect, bool>> expr)
-		{
-			return context.MachineConnects.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<MachineConnect> RemoveRange(IEnumerable<MachineConnect> list)
-		{
-			return context.MachineConnects.RemoveRange(list);
-		}
-		
 		public override MachineConnect FindById(int key)
 		{
-			var entity = context.MachineConnects.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override MachineConnect FindActiveById(int key)
 		{
-			var entity = context.MachineConnects.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<MachineConnect> FindByIdAsync(int key)
 		{
-			var entity = await context.MachineConnects.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<MachineConnect> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.MachineConnects.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key && e.Active);
 			return entity;
-		}
-		
-		public override MachineConnect FindByIdInclude<TProperty>(int key, params Expression<Func<MachineConnect, TProperty>>[] members)
-		{
-			IQueryable<MachineConnect> dbSet = context.MachineConnects;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.ID == key);
-		}
-		
-		public override async Task<MachineConnect> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<MachineConnect, TProperty>>[] members)
-		{
-			IQueryable<MachineConnect> dbSet = context.MachineConnects;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.ID == key);
 		}
 		
 		public override MachineConnect Activate(MachineConnect entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<MachineConnect> GetActive()
 		{
-			return context.MachineConnects.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<MachineConnect> GetActive(Expression<Func<MachineConnect, bool>> expr)
 		{
-			return context.MachineConnects.Where(e => e.Active).Where(expr);
-		}
-		
-		public override MachineConnect FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override MachineConnect FirstOrDefault(Expression<Func<MachineConnect, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<MachineConnect> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<MachineConnect> FirstOrDefaultAsync(Expression<Func<MachineConnect, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override MachineConnect SingleOrDefault(Expression<Func<MachineConnect, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<MachineConnect> SingleOrDefaultAsync(Expression<Func<MachineConnect, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override MachineConnect Update(MachineConnect entity)
-		{
-			entity = context.MachineConnects.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

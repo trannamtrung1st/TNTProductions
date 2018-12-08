@@ -8,14 +8,14 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Collections" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ assembly name="$(ProjectDir)bin/Debug/TNT.TemplateApi.dll" #>
-<#@ assembly name="$(ProjectDir)bin/Debug/TNT.DataServiceTemplate.dll" #>
+<#@ assembly name="$(ProjectDir)bin/Debug/TNT.TemplateAPI.dll" #>
+<#@ assembly name="$(ProjectDir)bin/Debug/TNT.Template.DataService.dll" #>
 <#@ include file="$(ProjectDir)Templates/TTManager.ttinclude" #>
-<#@ import namespace="TNT.DataServiceTemplate.Data" #>
-<#@ import namespace="TNT.DataServiceTemplate.Models.Repositories" #>
+<#@ import namespace="TNT.Template.DataService.Data" #>
+<#@ import namespace="TNT.Template.DataService.Models.Repositories" #>
 <#
 	var projectPath = Host.ResolveAssemblyReference("$(ProjectDir)");
-	var activeCol = false;
+	var activeCol = true;
 	var dt = new EdmxParser(projectPath+@"Models/PromoterEntities.edmx","Promoter.DataService", activeCol).Data;
 	var manager = TemplateFileManager.Create(this);
 #>

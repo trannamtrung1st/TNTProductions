@@ -1,4 +1,4 @@
 
 // Generated helper templates
 // Generated items
-// TNT.DataServiceTemplate\DataServiceTest\Managers\UnitOfWorkGen.cs
+// TNT.Template.DataService\DataServiceTest\Managers\UnitOfWorkGen.cs

@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class PaymentRepository : BaseRepository<Payment, int>, IPaymentRepository
 	{
-		public PaymentRepository() : base()
+		public PaymentRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override Payment Add(Payment entity)
-		{
-			
-			entity = context.Payments.Add(entity);
-			return entity;
-		}
-		
-		public override Payment Remove(Payment entity)
-		{
-			context.Payments.Attach(entity);
-			entity = context.Payments.Remove(entity);
-			return entity;
-		}
-		
-		public override Payment Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Payments.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<Payment> RemoveIf(Expression<Func<Payment, bool>> expr)
-		{
-			return context.Payments.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<Payment> RemoveRange(IEnumerable<Payment> list)
-		{
-			return context.Payments.RemoveRange(list);
-		}
-		
 		public override Payment FindById(int key)
 		{
-			var entity = context.Payments.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.PaymentID == key);
 			return entity;
 		}
 		
 		public override Payment FindActiveById(int key)
 		{
-			var entity = context.Payments.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.PaymentID == key);
 			return entity;
 		}
 		
 		public override async Task<Payment> FindByIdAsync(int key)
 		{
-			var entity = await context.Payments.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.PaymentID == key);
 			return entity;
 		}
 		
 		public override async Task<Payment> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.Payments.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.PaymentID == key);
 			return entity;
-		}
-		
-		public override Payment FindByIdInclude<TProperty>(int key, params Expression<Func<Payment, TProperty>>[] members)
-		{
-			IQueryable<Payment> dbSet = context.Payments;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.PaymentID == key);
-		}
-		
-		public override async Task<Payment> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<Payment, TProperty>>[] members)
-		{
-			IQueryable<Payment> dbSet = context.Payments;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.PaymentID == key);
 		}
 		
 		public override Payment Activate(Payment entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<Payment> GetActive()
 		{
-			return context.Payments;
+			return dbSet;
 		}
 		
 		public override IQueryable<Payment> GetActive(Expression<Func<Payment, bool>> expr)
 		{
-			return context.Payments.Where(expr);
-		}
-		
-		public override Payment FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override Payment FirstOrDefault(Expression<Func<Payment, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<Payment> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<Payment> FirstOrDefaultAsync(Expression<Func<Payment, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override Payment SingleOrDefault(Expression<Func<Payment, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<Payment> SingleOrDefaultAsync(Expression<Func<Payment, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override Payment Update(Payment entity)
-		{
-			entity = context.Payments.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

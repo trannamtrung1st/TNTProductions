@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class RatingProductRepository : BaseRepository<RatingProduct, int>, IRatingProductRepository
 	{
-		public RatingProductRepository() : base()
+		public RatingProductRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override RatingProduct Add(RatingProduct entity)
-		{
-			entity.Active = true;
-			entity = context.RatingProducts.Add(entity);
-			return entity;
-		}
-		
-		public override RatingProduct Remove(RatingProduct entity)
-		{
-			context.RatingProducts.Attach(entity);
-			entity = context.RatingProducts.Remove(entity);
-			return entity;
-		}
-		
-		public override RatingProduct Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.RatingProducts.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<RatingProduct> RemoveIf(Expression<Func<RatingProduct, bool>> expr)
-		{
-			return context.RatingProducts.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<RatingProduct> RemoveRange(IEnumerable<RatingProduct> list)
-		{
-			return context.RatingProducts.RemoveRange(list);
-		}
-		
 		public override RatingProduct FindById(int key)
 		{
-			var entity = context.RatingProducts.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override RatingProduct FindActiveById(int key)
 		{
-			var entity = context.RatingProducts.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<RatingProduct> FindByIdAsync(int key)
 		{
-			var entity = await context.RatingProducts.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<RatingProduct> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.RatingProducts.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key && e.Active);
 			return entity;
-		}
-		
-		public override RatingProduct FindByIdInclude<TProperty>(int key, params Expression<Func<RatingProduct, TProperty>>[] members)
-		{
-			IQueryable<RatingProduct> dbSet = context.RatingProducts;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<RatingProduct> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<RatingProduct, TProperty>>[] members)
-		{
-			IQueryable<RatingProduct> dbSet = context.RatingProducts;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override RatingProduct Activate(RatingProduct entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<RatingProduct> GetActive()
 		{
-			return context.RatingProducts.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<RatingProduct> GetActive(Expression<Func<RatingProduct, bool>> expr)
 		{
-			return context.RatingProducts.Where(e => e.Active).Where(expr);
-		}
-		
-		public override RatingProduct FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override RatingProduct FirstOrDefault(Expression<Func<RatingProduct, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<RatingProduct> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<RatingProduct> FirstOrDefaultAsync(Expression<Func<RatingProduct, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override RatingProduct SingleOrDefault(Expression<Func<RatingProduct, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<RatingProduct> SingleOrDefaultAsync(Expression<Func<RatingProduct, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override RatingProduct Update(RatingProduct entity)
-		{
-			entity = context.RatingProducts.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

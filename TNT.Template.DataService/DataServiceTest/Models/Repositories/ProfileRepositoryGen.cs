@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class ProfileRepository : BaseRepository<Profile, System.Guid>, IProfileRepository
 	{
-		public ProfileRepository() : base()
+		public ProfileRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override Profile Add(Profile entity)
-		{
-			
-			entity = context.Profiles.Add(entity);
-			return entity;
-		}
-		
-		public override Profile Remove(Profile entity)
-		{
-			context.Profiles.Attach(entity);
-			entity = context.Profiles.Remove(entity);
-			return entity;
-		}
-		
-		public override Profile Remove(System.Guid key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Profiles.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<Profile> RemoveIf(Expression<Func<Profile, bool>> expr)
-		{
-			return context.Profiles.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<Profile> RemoveRange(IEnumerable<Profile> list)
-		{
-			return context.Profiles.RemoveRange(list);
-		}
-		
 		public override Profile FindById(System.Guid key)
 		{
-			var entity = context.Profiles.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.UserId == key);
 			return entity;
 		}
 		
 		public override Profile FindActiveById(System.Guid key)
 		{
-			var entity = context.Profiles.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.UserId == key);
 			return entity;
 		}
 		
 		public override async Task<Profile> FindByIdAsync(System.Guid key)
 		{
-			var entity = await context.Profiles.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.UserId == key);
 			return entity;
 		}
 		
 		public override async Task<Profile> FindActiveByIdAsync(System.Guid key)
 		{
-			var entity = await context.Profiles.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.UserId == key);
 			return entity;
-		}
-		
-		public override Profile FindByIdInclude<TProperty>(System.Guid key, params Expression<Func<Profile, TProperty>>[] members)
-		{
-			IQueryable<Profile> dbSet = context.Profiles;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.UserId == key);
-		}
-		
-		public override async Task<Profile> FindByIdIncludeAsync<TProperty>(System.Guid key, params Expression<Func<Profile, TProperty>>[] members)
-		{
-			IQueryable<Profile> dbSet = context.Profiles;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.UserId == key);
 		}
 		
 		public override Profile Activate(Profile entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<Profile> GetActive()
 		{
-			return context.Profiles;
+			return dbSet;
 		}
 		
 		public override IQueryable<Profile> GetActive(Expression<Func<Profile, bool>> expr)
 		{
-			return context.Profiles.Where(expr);
-		}
-		
-		public override Profile FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override Profile FirstOrDefault(Expression<Func<Profile, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<Profile> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<Profile> FirstOrDefaultAsync(Expression<Func<Profile, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override Profile SingleOrDefault(Expression<Func<Profile, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<Profile> SingleOrDefaultAsync(Expression<Func<Profile, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override Profile Update(Profile entity)
-		{
-			entity = context.Profiles.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

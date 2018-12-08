@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class DateReportRepository : BaseRepository<DateReport, int>, IDateReportRepository
 	{
-		public DateReportRepository() : base()
+		public DateReportRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override DateReport Add(DateReport entity)
-		{
-			
-			entity = context.DateReports.Add(entity);
-			return entity;
-		}
-		
-		public override DateReport Remove(DateReport entity)
-		{
-			context.DateReports.Attach(entity);
-			entity = context.DateReports.Remove(entity);
-			return entity;
-		}
-		
-		public override DateReport Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.DateReports.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<DateReport> RemoveIf(Expression<Func<DateReport, bool>> expr)
-		{
-			return context.DateReports.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<DateReport> RemoveRange(IEnumerable<DateReport> list)
-		{
-			return context.DateReports.RemoveRange(list);
-		}
-		
 		public override DateReport FindById(int key)
 		{
-			var entity = context.DateReports.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override DateReport FindActiveById(int key)
 		{
-			var entity = context.DateReports.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<DateReport> FindByIdAsync(int key)
 		{
-			var entity = await context.DateReports.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<DateReport> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.DateReports.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
-		}
-		
-		public override DateReport FindByIdInclude<TProperty>(int key, params Expression<Func<DateReport, TProperty>>[] members)
-		{
-			IQueryable<DateReport> dbSet = context.DateReports;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.ID == key);
-		}
-		
-		public override async Task<DateReport> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<DateReport, TProperty>>[] members)
-		{
-			IQueryable<DateReport> dbSet = context.DateReports;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.ID == key);
 		}
 		
 		public override DateReport Activate(DateReport entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<DateReport> GetActive()
 		{
-			return context.DateReports;
+			return dbSet;
 		}
 		
 		public override IQueryable<DateReport> GetActive(Expression<Func<DateReport, bool>> expr)
 		{
-			return context.DateReports.Where(expr);
-		}
-		
-		public override DateReport FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override DateReport FirstOrDefault(Expression<Func<DateReport, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<DateReport> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<DateReport> FirstOrDefaultAsync(Expression<Func<DateReport, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override DateReport SingleOrDefault(Expression<Func<DateReport, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<DateReport> SingleOrDefaultAsync(Expression<Func<DateReport, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override DateReport Update(DateReport entity)
-		{
-			entity = context.DateReports.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

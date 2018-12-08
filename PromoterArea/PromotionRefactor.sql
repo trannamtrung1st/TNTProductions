@@ -3,7 +3,7 @@ USE TPromoter;
 
 --1 promotion: chương trình khuyến mãi
 CREATE TABLE Promotion (
-	PromotionId int PRIMARY KEY,
+	PromotionId int IDENTITY(1,1) PRIMARY KEY,
 
 	--begin attributes
 	PromotionCode varchar(250) NOT NULL,
@@ -11,20 +11,19 @@ CREATE TABLE Promotion (
 	Description nvarchar(250),
 	ImageCss nvarchar(50),
 	ImageUrl nvarchar(max),
-	Active bit NOT NULL,
 	BrandId int,
+	Active bit NOT NULL,
 	--end attributes
 );
 
 -- 1 promotion - N detail => nhiều hình thức (OR)
 CREATE TABLE PromotionDetail (
-	PromotionDetailId int PRIMARY KEY,
+	PromotionDetailId int IDENTITY(1,1) PRIMARY KEY,
 
 	--begin attributes
 	DetailCode nvarchar(250) NOT NULL,
 	Description nvarchar(250),
-	Active bit NOT NULL,
-	AwardQuantity int,
+	ApplyQuantity int,
 	AppliedQuantity int,
 	HasVoucher bit NOT NULL,
 	VoucherQuantity int,
@@ -36,20 +35,21 @@ CREATE TABLE PromotionDetail (
 	--end attributes
 
 	--begin voucher config
-	Length int,
-	Prefix int,
-	Postfix int,
+	AutoGenLength int,
+	Prefix nvarchar(100),
+	Postfix nvarchar(100),
 	Pattern nvarchar(100),
 	--end voucher config
 	
-	--PromotionPartnerId int,
+	PromotionPartnerId int,
 	PromotionId int NOT NULL,
+	Active bit NOT NULL,
 	FOREIGN KEY (PromotionId) REFERENCES Promotion(PromotionId)
 );
 
 --1 detail - N Award => áp dụng chung các Award (AND)
 CREATE TABLE PromotionAwardDiscount (
-	PromotionAwardId int PRIMARY KEY,
+	PromotionAwardId int IDENTITY(1,1) PRIMARY KEY,
 	
 	--begin attributes
 	ForProductId int,
@@ -59,14 +59,15 @@ CREATE TABLE PromotionAwardDiscount (
 	DiscountAmout float,
 	DiscountPercent float,
 	ShipDiscount float,
-	--end Award attributes
+	--end attributes
 
 	PromotionDetailId int NOT NULL,
-	FOREIGN KEY (PromotionDetailId) REFERENCES PromotionDetail(PromotionDetailId),
+	Active bit NOT NULL,
+	FOREIGN KEY (PromotionDetailId) REFERENCES PromotionDetail(PromotionDetailId)
 );
 
 CREATE TABLE PromotionAwardGift (
-	PromotionAwardId int PRIMARY KEY,
+	PromotionAwardId int IDENTITY(1,1) PRIMARY KEY,
 	
 	--begin attributes
 	ForProductId int,
@@ -77,11 +78,12 @@ CREATE TABLE PromotionAwardGift (
 	--end attributes
 
 	PromotionDetailId int NOT NULL,
+	Active bit NOT NULL,
 	FOREIGN KEY (PromotionDetailId) REFERENCES PromotionDetail(PromotionDetailId),
 );
 
 CREATE TABLE PromotionAwardCashback (
-	PromotionAwardId int PRIMARY KEY,
+	PromotionAwardId int IDENTITY(1,1) PRIMARY KEY,
 	
 	--begin attributes
 	ForProductId int,
@@ -93,15 +95,16 @@ CREATE TABLE PromotionAwardCashback (
     AffliatorCashbackAccountType int,
 	AffliatorCashbackAmount float,
 	MaxAffliatorCashbackAmount float,
-	--end Award attributes
+	--end attributes
 
 	PromotionDetailId int NOT NULL,
+	Active bit NOT NULL,
 	FOREIGN KEY (PromotionDetailId) REFERENCES PromotionDetail(PromotionDetailId),
 );
 
 --1 detail - N voucher
 CREATE TABLE Voucher (
-	VoucherId int PRIMARY KEY,
+	VoucherId int IDENTITY(1,1) PRIMARY KEY,
 	--begin attributes
 	VoucherCode nvarchar(250) NOT NULL,
 	GeneratedDate datetime,
@@ -110,10 +113,10 @@ CREATE TABLE Voucher (
 	AppliedQuantity int NOT NULL,
     IsGetted bit NOT NULL,
     MembershipCode nvarchar(250),
-	Active bit NOT NULL,
 	--end attributes
 
 	PromotionDetailId int NOT NULL,
+	Active bit NOT NULL,
 	FOREIGN KEY (PromotionDetailId) REFERENCES PromotionDetail(PromotionDetailId)
 );
 
@@ -146,19 +149,22 @@ CREATE TABLE _ElectronicStamp (
 
 --1 detail - N constraint => 1 trong số điều kiện (OR)
 CREATE TABLE PromotionConstraint (
-	ConstraintId int PRIMARY KEY,
+	ConstraintId int IDENTITY(1,1) PRIMARY KEY,
 	
 	HasTimeContraint bit not null,
 	PromotionBeginDate datetime,
 	PromotionEndDate datetime,
 	--additional daytime filter
 
-	HasOrderConstaint bit not null,
+	HasOrderConstraint bit not null,
 	FixProductFilter bit, --đúng với những món có trong filter sản phẩm, false thì có quyền hơn
 	--additional product filter
+	MinTotalProducts int,
+	MaxTotalProducts int,
 	MinTotalAmount float,
 	MaxTotalAmount float,
-	PersonCount int,
+	MinPersonCount int,
+	MaxPersonCount int,
 	Gender bit,
 	MinAge int,
 	MaxAge int,
@@ -166,7 +172,7 @@ CREATE TABLE PromotionConstraint (
 	
 	HasPaymentConstraint bit not null,
 	PaymentType int,
-	PaymentPartnerCode int,
+	PaymentPartnerCode nvarchar(250),
 
 	HasStoreConstraint bit not null,
 	--additional store filter
@@ -191,26 +197,28 @@ CREATE TABLE PromotionConstraint (
 	--constraint attributes
 
 	PromotionDetailId int,
+	Active bit NOT NULL,
 	FOREIGN KEY (PromotionDetailId) REFERENCES PromotionDetail(PromotionDetailId)					
 );
 
 CREATE TABLE PC_DateTimeFilter(
-	FilterId int PRIMARY KEY,
+	FilterId int IDENTITY(1,1) PRIMARY KEY,
 
 	--begin attributes
 	BeginDate datetime,
 	EndDate datetime,
-	DateOfWeek int, --Từ 2->8: thứ, 0: áp dụng tất cả các thứ trong tuần
+	DayOfWeek int, --Từ 2->8: thứ, 0: áp dụng tất cả các thứ trong tuần
 	BeginHour time,
 	EndHour time,
 	--end attributes
 
 	ConstraintId int NOT NULL,
+	Active bit NOT NULL,
 	FOREIGN KEY (ConstraintId) REFERENCES PromotionConstraint(ConstraintId)					
 );
 
 CREATE TABLE PC_ProductFilter(
-	FilterId int PRIMARY KEY,
+	FilterId int IDENTITY(1,1) PRIMARY KEY,
 	
 	--begin attributes
 	ProductId int,
@@ -221,12 +229,14 @@ CREATE TABLE PC_ProductFilter(
 	--end attributes
 	
 	ConstraintId int NOT NULL,
+	Active bit NOT NULL,
 	FOREIGN KEY (ConstraintId) REFERENCES PromotionConstraint(ConstraintId),
 );
 
 CREATE TABLE PC_StoreFilter(
 	StoreId int,
 	ConstraintId int NOT NULL,
+	Active bit NOT NULL,
 	PRIMARY KEY (StoreId, ConstraintId),
 	FOREIGN KEY (ConstraintId) REFERENCES PromotionConstraint(ConstraintId),
 );

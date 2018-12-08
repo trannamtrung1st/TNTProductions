@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class CostRepository : BaseRepository<Cost, int>, ICostRepository
 	{
-		public CostRepository() : base()
+		public CostRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override Cost Add(Cost entity)
-		{
-			
-			entity = context.Costs.Add(entity);
-			return entity;
-		}
-		
-		public override Cost Remove(Cost entity)
-		{
-			context.Costs.Attach(entity);
-			entity = context.Costs.Remove(entity);
-			return entity;
-		}
-		
-		public override Cost Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Costs.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<Cost> RemoveIf(Expression<Func<Cost, bool>> expr)
-		{
-			return context.Costs.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<Cost> RemoveRange(IEnumerable<Cost> list)
-		{
-			return context.Costs.RemoveRange(list);
-		}
-		
 		public override Cost FindById(int key)
 		{
-			var entity = context.Costs.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.CostID == key);
 			return entity;
 		}
 		
 		public override Cost FindActiveById(int key)
 		{
-			var entity = context.Costs.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.CostID == key);
 			return entity;
 		}
 		
 		public override async Task<Cost> FindByIdAsync(int key)
 		{
-			var entity = await context.Costs.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.CostID == key);
 			return entity;
 		}
 		
 		public override async Task<Cost> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.Costs.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.CostID == key);
 			return entity;
-		}
-		
-		public override Cost FindByIdInclude<TProperty>(int key, params Expression<Func<Cost, TProperty>>[] members)
-		{
-			IQueryable<Cost> dbSet = context.Costs;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.CostID == key);
-		}
-		
-		public override async Task<Cost> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<Cost, TProperty>>[] members)
-		{
-			IQueryable<Cost> dbSet = context.Costs;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.CostID == key);
 		}
 		
 		public override Cost Activate(Cost entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<Cost> GetActive()
 		{
-			return context.Costs;
+			return dbSet;
 		}
 		
 		public override IQueryable<Cost> GetActive(Expression<Func<Cost, bool>> expr)
 		{
-			return context.Costs.Where(expr);
-		}
-		
-		public override Cost FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override Cost FirstOrDefault(Expression<Func<Cost, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<Cost> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<Cost> FirstOrDefaultAsync(Expression<Func<Cost, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override Cost SingleOrDefault(Expression<Func<Cost, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<Cost> SingleOrDefaultAsync(Expression<Func<Cost, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override Cost Update(Cost entity)
-		{
-			entity = context.Costs.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

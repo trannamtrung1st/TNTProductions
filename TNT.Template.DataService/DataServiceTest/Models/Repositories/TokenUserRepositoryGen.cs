@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class TokenUserRepository : BaseRepository<TokenUser, int>, ITokenUserRepository
 	{
-		public TokenUserRepository() : base()
+		public TokenUserRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override TokenUser Add(TokenUser entity)
-		{
-			
-			entity = context.TokenUsers.Add(entity);
-			return entity;
-		}
-		
-		public override TokenUser Remove(TokenUser entity)
-		{
-			context.TokenUsers.Attach(entity);
-			entity = context.TokenUsers.Remove(entity);
-			return entity;
-		}
-		
-		public override TokenUser Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.TokenUsers.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<TokenUser> RemoveIf(Expression<Func<TokenUser, bool>> expr)
-		{
-			return context.TokenUsers.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<TokenUser> RemoveRange(IEnumerable<TokenUser> list)
-		{
-			return context.TokenUsers.RemoveRange(list);
-		}
-		
 		public override TokenUser FindById(int key)
 		{
-			var entity = context.TokenUsers.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override TokenUser FindActiveById(int key)
 		{
-			var entity = context.TokenUsers.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<TokenUser> FindByIdAsync(int key)
 		{
-			var entity = await context.TokenUsers.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<TokenUser> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.TokenUsers.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
-		}
-		
-		public override TokenUser FindByIdInclude<TProperty>(int key, params Expression<Func<TokenUser, TProperty>>[] members)
-		{
-			IQueryable<TokenUser> dbSet = context.TokenUsers;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<TokenUser> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<TokenUser, TProperty>>[] members)
-		{
-			IQueryable<TokenUser> dbSet = context.TokenUsers;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override TokenUser Activate(TokenUser entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<TokenUser> GetActive()
 		{
-			return context.TokenUsers;
+			return dbSet;
 		}
 		
 		public override IQueryable<TokenUser> GetActive(Expression<Func<TokenUser, bool>> expr)
 		{
-			return context.TokenUsers.Where(expr);
-		}
-		
-		public override TokenUser FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override TokenUser FirstOrDefault(Expression<Func<TokenUser, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<TokenUser> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<TokenUser> FirstOrDefaultAsync(Expression<Func<TokenUser, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override TokenUser SingleOrDefault(Expression<Func<TokenUser, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<TokenUser> SingleOrDefaultAsync(Expression<Func<TokenUser, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override TokenUser Update(TokenUser entity)
-		{
-			entity = context.TokenUsers.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

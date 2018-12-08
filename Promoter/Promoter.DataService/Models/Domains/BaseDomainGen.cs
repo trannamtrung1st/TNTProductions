@@ -9,6 +9,7 @@ using Promoter.DataService.Managers;
 using Promoter.DataService.Utilities;
 using Promoter.DataService.Models;
 using Promoter.DataService.Global;
+using System.Data.Entity;
 using System.Linq.Expressions;
 using TNT.IoContainer.Wrapper;
 
@@ -35,13 +36,13 @@ namespace Promoter.DataService.Models.Domains
 			}
 		}
 		
-		public BaseDomain(PromoterEntities context)
+		public BaseDomain(DbContext context)
 		{
 			_context = context;
 		}
 		
-		private PromoterEntities _context;
-		protected PromoterEntities Context
+		private DbContext _context;
+		protected DbContext Context
 		{
 			get
 			{

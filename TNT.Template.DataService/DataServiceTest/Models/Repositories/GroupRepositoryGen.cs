@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class GroupRepository : BaseRepository<Group, int>, IGroupRepository
 	{
-		public GroupRepository() : base()
+		public GroupRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override Group Add(Group entity)
-		{
-			
-			entity = context.Groups.Add(entity);
-			return entity;
-		}
-		
-		public override Group Remove(Group entity)
-		{
-			context.Groups.Attach(entity);
-			entity = context.Groups.Remove(entity);
-			return entity;
-		}
-		
-		public override Group Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Groups.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<Group> RemoveIf(Expression<Func<Group, bool>> expr)
-		{
-			return context.Groups.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<Group> RemoveRange(IEnumerable<Group> list)
-		{
-			return context.Groups.RemoveRange(list);
-		}
-		
 		public override Group FindById(int key)
 		{
-			var entity = context.Groups.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.GroupId == key);
 			return entity;
 		}
 		
 		public override Group FindActiveById(int key)
 		{
-			var entity = context.Groups.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.GroupId == key);
 			return entity;
 		}
 		
 		public override async Task<Group> FindByIdAsync(int key)
 		{
-			var entity = await context.Groups.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.GroupId == key);
 			return entity;
 		}
 		
 		public override async Task<Group> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.Groups.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.GroupId == key);
 			return entity;
-		}
-		
-		public override Group FindByIdInclude<TProperty>(int key, params Expression<Func<Group, TProperty>>[] members)
-		{
-			IQueryable<Group> dbSet = context.Groups;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.GroupId == key);
-		}
-		
-		public override async Task<Group> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<Group, TProperty>>[] members)
-		{
-			IQueryable<Group> dbSet = context.Groups;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.GroupId == key);
 		}
 		
 		public override Group Activate(Group entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<Group> GetActive()
 		{
-			return context.Groups;
+			return dbSet;
 		}
 		
 		public override IQueryable<Group> GetActive(Expression<Func<Group, bool>> expr)
 		{
-			return context.Groups.Where(expr);
-		}
-		
-		public override Group FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override Group FirstOrDefault(Expression<Func<Group, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<Group> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<Group> FirstOrDefaultAsync(Expression<Func<Group, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override Group SingleOrDefault(Expression<Func<Group, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<Group> SingleOrDefaultAsync(Expression<Func<Group, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override Group Update(Group entity)
-		{
-			entity = context.Groups.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

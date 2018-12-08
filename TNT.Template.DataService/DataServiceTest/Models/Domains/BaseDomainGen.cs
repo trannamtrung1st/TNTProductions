@@ -9,6 +9,7 @@ using DataServiceTest.Managers;
 using DataServiceTest.Utilities;
 using DataServiceTest.Models;
 using DataServiceTest.Global;
+using System.Data.Entity;
 using System.Linq.Expressions;
 using TNT.IoContainer.Wrapper;
 
@@ -16,11 +17,6 @@ namespace DataServiceTest.Models.Domains
 {
 	public abstract partial class BaseDomain
 	{
-		public BaseDomain()
-		{
-			_uow = G.TContainer.ResolveRequestScope<IUnitOfWork>();
-		}
-		
 		public BaseDomain(IUnitOfWork uow)
 		{
 			_uow = uow;
@@ -32,6 +28,20 @@ namespace DataServiceTest.Models.Domains
 			get
 			{
 				return _uow;
+			}
+		}
+		
+		public BaseDomain(DbContext context)
+		{
+			_context = context;
+		}
+		
+		private DbContext _context;
+		protected DbContext Context
+		{
+			get
+			{
+				return _context;
 			}
 		}
 		

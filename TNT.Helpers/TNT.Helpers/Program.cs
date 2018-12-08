@@ -3,6 +3,9 @@ using System.IO;
 using System.Text;
 using System.Security.Cryptography;
 using TNT.Helpers.Cryptography;
+using TNT.Helpers.General;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace abc
 {
@@ -12,20 +15,18 @@ namespace abc
         public static string key = "4vXrlSEk5sSP2T2RIwNlxxMsWGutjF9dhuC4WfM7Do0=";
         public static string iv = "/7wqw5UN3WA0LhSBtJtSgw==";
 
+        public const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         public static void Main(string[] args)
         {
-            string password = "muzikmylife4ever";
-            var p = CryptoFactory.DefaultCryptoProvider;
-            var enc = p.Rsa.EncryptToBase64(password);
-            var dec = p.Rsa.DecryptFromBase64(enc);
-            Console.WriteLine(enc + "\n" + dec);
-
-            using (p)
+            var rand2 = new Random();
+            var sw = Stopwatch.StartNew();
+            for (int i = 0; i < 5000; i++)
             {
-                enc = p.Rsa.EncryptToBase64(password);
-                dec = p.Rsa.DecryptFromBase64(enc);
-                Console.WriteLine(enc + "\n" + dec);
+                var code = rand2.RandomStringFrom(chars, 10);
+                Console.WriteLine(code);
             }
+            Console.WriteLine(sw.ElapsedMilliseconds);
+          
         }
     }
 

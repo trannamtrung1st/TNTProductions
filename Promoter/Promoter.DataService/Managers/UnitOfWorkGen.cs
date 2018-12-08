@@ -16,7 +16,7 @@ namespace Promoter.DataService.Managers
 	public partial interface IUnitOfWork : IDisposable
 	{
 		ITContainer Scope { get; set; }
-		PromoterEntities Context { get; set; }
+		DbContext Context { get; set; }
 		S Service<S>() where S : class, IService;
 		int SaveChanges();
 		Task<int> SaveChangesAsync();
@@ -40,7 +40,7 @@ namespace Promoter.DataService.Managers
 		}
 		
 		public ITContainer Scope { get; set; }
-		public PromoterEntities Context { get; set; }
+		public DbContext Context { get; set; }
 		private IDictionary<Type, object> ResourcePool { get; set; }
 		
 		public S Service<S>() where S : class, IService

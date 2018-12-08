@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class PayrollPeriodRepository : BaseRepository<PayrollPeriod, int>, IPayrollPeriodRepository
 	{
-		public PayrollPeriodRepository() : base()
+		public PayrollPeriodRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override PayrollPeriod Add(PayrollPeriod entity)
-		{
-			
-			entity = context.PayrollPeriods.Add(entity);
-			return entity;
-		}
-		
-		public override PayrollPeriod Remove(PayrollPeriod entity)
-		{
-			context.PayrollPeriods.Attach(entity);
-			entity = context.PayrollPeriods.Remove(entity);
-			return entity;
-		}
-		
-		public override PayrollPeriod Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.PayrollPeriods.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<PayrollPeriod> RemoveIf(Expression<Func<PayrollPeriod, bool>> expr)
-		{
-			return context.PayrollPeriods.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<PayrollPeriod> RemoveRange(IEnumerable<PayrollPeriod> list)
-		{
-			return context.PayrollPeriods.RemoveRange(list);
-		}
-		
 		public override PayrollPeriod FindById(int key)
 		{
-			var entity = context.PayrollPeriods.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override PayrollPeriod FindActiveById(int key)
 		{
-			var entity = context.PayrollPeriods.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<PayrollPeriod> FindByIdAsync(int key)
 		{
-			var entity = await context.PayrollPeriods.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<PayrollPeriod> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.PayrollPeriods.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
-		}
-		
-		public override PayrollPeriod FindByIdInclude<TProperty>(int key, params Expression<Func<PayrollPeriod, TProperty>>[] members)
-		{
-			IQueryable<PayrollPeriod> dbSet = context.PayrollPeriods;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<PayrollPeriod> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<PayrollPeriod, TProperty>>[] members)
-		{
-			IQueryable<PayrollPeriod> dbSet = context.PayrollPeriods;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override PayrollPeriod Activate(PayrollPeriod entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<PayrollPeriod> GetActive()
 		{
-			return context.PayrollPeriods;
+			return dbSet;
 		}
 		
 		public override IQueryable<PayrollPeriod> GetActive(Expression<Func<PayrollPeriod, bool>> expr)
 		{
-			return context.PayrollPeriods.Where(expr);
-		}
-		
-		public override PayrollPeriod FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override PayrollPeriod FirstOrDefault(Expression<Func<PayrollPeriod, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<PayrollPeriod> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<PayrollPeriod> FirstOrDefaultAsync(Expression<Func<PayrollPeriod, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override PayrollPeriod SingleOrDefault(Expression<Func<PayrollPeriod, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<PayrollPeriod> SingleOrDefaultAsync(Expression<Func<PayrollPeriod, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override PayrollPeriod Update(PayrollPeriod entity)
-		{
-			entity = context.PayrollPeriods.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

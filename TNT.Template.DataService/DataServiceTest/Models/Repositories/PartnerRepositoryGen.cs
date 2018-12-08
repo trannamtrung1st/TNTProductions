@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class PartnerRepository : BaseRepository<Partner, int>, IPartnerRepository
 	{
-		public PartnerRepository() : base()
+		public PartnerRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override Partner Add(Partner entity)
-		{
-			
-			entity = context.Partners.Add(entity);
-			return entity;
-		}
-		
-		public override Partner Remove(Partner entity)
-		{
-			context.Partners.Attach(entity);
-			entity = context.Partners.Remove(entity);
-			return entity;
-		}
-		
-		public override Partner Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Partners.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<Partner> RemoveIf(Expression<Func<Partner, bool>> expr)
-		{
-			return context.Partners.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<Partner> RemoveRange(IEnumerable<Partner> list)
-		{
-			return context.Partners.RemoveRange(list);
-		}
-		
 		public override Partner FindById(int key)
 		{
-			var entity = context.Partners.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override Partner FindActiveById(int key)
 		{
-			var entity = context.Partners.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<Partner> FindByIdAsync(int key)
 		{
-			var entity = await context.Partners.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<Partner> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.Partners.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
-		}
-		
-		public override Partner FindByIdInclude<TProperty>(int key, params Expression<Func<Partner, TProperty>>[] members)
-		{
-			IQueryable<Partner> dbSet = context.Partners;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.ID == key);
-		}
-		
-		public override async Task<Partner> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<Partner, TProperty>>[] members)
-		{
-			IQueryable<Partner> dbSet = context.Partners;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.ID == key);
 		}
 		
 		public override Partner Activate(Partner entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<Partner> GetActive()
 		{
-			return context.Partners;
+			return dbSet;
 		}
 		
 		public override IQueryable<Partner> GetActive(Expression<Func<Partner, bool>> expr)
 		{
-			return context.Partners.Where(expr);
-		}
-		
-		public override Partner FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override Partner FirstOrDefault(Expression<Func<Partner, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<Partner> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<Partner> FirstOrDefaultAsync(Expression<Func<Partner, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override Partner SingleOrDefault(Expression<Func<Partner, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<Partner> SingleOrDefaultAsync(Expression<Func<Partner, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override Partner Update(Partner entity)
-		{
-			entity = context.Partners.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

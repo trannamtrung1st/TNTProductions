@@ -210,8 +210,8 @@ namespace DataServiceTest.Global
 		private static void ConfigureIoContainer()
 		{
 			//IoContainer
-			Builder.RegisterRequestScopeHandlerModule();
 			Builder.RegisterType<IUnitOfWork, UnitOfWork>();
+			Builder.RegisterType<passioTestEntities>();
 			Builder.RegisterType<IC__MigrationHistoryRepository, C__MigrationHistoryRepository>();
 			Builder.RegisterType<IC_TransactionIndex_2244ceaa_24f5_4fde_bd5f_baf8ea08cdc4Repository, C_TransactionIndex_2244ceaa_24f5_4fde_bd5f_baf8ea08cdc4Repository>();
 			Builder.RegisterType<IAccountRepository, AccountRepository>();

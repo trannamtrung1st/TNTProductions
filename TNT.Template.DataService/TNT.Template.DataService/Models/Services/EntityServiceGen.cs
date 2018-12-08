@@ -20,7 +20,8 @@ namespace TNT.Template.DataService.Models.Services
                 dt.ProjectName + ".Utilities",
                 dt.ProjectName + ".Managers",
                 dt.ProjectName + ".Models.Repositories",
-                dt.ProjectName + ".Global", "TNT.IoContainer.Wrapper");
+                dt.ProjectName + ".Global", "TNT.IoContainer.Wrapper",
+                "System.Data.Entity");
             ResolveMapping.Add("context", EInfo.Data.ContextName);
             ResolveMapping.Add("entity", EInfo.EntityName);
             ResolveMapping.Add("entityPK", EInfo.PKClass);
@@ -77,7 +78,7 @@ namespace TNT.Template.DataService.Models.Services
                 "repository = uow.Scope.Resolve<I`entity`Repository>(uow);"));
 
             var c21 = new ContainerGen();
-            c21.Signature = "public `entity`Service(`context` context)";
+            c21.Signature = "public `entity`Service(DbContext context)";
             c21.Body.Add(new StatementGen("repository = G.TContainer.Resolve<I`entity`Repository>(context);"));
 
 

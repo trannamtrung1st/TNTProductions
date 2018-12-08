@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class PriceAdditionRepository : BaseRepository<PriceAddition, int>, IPriceAdditionRepository
 	{
-		public PriceAdditionRepository() : base()
+		public PriceAdditionRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override PriceAddition Add(PriceAddition entity)
-		{
-			
-			entity = context.PriceAdditions.Add(entity);
-			return entity;
-		}
-		
-		public override PriceAddition Remove(PriceAddition entity)
-		{
-			context.PriceAdditions.Attach(entity);
-			entity = context.PriceAdditions.Remove(entity);
-			return entity;
-		}
-		
-		public override PriceAddition Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.PriceAdditions.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<PriceAddition> RemoveIf(Expression<Func<PriceAddition, bool>> expr)
-		{
-			return context.PriceAdditions.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<PriceAddition> RemoveRange(IEnumerable<PriceAddition> list)
-		{
-			return context.PriceAdditions.RemoveRange(list);
-		}
-		
 		public override PriceAddition FindById(int key)
 		{
-			var entity = context.PriceAdditions.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.AdditionPriceID == key);
 			return entity;
 		}
 		
 		public override PriceAddition FindActiveById(int key)
 		{
-			var entity = context.PriceAdditions.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.AdditionPriceID == key);
 			return entity;
 		}
 		
 		public override async Task<PriceAddition> FindByIdAsync(int key)
 		{
-			var entity = await context.PriceAdditions.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.AdditionPriceID == key);
 			return entity;
 		}
 		
 		public override async Task<PriceAddition> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.PriceAdditions.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.AdditionPriceID == key);
 			return entity;
-		}
-		
-		public override PriceAddition FindByIdInclude<TProperty>(int key, params Expression<Func<PriceAddition, TProperty>>[] members)
-		{
-			IQueryable<PriceAddition> dbSet = context.PriceAdditions;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.AdditionPriceID == key);
-		}
-		
-		public override async Task<PriceAddition> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<PriceAddition, TProperty>>[] members)
-		{
-			IQueryable<PriceAddition> dbSet = context.PriceAdditions;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.AdditionPriceID == key);
 		}
 		
 		public override PriceAddition Activate(PriceAddition entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<PriceAddition> GetActive()
 		{
-			return context.PriceAdditions;
+			return dbSet;
 		}
 		
 		public override IQueryable<PriceAddition> GetActive(Expression<Func<PriceAddition, bool>> expr)
 		{
-			return context.PriceAdditions.Where(expr);
-		}
-		
-		public override PriceAddition FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override PriceAddition FirstOrDefault(Expression<Func<PriceAddition, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<PriceAddition> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<PriceAddition> FirstOrDefaultAsync(Expression<Func<PriceAddition, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override PriceAddition SingleOrDefault(Expression<Func<PriceAddition, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<PriceAddition> SingleOrDefaultAsync(Expression<Func<PriceAddition, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override PriceAddition Update(PriceAddition entity)
-		{
-			entity = context.PriceAdditions.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

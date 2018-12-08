@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class DateProductRepository : BaseRepository<DateProduct, int>, IDateProductRepository
 	{
-		public DateProductRepository() : base()
+		public DateProductRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override DateProduct Add(DateProduct entity)
-		{
-			
-			entity = context.DateProducts.Add(entity);
-			return entity;
-		}
-		
-		public override DateProduct Remove(DateProduct entity)
-		{
-			context.DateProducts.Attach(entity);
-			entity = context.DateProducts.Remove(entity);
-			return entity;
-		}
-		
-		public override DateProduct Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.DateProducts.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<DateProduct> RemoveIf(Expression<Func<DateProduct, bool>> expr)
-		{
-			return context.DateProducts.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<DateProduct> RemoveRange(IEnumerable<DateProduct> list)
-		{
-			return context.DateProducts.RemoveRange(list);
-		}
-		
 		public override DateProduct FindById(int key)
 		{
-			var entity = context.DateProducts.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override DateProduct FindActiveById(int key)
 		{
-			var entity = context.DateProducts.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<DateProduct> FindByIdAsync(int key)
 		{
-			var entity = await context.DateProducts.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<DateProduct> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.DateProducts.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
-		}
-		
-		public override DateProduct FindByIdInclude<TProperty>(int key, params Expression<Func<DateProduct, TProperty>>[] members)
-		{
-			IQueryable<DateProduct> dbSet = context.DateProducts;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.ID == key);
-		}
-		
-		public override async Task<DateProduct> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<DateProduct, TProperty>>[] members)
-		{
-			IQueryable<DateProduct> dbSet = context.DateProducts;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.ID == key);
 		}
 		
 		public override DateProduct Activate(DateProduct entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<DateProduct> GetActive()
 		{
-			return context.DateProducts;
+			return dbSet;
 		}
 		
 		public override IQueryable<DateProduct> GetActive(Expression<Func<DateProduct, bool>> expr)
 		{
-			return context.DateProducts.Where(expr);
-		}
-		
-		public override DateProduct FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override DateProduct FirstOrDefault(Expression<Func<DateProduct, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<DateProduct> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<DateProduct> FirstOrDefaultAsync(Expression<Func<DateProduct, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override DateProduct SingleOrDefault(Expression<Func<DateProduct, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<DateProduct> SingleOrDefaultAsync(Expression<Func<DateProduct, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override DateProduct Update(DateProduct entity)
-		{
-			entity = context.DateProducts.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

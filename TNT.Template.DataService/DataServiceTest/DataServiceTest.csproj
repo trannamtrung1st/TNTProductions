@@ -68,21 +68,22 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TNT.DataServiceTemplate">
-      <HintPath>..\TNT.DataServiceTemplate\bin\Debug\TNT.DataServiceTemplate.dll</HintPath>
-    </Reference>
     <Reference Include="TNT.Helpers">
       <HintPath>..\..\TNT.Helpers\TNT.Helpers\bin\Debug\TNT.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="TNT.IoContainer">
       <HintPath>..\..\TNT.IoContainer\TNT.IoContainer\bin\Debug\TNT.IoContainer.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.TemplateAPI">
-      <HintPath>..\TNT.DataServiceTemplate\bin\Debug\TNT.TemplateAPI.dll</HintPath>
+    <Reference Include="TNT.Template.DataService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CommonLibs\TProject\TNT.Template.DataService.dll</HintPath>
+    </Reference>
+    <Reference Include="TNT.TemplateAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\CommonLibs\TProject\TNT.TemplateAPI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Global\Global.cs" />
     <Compile Include="Global\GlobalGen.cs">
       <DependentUpon>GlobalTemplate.tt</DependentUpon>
     </Compile>
@@ -2112,7 +2113,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Global\GlobalTemplate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

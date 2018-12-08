@@ -9,6 +9,7 @@ using DataServiceTest.Managers;
 using DataServiceTest.Models.Repositories;
 using DataServiceTest.Global;
 using TNT.IoContainer.Wrapper;
+using System.Data.Entity;
 
 namespace DataServiceTest.Models.Services
 {
@@ -21,6 +22,11 @@ namespace DataServiceTest.Models.Services
 		public ProductDetailMappingService(IUnitOfWork uow)
 		{
 			repository = uow.Scope.Resolve<IProductDetailMappingRepository>(uow);
+		}
+		
+		public ProductDetailMappingService(DbContext context)
+		{
+			repository = G.TContainer.Resolve<IProductDetailMappingRepository>(context);
 		}
 		
 	}

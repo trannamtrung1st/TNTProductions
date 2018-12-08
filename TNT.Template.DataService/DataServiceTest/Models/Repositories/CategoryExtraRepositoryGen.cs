@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class CategoryExtraRepository : BaseRepository<CategoryExtra, int>, ICategoryExtraRepository
 	{
-		public CategoryExtraRepository() : base()
+		public CategoryExtraRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override CategoryExtra Add(CategoryExtra entity)
-		{
-			
-			entity = context.CategoryExtras.Add(entity);
-			return entity;
-		}
-		
-		public override CategoryExtra Remove(CategoryExtra entity)
-		{
-			context.CategoryExtras.Attach(entity);
-			entity = context.CategoryExtras.Remove(entity);
-			return entity;
-		}
-		
-		public override CategoryExtra Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.CategoryExtras.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<CategoryExtra> RemoveIf(Expression<Func<CategoryExtra, bool>> expr)
-		{
-			return context.CategoryExtras.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<CategoryExtra> RemoveRange(IEnumerable<CategoryExtra> list)
-		{
-			return context.CategoryExtras.RemoveRange(list);
-		}
-		
 		public override CategoryExtra FindById(int key)
 		{
-			var entity = context.CategoryExtras.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.CategoryExtraId == key);
 			return entity;
 		}
 		
 		public override CategoryExtra FindActiveById(int key)
 		{
-			var entity = context.CategoryExtras.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.CategoryExtraId == key);
 			return entity;
 		}
 		
 		public override async Task<CategoryExtra> FindByIdAsync(int key)
 		{
-			var entity = await context.CategoryExtras.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.CategoryExtraId == key);
 			return entity;
 		}
 		
 		public override async Task<CategoryExtra> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.CategoryExtras.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.CategoryExtraId == key);
 			return entity;
-		}
-		
-		public override CategoryExtra FindByIdInclude<TProperty>(int key, params Expression<Func<CategoryExtra, TProperty>>[] members)
-		{
-			IQueryable<CategoryExtra> dbSet = context.CategoryExtras;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.CategoryExtraId == key);
-		}
-		
-		public override async Task<CategoryExtra> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<CategoryExtra, TProperty>>[] members)
-		{
-			IQueryable<CategoryExtra> dbSet = context.CategoryExtras;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.CategoryExtraId == key);
 		}
 		
 		public override CategoryExtra Activate(CategoryExtra entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<CategoryExtra> GetActive()
 		{
-			return context.CategoryExtras;
+			return dbSet;
 		}
 		
 		public override IQueryable<CategoryExtra> GetActive(Expression<Func<CategoryExtra, bool>> expr)
 		{
-			return context.CategoryExtras.Where(expr);
-		}
-		
-		public override CategoryExtra FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override CategoryExtra FirstOrDefault(Expression<Func<CategoryExtra, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<CategoryExtra> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<CategoryExtra> FirstOrDefaultAsync(Expression<Func<CategoryExtra, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override CategoryExtra SingleOrDefault(Expression<Func<CategoryExtra, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<CategoryExtra> SingleOrDefaultAsync(Expression<Func<CategoryExtra, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override CategoryExtra Update(CategoryExtra entity)
-		{
-			entity = context.CategoryExtras.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class StoreWebRouteRepository : BaseRepository<StoreWebRoute, int>, IStoreWebRouteRepository
 	{
-		public StoreWebRouteRepository() : base()
+		public StoreWebRouteRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override StoreWebRoute Add(StoreWebRoute entity)
-		{
-			entity.Active = true;
-			entity = context.StoreWebRoutes.Add(entity);
-			return entity;
-		}
-		
-		public override StoreWebRoute Remove(StoreWebRoute entity)
-		{
-			context.StoreWebRoutes.Attach(entity);
-			entity = context.StoreWebRoutes.Remove(entity);
-			return entity;
-		}
-		
-		public override StoreWebRoute Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.StoreWebRoutes.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<StoreWebRoute> RemoveIf(Expression<Func<StoreWebRoute, bool>> expr)
-		{
-			return context.StoreWebRoutes.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<StoreWebRoute> RemoveRange(IEnumerable<StoreWebRoute> list)
-		{
-			return context.StoreWebRoutes.RemoveRange(list);
-		}
-		
 		public override StoreWebRoute FindById(int key)
 		{
-			var entity = context.StoreWebRoutes.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override StoreWebRoute FindActiveById(int key)
 		{
-			var entity = context.StoreWebRoutes.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<StoreWebRoute> FindByIdAsync(int key)
 		{
-			var entity = await context.StoreWebRoutes.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<StoreWebRoute> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.StoreWebRoutes.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key && e.Active);
 			return entity;
-		}
-		
-		public override StoreWebRoute FindByIdInclude<TProperty>(int key, params Expression<Func<StoreWebRoute, TProperty>>[] members)
-		{
-			IQueryable<StoreWebRoute> dbSet = context.StoreWebRoutes;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<StoreWebRoute> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<StoreWebRoute, TProperty>>[] members)
-		{
-			IQueryable<StoreWebRoute> dbSet = context.StoreWebRoutes;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override StoreWebRoute Activate(StoreWebRoute entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<StoreWebRoute> GetActive()
 		{
-			return context.StoreWebRoutes.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<StoreWebRoute> GetActive(Expression<Func<StoreWebRoute, bool>> expr)
 		{
-			return context.StoreWebRoutes.Where(e => e.Active).Where(expr);
-		}
-		
-		public override StoreWebRoute FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override StoreWebRoute FirstOrDefault(Expression<Func<StoreWebRoute, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<StoreWebRoute> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<StoreWebRoute> FirstOrDefaultAsync(Expression<Func<StoreWebRoute, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override StoreWebRoute SingleOrDefault(Expression<Func<StoreWebRoute, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<StoreWebRoute> SingleOrDefaultAsync(Expression<Func<StoreWebRoute, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override StoreWebRoute Update(StoreWebRoute entity)
-		{
-			entity = context.StoreWebRoutes.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class CustomerProductMappingRepository : BaseRepository<CustomerProductMapping, int>, ICustomerProductMappingRepository
 	{
-		public CustomerProductMappingRepository() : base()
+		public CustomerProductMappingRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override CustomerProductMapping Add(CustomerProductMapping entity)
-		{
-			
-			entity = context.CustomerProductMappings.Add(entity);
-			return entity;
-		}
-		
-		public override CustomerProductMapping Remove(CustomerProductMapping entity)
-		{
-			context.CustomerProductMappings.Attach(entity);
-			entity = context.CustomerProductMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override CustomerProductMapping Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.CustomerProductMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<CustomerProductMapping> RemoveIf(Expression<Func<CustomerProductMapping, bool>> expr)
-		{
-			return context.CustomerProductMappings.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<CustomerProductMapping> RemoveRange(IEnumerable<CustomerProductMapping> list)
-		{
-			return context.CustomerProductMappings.RemoveRange(list);
-		}
-		
 		public override CustomerProductMapping FindById(int key)
 		{
-			var entity = context.CustomerProductMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override CustomerProductMapping FindActiveById(int key)
 		{
-			var entity = context.CustomerProductMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<CustomerProductMapping> FindByIdAsync(int key)
 		{
-			var entity = await context.CustomerProductMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<CustomerProductMapping> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.CustomerProductMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
-		}
-		
-		public override CustomerProductMapping FindByIdInclude<TProperty>(int key, params Expression<Func<CustomerProductMapping, TProperty>>[] members)
-		{
-			IQueryable<CustomerProductMapping> dbSet = context.CustomerProductMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.ID == key);
-		}
-		
-		public override async Task<CustomerProductMapping> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<CustomerProductMapping, TProperty>>[] members)
-		{
-			IQueryable<CustomerProductMapping> dbSet = context.CustomerProductMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.ID == key);
 		}
 		
 		public override CustomerProductMapping Activate(CustomerProductMapping entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<CustomerProductMapping> GetActive()
 		{
-			return context.CustomerProductMappings;
+			return dbSet;
 		}
 		
 		public override IQueryable<CustomerProductMapping> GetActive(Expression<Func<CustomerProductMapping, bool>> expr)
 		{
-			return context.CustomerProductMappings.Where(expr);
-		}
-		
-		public override CustomerProductMapping FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override CustomerProductMapping FirstOrDefault(Expression<Func<CustomerProductMapping, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<CustomerProductMapping> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<CustomerProductMapping> FirstOrDefaultAsync(Expression<Func<CustomerProductMapping, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override CustomerProductMapping SingleOrDefault(Expression<Func<CustomerProductMapping, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<CustomerProductMapping> SingleOrDefaultAsync(Expression<Func<CustomerProductMapping, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override CustomerProductMapping Update(CustomerProductMapping entity)
-		{
-			entity = context.CustomerProductMappings.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

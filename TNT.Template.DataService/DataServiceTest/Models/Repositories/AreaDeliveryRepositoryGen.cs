@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class AreaDeliveryRepository : BaseRepository<AreaDelivery, int>, IAreaDeliveryRepository
 	{
-		public AreaDeliveryRepository() : base()
+		public AreaDeliveryRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override AreaDelivery Add(AreaDelivery entity)
-		{
-			
-			entity = context.AreaDeliveries.Add(entity);
-			return entity;
-		}
-		
-		public override AreaDelivery Remove(AreaDelivery entity)
-		{
-			context.AreaDeliveries.Attach(entity);
-			entity = context.AreaDeliveries.Remove(entity);
-			return entity;
-		}
-		
-		public override AreaDelivery Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.AreaDeliveries.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<AreaDelivery> RemoveIf(Expression<Func<AreaDelivery, bool>> expr)
-		{
-			return context.AreaDeliveries.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<AreaDelivery> RemoveRange(IEnumerable<AreaDelivery> list)
-		{
-			return context.AreaDeliveries.RemoveRange(list);
-		}
-		
 		public override AreaDelivery FindById(int key)
 		{
-			var entity = context.AreaDeliveries.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override AreaDelivery FindActiveById(int key)
 		{
-			var entity = context.AreaDeliveries.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<AreaDelivery> FindByIdAsync(int key)
 		{
-			var entity = await context.AreaDeliveries.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<AreaDelivery> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.AreaDeliveries.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
-		}
-		
-		public override AreaDelivery FindByIdInclude<TProperty>(int key, params Expression<Func<AreaDelivery, TProperty>>[] members)
-		{
-			IQueryable<AreaDelivery> dbSet = context.AreaDeliveries;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<AreaDelivery> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<AreaDelivery, TProperty>>[] members)
-		{
-			IQueryable<AreaDelivery> dbSet = context.AreaDeliveries;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override AreaDelivery Activate(AreaDelivery entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<AreaDelivery> GetActive()
 		{
-			return context.AreaDeliveries;
+			return dbSet;
 		}
 		
 		public override IQueryable<AreaDelivery> GetActive(Expression<Func<AreaDelivery, bool>> expr)
 		{
-			return context.AreaDeliveries.Where(expr);
-		}
-		
-		public override AreaDelivery FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override AreaDelivery FirstOrDefault(Expression<Func<AreaDelivery, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<AreaDelivery> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<AreaDelivery> FirstOrDefaultAsync(Expression<Func<AreaDelivery, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override AreaDelivery SingleOrDefault(Expression<Func<AreaDelivery, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<AreaDelivery> SingleOrDefaultAsync(Expression<Func<AreaDelivery, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override AreaDelivery Update(AreaDelivery entity)
-		{
-			entity = context.AreaDeliveries.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

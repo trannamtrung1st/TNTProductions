@@ -4,378 +4,869 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PromoterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Brand">
+    <Schema Namespace="PromoterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PC_DateTimeFilter">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="FilterId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Address" Type="nvarchar" MaxLength="100" />
-          <Property Name="Code" Type="varchar" MaxLength="50" />
+          <Property Name="FilterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BeginDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="DayOfWeek" Type="int" />
+          <Property Name="BeginHour" Type="time" Precision="7" />
+          <Property Name="EndHour" Type="time" Precision="7" />
+          <Property Name="ConstraintId" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="BrandAccount">
+        <EntityType Name="PC_ProductFilter">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="FilterId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Username" Type="varchar" MaxLength="100" />
-          <Property Name="Password" Type="varchar" MaxLength="100" />
+          <Property Name="FilterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="ProductCategoryId" Type="int" />
+          <Property Name="ProductMenuId" Type="int" />
+          <Property Name="MinBuyQuantity" Type="int" />
+          <Property Name="MaxBuyQuantity" Type="int" />
+          <Property Name="ConstraintId" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PC_StoreFilter">
+          <Key>
+            <PropertyRef Name="StoreId" />
+            <PropertyRef Name="ConstraintId" />
+          </Key>
+          <Property Name="StoreId" Type="int" Nullable="false" />
+          <Property Name="ConstraintId" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Promotion">
+          <Key>
+            <PropertyRef Name="PromotionId" />
+          </Key>
+          <Property Name="PromotionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PromotionCode" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="PromotionName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="ImageCss" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImageUrl" Type="nvarchar(max)" />
           <Property Name="BrandId" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="Customer">
+        <EntityType Name="PromotionAwardCashback">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="PromotionAwardId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Address" Type="nvarchar" MaxLength="100" />
-          <Property Name="Code" Type="varchar" MaxLength="50" />
-          <Property Name="Username" Type="varchar" MaxLength="100" />
-          <Property Name="Password" Type="varchar" MaxLength="100" />
+          <Property Name="PromotionAwardId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ForProductId" Type="int" />
+          <Property Name="CustomerCashbackMode" Type="int" />
+          <Property Name="CustomerCashbackAccountType" Type="int" />
+          <Property Name="CustomerCashbackAmount" Type="float" />
+          <Property Name="MaxCustomerCashbackAmount" Type="float" />
+          <Property Name="AffliatorCashbackMode" Type="int" />
+          <Property Name="AffliatorCashbackAccountType" Type="int" />
+          <Property Name="AffliatorCashbackAmount" Type="float" />
+          <Property Name="MaxAffliatorCashbackAmount" Type="float" />
+          <Property Name="PromotionDetailId" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="Membership">
+        <EntityType Name="PromotionAwardDiscount">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="PromotionAwardId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BrandId" Type="int" Nullable="false" />
-          <Property Name="CustomerId" Type="int" Nullable="false" />
-          <Property Name="Since" Type="datetime" />
+          <Property Name="PromotionAwardId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ForProductId" Type="int" />
+          <Property Name="BuyXGetYAmount" Type="int" />
+          <Property Name="FixedUpsizePrice" Type="float" />
+          <Property Name="SyncPrice" Type="float" />
+          <Property Name="DiscountAmout" Type="float" />
+          <Property Name="DiscountPercent" Type="float" />
+          <Property Name="ShipDiscount" Type="float" />
+          <Property Name="PromotionDetailId" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="MembershipAccount">
+        <EntityType Name="PromotionAwardGift">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="PromotionAwardId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Code" Type="varchar" MaxLength="100" />
-          <Property Name="Type" Type="int" />
-          <Property Name="MembershipId" Type="int" />
-          <Property Name="Balance" Type="float" />
+          <Property Name="PromotionAwardId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ForProductId" Type="int" />
+          <Property Name="GiftVoucherId" Type="int" />
+          <Property Name="GiftVoucherOfPromotionId" Type="int" />
+          <Property Name="GiftPresentId" Type="int" />
+          <Property Name="GiftProductId" Type="int" />
+          <Property Name="PromotionDetailId" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="MembershipCard">
+        <EntityType Name="PromotionConstraint">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="ConstraintId" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Code" Type="varchar" MaxLength="100" />
-          <Property Name="MembershipId" Type="int" />
-          <Property Name="Type" Type="int" />
+          <Property Name="ConstraintId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HasTimeContraint" Type="bit" Nullable="false" />
+          <Property Name="PromotionBeginDate" Type="datetime" />
+          <Property Name="PromotionEndDate" Type="datetime" />
+          <Property Name="HasOrderConstraint" Type="bit" Nullable="false" />
+          <Property Name="FixProductFilter" Type="bit" />
+          <Property Name="MinTotalProducts" Type="int" />
+          <Property Name="MaxTotalProducts" Type="int" />
+          <Property Name="MinTotalAmount" Type="float" />
+          <Property Name="MaxTotalAmount" Type="float" />
+          <Property Name="MinPersonCount" Type="int" />
+          <Property Name="MaxPersonCount" Type="int" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="MinAge" Type="int" />
+          <Property Name="MaxAge" Type="int" />
+          <Property Name="HasPaymentConstraint" Type="bit" Nullable="false" />
+          <Property Name="PaymentType" Type="int" />
+          <Property Name="PaymentPartnerCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="HasStoreConstraint" Type="bit" Nullable="false" />
+          <Property Name="HasMembershipConstraint" Type="bit" Nullable="false" />
+          <Property Name="MembershipCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="MembershipTypeCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="MembershipCodePattern" Type="nvarchar(max)" />
+          <Property Name="MembershipMinLevel" Type="int" />
+          <Property Name="MembershipMaxLevel" Type="int" />
+          <Property Name="MinPoint" Type="float" />
+          <Property Name="MaxPoint" Type="float" />
+          <Property Name="MinJoinDate" Type="int" />
+          <Property Name="HasSaleModeConstraint" Type="bit" Nullable="false" />
+          <Property Name="ForTakeAway" Type="bit" />
+          <Property Name="ForDelivery" Type="bit" />
+          <Property Name="ForInstore" Type="bit" />
+          <Property Name="ForInstorePreorder" Type="bit" />
+          <Property Name="HasCollectionConstraint" Type="bit" Nullable="false" />
+          <Property Name="PromotionDetailId" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK_BrandAccount_Brand">
-          <End Role="Brand" Type="Self.Brand" Multiplicity="0..1" />
-          <End Role="BrandAccount" Type="Self.BrandAccount" Multiplicity="*" />
+        <EntityType Name="PromotionDetail">
+          <Key>
+            <PropertyRef Name="PromotionDetailId" />
+          </Key>
+          <Property Name="PromotionDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DetailCode" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="ApplyQuantity" Type="int" />
+          <Property Name="AppliedQuantity" Type="int" />
+          <Property Name="HasVoucher" Type="bit" Nullable="false" />
+          <Property Name="VoucherQuantity" Type="int" />
+          <Property Name="VoucherUsedQuantity" Type="int" />
+          <Property Name="AwardDiscount" Type="bit" Nullable="false" />
+          <Property Name="AwardGift" Type="bit" Nullable="false" />
+          <Property Name="AwardCashback" Type="bit" Nullable="false" />
+          <Property Name="AutoGenLength" Type="int" />
+          <Property Name="Prefix" Type="nvarchar" MaxLength="100" />
+          <Property Name="Postfix" Type="nvarchar" MaxLength="100" />
+          <Property Name="Pattern" Type="nvarchar" MaxLength="100" />
+          <Property Name="PromotionPartnerId" Type="int" />
+          <Property Name="PromotionId" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Voucher">
+          <Key>
+            <PropertyRef Name="VoucherId" />
+          </Key>
+          <Property Name="VoucherId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VoucherCode" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="GeneratedDate" Type="datetime" />
+          <Property Name="ExpiredDate" Type="datetime" />
+          <Property Name="ApplyQuantity" Type="int" Nullable="false" />
+          <Property Name="AppliedQuantity" Type="int" Nullable="false" />
+          <Property Name="IsGetted" Type="bit" Nullable="false" />
+          <Property Name="MembershipCode" Type="nvarchar" MaxLength="250" />
+          <Property Name="PromotionDetailId" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__PC_DateTi__Const__02FC7413">
+          <End Role="PromotionConstraint" Type="Self.PromotionConstraint" Multiplicity="1" />
+          <End Role="PC_DateTimeFilter" Type="Self.PC_DateTimeFilter" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Brand">
-              <PropertyRef Name="Id" />
+            <Principal Role="PromotionConstraint">
+              <PropertyRef Name="ConstraintId" />
             </Principal>
-            <Dependent Role="BrandAccount">
-              <PropertyRef Name="BrandId" />
+            <Dependent Role="PC_DateTimeFilter">
+              <PropertyRef Name="ConstraintId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Membership_Brand">
-          <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
-          <End Role="Membership" Type="Self.Membership" Multiplicity="*" />
+        <Association Name="FK__PC_Produc__Const__05D8E0BE">
+          <End Role="PromotionConstraint" Type="Self.PromotionConstraint" Multiplicity="1" />
+          <End Role="PC_ProductFilter" Type="Self.PC_ProductFilter" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Brand">
-              <PropertyRef Name="Id" />
+            <Principal Role="PromotionConstraint">
+              <PropertyRef Name="ConstraintId" />
             </Principal>
-            <Dependent Role="Membership">
-              <PropertyRef Name="BrandId" />
+            <Dependent Role="PC_ProductFilter">
+              <PropertyRef Name="ConstraintId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Membership_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="Membership" Type="Self.Membership" Multiplicity="*" />
+        <Association Name="FK__PC_StoreF__Const__08B54D69">
+          <End Role="PromotionConstraint" Type="Self.PromotionConstraint" Multiplicity="1" />
+          <End Role="PC_StoreFilter" Type="Self.PC_StoreFilter" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
+            <Principal Role="PromotionConstraint">
+              <PropertyRef Name="ConstraintId" />
             </Principal>
-            <Dependent Role="Membership">
-              <PropertyRef Name="CustomerId" />
+            <Dependent Role="PC_StoreFilter">
+              <PropertyRef Name="ConstraintId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MembershipAccount_Membership">
-          <End Role="Membership" Type="Self.Membership" Multiplicity="0..1" />
-          <End Role="MembershipAccount" Type="Self.MembershipAccount" Multiplicity="*" />
+        <Association Name="FK__Promotion__Promo__00200768">
+          <End Role="PromotionDetail" Type="Self.PromotionDetail" Multiplicity="0..1" />
+          <End Role="PromotionConstraint" Type="Self.PromotionConstraint" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Membership">
-              <PropertyRef Name="Id" />
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="PromotionDetailId" />
             </Principal>
-            <Dependent Role="MembershipAccount">
-              <PropertyRef Name="MembershipId" />
+            <Dependent Role="PromotionConstraint">
+              <PropertyRef Name="PromotionDetailId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MembershipCard_Membership">
-          <End Role="Membership" Type="Self.Membership" Multiplicity="0..1" />
-          <End Role="MembershipCard" Type="Self.MembershipCard" Multiplicity="*" />
+        <Association Name="FK__Promotion__Promo__71D1E811">
+          <End Role="Promotion" Type="Self.Promotion" Multiplicity="1" />
+          <End Role="PromotionDetail" Type="Self.PromotionDetail" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Membership">
-              <PropertyRef Name="Id" />
+            <Principal Role="Promotion">
+              <PropertyRef Name="PromotionId" />
             </Principal>
-            <Dependent Role="MembershipCard">
-              <PropertyRef Name="MembershipId" />
+            <Dependent Role="PromotionDetail">
+              <PropertyRef Name="PromotionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Promotion__Promo__74AE54BC">
+          <End Role="PromotionDetail" Type="Self.PromotionDetail" Multiplicity="1" />
+          <End Role="PromotionAwardDiscount" Type="Self.PromotionAwardDiscount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="PromotionDetailId" />
+            </Principal>
+            <Dependent Role="PromotionAwardDiscount">
+              <PropertyRef Name="PromotionDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Promotion__Promo__778AC167">
+          <End Role="PromotionDetail" Type="Self.PromotionDetail" Multiplicity="1" />
+          <End Role="PromotionAwardGift" Type="Self.PromotionAwardGift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="PromotionDetailId" />
+            </Principal>
+            <Dependent Role="PromotionAwardGift">
+              <PropertyRef Name="PromotionDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Promotion__Promo__7A672E12">
+          <End Role="PromotionDetail" Type="Self.PromotionDetail" Multiplicity="1" />
+          <End Role="PromotionAwardCashback" Type="Self.PromotionAwardCashback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="PromotionDetailId" />
+            </Principal>
+            <Dependent Role="PromotionAwardCashback">
+              <PropertyRef Name="PromotionDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Voucher__Promoti__7D439ABD">
+          <End Role="PromotionDetail" Type="Self.PromotionDetail" Multiplicity="1" />
+          <End Role="Voucher" Type="Self.Voucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="PromotionDetailId" />
+            </Principal>
+            <Dependent Role="Voucher">
+              <PropertyRef Name="PromotionDetailId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="PromoterModelStoreContainer">
-          <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BrandAccount" EntityType="Self.BrandAccount" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Membership" EntityType="Self.Membership" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MembershipAccount" EntityType="Self.MembershipAccount" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MembershipCard" EntityType="Self.MembershipCard" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_BrandAccount_Brand" Association="Self.FK_BrandAccount_Brand">
-            <End Role="Brand" EntitySet="Brand" />
-            <End Role="BrandAccount" EntitySet="BrandAccount" />
+          <EntitySet Name="PC_DateTimeFilter" EntityType="Self.PC_DateTimeFilter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PC_ProductFilter" EntityType="Self.PC_ProductFilter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PC_StoreFilter" EntityType="Self.PC_StoreFilter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Promotion" EntityType="Self.Promotion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromotionAwardCashback" EntityType="Self.PromotionAwardCashback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromotionAwardDiscount" EntityType="Self.PromotionAwardDiscount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromotionAwardGift" EntityType="Self.PromotionAwardGift" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromotionConstraint" EntityType="Self.PromotionConstraint" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromotionDetail" EntityType="Self.PromotionDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Voucher" EntityType="Self.Voucher" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__PC_DateTi__Const__02FC7413" Association="Self.FK__PC_DateTi__Const__02FC7413">
+            <End Role="PromotionConstraint" EntitySet="PromotionConstraint" />
+            <End Role="PC_DateTimeFilter" EntitySet="PC_DateTimeFilter" />
           </AssociationSet>
-          <AssociationSet Name="FK_Membership_Brand" Association="Self.FK_Membership_Brand">
-            <End Role="Brand" EntitySet="Brand" />
-            <End Role="Membership" EntitySet="Membership" />
+          <AssociationSet Name="FK__PC_Produc__Const__05D8E0BE" Association="Self.FK__PC_Produc__Const__05D8E0BE">
+            <End Role="PromotionConstraint" EntitySet="PromotionConstraint" />
+            <End Role="PC_ProductFilter" EntitySet="PC_ProductFilter" />
           </AssociationSet>
-          <AssociationSet Name="FK_Membership_Customer" Association="Self.FK_Membership_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="Membership" EntitySet="Membership" />
+          <AssociationSet Name="FK__PC_StoreF__Const__08B54D69" Association="Self.FK__PC_StoreF__Const__08B54D69">
+            <End Role="PromotionConstraint" EntitySet="PromotionConstraint" />
+            <End Role="PC_StoreFilter" EntitySet="PC_StoreFilter" />
           </AssociationSet>
-          <AssociationSet Name="FK_MembershipAccount_Membership" Association="Self.FK_MembershipAccount_Membership">
-            <End Role="Membership" EntitySet="Membership" />
-            <End Role="MembershipAccount" EntitySet="MembershipAccount" />
+          <AssociationSet Name="FK__Promotion__Promo__00200768" Association="Self.FK__Promotion__Promo__00200768">
+            <End Role="PromotionDetail" EntitySet="PromotionDetail" />
+            <End Role="PromotionConstraint" EntitySet="PromotionConstraint" />
           </AssociationSet>
-          <AssociationSet Name="FK_MembershipCard_Membership" Association="Self.FK_MembershipCard_Membership">
-            <End Role="Membership" EntitySet="Membership" />
-            <End Role="MembershipCard" EntitySet="MembershipCard" />
+          <AssociationSet Name="FK__Promotion__Promo__71D1E811" Association="Self.FK__Promotion__Promo__71D1E811">
+            <End Role="Promotion" EntitySet="Promotion" />
+            <End Role="PromotionDetail" EntitySet="PromotionDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Promotion__Promo__74AE54BC" Association="Self.FK__Promotion__Promo__74AE54BC">
+            <End Role="PromotionDetail" EntitySet="PromotionDetail" />
+            <End Role="PromotionAwardDiscount" EntitySet="PromotionAwardDiscount" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Promotion__Promo__778AC167" Association="Self.FK__Promotion__Promo__778AC167">
+            <End Role="PromotionDetail" EntitySet="PromotionDetail" />
+            <End Role="PromotionAwardGift" EntitySet="PromotionAwardGift" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Promotion__Promo__7A672E12" Association="Self.FK__Promotion__Promo__7A672E12">
+            <End Role="PromotionDetail" EntitySet="PromotionDetail" />
+            <End Role="PromotionAwardCashback" EntitySet="PromotionAwardCashback" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Voucher__Promoti__7D439ABD" Association="Self.FK__Voucher__Promoti__7D439ABD">
+            <End Role="PromotionDetail" EntitySet="PromotionDetail" />
+            <End Role="Voucher" EntitySet="Voucher" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PromoterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Brand">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="BrandAccounts" Relationship="Self.FK_BrandAccount_Brand" FromRole="Brand" ToRole="BrandAccount" />
-          <NavigationProperty Name="Memberships" Relationship="Self.FK_Membership_Brand" FromRole="Brand" ToRole="Membership" />
-        </EntityType>
-        <EntityType Name="BrandAccount">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="BrandId" Type="Int32" />
-          <NavigationProperty Name="Brand" Relationship="Self.FK_BrandAccount_Brand" FromRole="BrandAccount" ToRole="Brand" />
-        </EntityType>
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Memberships" Relationship="Self.FK_Membership_Customer" FromRole="Customer" ToRole="Membership" />
-        </EntityType>
-        <EntityType Name="Membership">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BrandId" Type="Int32" Nullable="false" />
-          <Property Name="CustomerId" Type="Int32" Nullable="false" />
-          <Property Name="Since" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Brand" Relationship="Self.FK_Membership_Brand" FromRole="Membership" ToRole="Brand" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Membership_Customer" FromRole="Membership" ToRole="Customer" />
-          <NavigationProperty Name="MembershipAccounts" Relationship="Self.FK_MembershipAccount_Membership" FromRole="Membership" ToRole="MembershipAccount" />
-          <NavigationProperty Name="MembershipCards" Relationship="Self.FK_MembershipCard_Membership" FromRole="Membership" ToRole="MembershipCard" />
-        </EntityType>
-        <EntityType Name="MembershipAccount">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="Int32" />
-          <Property Name="MembershipId" Type="Int32" />
-          <Property Name="Balance" Type="Double" />
-          <NavigationProperty Name="Membership" Relationship="Self.FK_MembershipAccount_Membership" FromRole="MembershipAccount" ToRole="Membership" />
-        </EntityType>
-        <EntityType Name="MembershipCard">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="MembershipId" Type="Int32" />
-          <Property Name="Type" Type="Int32" />
-          <NavigationProperty Name="Membership" Relationship="Self.FK_MembershipCard_Membership" FromRole="MembershipCard" ToRole="Membership" />
-        </EntityType>
-        <Association Name="FK_BrandAccount_Brand">
-          <End Role="Brand" Type="Self.Brand" Multiplicity="0..1" />
-          <End Role="BrandAccount" Type="Self.BrandAccount" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Brand">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BrandAccount">
-              <PropertyRef Name="BrandId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Membership_Brand">
-          <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
-          <End Role="Membership" Type="Self.Membership" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Brand">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Membership">
-              <PropertyRef Name="BrandId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Membership_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="Membership" Type="Self.Membership" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Membership">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MembershipAccount_Membership">
-          <End Role="Membership" Type="Self.Membership" Multiplicity="0..1" />
-          <End Role="MembershipAccount" Type="Self.MembershipAccount" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Membership">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MembershipAccount">
-              <PropertyRef Name="MembershipId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MembershipCard_Membership">
-          <End Role="Membership" Type="Self.Membership" Multiplicity="0..1" />
-          <End Role="MembershipCard" Type="Self.MembershipCard" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Membership">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MembershipCard">
-              <PropertyRef Name="MembershipId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="PromoterEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Brands" EntityType="Self.Brand" />
-          <EntitySet Name="BrandAccounts" EntityType="Self.BrandAccount" />
-          <EntitySet Name="Customers" EntityType="Self.Customer" />
-          <EntitySet Name="Memberships" EntityType="Self.Membership" />
-          <EntitySet Name="MembershipAccounts" EntityType="Self.MembershipAccount" />
-          <EntitySet Name="MembershipCards" EntityType="Self.MembershipCard" />
-          <AssociationSet Name="FK_BrandAccount_Brand" Association="Self.FK_BrandAccount_Brand">
-            <End Role="Brand" EntitySet="Brands" />
-            <End Role="BrandAccount" EntitySet="BrandAccounts" />
+          <EntitySet Name="PC_DateTimeFilter" EntityType="PromoterModel.PC_DateTimeFilter" />
+          <EntitySet Name="PC_ProductFilter" EntityType="PromoterModel.PC_ProductFilter" />
+          <EntitySet Name="PC_StoreFilter" EntityType="PromoterModel.PC_StoreFilter" />
+          <EntitySet Name="Promotions" EntityType="PromoterModel.Promotion" />
+          <EntitySet Name="PromotionAwardCashbacks" EntityType="PromoterModel.PromotionAwardCashback" />
+          <EntitySet Name="PromotionAwardDiscounts" EntityType="PromoterModel.PromotionAwardDiscount" />
+          <EntitySet Name="PromotionAwardGifts" EntityType="PromoterModel.PromotionAwardGift" />
+          <EntitySet Name="PromotionConstraints" EntityType="PromoterModel.PromotionConstraint" />
+          <EntitySet Name="PromotionDetails" EntityType="PromoterModel.PromotionDetail" />
+          <EntitySet Name="Vouchers" EntityType="PromoterModel.Voucher" />
+          <AssociationSet Name="FK__PC_DateTi__Const__02FC7413" Association="PromoterModel.FK__PC_DateTi__Const__02FC7413">
+            <End Role="PromotionConstraint" EntitySet="PromotionConstraints" />
+            <End Role="PC_DateTimeFilter" EntitySet="PC_DateTimeFilter" />
           </AssociationSet>
-          <AssociationSet Name="FK_Membership_Brand" Association="Self.FK_Membership_Brand">
-            <End Role="Brand" EntitySet="Brands" />
-            <End Role="Membership" EntitySet="Memberships" />
+          <AssociationSet Name="FK__PC_Produc__Const__05D8E0BE" Association="PromoterModel.FK__PC_Produc__Const__05D8E0BE">
+            <End Role="PromotionConstraint" EntitySet="PromotionConstraints" />
+            <End Role="PC_ProductFilter" EntitySet="PC_ProductFilter" />
           </AssociationSet>
-          <AssociationSet Name="FK_Membership_Customer" Association="Self.FK_Membership_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Membership" EntitySet="Memberships" />
+          <AssociationSet Name="FK__PC_StoreF__Const__08B54D69" Association="PromoterModel.FK__PC_StoreF__Const__08B54D69">
+            <End Role="PromotionConstraint" EntitySet="PromotionConstraints" />
+            <End Role="PC_StoreFilter" EntitySet="PC_StoreFilter" />
           </AssociationSet>
-          <AssociationSet Name="FK_MembershipAccount_Membership" Association="Self.FK_MembershipAccount_Membership">
-            <End Role="Membership" EntitySet="Memberships" />
-            <End Role="MembershipAccount" EntitySet="MembershipAccounts" />
+          <AssociationSet Name="FK__Promotion__Promo__71D1E811" Association="PromoterModel.FK__Promotion__Promo__71D1E811">
+            <End Role="Promotion" EntitySet="Promotions" />
+            <End Role="PromotionDetail" EntitySet="PromotionDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_MembershipCard_Membership" Association="Self.FK_MembershipCard_Membership">
-            <End Role="Membership" EntitySet="Memberships" />
-            <End Role="MembershipCard" EntitySet="MembershipCards" />
+          <AssociationSet Name="FK__Promotion__Promo__7A672E12" Association="PromoterModel.FK__Promotion__Promo__7A672E12">
+            <End Role="PromotionDetail" EntitySet="PromotionDetails" />
+            <End Role="PromotionAwardCashback" EntitySet="PromotionAwardCashbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Promotion__Promo__74AE54BC" Association="PromoterModel.FK__Promotion__Promo__74AE54BC">
+            <End Role="PromotionDetail" EntitySet="PromotionDetails" />
+            <End Role="PromotionAwardDiscount" EntitySet="PromotionAwardDiscounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Promotion__Promo__778AC167" Association="PromoterModel.FK__Promotion__Promo__778AC167">
+            <End Role="PromotionDetail" EntitySet="PromotionDetails" />
+            <End Role="PromotionAwardGift" EntitySet="PromotionAwardGifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Promotion__Promo__00200768" Association="PromoterModel.FK__Promotion__Promo__00200768">
+            <End Role="PromotionDetail" EntitySet="PromotionDetails" />
+            <End Role="PromotionConstraint" EntitySet="PromotionConstraints" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Voucher__Promoti__7D439ABD" Association="PromoterModel.FK__Voucher__Promoti__7D439ABD">
+            <End Role="PromotionDetail" EntitySet="PromotionDetails" />
+            <End Role="Voucher" EntitySet="Vouchers" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
+        <EntityType Name="PC_DateTimeFilter">
+          <Key>
+            <PropertyRef Name="FilterId" />
+          </Key>
+          <Property Name="FilterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BeginDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="DayOfWeek" Type="Int32" />
+          <Property Name="BeginHour" Type="Time" Precision="7" />
+          <Property Name="EndHour" Type="Time" Precision="7" />
+          <Property Name="ConstraintId" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PromotionConstraint" Relationship="PromoterModel.FK__PC_DateTi__Const__02FC7413" FromRole="PC_DateTimeFilter" ToRole="PromotionConstraint" />
+        </EntityType>
+        <EntityType Name="PC_ProductFilter">
+          <Key>
+            <PropertyRef Name="FilterId" />
+          </Key>
+          <Property Name="FilterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="ProductCategoryId" Type="Int32" />
+          <Property Name="ProductMenuId" Type="Int32" />
+          <Property Name="MinBuyQuantity" Type="Int32" />
+          <Property Name="MaxBuyQuantity" Type="Int32" />
+          <Property Name="ConstraintId" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PromotionConstraint" Relationship="PromoterModel.FK__PC_Produc__Const__05D8E0BE" FromRole="PC_ProductFilter" ToRole="PromotionConstraint" />
+        </EntityType>
+        <EntityType Name="PC_StoreFilter">
+          <Key>
+            <PropertyRef Name="StoreId" />
+            <PropertyRef Name="ConstraintId" />
+          </Key>
+          <Property Name="StoreId" Type="Int32" Nullable="false" />
+          <Property Name="ConstraintId" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PromotionConstraint" Relationship="PromoterModel.FK__PC_StoreF__Const__08B54D69" FromRole="PC_StoreFilter" ToRole="PromotionConstraint" />
+        </EntityType>
+        <EntityType Name="Promotion">
+          <Key>
+            <PropertyRef Name="PromotionId" />
+          </Key>
+          <Property Name="PromotionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PromotionCode" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PromotionName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ImageCss" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BrandId" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PromotionDetails" Relationship="PromoterModel.FK__Promotion__Promo__71D1E811" FromRole="Promotion" ToRole="PromotionDetail" />
+        </EntityType>
+        <EntityType Name="PromotionAwardCashback">
+          <Key>
+            <PropertyRef Name="PromotionAwardId" />
+          </Key>
+          <Property Name="PromotionAwardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ForProductId" Type="Int32" />
+          <Property Name="CustomerCashbackMode" Type="Int32" />
+          <Property Name="CustomerCashbackAccountType" Type="Int32" />
+          <Property Name="CustomerCashbackAmount" Type="Double" />
+          <Property Name="MaxCustomerCashbackAmount" Type="Double" />
+          <Property Name="AffliatorCashbackMode" Type="Int32" />
+          <Property Name="AffliatorCashbackAccountType" Type="Int32" />
+          <Property Name="AffliatorCashbackAmount" Type="Double" />
+          <Property Name="MaxAffliatorCashbackAmount" Type="Double" />
+          <Property Name="PromotionDetailId" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PromotionDetail" Relationship="PromoterModel.FK__Promotion__Promo__7A672E12" FromRole="PromotionAwardCashback" ToRole="PromotionDetail" />
+        </EntityType>
+        <EntityType Name="PromotionAwardDiscount">
+          <Key>
+            <PropertyRef Name="PromotionAwardId" />
+          </Key>
+          <Property Name="PromotionAwardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ForProductId" Type="Int32" />
+          <Property Name="BuyXGetYAmount" Type="Int32" />
+          <Property Name="FixedUpsizePrice" Type="Double" />
+          <Property Name="SyncPrice" Type="Double" />
+          <Property Name="DiscountAmout" Type="Double" />
+          <Property Name="DiscountPercent" Type="Double" />
+          <Property Name="ShipDiscount" Type="Double" />
+          <Property Name="PromotionDetailId" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PromotionDetail" Relationship="PromoterModel.FK__Promotion__Promo__74AE54BC" FromRole="PromotionAwardDiscount" ToRole="PromotionDetail" />
+        </EntityType>
+        <EntityType Name="PromotionAwardGift">
+          <Key>
+            <PropertyRef Name="PromotionAwardId" />
+          </Key>
+          <Property Name="PromotionAwardId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ForProductId" Type="Int32" />
+          <Property Name="GiftVoucherId" Type="Int32" />
+          <Property Name="GiftVoucherOfPromotionId" Type="Int32" />
+          <Property Name="GiftPresentId" Type="Int32" />
+          <Property Name="GiftProductId" Type="Int32" />
+          <Property Name="PromotionDetailId" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PromotionDetail" Relationship="PromoterModel.FK__Promotion__Promo__778AC167" FromRole="PromotionAwardGift" ToRole="PromotionDetail" />
+        </EntityType>
+        <EntityType Name="PromotionConstraint">
+          <Key>
+            <PropertyRef Name="ConstraintId" />
+          </Key>
+          <Property Name="ConstraintId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HasTimeContraint" Type="Boolean" Nullable="false" />
+          <Property Name="PromotionBeginDate" Type="DateTime" Precision="3" />
+          <Property Name="PromotionEndDate" Type="DateTime" Precision="3" />
+          <Property Name="HasOrderConstraint" Type="Boolean" Nullable="false" />
+          <Property Name="FixProductFilter" Type="Boolean" />
+          <Property Name="MinTotalProducts" Type="Int32" />
+          <Property Name="MaxTotalProducts" Type="Int32" />
+          <Property Name="MinTotalAmount" Type="Double" />
+          <Property Name="MaxTotalAmount" Type="Double" />
+          <Property Name="MinPersonCount" Type="Int32" />
+          <Property Name="MaxPersonCount" Type="Int32" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="MinAge" Type="Int32" />
+          <Property Name="MaxAge" Type="Int32" />
+          <Property Name="HasPaymentConstraint" Type="Boolean" Nullable="false" />
+          <Property Name="PaymentType" Type="Int32" />
+          <Property Name="PaymentPartnerCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="HasStoreConstraint" Type="Boolean" Nullable="false" />
+          <Property Name="HasMembershipConstraint" Type="Boolean" Nullable="false" />
+          <Property Name="MembershipCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MembershipTypeCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MembershipCodePattern" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MembershipMinLevel" Type="Int32" />
+          <Property Name="MembershipMaxLevel" Type="Int32" />
+          <Property Name="MinPoint" Type="Double" />
+          <Property Name="MaxPoint" Type="Double" />
+          <Property Name="MinJoinDate" Type="Int32" />
+          <Property Name="HasSaleModeConstraint" Type="Boolean" Nullable="false" />
+          <Property Name="ForTakeAway" Type="Boolean" />
+          <Property Name="ForDelivery" Type="Boolean" />
+          <Property Name="ForInstore" Type="Boolean" />
+          <Property Name="ForInstorePreorder" Type="Boolean" />
+          <Property Name="HasCollectionConstraint" Type="Boolean" Nullable="false" />
+          <Property Name="PromotionDetailId" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PC_DateTimeFilter" Relationship="PromoterModel.FK__PC_DateTi__Const__02FC7413" FromRole="PromotionConstraint" ToRole="PC_DateTimeFilter" />
+          <NavigationProperty Name="PC_ProductFilter" Relationship="PromoterModel.FK__PC_Produc__Const__05D8E0BE" FromRole="PromotionConstraint" ToRole="PC_ProductFilter" />
+          <NavigationProperty Name="PC_StoreFilter" Relationship="PromoterModel.FK__PC_StoreF__Const__08B54D69" FromRole="PromotionConstraint" ToRole="PC_StoreFilter" />
+          <NavigationProperty Name="PromotionDetail" Relationship="PromoterModel.FK__Promotion__Promo__00200768" FromRole="PromotionConstraint" ToRole="PromotionDetail" />
+        </EntityType>
+        <EntityType Name="PromotionDetail">
+          <Key>
+            <PropertyRef Name="PromotionDetailId" />
+          </Key>
+          <Property Name="PromotionDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DetailCode" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ApplyQuantity" Type="Int32" />
+          <Property Name="AppliedQuantity" Type="Int32" />
+          <Property Name="HasVoucher" Type="Boolean" Nullable="false" />
+          <Property Name="VoucherQuantity" Type="Int32" />
+          <Property Name="VoucherUsedQuantity" Type="Int32" />
+          <Property Name="AwardDiscount" Type="Boolean" Nullable="false" />
+          <Property Name="AwardGift" Type="Boolean" Nullable="false" />
+          <Property Name="AwardCashback" Type="Boolean" Nullable="false" />
+          <Property Name="AutoGenLength" Type="Int32" />
+          <Property Name="Prefix" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Postfix" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Pattern" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PromotionPartnerId" Type="Int32" />
+          <Property Name="PromotionId" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Promotion" Relationship="PromoterModel.FK__Promotion__Promo__71D1E811" FromRole="PromotionDetail" ToRole="Promotion" />
+          <NavigationProperty Name="PromotionAwardCashbacks" Relationship="PromoterModel.FK__Promotion__Promo__7A672E12" FromRole="PromotionDetail" ToRole="PromotionAwardCashback" />
+          <NavigationProperty Name="PromotionAwardDiscounts" Relationship="PromoterModel.FK__Promotion__Promo__74AE54BC" FromRole="PromotionDetail" ToRole="PromotionAwardDiscount" />
+          <NavigationProperty Name="PromotionAwardGifts" Relationship="PromoterModel.FK__Promotion__Promo__778AC167" FromRole="PromotionDetail" ToRole="PromotionAwardGift" />
+          <NavigationProperty Name="PromotionConstraints" Relationship="PromoterModel.FK__Promotion__Promo__00200768" FromRole="PromotionDetail" ToRole="PromotionConstraint" />
+          <NavigationProperty Name="Vouchers" Relationship="PromoterModel.FK__Voucher__Promoti__7D439ABD" FromRole="PromotionDetail" ToRole="Voucher" />
+        </EntityType>
+        <EntityType Name="Voucher">
+          <Key>
+            <PropertyRef Name="VoucherId" />
+          </Key>
+          <Property Name="VoucherId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VoucherCode" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="GeneratedDate" Type="DateTime" Precision="3" />
+          <Property Name="ExpiredDate" Type="DateTime" Precision="3" />
+          <Property Name="ApplyQuantity" Type="Int32" Nullable="false" />
+          <Property Name="AppliedQuantity" Type="Int32" Nullable="false" />
+          <Property Name="IsGetted" Type="Boolean" Nullable="false" />
+          <Property Name="MembershipCode" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PromotionDetailId" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PromotionDetail" Relationship="PromoterModel.FK__Voucher__Promoti__7D439ABD" FromRole="Voucher" ToRole="PromotionDetail" />
+        </EntityType>
+        <Association Name="FK__PC_DateTi__Const__02FC7413">
+          <End Type="PromoterModel.PromotionConstraint" Role="PromotionConstraint" Multiplicity="1" />
+          <End Type="PromoterModel.PC_DateTimeFilter" Role="PC_DateTimeFilter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionConstraint">
+              <PropertyRef Name="ConstraintId" />
+            </Principal>
+            <Dependent Role="PC_DateTimeFilter">
+              <PropertyRef Name="ConstraintId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PC_Produc__Const__05D8E0BE">
+          <End Type="PromoterModel.PromotionConstraint" Role="PromotionConstraint" Multiplicity="1" />
+          <End Type="PromoterModel.PC_ProductFilter" Role="PC_ProductFilter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionConstraint">
+              <PropertyRef Name="ConstraintId" />
+            </Principal>
+            <Dependent Role="PC_ProductFilter">
+              <PropertyRef Name="ConstraintId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PC_StoreF__Const__08B54D69">
+          <End Type="PromoterModel.PromotionConstraint" Role="PromotionConstraint" Multiplicity="1" />
+          <End Type="PromoterModel.PC_StoreFilter" Role="PC_StoreFilter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionConstraint">
+              <PropertyRef Name="ConstraintId" />
+            </Principal>
+            <Dependent Role="PC_StoreFilter">
+              <PropertyRef Name="ConstraintId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Promotion__Promo__71D1E811">
+          <End Type="PromoterModel.Promotion" Role="Promotion" Multiplicity="1" />
+          <End Type="PromoterModel.PromotionDetail" Role="PromotionDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion">
+              <PropertyRef Name="PromotionId" />
+            </Principal>
+            <Dependent Role="PromotionDetail">
+              <PropertyRef Name="PromotionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Promotion__Promo__7A672E12">
+          <End Type="PromoterModel.PromotionDetail" Role="PromotionDetail" Multiplicity="1" />
+          <End Type="PromoterModel.PromotionAwardCashback" Role="PromotionAwardCashback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="PromotionDetailId" />
+            </Principal>
+            <Dependent Role="PromotionAwardCashback">
+              <PropertyRef Name="PromotionDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Promotion__Promo__74AE54BC">
+          <End Type="PromoterModel.PromotionDetail" Role="PromotionDetail" Multiplicity="1" />
+          <End Type="PromoterModel.PromotionAwardDiscount" Role="PromotionAwardDiscount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="PromotionDetailId" />
+            </Principal>
+            <Dependent Role="PromotionAwardDiscount">
+              <PropertyRef Name="PromotionDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Promotion__Promo__778AC167">
+          <End Type="PromoterModel.PromotionDetail" Role="PromotionDetail" Multiplicity="1" />
+          <End Type="PromoterModel.PromotionAwardGift" Role="PromotionAwardGift" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="PromotionDetailId" />
+            </Principal>
+            <Dependent Role="PromotionAwardGift">
+              <PropertyRef Name="PromotionDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Promotion__Promo__00200768">
+          <End Type="PromoterModel.PromotionDetail" Role="PromotionDetail" Multiplicity="0..1" />
+          <End Type="PromoterModel.PromotionConstraint" Role="PromotionConstraint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="PromotionDetailId" />
+            </Principal>
+            <Dependent Role="PromotionConstraint">
+              <PropertyRef Name="PromotionDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Voucher__Promoti__7D439ABD">
+          <End Type="PromoterModel.PromotionDetail" Role="PromotionDetail" Multiplicity="1" />
+          <End Type="PromoterModel.Voucher" Role="Voucher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PromotionDetail">
+              <PropertyRef Name="PromotionDetailId" />
+            </Principal>
+            <Dependent Role="Voucher">
+              <PropertyRef Name="PromotionDetailId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="PromoterModelStoreContainer" CdmEntityContainer="PromoterEntities">
-          <EntitySetMapping Name="Brands">
-            <EntityTypeMapping TypeName="PromoterModel.Brand">
-              <MappingFragment StoreEntitySet="Brand">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
+          <EntitySetMapping Name="PC_DateTimeFilter">
+            <EntityTypeMapping TypeName="PromoterModel.PC_DateTimeFilter">
+              <MappingFragment StoreEntitySet="PC_DateTimeFilter">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ConstraintId" ColumnName="ConstraintId" />
+                <ScalarProperty Name="EndHour" ColumnName="EndHour" />
+                <ScalarProperty Name="BeginHour" ColumnName="BeginHour" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="FilterId" ColumnName="FilterId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BrandAccounts">
-            <EntityTypeMapping TypeName="PromoterModel.BrandAccount">
-              <MappingFragment StoreEntitySet="BrandAccount">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
+          <EntitySetMapping Name="PC_ProductFilter">
+            <EntityTypeMapping TypeName="PromoterModel.PC_ProductFilter">
+              <MappingFragment StoreEntitySet="PC_ProductFilter">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ConstraintId" ColumnName="ConstraintId" />
+                <ScalarProperty Name="MaxBuyQuantity" ColumnName="MaxBuyQuantity" />
+                <ScalarProperty Name="MinBuyQuantity" ColumnName="MinBuyQuantity" />
+                <ScalarProperty Name="ProductMenuId" ColumnName="ProductMenuId" />
+                <ScalarProperty Name="ProductCategoryId" ColumnName="ProductCategoryId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="FilterId" ColumnName="FilterId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PC_StoreFilter">
+            <EntityTypeMapping TypeName="PromoterModel.PC_StoreFilter">
+              <MappingFragment StoreEntitySet="PC_StoreFilter">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ConstraintId" ColumnName="ConstraintId" />
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Promotions">
+            <EntityTypeMapping TypeName="PromoterModel.Promotion">
+              <MappingFragment StoreEntitySet="Promotion">
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ImageCss" ColumnName="ImageCss" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="PromotionName" ColumnName="PromotionName" />
+                <ScalarProperty Name="PromotionCode" ColumnName="PromotionCode" />
+                <ScalarProperty Name="PromotionId" ColumnName="PromotionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="PromoterModel.Customer">
-              <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
+          <EntitySetMapping Name="PromotionAwardCashbacks">
+            <EntityTypeMapping TypeName="PromoterModel.PromotionAwardCashback">
+              <MappingFragment StoreEntitySet="PromotionAwardCashback">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PromotionDetailId" ColumnName="PromotionDetailId" />
+                <ScalarProperty Name="MaxAffliatorCashbackAmount" ColumnName="MaxAffliatorCashbackAmount" />
+                <ScalarProperty Name="AffliatorCashbackAmount" ColumnName="AffliatorCashbackAmount" />
+                <ScalarProperty Name="AffliatorCashbackAccountType" ColumnName="AffliatorCashbackAccountType" />
+                <ScalarProperty Name="AffliatorCashbackMode" ColumnName="AffliatorCashbackMode" />
+                <ScalarProperty Name="MaxCustomerCashbackAmount" ColumnName="MaxCustomerCashbackAmount" />
+                <ScalarProperty Name="CustomerCashbackAmount" ColumnName="CustomerCashbackAmount" />
+                <ScalarProperty Name="CustomerCashbackAccountType" ColumnName="CustomerCashbackAccountType" />
+                <ScalarProperty Name="CustomerCashbackMode" ColumnName="CustomerCashbackMode" />
+                <ScalarProperty Name="ForProductId" ColumnName="ForProductId" />
+                <ScalarProperty Name="PromotionAwardId" ColumnName="PromotionAwardId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Memberships">
-            <EntityTypeMapping TypeName="PromoterModel.Membership">
-              <MappingFragment StoreEntitySet="Membership">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="Since" ColumnName="Since" />
+          <EntitySetMapping Name="PromotionAwardDiscounts">
+            <EntityTypeMapping TypeName="PromoterModel.PromotionAwardDiscount">
+              <MappingFragment StoreEntitySet="PromotionAwardDiscount">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PromotionDetailId" ColumnName="PromotionDetailId" />
+                <ScalarProperty Name="ShipDiscount" ColumnName="ShipDiscount" />
+                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="DiscountAmout" ColumnName="DiscountAmout" />
+                <ScalarProperty Name="SyncPrice" ColumnName="SyncPrice" />
+                <ScalarProperty Name="FixedUpsizePrice" ColumnName="FixedUpsizePrice" />
+                <ScalarProperty Name="BuyXGetYAmount" ColumnName="BuyXGetYAmount" />
+                <ScalarProperty Name="ForProductId" ColumnName="ForProductId" />
+                <ScalarProperty Name="PromotionAwardId" ColumnName="PromotionAwardId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MembershipAccounts">
-            <EntityTypeMapping TypeName="PromoterModel.MembershipAccount">
-              <MappingFragment StoreEntitySet="MembershipAccount">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="MembershipId" ColumnName="MembershipId" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
+          <EntitySetMapping Name="PromotionAwardGifts">
+            <EntityTypeMapping TypeName="PromoterModel.PromotionAwardGift">
+              <MappingFragment StoreEntitySet="PromotionAwardGift">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PromotionDetailId" ColumnName="PromotionDetailId" />
+                <ScalarProperty Name="GiftProductId" ColumnName="GiftProductId" />
+                <ScalarProperty Name="GiftPresentId" ColumnName="GiftPresentId" />
+                <ScalarProperty Name="GiftVoucherOfPromotionId" ColumnName="GiftVoucherOfPromotionId" />
+                <ScalarProperty Name="GiftVoucherId" ColumnName="GiftVoucherId" />
+                <ScalarProperty Name="ForProductId" ColumnName="ForProductId" />
+                <ScalarProperty Name="PromotionAwardId" ColumnName="PromotionAwardId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MembershipCards">
-            <EntityTypeMapping TypeName="PromoterModel.MembershipCard">
-              <MappingFragment StoreEntitySet="MembershipCard">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="MembershipId" ColumnName="MembershipId" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
+          <EntitySetMapping Name="PromotionConstraints">
+            <EntityTypeMapping TypeName="PromoterModel.PromotionConstraint">
+              <MappingFragment StoreEntitySet="PromotionConstraint">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PromotionDetailId" ColumnName="PromotionDetailId" />
+                <ScalarProperty Name="HasCollectionConstraint" ColumnName="HasCollectionConstraint" />
+                <ScalarProperty Name="ForInstorePreorder" ColumnName="ForInstorePreorder" />
+                <ScalarProperty Name="ForInstore" ColumnName="ForInstore" />
+                <ScalarProperty Name="ForDelivery" ColumnName="ForDelivery" />
+                <ScalarProperty Name="ForTakeAway" ColumnName="ForTakeAway" />
+                <ScalarProperty Name="HasSaleModeConstraint" ColumnName="HasSaleModeConstraint" />
+                <ScalarProperty Name="MinJoinDate" ColumnName="MinJoinDate" />
+                <ScalarProperty Name="MaxPoint" ColumnName="MaxPoint" />
+                <ScalarProperty Name="MinPoint" ColumnName="MinPoint" />
+                <ScalarProperty Name="MembershipMaxLevel" ColumnName="MembershipMaxLevel" />
+                <ScalarProperty Name="MembershipMinLevel" ColumnName="MembershipMinLevel" />
+                <ScalarProperty Name="MembershipCodePattern" ColumnName="MembershipCodePattern" />
+                <ScalarProperty Name="MembershipTypeCode" ColumnName="MembershipTypeCode" />
+                <ScalarProperty Name="MembershipCode" ColumnName="MembershipCode" />
+                <ScalarProperty Name="HasMembershipConstraint" ColumnName="HasMembershipConstraint" />
+                <ScalarProperty Name="HasStoreConstraint" ColumnName="HasStoreConstraint" />
+                <ScalarProperty Name="PaymentPartnerCode" ColumnName="PaymentPartnerCode" />
+                <ScalarProperty Name="PaymentType" ColumnName="PaymentType" />
+                <ScalarProperty Name="HasPaymentConstraint" ColumnName="HasPaymentConstraint" />
+                <ScalarProperty Name="MaxAge" ColumnName="MaxAge" />
+                <ScalarProperty Name="MinAge" ColumnName="MinAge" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="MaxPersonCount" ColumnName="MaxPersonCount" />
+                <ScalarProperty Name="MinPersonCount" ColumnName="MinPersonCount" />
+                <ScalarProperty Name="MaxTotalAmount" ColumnName="MaxTotalAmount" />
+                <ScalarProperty Name="MinTotalAmount" ColumnName="MinTotalAmount" />
+                <ScalarProperty Name="MaxTotalProducts" ColumnName="MaxTotalProducts" />
+                <ScalarProperty Name="MinTotalProducts" ColumnName="MinTotalProducts" />
+                <ScalarProperty Name="FixProductFilter" ColumnName="FixProductFilter" />
+                <ScalarProperty Name="HasOrderConstraint" ColumnName="HasOrderConstraint" />
+                <ScalarProperty Name="PromotionEndDate" ColumnName="PromotionEndDate" />
+                <ScalarProperty Name="PromotionBeginDate" ColumnName="PromotionBeginDate" />
+                <ScalarProperty Name="HasTimeContraint" ColumnName="HasTimeContraint" />
+                <ScalarProperty Name="ConstraintId" ColumnName="ConstraintId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PromotionDetails">
+            <EntityTypeMapping TypeName="PromoterModel.PromotionDetail">
+              <MappingFragment StoreEntitySet="PromotionDetail">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PromotionId" ColumnName="PromotionId" />
+                <ScalarProperty Name="PromotionPartnerId" ColumnName="PromotionPartnerId" />
+                <ScalarProperty Name="Pattern" ColumnName="Pattern" />
+                <ScalarProperty Name="Postfix" ColumnName="Postfix" />
+                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+                <ScalarProperty Name="AutoGenLength" ColumnName="AutoGenLength" />
+                <ScalarProperty Name="AwardCashback" ColumnName="AwardCashback" />
+                <ScalarProperty Name="AwardGift" ColumnName="AwardGift" />
+                <ScalarProperty Name="AwardDiscount" ColumnName="AwardDiscount" />
+                <ScalarProperty Name="VoucherUsedQuantity" ColumnName="VoucherUsedQuantity" />
+                <ScalarProperty Name="VoucherQuantity" ColumnName="VoucherQuantity" />
+                <ScalarProperty Name="HasVoucher" ColumnName="HasVoucher" />
+                <ScalarProperty Name="AppliedQuantity" ColumnName="AppliedQuantity" />
+                <ScalarProperty Name="ApplyQuantity" ColumnName="ApplyQuantity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DetailCode" ColumnName="DetailCode" />
+                <ScalarProperty Name="PromotionDetailId" ColumnName="PromotionDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vouchers">
+            <EntityTypeMapping TypeName="PromoterModel.Voucher">
+              <MappingFragment StoreEntitySet="Voucher">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PromotionDetailId" ColumnName="PromotionDetailId" />
+                <ScalarProperty Name="MembershipCode" ColumnName="MembershipCode" />
+                <ScalarProperty Name="IsGetted" ColumnName="IsGetted" />
+                <ScalarProperty Name="AppliedQuantity" ColumnName="AppliedQuantity" />
+                <ScalarProperty Name="ApplyQuantity" ColumnName="ApplyQuantity" />
+                <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
+                <ScalarProperty Name="GeneratedDate" ColumnName="GeneratedDate" />
+                <ScalarProperty Name="VoucherCode" ColumnName="VoucherCode" />
+                <ScalarProperty Name="VoucherId" ColumnName="VoucherId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

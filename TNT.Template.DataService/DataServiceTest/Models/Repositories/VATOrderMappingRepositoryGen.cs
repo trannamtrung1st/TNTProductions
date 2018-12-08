@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class VATOrderMappingRepository : BaseRepository<VATOrderMapping, int>, IVATOrderMappingRepository
 	{
-		public VATOrderMappingRepository() : base()
+		public VATOrderMappingRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override VATOrderMapping Add(VATOrderMapping entity)
-		{
-			
-			entity = context.VATOrderMappings.Add(entity);
-			return entity;
-		}
-		
-		public override VATOrderMapping Remove(VATOrderMapping entity)
-		{
-			context.VATOrderMappings.Attach(entity);
-			entity = context.VATOrderMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override VATOrderMapping Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.VATOrderMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<VATOrderMapping> RemoveIf(Expression<Func<VATOrderMapping, bool>> expr)
-		{
-			return context.VATOrderMappings.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<VATOrderMapping> RemoveRange(IEnumerable<VATOrderMapping> list)
-		{
-			return context.VATOrderMappings.RemoveRange(list);
-		}
-		
 		public override VATOrderMapping FindById(int key)
 		{
-			var entity = context.VATOrderMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override VATOrderMapping FindActiveById(int key)
 		{
-			var entity = context.VATOrderMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<VATOrderMapping> FindByIdAsync(int key)
 		{
-			var entity = await context.VATOrderMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<VATOrderMapping> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.VATOrderMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
-		}
-		
-		public override VATOrderMapping FindByIdInclude<TProperty>(int key, params Expression<Func<VATOrderMapping, TProperty>>[] members)
-		{
-			IQueryable<VATOrderMapping> dbSet = context.VATOrderMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.ID == key);
-		}
-		
-		public override async Task<VATOrderMapping> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<VATOrderMapping, TProperty>>[] members)
-		{
-			IQueryable<VATOrderMapping> dbSet = context.VATOrderMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.ID == key);
 		}
 		
 		public override VATOrderMapping Activate(VATOrderMapping entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<VATOrderMapping> GetActive()
 		{
-			return context.VATOrderMappings;
+			return dbSet;
 		}
 		
 		public override IQueryable<VATOrderMapping> GetActive(Expression<Func<VATOrderMapping, bool>> expr)
 		{
-			return context.VATOrderMappings.Where(expr);
-		}
-		
-		public override VATOrderMapping FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override VATOrderMapping FirstOrDefault(Expression<Func<VATOrderMapping, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<VATOrderMapping> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<VATOrderMapping> FirstOrDefaultAsync(Expression<Func<VATOrderMapping, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override VATOrderMapping SingleOrDefault(Expression<Func<VATOrderMapping, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<VATOrderMapping> SingleOrDefaultAsync(Expression<Func<VATOrderMapping, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override VATOrderMapping Update(VATOrderMapping entity)
-		{
-			entity = context.VATOrderMappings.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

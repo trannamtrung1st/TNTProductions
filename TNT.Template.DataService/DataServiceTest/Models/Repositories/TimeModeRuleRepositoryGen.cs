@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class TimeModeRuleRepository : BaseRepository<TimeModeRule, int>, ITimeModeRuleRepository
 	{
-		public TimeModeRuleRepository() : base()
+		public TimeModeRuleRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override TimeModeRule Add(TimeModeRule entity)
-		{
-			entity.Active = true;
-			entity = context.TimeModeRules.Add(entity);
-			return entity;
-		}
-		
-		public override TimeModeRule Remove(TimeModeRule entity)
-		{
-			context.TimeModeRules.Attach(entity);
-			entity = context.TimeModeRules.Remove(entity);
-			return entity;
-		}
-		
-		public override TimeModeRule Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.TimeModeRules.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<TimeModeRule> RemoveIf(Expression<Func<TimeModeRule, bool>> expr)
-		{
-			return context.TimeModeRules.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<TimeModeRule> RemoveRange(IEnumerable<TimeModeRule> list)
-		{
-			return context.TimeModeRules.RemoveRange(list);
-		}
-		
 		public override TimeModeRule FindById(int key)
 		{
-			var entity = context.TimeModeRules.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override TimeModeRule FindActiveById(int key)
 		{
-			var entity = context.TimeModeRules.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<TimeModeRule> FindByIdAsync(int key)
 		{
-			var entity = await context.TimeModeRules.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<TimeModeRule> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.TimeModeRules.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key && e.Active);
 			return entity;
-		}
-		
-		public override TimeModeRule FindByIdInclude<TProperty>(int key, params Expression<Func<TimeModeRule, TProperty>>[] members)
-		{
-			IQueryable<TimeModeRule> dbSet = context.TimeModeRules;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<TimeModeRule> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<TimeModeRule, TProperty>>[] members)
-		{
-			IQueryable<TimeModeRule> dbSet = context.TimeModeRules;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override TimeModeRule Activate(TimeModeRule entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<TimeModeRule> GetActive()
 		{
-			return context.TimeModeRules.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<TimeModeRule> GetActive(Expression<Func<TimeModeRule, bool>> expr)
 		{
-			return context.TimeModeRules.Where(e => e.Active).Where(expr);
-		}
-		
-		public override TimeModeRule FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override TimeModeRule FirstOrDefault(Expression<Func<TimeModeRule, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<TimeModeRule> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<TimeModeRule> FirstOrDefaultAsync(Expression<Func<TimeModeRule, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override TimeModeRule SingleOrDefault(Expression<Func<TimeModeRule, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<TimeModeRule> SingleOrDefaultAsync(Expression<Func<TimeModeRule, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override TimeModeRule Update(TimeModeRule entity)
-		{
-			entity = context.TimeModeRules.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

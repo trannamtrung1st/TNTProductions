@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class ProductCategoryRepository : BaseRepository<ProductCategory, int>, IProductCategoryRepository
 	{
-		public ProductCategoryRepository() : base()
+		public ProductCategoryRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override ProductCategory Add(ProductCategory entity)
-		{
-			entity.Active = true;
-			entity = context.ProductCategories.Add(entity);
-			return entity;
-		}
-		
-		public override ProductCategory Remove(ProductCategory entity)
-		{
-			context.ProductCategories.Attach(entity);
-			entity = context.ProductCategories.Remove(entity);
-			return entity;
-		}
-		
-		public override ProductCategory Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.ProductCategories.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<ProductCategory> RemoveIf(Expression<Func<ProductCategory, bool>> expr)
-		{
-			return context.ProductCategories.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<ProductCategory> RemoveRange(IEnumerable<ProductCategory> list)
-		{
-			return context.ProductCategories.RemoveRange(list);
-		}
-		
 		public override ProductCategory FindById(int key)
 		{
-			var entity = context.ProductCategories.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.CateID == key);
 			return entity;
 		}
 		
 		public override ProductCategory FindActiveById(int key)
 		{
-			var entity = context.ProductCategories.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.CateID == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<ProductCategory> FindByIdAsync(int key)
 		{
-			var entity = await context.ProductCategories.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.CateID == key);
 			return entity;
 		}
 		
 		public override async Task<ProductCategory> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.ProductCategories.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.CateID == key && e.Active);
 			return entity;
-		}
-		
-		public override ProductCategory FindByIdInclude<TProperty>(int key, params Expression<Func<ProductCategory, TProperty>>[] members)
-		{
-			IQueryable<ProductCategory> dbSet = context.ProductCategories;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.CateID == key);
-		}
-		
-		public override async Task<ProductCategory> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<ProductCategory, TProperty>>[] members)
-		{
-			IQueryable<ProductCategory> dbSet = context.ProductCategories;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.CateID == key);
 		}
 		
 		public override ProductCategory Activate(ProductCategory entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<ProductCategory> GetActive()
 		{
-			return context.ProductCategories.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<ProductCategory> GetActive(Expression<Func<ProductCategory, bool>> expr)
 		{
-			return context.ProductCategories.Where(e => e.Active).Where(expr);
-		}
-		
-		public override ProductCategory FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override ProductCategory FirstOrDefault(Expression<Func<ProductCategory, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<ProductCategory> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<ProductCategory> FirstOrDefaultAsync(Expression<Func<ProductCategory, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override ProductCategory SingleOrDefault(Expression<Func<ProductCategory, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<ProductCategory> SingleOrDefaultAsync(Expression<Func<ProductCategory, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override ProductCategory Update(ProductCategory entity)
-		{
-			entity = context.ProductCategories.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

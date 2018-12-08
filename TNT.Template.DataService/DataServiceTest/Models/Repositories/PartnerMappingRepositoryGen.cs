@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class PartnerMappingRepository : BaseRepository<PartnerMapping, int>, IPartnerMappingRepository
 	{
-		public PartnerMappingRepository() : base()
+		public PartnerMappingRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override PartnerMapping Add(PartnerMapping entity)
-		{
-			
-			entity = context.PartnerMappings.Add(entity);
-			return entity;
-		}
-		
-		public override PartnerMapping Remove(PartnerMapping entity)
-		{
-			context.PartnerMappings.Attach(entity);
-			entity = context.PartnerMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override PartnerMapping Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.PartnerMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<PartnerMapping> RemoveIf(Expression<Func<PartnerMapping, bool>> expr)
-		{
-			return context.PartnerMappings.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<PartnerMapping> RemoveRange(IEnumerable<PartnerMapping> list)
-		{
-			return context.PartnerMappings.RemoveRange(list);
-		}
-		
 		public override PartnerMapping FindById(int key)
 		{
-			var entity = context.PartnerMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override PartnerMapping FindActiveById(int key)
 		{
-			var entity = context.PartnerMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<PartnerMapping> FindByIdAsync(int key)
 		{
-			var entity = await context.PartnerMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<PartnerMapping> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.PartnerMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
-		}
-		
-		public override PartnerMapping FindByIdInclude<TProperty>(int key, params Expression<Func<PartnerMapping, TProperty>>[] members)
-		{
-			IQueryable<PartnerMapping> dbSet = context.PartnerMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<PartnerMapping> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<PartnerMapping, TProperty>>[] members)
-		{
-			IQueryable<PartnerMapping> dbSet = context.PartnerMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override PartnerMapping Activate(PartnerMapping entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<PartnerMapping> GetActive()
 		{
-			return context.PartnerMappings;
+			return dbSet;
 		}
 		
 		public override IQueryable<PartnerMapping> GetActive(Expression<Func<PartnerMapping, bool>> expr)
 		{
-			return context.PartnerMappings.Where(expr);
-		}
-		
-		public override PartnerMapping FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override PartnerMapping FirstOrDefault(Expression<Func<PartnerMapping, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<PartnerMapping> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<PartnerMapping> FirstOrDefaultAsync(Expression<Func<PartnerMapping, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override PartnerMapping SingleOrDefault(Expression<Func<PartnerMapping, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<PartnerMapping> SingleOrDefaultAsync(Expression<Func<PartnerMapping, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override PartnerMapping Update(PartnerMapping entity)
-		{
-			entity = context.PartnerMappings.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

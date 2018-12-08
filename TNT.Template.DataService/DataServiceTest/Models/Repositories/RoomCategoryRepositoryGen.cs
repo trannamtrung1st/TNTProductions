@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class RoomCategoryRepository : BaseRepository<RoomCategory, int>, IRoomCategoryRepository
 	{
-		public RoomCategoryRepository() : base()
+		public RoomCategoryRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override RoomCategory Add(RoomCategory entity)
-		{
-			
-			entity = context.RoomCategories.Add(entity);
-			return entity;
-		}
-		
-		public override RoomCategory Remove(RoomCategory entity)
-		{
-			context.RoomCategories.Attach(entity);
-			entity = context.RoomCategories.Remove(entity);
-			return entity;
-		}
-		
-		public override RoomCategory Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.RoomCategories.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<RoomCategory> RemoveIf(Expression<Func<RoomCategory, bool>> expr)
-		{
-			return context.RoomCategories.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<RoomCategory> RemoveRange(IEnumerable<RoomCategory> list)
-		{
-			return context.RoomCategories.RemoveRange(list);
-		}
-		
 		public override RoomCategory FindById(int key)
 		{
-			var entity = context.RoomCategories.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.CategoryID == key);
 			return entity;
 		}
 		
 		public override RoomCategory FindActiveById(int key)
 		{
-			var entity = context.RoomCategories.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.CategoryID == key);
 			return entity;
 		}
 		
 		public override async Task<RoomCategory> FindByIdAsync(int key)
 		{
-			var entity = await context.RoomCategories.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.CategoryID == key);
 			return entity;
 		}
 		
 		public override async Task<RoomCategory> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.RoomCategories.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.CategoryID == key);
 			return entity;
-		}
-		
-		public override RoomCategory FindByIdInclude<TProperty>(int key, params Expression<Func<RoomCategory, TProperty>>[] members)
-		{
-			IQueryable<RoomCategory> dbSet = context.RoomCategories;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.CategoryID == key);
-		}
-		
-		public override async Task<RoomCategory> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<RoomCategory, TProperty>>[] members)
-		{
-			IQueryable<RoomCategory> dbSet = context.RoomCategories;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.CategoryID == key);
 		}
 		
 		public override RoomCategory Activate(RoomCategory entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<RoomCategory> GetActive()
 		{
-			return context.RoomCategories;
+			return dbSet;
 		}
 		
 		public override IQueryable<RoomCategory> GetActive(Expression<Func<RoomCategory, bool>> expr)
 		{
-			return context.RoomCategories.Where(expr);
-		}
-		
-		public override RoomCategory FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override RoomCategory FirstOrDefault(Expression<Func<RoomCategory, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<RoomCategory> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<RoomCategory> FirstOrDefaultAsync(Expression<Func<RoomCategory, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override RoomCategory SingleOrDefault(Expression<Func<RoomCategory, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<RoomCategory> SingleOrDefaultAsync(Expression<Func<RoomCategory, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override RoomCategory Update(RoomCategory entity)
-		{
-			entity = context.RoomCategories.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

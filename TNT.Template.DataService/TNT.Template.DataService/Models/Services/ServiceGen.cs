@@ -53,20 +53,17 @@ namespace TNT.Template.DataService.Models.Services
 
             IBaseServiceBody.Add(
                 new StatementGen(
-                    //"bool AutoSave { get; set; }",
                     "int SaveChanges();",
                     "Task<int> SaveChangesAsync();",
                     "",
+                    "void Reload(E entity);",
                     "E Add(E entity);",
-                    //"Task<E> AddAsync(E entity);",
+                    "IEnumerable<E> AddRange(IEnumerable<E> entities);",
                     "E Update(E entity);",
-                    //"Task<E> UpdateAsync(E entity);",
                     "E Remove(E entity);",
-                    //"Task<E> RemoveAsync(E entity);",
                     "E Remove(K key);",
                     "IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);",
                     "IEnumerable<E> RemoveRange(IEnumerable<E> list);",
-                    //"Task<E> RemoveAsync(K key);",
                     "E FindById(K key);",
                     "Task<E> FindByIdAsync(K key);",
                     "E Activate(E entity);",
@@ -102,18 +99,6 @@ namespace TNT.Template.DataService.Models.Services
         {
             var s1 = new StatementGen("protected IBaseRepository<E, K> repository;");
 
-            //var m3 = new ContainerGen();
-            //m3.Signature = "public bool AutoSave";
-            //m3.Body.Add(new StatementGen(
-            //    "get",
-            //    "{",
-            //    "\treturn repository.AutoSave;",
-            //    "}",
-            //    "set",
-            //    "{",
-            //    "\trepository.AutoSave = value;",
-            //    "}"));
-
             var m31 = new ContainerGen();
             m31.Signature = "public int SaveChanges()";
             m31.Body.Add(new StatementGen(
@@ -124,15 +109,20 @@ namespace TNT.Template.DataService.Models.Services
             m32.Body.Add(new StatementGen(
                 "return await repository.SaveChangesAsync();"));
 
+            var m33 = new ContainerGen();
+            m33.Signature = "public void Reload(E entity)";
+            m33.Body.Add(new StatementGen(
+                "repository.Reload(entity);"));
+
             var m4 = new ContainerGen();
             m4.Signature = "public E Add(E entity)";
             m4.Body.Add(new StatementGen(
                 "return repository.Add(entity);"));
 
-            //var m5 = new ContainerGen();
-            //m5.Signature = "public async Task<E> AddAsync(E entity)";
-            //m5.Body.Add(new StatementGen(
-            //    "return await repository.AddAsync(entity);"));
+            var m41 = new ContainerGen();
+            m41.Signature = "public IEnumerable<E> AddRange(IEnumerable<E> entities)";
+            m41.Body.Add(new StatementGen(
+                "return repository.AddRange(entities);"));
 
             var m6 = new ContainerGen();
             m6.Signature = "public E Update(E entity)";
@@ -227,17 +217,14 @@ namespace TNT.Template.DataService.Models.Services
                 s1, new StatementGen(""),
                 m31, new StatementGen(""),
                 m32, new StatementGen("", "#region CRUD Area"),
-                //m3, new StatementGen("" ),
+                m33, new StatementGen(""),
                 m4, new StatementGen(""),
-                //m5, new StatementGen(""),
+                m41, new StatementGen(""),
                 m6, new StatementGen(""),
-                //m7, new StatementGen(""),
                 m8, new StatementGen(""),
-                //m9, new StatementGen(""),
                 m10, new StatementGen(""),
                 m101, new StatementGen(""),
                 m102, new StatementGen(""),
-                //m11, new StatementGen(""),
                 m12, new StatementGen(""),
                 m13, new StatementGen(""),
                 m141, new StatementGen(""),

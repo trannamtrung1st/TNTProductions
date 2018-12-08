@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class TimeFrameRepository : BaseRepository<TimeFrame, int>, ITimeFrameRepository
 	{
-		public TimeFrameRepository() : base()
+		public TimeFrameRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override TimeFrame Add(TimeFrame entity)
-		{
-			entity.Active = true;
-			entity = context.TimeFrames.Add(entity);
-			return entity;
-		}
-		
-		public override TimeFrame Remove(TimeFrame entity)
-		{
-			context.TimeFrames.Attach(entity);
-			entity = context.TimeFrames.Remove(entity);
-			return entity;
-		}
-		
-		public override TimeFrame Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.TimeFrames.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<TimeFrame> RemoveIf(Expression<Func<TimeFrame, bool>> expr)
-		{
-			return context.TimeFrames.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<TimeFrame> RemoveRange(IEnumerable<TimeFrame> list)
-		{
-			return context.TimeFrames.RemoveRange(list);
-		}
-		
 		public override TimeFrame FindById(int key)
 		{
-			var entity = context.TimeFrames.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override TimeFrame FindActiveById(int key)
 		{
-			var entity = context.TimeFrames.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<TimeFrame> FindByIdAsync(int key)
 		{
-			var entity = await context.TimeFrames.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<TimeFrame> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.TimeFrames.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key && e.Active);
 			return entity;
-		}
-		
-		public override TimeFrame FindByIdInclude<TProperty>(int key, params Expression<Func<TimeFrame, TProperty>>[] members)
-		{
-			IQueryable<TimeFrame> dbSet = context.TimeFrames;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<TimeFrame> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<TimeFrame, TProperty>>[] members)
-		{
-			IQueryable<TimeFrame> dbSet = context.TimeFrames;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override TimeFrame Activate(TimeFrame entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<TimeFrame> GetActive()
 		{
-			return context.TimeFrames.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<TimeFrame> GetActive(Expression<Func<TimeFrame, bool>> expr)
 		{
-			return context.TimeFrames.Where(e => e.Active).Where(expr);
-		}
-		
-		public override TimeFrame FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override TimeFrame FirstOrDefault(Expression<Func<TimeFrame, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<TimeFrame> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<TimeFrame> FirstOrDefaultAsync(Expression<Func<TimeFrame, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override TimeFrame SingleOrDefault(Expression<Func<TimeFrame, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<TimeFrame> SingleOrDefaultAsync(Expression<Func<TimeFrame, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override TimeFrame Update(TimeFrame entity)
-		{
-			entity = context.TimeFrames.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

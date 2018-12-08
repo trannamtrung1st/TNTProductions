@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class LanguageRepository : BaseRepository<Language, int>, ILanguageRepository
 	{
-		public LanguageRepository() : base()
+		public LanguageRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override Language Add(Language entity)
-		{
-			entity.Active = true;
-			entity = context.Languages.Add(entity);
-			return entity;
-		}
-		
-		public override Language Remove(Language entity)
-		{
-			context.Languages.Attach(entity);
-			entity = context.Languages.Remove(entity);
-			return entity;
-		}
-		
-		public override Language Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Languages.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<Language> RemoveIf(Expression<Func<Language, bool>> expr)
-		{
-			return context.Languages.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<Language> RemoveRange(IEnumerable<Language> list)
-		{
-			return context.Languages.RemoveRange(list);
-		}
-		
 		public override Language FindById(int key)
 		{
-			var entity = context.Languages.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override Language FindActiveById(int key)
 		{
-			var entity = context.Languages.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<Language> FindByIdAsync(int key)
 		{
-			var entity = await context.Languages.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<Language> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.Languages.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key && e.Active);
 			return entity;
-		}
-		
-		public override Language FindByIdInclude<TProperty>(int key, params Expression<Func<Language, TProperty>>[] members)
-		{
-			IQueryable<Language> dbSet = context.Languages;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<Language> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<Language, TProperty>>[] members)
-		{
-			IQueryable<Language> dbSet = context.Languages;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override Language Activate(Language entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<Language> GetActive()
 		{
-			return context.Languages.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<Language> GetActive(Expression<Func<Language, bool>> expr)
 		{
-			return context.Languages.Where(e => e.Active).Where(expr);
-		}
-		
-		public override Language FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override Language FirstOrDefault(Expression<Func<Language, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<Language> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<Language> FirstOrDefaultAsync(Expression<Func<Language, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override Language SingleOrDefault(Expression<Func<Language, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<Language> SingleOrDefaultAsync(Expression<Func<Language, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override Language Update(Language entity)
-		{
-			entity = context.Languages.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

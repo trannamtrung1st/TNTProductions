@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class PayslipAttributeMappingRepository : BaseRepository<PayslipAttributeMapping, int>, IPayslipAttributeMappingRepository
 	{
-		public PayslipAttributeMappingRepository() : base()
+		public PayslipAttributeMappingRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override PayslipAttributeMapping Add(PayslipAttributeMapping entity)
-		{
-			entity.Active = true;
-			entity = context.PayslipAttributeMappings.Add(entity);
-			return entity;
-		}
-		
-		public override PayslipAttributeMapping Remove(PayslipAttributeMapping entity)
-		{
-			context.PayslipAttributeMappings.Attach(entity);
-			entity = context.PayslipAttributeMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override PayslipAttributeMapping Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.PayslipAttributeMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<PayslipAttributeMapping> RemoveIf(Expression<Func<PayslipAttributeMapping, bool>> expr)
-		{
-			return context.PayslipAttributeMappings.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<PayslipAttributeMapping> RemoveRange(IEnumerable<PayslipAttributeMapping> list)
-		{
-			return context.PayslipAttributeMappings.RemoveRange(list);
-		}
-		
 		public override PayslipAttributeMapping FindById(int key)
 		{
-			var entity = context.PayslipAttributeMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override PayslipAttributeMapping FindActiveById(int key)
 		{
-			var entity = context.PayslipAttributeMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<PayslipAttributeMapping> FindByIdAsync(int key)
 		{
-			var entity = await context.PayslipAttributeMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<PayslipAttributeMapping> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.PayslipAttributeMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key && e.Active);
 			return entity;
-		}
-		
-		public override PayslipAttributeMapping FindByIdInclude<TProperty>(int key, params Expression<Func<PayslipAttributeMapping, TProperty>>[] members)
-		{
-			IQueryable<PayslipAttributeMapping> dbSet = context.PayslipAttributeMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<PayslipAttributeMapping> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<PayslipAttributeMapping, TProperty>>[] members)
-		{
-			IQueryable<PayslipAttributeMapping> dbSet = context.PayslipAttributeMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override PayslipAttributeMapping Activate(PayslipAttributeMapping entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<PayslipAttributeMapping> GetActive()
 		{
-			return context.PayslipAttributeMappings.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<PayslipAttributeMapping> GetActive(Expression<Func<PayslipAttributeMapping, bool>> expr)
 		{
-			return context.PayslipAttributeMappings.Where(e => e.Active).Where(expr);
-		}
-		
-		public override PayslipAttributeMapping FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override PayslipAttributeMapping FirstOrDefault(Expression<Func<PayslipAttributeMapping, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<PayslipAttributeMapping> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<PayslipAttributeMapping> FirstOrDefaultAsync(Expression<Func<PayslipAttributeMapping, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override PayslipAttributeMapping SingleOrDefault(Expression<Func<PayslipAttributeMapping, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<PayslipAttributeMapping> SingleOrDefaultAsync(Expression<Func<PayslipAttributeMapping, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override PayslipAttributeMapping Update(PayslipAttributeMapping entity)
-		{
-			entity = context.PayslipAttributeMappings.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

@@ -97,7 +97,7 @@ namespace TNT.Helpers.WebApi
         }
 
         public static HttpResponseMessage NotFoundBase<T>(
-            T obj = default(T), dynamic message = null,
+            dynamic message = null, T obj = default(T),
             string reasonPhrase = null)
         {
             return new HttpResponseMessage()
@@ -121,7 +121,7 @@ namespace TNT.Helpers.WebApi
         }
 
         public static HttpResponseMessage NotFoundBase(
-            object obj = null, dynamic message = null,
+            dynamic message = null, object obj = null,
             string reasonPhrase = null)
         {
             return new HttpResponseMessage()
@@ -145,7 +145,7 @@ namespace TNT.Helpers.WebApi
         }
 
         public static HttpResponseMessage ErrorBase<T>(
-            T obj = default(T), dynamic message = null,
+            dynamic message = null, T obj = default(T),
             string reasonPhrase = null)
         {
             return new HttpResponseMessage()
@@ -169,7 +169,7 @@ namespace TNT.Helpers.WebApi
         }
 
         public static HttpResponseMessage ErrorBase(
-            object obj = null, dynamic message = null,
+            dynamic message = null, object obj = null,
             string reasonPhrase = null)
         {
             return new HttpResponseMessage()
@@ -193,7 +193,7 @@ namespace TNT.Helpers.WebApi
         }
 
         public static HttpResponseMessage UnauthorizedBase<T>(
-            T obj = default(T), dynamic message = null,
+            dynamic message = null, T obj = default(T),
             string reasonPhrase = null)
         {
             return new HttpResponseMessage()
@@ -217,7 +217,7 @@ namespace TNT.Helpers.WebApi
         }
 
         public static HttpResponseMessage UnauthorizedBase(
-            object obj = null, dynamic message = null,
+            dynamic message = null, object obj = null,
             string reasonPhrase = null)
         {
             return new HttpResponseMessage()
@@ -241,7 +241,7 @@ namespace TNT.Helpers.WebApi
         }
 
         public static HttpResponseMessage BadRequestBase<T>(
-            T obj = default(T), dynamic message = null,
+            dynamic message = null, T obj = default(T),
             string reasonPhrase = null)
         {
             return new HttpResponseMessage()
@@ -265,7 +265,7 @@ namespace TNT.Helpers.WebApi
         }
 
         public static HttpResponseMessage BadRequestBase(
-            object obj = null, dynamic message = null,
+            dynamic message = null, object obj = null,
             string reasonPhrase = null)
         {
             return new HttpResponseMessage()

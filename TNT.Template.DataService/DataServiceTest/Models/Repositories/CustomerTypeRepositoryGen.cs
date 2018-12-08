@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class CustomerTypeRepository : BaseRepository<CustomerType, int>, ICustomerTypeRepository
 	{
-		public CustomerTypeRepository() : base()
+		public CustomerTypeRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override CustomerType Add(CustomerType entity)
-		{
-			
-			entity = context.CustomerTypes.Add(entity);
-			return entity;
-		}
-		
-		public override CustomerType Remove(CustomerType entity)
-		{
-			context.CustomerTypes.Attach(entity);
-			entity = context.CustomerTypes.Remove(entity);
-			return entity;
-		}
-		
-		public override CustomerType Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.CustomerTypes.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<CustomerType> RemoveIf(Expression<Func<CustomerType, bool>> expr)
-		{
-			return context.CustomerTypes.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<CustomerType> RemoveRange(IEnumerable<CustomerType> list)
-		{
-			return context.CustomerTypes.RemoveRange(list);
-		}
-		
 		public override CustomerType FindById(int key)
 		{
-			var entity = context.CustomerTypes.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override CustomerType FindActiveById(int key)
 		{
-			var entity = context.CustomerTypes.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<CustomerType> FindByIdAsync(int key)
 		{
-			var entity = await context.CustomerTypes.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<CustomerType> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.CustomerTypes.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
-		}
-		
-		public override CustomerType FindByIdInclude<TProperty>(int key, params Expression<Func<CustomerType, TProperty>>[] members)
-		{
-			IQueryable<CustomerType> dbSet = context.CustomerTypes;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.ID == key);
-		}
-		
-		public override async Task<CustomerType> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<CustomerType, TProperty>>[] members)
-		{
-			IQueryable<CustomerType> dbSet = context.CustomerTypes;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.ID == key);
 		}
 		
 		public override CustomerType Activate(CustomerType entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<CustomerType> GetActive()
 		{
-			return context.CustomerTypes;
+			return dbSet;
 		}
 		
 		public override IQueryable<CustomerType> GetActive(Expression<Func<CustomerType, bool>> expr)
 		{
-			return context.CustomerTypes.Where(expr);
-		}
-		
-		public override CustomerType FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override CustomerType FirstOrDefault(Expression<Func<CustomerType, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<CustomerType> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<CustomerType> FirstOrDefaultAsync(Expression<Func<CustomerType, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override CustomerType SingleOrDefault(Expression<Func<CustomerType, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<CustomerType> SingleOrDefaultAsync(Expression<Func<CustomerType, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override CustomerType Update(CustomerType entity)
-		{
-			entity = context.CustomerTypes.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class TemplateReportProductItemMappingRepository : BaseRepository<TemplateReportProductItemMapping, int>, ITemplateReportProductItemMappingRepository
 	{
-		public TemplateReportProductItemMappingRepository() : base()
+		public TemplateReportProductItemMappingRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override TemplateReportProductItemMapping Add(TemplateReportProductItemMapping entity)
-		{
-			
-			entity = context.TemplateReportProductItemMappings.Add(entity);
-			return entity;
-		}
-		
-		public override TemplateReportProductItemMapping Remove(TemplateReportProductItemMapping entity)
-		{
-			context.TemplateReportProductItemMappings.Attach(entity);
-			entity = context.TemplateReportProductItemMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override TemplateReportProductItemMapping Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.TemplateReportProductItemMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<TemplateReportProductItemMapping> RemoveIf(Expression<Func<TemplateReportProductItemMapping, bool>> expr)
-		{
-			return context.TemplateReportProductItemMappings.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<TemplateReportProductItemMapping> RemoveRange(IEnumerable<TemplateReportProductItemMapping> list)
-		{
-			return context.TemplateReportProductItemMappings.RemoveRange(list);
-		}
-		
 		public override TemplateReportProductItemMapping FindById(int key)
 		{
-			var entity = context.TemplateReportProductItemMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override TemplateReportProductItemMapping FindActiveById(int key)
 		{
-			var entity = context.TemplateReportProductItemMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<TemplateReportProductItemMapping> FindByIdAsync(int key)
 		{
-			var entity = await context.TemplateReportProductItemMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<TemplateReportProductItemMapping> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.TemplateReportProductItemMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
-		}
-		
-		public override TemplateReportProductItemMapping FindByIdInclude<TProperty>(int key, params Expression<Func<TemplateReportProductItemMapping, TProperty>>[] members)
-		{
-			IQueryable<TemplateReportProductItemMapping> dbSet = context.TemplateReportProductItemMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<TemplateReportProductItemMapping> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<TemplateReportProductItemMapping, TProperty>>[] members)
-		{
-			IQueryable<TemplateReportProductItemMapping> dbSet = context.TemplateReportProductItemMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override TemplateReportProductItemMapping Activate(TemplateReportProductItemMapping entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<TemplateReportProductItemMapping> GetActive()
 		{
-			return context.TemplateReportProductItemMappings;
+			return dbSet;
 		}
 		
 		public override IQueryable<TemplateReportProductItemMapping> GetActive(Expression<Func<TemplateReportProductItemMapping, bool>> expr)
 		{
-			return context.TemplateReportProductItemMappings.Where(expr);
-		}
-		
-		public override TemplateReportProductItemMapping FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override TemplateReportProductItemMapping FirstOrDefault(Expression<Func<TemplateReportProductItemMapping, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<TemplateReportProductItemMapping> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<TemplateReportProductItemMapping> FirstOrDefaultAsync(Expression<Func<TemplateReportProductItemMapping, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override TemplateReportProductItemMapping SingleOrDefault(Expression<Func<TemplateReportProductItemMapping, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<TemplateReportProductItemMapping> SingleOrDefaultAsync(Expression<Func<TemplateReportProductItemMapping, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override TemplateReportProductItemMapping Update(TemplateReportProductItemMapping entity)
-		{
-			entity = context.TemplateReportProductItemMappings.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

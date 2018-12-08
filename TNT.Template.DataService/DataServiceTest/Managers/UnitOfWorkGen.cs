@@ -16,7 +16,7 @@ namespace DataServiceTest.Managers
 	public partial interface IUnitOfWork : IDisposable
 	{
 		ITContainer Scope { get; set; }
-		passioTestEntities Context { get; set; }
+		DbContext Context { get; set; }
 		S Service<S>() where S : class, IService;
 		int SaveChanges();
 		Task<int> SaveChangesAsync();
@@ -25,13 +25,6 @@ namespace DataServiceTest.Managers
 	}
 	public partial class UnitOfWork : IUnitOfWork
 	{
-		public UnitOfWork()
-		{
-			//Scope = G.TContainer.RequestScope;
-			Context = new passioTestEntities();
-			ResourcePool = new Dictionary<Type, object>();
-		}
-		
 		public UnitOfWork(ITContainer scope)
 		{
 			Scope = scope;
@@ -40,7 +33,7 @@ namespace DataServiceTest.Managers
 		}
 		
 		public ITContainer Scope { get; set; }
-		public passioTestEntities Context { get; set; }
+		public DbContext Context { get; set; }
 		private IDictionary<Type, object> ResourcePool { get; set; }
 		
 		public S Service<S>() where S : class, IService

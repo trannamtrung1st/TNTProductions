@@ -9,6 +9,7 @@ using DataServiceTest.Managers;
 using DataServiceTest.Models.Repositories;
 using DataServiceTest.Global;
 using TNT.IoContainer.Wrapper;
+using System.Data.Entity;
 
 namespace DataServiceTest.Models.Services
 {
@@ -21,6 +22,11 @@ namespace DataServiceTest.Models.Services
 		public FingerScanMachineService(IUnitOfWork uow)
 		{
 			repository = uow.Scope.Resolve<IFingerScanMachineRepository>(uow);
+		}
+		
+		public FingerScanMachineService(DbContext context)
+		{
+			repository = G.TContainer.Resolve<IFingerScanMachineRepository>(context);
 		}
 		
 	}

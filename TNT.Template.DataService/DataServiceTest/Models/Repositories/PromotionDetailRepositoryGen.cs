@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class PromotionDetailRepository : BaseRepository<PromotionDetail, int>, IPromotionDetailRepository
 	{
-		public PromotionDetailRepository() : base()
+		public PromotionDetailRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override PromotionDetail Add(PromotionDetail entity)
-		{
-			
-			entity = context.PromotionDetails.Add(entity);
-			return entity;
-		}
-		
-		public override PromotionDetail Remove(PromotionDetail entity)
-		{
-			context.PromotionDetails.Attach(entity);
-			entity = context.PromotionDetails.Remove(entity);
-			return entity;
-		}
-		
-		public override PromotionDetail Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.PromotionDetails.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<PromotionDetail> RemoveIf(Expression<Func<PromotionDetail, bool>> expr)
-		{
-			return context.PromotionDetails.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<PromotionDetail> RemoveRange(IEnumerable<PromotionDetail> list)
-		{
-			return context.PromotionDetails.RemoveRange(list);
-		}
-		
 		public override PromotionDetail FindById(int key)
 		{
-			var entity = context.PromotionDetails.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.PromotionDetailID == key);
 			return entity;
 		}
 		
 		public override PromotionDetail FindActiveById(int key)
 		{
-			var entity = context.PromotionDetails.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.PromotionDetailID == key);
 			return entity;
 		}
 		
 		public override async Task<PromotionDetail> FindByIdAsync(int key)
 		{
-			var entity = await context.PromotionDetails.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.PromotionDetailID == key);
 			return entity;
 		}
 		
 		public override async Task<PromotionDetail> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.PromotionDetails.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.PromotionDetailID == key);
 			return entity;
-		}
-		
-		public override PromotionDetail FindByIdInclude<TProperty>(int key, params Expression<Func<PromotionDetail, TProperty>>[] members)
-		{
-			IQueryable<PromotionDetail> dbSet = context.PromotionDetails;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.PromotionDetailID == key);
-		}
-		
-		public override async Task<PromotionDetail> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<PromotionDetail, TProperty>>[] members)
-		{
-			IQueryable<PromotionDetail> dbSet = context.PromotionDetails;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.PromotionDetailID == key);
 		}
 		
 		public override PromotionDetail Activate(PromotionDetail entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<PromotionDetail> GetActive()
 		{
-			return context.PromotionDetails;
+			return dbSet;
 		}
 		
 		public override IQueryable<PromotionDetail> GetActive(Expression<Func<PromotionDetail, bool>> expr)
 		{
-			return context.PromotionDetails.Where(expr);
-		}
-		
-		public override PromotionDetail FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override PromotionDetail FirstOrDefault(Expression<Func<PromotionDetail, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<PromotionDetail> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<PromotionDetail> FirstOrDefaultAsync(Expression<Func<PromotionDetail, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override PromotionDetail SingleOrDefault(Expression<Func<PromotionDetail, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<PromotionDetail> SingleOrDefaultAsync(Expression<Func<PromotionDetail, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override PromotionDetail Update(PromotionDetail entity)
-		{
-			entity = context.PromotionDetails.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

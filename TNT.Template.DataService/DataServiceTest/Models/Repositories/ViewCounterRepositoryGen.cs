@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class ViewCounterRepository : BaseRepository<ViewCounter, int>, IViewCounterRepository
 	{
-		public ViewCounterRepository() : base()
+		public ViewCounterRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override ViewCounter Add(ViewCounter entity)
-		{
-			
-			entity = context.ViewCounters.Add(entity);
-			return entity;
-		}
-		
-		public override ViewCounter Remove(ViewCounter entity)
-		{
-			context.ViewCounters.Attach(entity);
-			entity = context.ViewCounters.Remove(entity);
-			return entity;
-		}
-		
-		public override ViewCounter Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.ViewCounters.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<ViewCounter> RemoveIf(Expression<Func<ViewCounter, bool>> expr)
-		{
-			return context.ViewCounters.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<ViewCounter> RemoveRange(IEnumerable<ViewCounter> list)
-		{
-			return context.ViewCounters.RemoveRange(list);
-		}
-		
 		public override ViewCounter FindById(int key)
 		{
-			var entity = context.ViewCounters.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override ViewCounter FindActiveById(int key)
 		{
-			var entity = context.ViewCounters.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<ViewCounter> FindByIdAsync(int key)
 		{
-			var entity = await context.ViewCounters.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<ViewCounter> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.ViewCounters.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
-		}
-		
-		public override ViewCounter FindByIdInclude<TProperty>(int key, params Expression<Func<ViewCounter, TProperty>>[] members)
-		{
-			IQueryable<ViewCounter> dbSet = context.ViewCounters;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<ViewCounter> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<ViewCounter, TProperty>>[] members)
-		{
-			IQueryable<ViewCounter> dbSet = context.ViewCounters;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override ViewCounter Activate(ViewCounter entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<ViewCounter> GetActive()
 		{
-			return context.ViewCounters;
+			return dbSet;
 		}
 		
 		public override IQueryable<ViewCounter> GetActive(Expression<Func<ViewCounter, bool>> expr)
 		{
-			return context.ViewCounters.Where(expr);
-		}
-		
-		public override ViewCounter FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override ViewCounter FirstOrDefault(Expression<Func<ViewCounter, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<ViewCounter> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<ViewCounter> FirstOrDefaultAsync(Expression<Func<ViewCounter, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override ViewCounter SingleOrDefault(Expression<Func<ViewCounter, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<ViewCounter> SingleOrDefaultAsync(Expression<Func<ViewCounter, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override ViewCounter Update(ViewCounter entity)
-		{
-			entity = context.ViewCounters.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

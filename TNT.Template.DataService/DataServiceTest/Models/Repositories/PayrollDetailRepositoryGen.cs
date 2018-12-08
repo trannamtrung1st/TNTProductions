@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class PayrollDetailRepository : BaseRepository<PayrollDetail, int>, IPayrollDetailRepository
 	{
-		public PayrollDetailRepository() : base()
+		public PayrollDetailRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override PayrollDetail Add(PayrollDetail entity)
-		{
-			entity.Active = true;
-			entity = context.PayrollDetails.Add(entity);
-			return entity;
-		}
-		
-		public override PayrollDetail Remove(PayrollDetail entity)
-		{
-			context.PayrollDetails.Attach(entity);
-			entity = context.PayrollDetails.Remove(entity);
-			return entity;
-		}
-		
-		public override PayrollDetail Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.PayrollDetails.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<PayrollDetail> RemoveIf(Expression<Func<PayrollDetail, bool>> expr)
-		{
-			return context.PayrollDetails.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<PayrollDetail> RemoveRange(IEnumerable<PayrollDetail> list)
-		{
-			return context.PayrollDetails.RemoveRange(list);
-		}
-		
 		public override PayrollDetail FindById(int key)
 		{
-			var entity = context.PayrollDetails.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override PayrollDetail FindActiveById(int key)
 		{
-			var entity = context.PayrollDetails.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<PayrollDetail> FindByIdAsync(int key)
 		{
-			var entity = await context.PayrollDetails.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<PayrollDetail> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.PayrollDetails.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key && e.Active);
 			return entity;
-		}
-		
-		public override PayrollDetail FindByIdInclude<TProperty>(int key, params Expression<Func<PayrollDetail, TProperty>>[] members)
-		{
-			IQueryable<PayrollDetail> dbSet = context.PayrollDetails;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<PayrollDetail> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<PayrollDetail, TProperty>>[] members)
-		{
-			IQueryable<PayrollDetail> dbSet = context.PayrollDetails;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override PayrollDetail Activate(PayrollDetail entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<PayrollDetail> GetActive()
 		{
-			return context.PayrollDetails.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<PayrollDetail> GetActive(Expression<Func<PayrollDetail, bool>> expr)
 		{
-			return context.PayrollDetails.Where(e => e.Active).Where(expr);
-		}
-		
-		public override PayrollDetail FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override PayrollDetail FirstOrDefault(Expression<Func<PayrollDetail, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<PayrollDetail> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<PayrollDetail> FirstOrDefaultAsync(Expression<Func<PayrollDetail, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override PayrollDetail SingleOrDefault(Expression<Func<PayrollDetail, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<PayrollDetail> SingleOrDefaultAsync(Expression<Func<PayrollDetail, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override PayrollDetail Update(PayrollDetail entity)
-		{
-			entity = context.PayrollDetails.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

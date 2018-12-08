@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class NotificationRepository : BaseRepository<Notification, int>, INotificationRepository
 	{
-		public NotificationRepository() : base()
+		public NotificationRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override Notification Add(Notification entity)
-		{
-			
-			entity = context.Notifications.Add(entity);
-			return entity;
-		}
-		
-		public override Notification Remove(Notification entity)
-		{
-			context.Notifications.Attach(entity);
-			entity = context.Notifications.Remove(entity);
-			return entity;
-		}
-		
-		public override Notification Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Notifications.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<Notification> RemoveIf(Expression<Func<Notification, bool>> expr)
-		{
-			return context.Notifications.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<Notification> RemoveRange(IEnumerable<Notification> list)
-		{
-			return context.Notifications.RemoveRange(list);
-		}
-		
 		public override Notification FindById(int key)
 		{
-			var entity = context.Notifications.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override Notification FindActiveById(int key)
 		{
-			var entity = context.Notifications.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<Notification> FindByIdAsync(int key)
 		{
-			var entity = await context.Notifications.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<Notification> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.Notifications.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
-		}
-		
-		public override Notification FindByIdInclude<TProperty>(int key, params Expression<Func<Notification, TProperty>>[] members)
-		{
-			IQueryable<Notification> dbSet = context.Notifications;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<Notification> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<Notification, TProperty>>[] members)
-		{
-			IQueryable<Notification> dbSet = context.Notifications;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override Notification Activate(Notification entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<Notification> GetActive()
 		{
-			return context.Notifications;
+			return dbSet;
 		}
 		
 		public override IQueryable<Notification> GetActive(Expression<Func<Notification, bool>> expr)
 		{
-			return context.Notifications.Where(expr);
-		}
-		
-		public override Notification FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override Notification FirstOrDefault(Expression<Func<Notification, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<Notification> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<Notification> FirstOrDefaultAsync(Expression<Func<Notification, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override Notification SingleOrDefault(Expression<Func<Notification, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<Notification> SingleOrDefaultAsync(Expression<Func<Notification, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override Notification Update(Notification entity)
-		{
-			entity = context.Notifications.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

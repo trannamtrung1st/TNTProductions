@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class MenuRepository : BaseRepository<Menu, int>, IMenuRepository
 	{
-		public MenuRepository() : base()
+		public MenuRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override Menu Add(Menu entity)
-		{
-			
-			entity = context.Menus.Add(entity);
-			return entity;
-		}
-		
-		public override Menu Remove(Menu entity)
-		{
-			context.Menus.Attach(entity);
-			entity = context.Menus.Remove(entity);
-			return entity;
-		}
-		
-		public override Menu Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Menus.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<Menu> RemoveIf(Expression<Func<Menu, bool>> expr)
-		{
-			return context.Menus.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<Menu> RemoveRange(IEnumerable<Menu> list)
-		{
-			return context.Menus.RemoveRange(list);
-		}
-		
 		public override Menu FindById(int key)
 		{
-			var entity = context.Menus.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override Menu FindActiveById(int key)
 		{
-			var entity = context.Menus.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<Menu> FindByIdAsync(int key)
 		{
-			var entity = await context.Menus.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<Menu> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.Menus.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
-		}
-		
-		public override Menu FindByIdInclude<TProperty>(int key, params Expression<Func<Menu, TProperty>>[] members)
-		{
-			IQueryable<Menu> dbSet = context.Menus;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<Menu> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<Menu, TProperty>>[] members)
-		{
-			IQueryable<Menu> dbSet = context.Menus;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override Menu Activate(Menu entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<Menu> GetActive()
 		{
-			return context.Menus;
+			return dbSet;
 		}
 		
 		public override IQueryable<Menu> GetActive(Expression<Func<Menu, bool>> expr)
 		{
-			return context.Menus.Where(expr);
-		}
-		
-		public override Menu FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override Menu FirstOrDefault(Expression<Func<Menu, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<Menu> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<Menu> FirstOrDefaultAsync(Expression<Func<Menu, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override Menu SingleOrDefault(Expression<Func<Menu, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<Menu> SingleOrDefaultAsync(Expression<Func<Menu, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override Menu Update(Menu entity)
-		{
-			entity = context.Menus.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class StoreGroupMappingRepository : BaseRepository<StoreGroupMapping, int>, IStoreGroupMappingRepository
 	{
-		public StoreGroupMappingRepository() : base()
+		public StoreGroupMappingRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override StoreGroupMapping Add(StoreGroupMapping entity)
-		{
-			
-			entity = context.StoreGroupMappings.Add(entity);
-			return entity;
-		}
-		
-		public override StoreGroupMapping Remove(StoreGroupMapping entity)
-		{
-			context.StoreGroupMappings.Attach(entity);
-			entity = context.StoreGroupMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override StoreGroupMapping Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.StoreGroupMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<StoreGroupMapping> RemoveIf(Expression<Func<StoreGroupMapping, bool>> expr)
-		{
-			return context.StoreGroupMappings.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<StoreGroupMapping> RemoveRange(IEnumerable<StoreGroupMapping> list)
-		{
-			return context.StoreGroupMappings.RemoveRange(list);
-		}
-		
 		public override StoreGroupMapping FindById(int key)
 		{
-			var entity = context.StoreGroupMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override StoreGroupMapping FindActiveById(int key)
 		{
-			var entity = context.StoreGroupMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<StoreGroupMapping> FindByIdAsync(int key)
 		{
-			var entity = await context.StoreGroupMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<StoreGroupMapping> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.StoreGroupMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
-		}
-		
-		public override StoreGroupMapping FindByIdInclude<TProperty>(int key, params Expression<Func<StoreGroupMapping, TProperty>>[] members)
-		{
-			IQueryable<StoreGroupMapping> dbSet = context.StoreGroupMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.ID == key);
-		}
-		
-		public override async Task<StoreGroupMapping> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<StoreGroupMapping, TProperty>>[] members)
-		{
-			IQueryable<StoreGroupMapping> dbSet = context.StoreGroupMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.ID == key);
 		}
 		
 		public override StoreGroupMapping Activate(StoreGroupMapping entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<StoreGroupMapping> GetActive()
 		{
-			return context.StoreGroupMappings;
+			return dbSet;
 		}
 		
 		public override IQueryable<StoreGroupMapping> GetActive(Expression<Func<StoreGroupMapping, bool>> expr)
 		{
-			return context.StoreGroupMappings.Where(expr);
-		}
-		
-		public override StoreGroupMapping FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override StoreGroupMapping FirstOrDefault(Expression<Func<StoreGroupMapping, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<StoreGroupMapping> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<StoreGroupMapping> FirstOrDefaultAsync(Expression<Func<StoreGroupMapping, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override StoreGroupMapping SingleOrDefault(Expression<Func<StoreGroupMapping, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<StoreGroupMapping> SingleOrDefaultAsync(Expression<Func<StoreGroupMapping, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override StoreGroupMapping Update(StoreGroupMapping entity)
-		{
-			entity = context.StoreGroupMappings.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

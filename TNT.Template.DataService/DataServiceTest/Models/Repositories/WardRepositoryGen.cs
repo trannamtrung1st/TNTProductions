@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class WardRepository : BaseRepository<Ward, int>, IWardRepository
 	{
-		public WardRepository() : base()
+		public WardRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override Ward Add(Ward entity)
-		{
-			
-			entity = context.Wards.Add(entity);
-			return entity;
-		}
-		
-		public override Ward Remove(Ward entity)
-		{
-			context.Wards.Attach(entity);
-			entity = context.Wards.Remove(entity);
-			return entity;
-		}
-		
-		public override Ward Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.Wards.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<Ward> RemoveIf(Expression<Func<Ward, bool>> expr)
-		{
-			return context.Wards.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<Ward> RemoveRange(IEnumerable<Ward> list)
-		{
-			return context.Wards.RemoveRange(list);
-		}
-		
 		public override Ward FindById(int key)
 		{
-			var entity = context.Wards.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.WardCode == key);
 			return entity;
 		}
 		
 		public override Ward FindActiveById(int key)
 		{
-			var entity = context.Wards.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.WardCode == key);
 			return entity;
 		}
 		
 		public override async Task<Ward> FindByIdAsync(int key)
 		{
-			var entity = await context.Wards.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.WardCode == key);
 			return entity;
 		}
 		
 		public override async Task<Ward> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.Wards.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.WardCode == key);
 			return entity;
-		}
-		
-		public override Ward FindByIdInclude<TProperty>(int key, params Expression<Func<Ward, TProperty>>[] members)
-		{
-			IQueryable<Ward> dbSet = context.Wards;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.WardCode == key);
-		}
-		
-		public override async Task<Ward> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<Ward, TProperty>>[] members)
-		{
-			IQueryable<Ward> dbSet = context.Wards;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.WardCode == key);
 		}
 		
 		public override Ward Activate(Ward entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<Ward> GetActive()
 		{
-			return context.Wards;
+			return dbSet;
 		}
 		
 		public override IQueryable<Ward> GetActive(Expression<Func<Ward, bool>> expr)
 		{
-			return context.Wards.Where(expr);
-		}
-		
-		public override Ward FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override Ward FirstOrDefault(Expression<Func<Ward, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<Ward> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<Ward> FirstOrDefaultAsync(Expression<Func<Ward, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override Ward SingleOrDefault(Expression<Func<Ward, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<Ward> SingleOrDefaultAsync(Expression<Func<Ward, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override Ward Update(Ward entity)
-		{
-			entity = context.Wards.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

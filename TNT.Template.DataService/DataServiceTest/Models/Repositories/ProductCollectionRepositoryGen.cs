@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class ProductCollectionRepository : BaseRepository<ProductCollection, int>, IProductCollectionRepository
 	{
-		public ProductCollectionRepository() : base()
+		public ProductCollectionRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override ProductCollection Add(ProductCollection entity)
-		{
-			entity.Active = true;
-			entity = context.ProductCollections.Add(entity);
-			return entity;
-		}
-		
-		public override ProductCollection Remove(ProductCollection entity)
-		{
-			context.ProductCollections.Attach(entity);
-			entity = context.ProductCollections.Remove(entity);
-			return entity;
-		}
-		
-		public override ProductCollection Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.ProductCollections.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<ProductCollection> RemoveIf(Expression<Func<ProductCollection, bool>> expr)
-		{
-			return context.ProductCollections.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<ProductCollection> RemoveRange(IEnumerable<ProductCollection> list)
-		{
-			return context.ProductCollections.RemoveRange(list);
-		}
-		
 		public override ProductCollection FindById(int key)
 		{
-			var entity = context.ProductCollections.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override ProductCollection FindActiveById(int key)
 		{
-			var entity = context.ProductCollections.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<ProductCollection> FindByIdAsync(int key)
 		{
-			var entity = await context.ProductCollections.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<ProductCollection> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.ProductCollections.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key && e.Active);
 			return entity;
-		}
-		
-		public override ProductCollection FindByIdInclude<TProperty>(int key, params Expression<Func<ProductCollection, TProperty>>[] members)
-		{
-			IQueryable<ProductCollection> dbSet = context.ProductCollections;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<ProductCollection> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<ProductCollection, TProperty>>[] members)
-		{
-			IQueryable<ProductCollection> dbSet = context.ProductCollections;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override ProductCollection Activate(ProductCollection entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<ProductCollection> GetActive()
 		{
-			return context.ProductCollections.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<ProductCollection> GetActive(Expression<Func<ProductCollection, bool>> expr)
 		{
-			return context.ProductCollections.Where(e => e.Active).Where(expr);
-		}
-		
-		public override ProductCollection FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override ProductCollection FirstOrDefault(Expression<Func<ProductCollection, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<ProductCollection> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<ProductCollection> FirstOrDefaultAsync(Expression<Func<ProductCollection, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override ProductCollection SingleOrDefault(Expression<Func<ProductCollection, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<ProductCollection> SingleOrDefaultAsync(Expression<Func<ProductCollection, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override ProductCollection Update(ProductCollection entity)
-		{
-			entity = context.ProductCollections.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

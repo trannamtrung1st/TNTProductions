@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class DateHotelReportRepository : BaseRepository<DateHotelReport, int>, IDateHotelReportRepository
 	{
-		public DateHotelReportRepository() : base()
+		public DateHotelReportRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override DateHotelReport Add(DateHotelReport entity)
-		{
-			
-			entity = context.DateHotelReports.Add(entity);
-			return entity;
-		}
-		
-		public override DateHotelReport Remove(DateHotelReport entity)
-		{
-			context.DateHotelReports.Attach(entity);
-			entity = context.DateHotelReports.Remove(entity);
-			return entity;
-		}
-		
-		public override DateHotelReport Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.DateHotelReports.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<DateHotelReport> RemoveIf(Expression<Func<DateHotelReport, bool>> expr)
-		{
-			return context.DateHotelReports.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<DateHotelReport> RemoveRange(IEnumerable<DateHotelReport> list)
-		{
-			return context.DateHotelReports.RemoveRange(list);
-		}
-		
 		public override DateHotelReport FindById(int key)
 		{
-			var entity = context.DateHotelReports.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override DateHotelReport FindActiveById(int key)
 		{
-			var entity = context.DateHotelReports.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<DateHotelReport> FindByIdAsync(int key)
 		{
-			var entity = await context.DateHotelReports.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<DateHotelReport> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.DateHotelReports.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
-		}
-		
-		public override DateHotelReport FindByIdInclude<TProperty>(int key, params Expression<Func<DateHotelReport, TProperty>>[] members)
-		{
-			IQueryable<DateHotelReport> dbSet = context.DateHotelReports;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<DateHotelReport> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<DateHotelReport, TProperty>>[] members)
-		{
-			IQueryable<DateHotelReport> dbSet = context.DateHotelReports;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override DateHotelReport Activate(DateHotelReport entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<DateHotelReport> GetActive()
 		{
-			return context.DateHotelReports;
+			return dbSet;
 		}
 		
 		public override IQueryable<DateHotelReport> GetActive(Expression<Func<DateHotelReport, bool>> expr)
 		{
-			return context.DateHotelReports.Where(expr);
-		}
-		
-		public override DateHotelReport FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override DateHotelReport FirstOrDefault(Expression<Func<DateHotelReport, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<DateHotelReport> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<DateHotelReport> FirstOrDefaultAsync(Expression<Func<DateHotelReport, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override DateHotelReport SingleOrDefault(Expression<Func<DateHotelReport, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<DateHotelReport> SingleOrDefaultAsync(Expression<Func<DateHotelReport, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override DateHotelReport Update(DateHotelReport entity)
-		{
-			entity = context.DateHotelReports.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

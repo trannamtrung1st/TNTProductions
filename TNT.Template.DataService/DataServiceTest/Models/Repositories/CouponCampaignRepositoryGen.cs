@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class CouponCampaignRepository : BaseRepository<CouponCampaign, int>, ICouponCampaignRepository
 	{
-		public CouponCampaignRepository() : base()
+		public CouponCampaignRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override CouponCampaign Add(CouponCampaign entity)
-		{
-			
-			entity = context.CouponCampaigns.Add(entity);
-			return entity;
-		}
-		
-		public override CouponCampaign Remove(CouponCampaign entity)
-		{
-			context.CouponCampaigns.Attach(entity);
-			entity = context.CouponCampaigns.Remove(entity);
-			return entity;
-		}
-		
-		public override CouponCampaign Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.CouponCampaigns.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<CouponCampaign> RemoveIf(Expression<Func<CouponCampaign, bool>> expr)
-		{
-			return context.CouponCampaigns.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<CouponCampaign> RemoveRange(IEnumerable<CouponCampaign> list)
-		{
-			return context.CouponCampaigns.RemoveRange(list);
-		}
-		
 		public override CouponCampaign FindById(int key)
 		{
-			var entity = context.CouponCampaigns.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override CouponCampaign FindActiveById(int key)
 		{
-			var entity = context.CouponCampaigns.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<CouponCampaign> FindByIdAsync(int key)
 		{
-			var entity = await context.CouponCampaigns.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<CouponCampaign> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.CouponCampaigns.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
-		}
-		
-		public override CouponCampaign FindByIdInclude<TProperty>(int key, params Expression<Func<CouponCampaign, TProperty>>[] members)
-		{
-			IQueryable<CouponCampaign> dbSet = context.CouponCampaigns;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<CouponCampaign> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<CouponCampaign, TProperty>>[] members)
-		{
-			IQueryable<CouponCampaign> dbSet = context.CouponCampaigns;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override CouponCampaign Activate(CouponCampaign entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<CouponCampaign> GetActive()
 		{
-			return context.CouponCampaigns;
+			return dbSet;
 		}
 		
 		public override IQueryable<CouponCampaign> GetActive(Expression<Func<CouponCampaign, bool>> expr)
 		{
-			return context.CouponCampaigns.Where(expr);
-		}
-		
-		public override CouponCampaign FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override CouponCampaign FirstOrDefault(Expression<Func<CouponCampaign, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<CouponCampaign> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<CouponCampaign> FirstOrDefaultAsync(Expression<Func<CouponCampaign, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override CouponCampaign SingleOrDefault(Expression<Func<CouponCampaign, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<CouponCampaign> SingleOrDefaultAsync(Expression<Func<CouponCampaign, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override CouponCampaign Update(CouponCampaign entity)
-		{
-			entity = context.CouponCampaigns.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

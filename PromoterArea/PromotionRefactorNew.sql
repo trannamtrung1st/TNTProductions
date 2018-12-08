@@ -1,49 +1,60 @@
 ﻿/*1 promotion: chương trình khuyến mãi*/
 CREATE TABLE _Promotion (
-	PromotionId int PRIMARY KEY,
+	PromotionId int IDENTITY(1,1) PRIMARY KEY,
 
 	/*begin attributes*/
 	PromotionCode varchar(250) NOT NULL,
 	PromotionName nvarchar(250) NOT NULL,
+	CreatedDate datetime,
+	FromDate datetime,
+	ToDate datetime,
+	AdjustedDate datetime,
+	ApplyQuantity int,
+	AppliedQuantity int,
 	Description nvarchar(250),
 	ImageCss nvarchar(50),
 	ImageUrl nvarchar(max),
 	Active bit NOT NULL,
 	BrandId int,
+	PromotionType int,
 	/*end attributes*/
+
+	FOREIGN KEY (BrandId) REFERENCES Brand(Id)
 );
 
 /*1 promotion - N detail => nhiều hình thức (OR)*/
 CREATE TABLE _PromotionDetail (
-	PromotionDetailId int PRIMARY KEY,
-
+	PromotionDetailId int IDENTITY(1,1) PRIMARY KEY,
+	
 	/*begin attributes*/
+	CreatedDate datetime,
+	AdjustedDate datetime,
 	DetailCode nvarchar(250) NOT NULL,
 	Description nvarchar(250),
 	Active bit NOT NULL,
-	ApplyQuantity int,
-	AppliedQuantity int,
 	HasVoucher bit NOT NULL,
 	VoucherQuantity int,
 	VoucherUsedQuantity int,
+	VoucherExpiredAfterHours int,
 
 	HasTimeAttributes bit not null,
 	BeginDate datetime,
 	EndDate datetime,
-	DaysOfWeek varchar(20), /*Từ 2->8: thứ, 0: áp dụng tất cả các thứ trong tuần*/
-	BeginHour time, /*có thể có nhiều khung giờ trong ngày*/
+	DaysOfWeek varchar(20), -- T2T4T6
+	BeginHour time,
 	EndHour time,
-	/*additional daytime filter*/
 
 	HasOrderAttributes bit not null,
-	ProductsId varchar(max), /*có thể có nhiều product*/
-	ProductCategoryId varchar(max),
-	ProductMenuId varchar(max), 
+	BuyProductCode nvarchar(250) NULL,
+	BuyProductCategoryId int NULL,
+	BuyProductCollectionId int NULL,
+	IsCollectionAndRelationship bit, --true: and, false: or
 	MinBuyQuantity int,
 	MaxBuyQuantity int,
 	MinTotalAmount float,
 	MaxTotalAmount float,
-	PersonCount int,
+	MinPersonCount int,
+	MaxPersonCount int,
 	Gender bit,
 	MinAge int,
 	MaxAge int,
@@ -52,9 +63,6 @@ CREATE TABLE _PromotionDetail (
 	PaymentType int,
 	PaymentPartnerCode nvarchar(250),
 
-	HasStoreAttributes bit not null,
-	/*promotion store mapping*/
-	
 	HasMembershipAttributes bit not null,
 	MembershipCode nvarchar(250),
 	MembershipTypeCode nvarchar(250),
@@ -73,23 +81,27 @@ CREATE TABLE _PromotionDetail (
 	HasCollectionAttributes bit not null,
 
 	/*begin voucher config*/
-	Length int,
-	Prefix int,
-	Postfix int,
-	Pattern nvarchar(100),
+	VoucherLength int,
+	Prefix nvarchar(100),
+	Postfix nvarchar(100),
+	VoucherPattern nvarchar(100),
 	/*end voucher config*/
 	
-	/*PromotionPartnerId int,*/
+	PromotionPartnerId int NULL,
+
 	PromotionId int NOT NULL,
-	FOREIGN KEY (PromotionId) REFERENCES _Promotion(PromotionId)
+	FOREIGN KEY (PromotionId) REFERENCES _Promotion(PromotionId),
+	FOREIGN KEY (BuyProductCategoryId) REFERENCES ProductCategory(CateID),
+	FOREIGN KEY (BuyProductCollectionId) REFERENCES ProductCollection(Id),
+	FOREIGN KEY (PromotionPartnerId) REFERENCES Partner(Id),
 );
 
 CREATE TABLE _PromotionAward (
-	PromotionAwardId int PRIMARY KEY,
+	PromotionAwardId int IDENTITY(1,1) PRIMARY KEY,
 	
 	/*begin attributes*/
 	AwardDiscount bit NOT NULL,
-	DiscountForProductId int,
+	DiscountForProductCode nvarchar(250),
 	BuyXGetYAmount int,
 	FixedUpsizePrice float,
 	SyncPrice float,
@@ -98,17 +110,14 @@ CREATE TABLE _PromotionAward (
 	ShipDiscount float,
 
 	AwardGift bit NOT NULL,
-	GiftForProductId int,
-	GiftVoucherId int,
-	GiftVoucherOfPromotionId int,
+	GiftForProductCode nvarchar(250),
+	GiftVoucherOfPromotionDetailId int,
 	GiftVoucherQuantity int,
-	GiftPresentId int,
-	GiftPresentQuantity int,
-	GiftProductId int,
+	GiftProductCode nvarchar(250),
 	GiftProductQuantity int,
 
 	AwardCashback bit NOT NULL,
-	CashbackForProductId int,
+	CashbackForProductCode nvarchar(250),
 	CustomerCashbackMode int,
     CustomerCashbackAccountType int,
     CustomerCashbackAmount float,
@@ -121,15 +130,16 @@ CREATE TABLE _PromotionAward (
 
 	PromotionDetailId int NOT NULL,
 	FOREIGN KEY (PromotionDetailId) REFERENCES _PromotionDetail(PromotionDetailId),
+	FOREIGN KEY (GiftVoucherOfPromotionDetailId) REFERENCES _PromotionDetail(PromotionDetailId),
 );
 
 /*1 detail - N voucher*/
 CREATE TABLE _Voucher (
-	VoucherId int PRIMARY KEY,
+	VoucherId int IDENTITY(1,1) PRIMARY KEY,
 	/*begin attributes*/
 	VoucherCode nvarchar(250) NOT NULL,
-	GeneratedDate datetime,
-	ExpiredDate datetime,
+	GeneratedTime datetime,
+	ExpiredTime datetime,
 	ApplyQuantity int NOT NULL,
 	AppliedQuantity int NOT NULL,
     IsGetted bit NOT NULL,
@@ -140,3 +150,15 @@ CREATE TABLE _Voucher (
 	PromotionDetailId int NOT NULL,
 	FOREIGN KEY (PromotionDetailId) REFERENCES _PromotionDetail(PromotionDetailId)
 );
+
+ALTER TABLE OrderDetailPromotionMapping 
+ADD _PromotionDetailId int,
+FOREIGN KEY (_PromotionDetailId) REFERENCES _PromotionDetail(PromotionDetailId);
+
+ALTER TABLE OrderPromotionMapping 
+ADD _PromotionDetailId int,
+FOREIGN KEY (_PromotionDetailId) REFERENCES _PromotionDetail(PromotionDetailId);
+
+ALTER TABLE PromotionStoreMapping 
+ADD _PromotionId int,
+FOREIGN KEY (_PromotionId) REFERENCES _Promotion(PromotionId);

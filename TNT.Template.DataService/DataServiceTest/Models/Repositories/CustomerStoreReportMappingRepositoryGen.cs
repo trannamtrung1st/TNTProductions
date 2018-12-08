@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class CustomerStoreReportMappingRepository : BaseRepository<CustomerStoreReportMapping, int>, ICustomerStoreReportMappingRepository
 	{
-		public CustomerStoreReportMappingRepository() : base()
+		public CustomerStoreReportMappingRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override CustomerStoreReportMapping Add(CustomerStoreReportMapping entity)
-		{
-			
-			entity = context.CustomerStoreReportMappings.Add(entity);
-			return entity;
-		}
-		
-		public override CustomerStoreReportMapping Remove(CustomerStoreReportMapping entity)
-		{
-			context.CustomerStoreReportMappings.Attach(entity);
-			entity = context.CustomerStoreReportMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override CustomerStoreReportMapping Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.CustomerStoreReportMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<CustomerStoreReportMapping> RemoveIf(Expression<Func<CustomerStoreReportMapping, bool>> expr)
-		{
-			return context.CustomerStoreReportMappings.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<CustomerStoreReportMapping> RemoveRange(IEnumerable<CustomerStoreReportMapping> list)
-		{
-			return context.CustomerStoreReportMappings.RemoveRange(list);
-		}
-		
 		public override CustomerStoreReportMapping FindById(int key)
 		{
-			var entity = context.CustomerStoreReportMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override CustomerStoreReportMapping FindActiveById(int key)
 		{
-			var entity = context.CustomerStoreReportMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<CustomerStoreReportMapping> FindByIdAsync(int key)
 		{
-			var entity = await context.CustomerStoreReportMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<CustomerStoreReportMapping> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.CustomerStoreReportMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
-		}
-		
-		public override CustomerStoreReportMapping FindByIdInclude<TProperty>(int key, params Expression<Func<CustomerStoreReportMapping, TProperty>>[] members)
-		{
-			IQueryable<CustomerStoreReportMapping> dbSet = context.CustomerStoreReportMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.ID == key);
-		}
-		
-		public override async Task<CustomerStoreReportMapping> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<CustomerStoreReportMapping, TProperty>>[] members)
-		{
-			IQueryable<CustomerStoreReportMapping> dbSet = context.CustomerStoreReportMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.ID == key);
 		}
 		
 		public override CustomerStoreReportMapping Activate(CustomerStoreReportMapping entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<CustomerStoreReportMapping> GetActive()
 		{
-			return context.CustomerStoreReportMappings;
+			return dbSet;
 		}
 		
 		public override IQueryable<CustomerStoreReportMapping> GetActive(Expression<Func<CustomerStoreReportMapping, bool>> expr)
 		{
-			return context.CustomerStoreReportMappings.Where(expr);
-		}
-		
-		public override CustomerStoreReportMapping FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override CustomerStoreReportMapping FirstOrDefault(Expression<Func<CustomerStoreReportMapping, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<CustomerStoreReportMapping> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<CustomerStoreReportMapping> FirstOrDefaultAsync(Expression<Func<CustomerStoreReportMapping, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override CustomerStoreReportMapping SingleOrDefault(Expression<Func<CustomerStoreReportMapping, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<CustomerStoreReportMapping> SingleOrDefaultAsync(Expression<Func<CustomerStoreReportMapping, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override CustomerStoreReportMapping Update(CustomerStoreReportMapping entity)
-		{
-			entity = context.CustomerStoreReportMappings.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

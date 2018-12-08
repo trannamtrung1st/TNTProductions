@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class DeliveryInformationRepository : BaseRepository<DeliveryInformation, int>, IDeliveryInformationRepository
 	{
-		public DeliveryInformationRepository() : base()
+		public DeliveryInformationRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override DeliveryInformation Add(DeliveryInformation entity)
-		{
-			entity.Active = true;
-			entity = context.DeliveryInformations.Add(entity);
-			return entity;
-		}
-		
-		public override DeliveryInformation Remove(DeliveryInformation entity)
-		{
-			context.DeliveryInformations.Attach(entity);
-			entity = context.DeliveryInformations.Remove(entity);
-			return entity;
-		}
-		
-		public override DeliveryInformation Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.DeliveryInformations.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<DeliveryInformation> RemoveIf(Expression<Func<DeliveryInformation, bool>> expr)
-		{
-			return context.DeliveryInformations.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<DeliveryInformation> RemoveRange(IEnumerable<DeliveryInformation> list)
-		{
-			return context.DeliveryInformations.RemoveRange(list);
-		}
-		
 		public override DeliveryInformation FindById(int key)
 		{
-			var entity = context.DeliveryInformations.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override DeliveryInformation FindActiveById(int key)
 		{
-			var entity = context.DeliveryInformations.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<DeliveryInformation> FindByIdAsync(int key)
 		{
-			var entity = await context.DeliveryInformations.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<DeliveryInformation> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.DeliveryInformations.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key && e.Active);
 			return entity;
-		}
-		
-		public override DeliveryInformation FindByIdInclude<TProperty>(int key, params Expression<Func<DeliveryInformation, TProperty>>[] members)
-		{
-			IQueryable<DeliveryInformation> dbSet = context.DeliveryInformations;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.ID == key);
-		}
-		
-		public override async Task<DeliveryInformation> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<DeliveryInformation, TProperty>>[] members)
-		{
-			IQueryable<DeliveryInformation> dbSet = context.DeliveryInformations;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.ID == key);
 		}
 		
 		public override DeliveryInformation Activate(DeliveryInformation entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<DeliveryInformation> GetActive()
 		{
-			return context.DeliveryInformations.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<DeliveryInformation> GetActive(Expression<Func<DeliveryInformation, bool>> expr)
 		{
-			return context.DeliveryInformations.Where(e => e.Active).Where(expr);
-		}
-		
-		public override DeliveryInformation FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override DeliveryInformation FirstOrDefault(Expression<Func<DeliveryInformation, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<DeliveryInformation> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<DeliveryInformation> FirstOrDefaultAsync(Expression<Func<DeliveryInformation, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override DeliveryInformation SingleOrDefault(Expression<Func<DeliveryInformation, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<DeliveryInformation> SingleOrDefaultAsync(Expression<Func<DeliveryInformation, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override DeliveryInformation Update(DeliveryInformation entity)
-		{
-			entity = context.DeliveryInformations.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

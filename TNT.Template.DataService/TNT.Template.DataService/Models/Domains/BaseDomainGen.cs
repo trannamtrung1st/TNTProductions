@@ -21,6 +21,7 @@ namespace TNT.Template.DataService.Models.Domains
                 Data.ProjectName + ".Utilities",
                 Data.ProjectName + ".Models",
                 Data.ProjectName + ".Global",
+                "System.Data.Entity",
                 "System.Linq.Expressions",
                 "TNT.IoContainer.Wrapper");
             ResolveMapping.Add("context", dt.ContextName);
@@ -102,14 +103,14 @@ namespace TNT.Template.DataService.Models.Domains
             //"baseService = _uow.Service<S>();"));
 
             var c01 = new ContainerGen();
-            c01.Signature = "public BaseDomain(`context` context)";
+            c01.Signature = "public BaseDomain(DbContext context)";
             c01.Body.Add(new StatementGen(
                 "_context = context;"));
 
             var s1 = new StatementGen(
-                "private `context` _context;");
+                "private DbContext _context;");
             var m1 = new StatementGen(
-                "protected `context` Context",
+                "protected DbContext Context",
                 "{",
                 "\tget",
                 "\t{",

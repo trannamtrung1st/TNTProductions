@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class SalaryRuleRepository : BaseRepository<SalaryRule, int>, ISalaryRuleRepository
 	{
-		public SalaryRuleRepository() : base()
+		public SalaryRuleRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override SalaryRule Add(SalaryRule entity)
-		{
-			entity.Active = true;
-			entity = context.SalaryRules.Add(entity);
-			return entity;
-		}
-		
-		public override SalaryRule Remove(SalaryRule entity)
-		{
-			context.SalaryRules.Attach(entity);
-			entity = context.SalaryRules.Remove(entity);
-			return entity;
-		}
-		
-		public override SalaryRule Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.SalaryRules.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<SalaryRule> RemoveIf(Expression<Func<SalaryRule, bool>> expr)
-		{
-			return context.SalaryRules.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<SalaryRule> RemoveRange(IEnumerable<SalaryRule> list)
-		{
-			return context.SalaryRules.RemoveRange(list);
-		}
-		
 		public override SalaryRule FindById(int key)
 		{
-			var entity = context.SalaryRules.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override SalaryRule FindActiveById(int key)
 		{
-			var entity = context.SalaryRules.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<SalaryRule> FindByIdAsync(int key)
 		{
-			var entity = await context.SalaryRules.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<SalaryRule> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.SalaryRules.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key && e.Active);
 			return entity;
-		}
-		
-		public override SalaryRule FindByIdInclude<TProperty>(int key, params Expression<Func<SalaryRule, TProperty>>[] members)
-		{
-			IQueryable<SalaryRule> dbSet = context.SalaryRules;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<SalaryRule> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<SalaryRule, TProperty>>[] members)
-		{
-			IQueryable<SalaryRule> dbSet = context.SalaryRules;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override SalaryRule Activate(SalaryRule entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<SalaryRule> GetActive()
 		{
-			return context.SalaryRules.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<SalaryRule> GetActive(Expression<Func<SalaryRule, bool>> expr)
 		{
-			return context.SalaryRules.Where(e => e.Active).Where(expr);
-		}
-		
-		public override SalaryRule FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override SalaryRule FirstOrDefault(Expression<Func<SalaryRule, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<SalaryRule> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<SalaryRule> FirstOrDefaultAsync(Expression<Func<SalaryRule, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override SalaryRule SingleOrDefault(Expression<Func<SalaryRule, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<SalaryRule> SingleOrDefaultAsync(Expression<Func<SalaryRule, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override SalaryRule Update(SalaryRule entity)
-		{
-			entity = context.SalaryRules.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

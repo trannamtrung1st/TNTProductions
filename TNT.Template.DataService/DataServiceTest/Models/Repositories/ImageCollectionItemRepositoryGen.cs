@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class ImageCollectionItemRepository : BaseRepository<ImageCollectionItem, int>, IImageCollectionItemRepository
 	{
-		public ImageCollectionItemRepository() : base()
+		public ImageCollectionItemRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override ImageCollectionItem Add(ImageCollectionItem entity)
-		{
-			entity.Active = true;
-			entity = context.ImageCollectionItems.Add(entity);
-			return entity;
-		}
-		
-		public override ImageCollectionItem Remove(ImageCollectionItem entity)
-		{
-			context.ImageCollectionItems.Attach(entity);
-			entity = context.ImageCollectionItems.Remove(entity);
-			return entity;
-		}
-		
-		public override ImageCollectionItem Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.ImageCollectionItems.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<ImageCollectionItem> RemoveIf(Expression<Func<ImageCollectionItem, bool>> expr)
-		{
-			return context.ImageCollectionItems.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<ImageCollectionItem> RemoveRange(IEnumerable<ImageCollectionItem> list)
-		{
-			return context.ImageCollectionItems.RemoveRange(list);
-		}
-		
 		public override ImageCollectionItem FindById(int key)
 		{
-			var entity = context.ImageCollectionItems.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override ImageCollectionItem FindActiveById(int key)
 		{
-			var entity = context.ImageCollectionItems.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<ImageCollectionItem> FindByIdAsync(int key)
 		{
-			var entity = await context.ImageCollectionItems.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<ImageCollectionItem> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.ImageCollectionItems.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key && e.Active);
 			return entity;
-		}
-		
-		public override ImageCollectionItem FindByIdInclude<TProperty>(int key, params Expression<Func<ImageCollectionItem, TProperty>>[] members)
-		{
-			IQueryable<ImageCollectionItem> dbSet = context.ImageCollectionItems;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<ImageCollectionItem> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<ImageCollectionItem, TProperty>>[] members)
-		{
-			IQueryable<ImageCollectionItem> dbSet = context.ImageCollectionItems;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override ImageCollectionItem Activate(ImageCollectionItem entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<ImageCollectionItem> GetActive()
 		{
-			return context.ImageCollectionItems.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<ImageCollectionItem> GetActive(Expression<Func<ImageCollectionItem, bool>> expr)
 		{
-			return context.ImageCollectionItems.Where(e => e.Active).Where(expr);
-		}
-		
-		public override ImageCollectionItem FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override ImageCollectionItem FirstOrDefault(Expression<Func<ImageCollectionItem, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<ImageCollectionItem> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<ImageCollectionItem> FirstOrDefaultAsync(Expression<Func<ImageCollectionItem, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override ImageCollectionItem SingleOrDefault(Expression<Func<ImageCollectionItem, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<ImageCollectionItem> SingleOrDefaultAsync(Expression<Func<ImageCollectionItem, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override ImageCollectionItem Update(ImageCollectionItem entity)
-		{
-			entity = context.ImageCollectionItems.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

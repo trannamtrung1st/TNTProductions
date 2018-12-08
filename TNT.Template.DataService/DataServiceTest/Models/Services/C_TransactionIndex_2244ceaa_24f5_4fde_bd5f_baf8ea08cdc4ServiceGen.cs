@@ -9,6 +9,7 @@ using DataServiceTest.Managers;
 using DataServiceTest.Models.Repositories;
 using DataServiceTest.Global;
 using TNT.IoContainer.Wrapper;
+using System.Data.Entity;
 
 namespace DataServiceTest.Models.Services
 {
@@ -21,6 +22,11 @@ namespace DataServiceTest.Models.Services
 		public C_TransactionIndex_2244ceaa_24f5_4fde_bd5f_baf8ea08cdc4Service(IUnitOfWork uow)
 		{
 			repository = uow.Scope.Resolve<IC_TransactionIndex_2244ceaa_24f5_4fde_bd5f_baf8ea08cdc4Repository>(uow);
+		}
+		
+		public C_TransactionIndex_2244ceaa_24f5_4fde_bd5f_baf8ea08cdc4Service(DbContext context)
+		{
+			repository = G.TContainer.Resolve<IC_TransactionIndex_2244ceaa_24f5_4fde_bd5f_baf8ea08cdc4Repository>(context);
 		}
 		
 	}

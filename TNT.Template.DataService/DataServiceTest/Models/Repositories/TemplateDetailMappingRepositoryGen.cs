@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class TemplateDetailMappingRepository : BaseRepository<TemplateDetailMapping, int>, ITemplateDetailMappingRepository
 	{
-		public TemplateDetailMappingRepository() : base()
+		public TemplateDetailMappingRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override TemplateDetailMapping Add(TemplateDetailMapping entity)
-		{
-			entity.Active = true;
-			entity = context.TemplateDetailMappings.Add(entity);
-			return entity;
-		}
-		
-		public override TemplateDetailMapping Remove(TemplateDetailMapping entity)
-		{
-			context.TemplateDetailMappings.Attach(entity);
-			entity = context.TemplateDetailMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override TemplateDetailMapping Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.TemplateDetailMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<TemplateDetailMapping> RemoveIf(Expression<Func<TemplateDetailMapping, bool>> expr)
-		{
-			return context.TemplateDetailMappings.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<TemplateDetailMapping> RemoveRange(IEnumerable<TemplateDetailMapping> list)
-		{
-			return context.TemplateDetailMappings.RemoveRange(list);
-		}
-		
 		public override TemplateDetailMapping FindById(int key)
 		{
-			var entity = context.TemplateDetailMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override TemplateDetailMapping FindActiveById(int key)
 		{
-			var entity = context.TemplateDetailMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<TemplateDetailMapping> FindByIdAsync(int key)
 		{
-			var entity = await context.TemplateDetailMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<TemplateDetailMapping> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.TemplateDetailMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key && e.Active);
 			return entity;
-		}
-		
-		public override TemplateDetailMapping FindByIdInclude<TProperty>(int key, params Expression<Func<TemplateDetailMapping, TProperty>>[] members)
-		{
-			IQueryable<TemplateDetailMapping> dbSet = context.TemplateDetailMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<TemplateDetailMapping> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<TemplateDetailMapping, TProperty>>[] members)
-		{
-			IQueryable<TemplateDetailMapping> dbSet = context.TemplateDetailMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override TemplateDetailMapping Activate(TemplateDetailMapping entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<TemplateDetailMapping> GetActive()
 		{
-			return context.TemplateDetailMappings.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<TemplateDetailMapping> GetActive(Expression<Func<TemplateDetailMapping, bool>> expr)
 		{
-			return context.TemplateDetailMappings.Where(e => e.Active).Where(expr);
-		}
-		
-		public override TemplateDetailMapping FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override TemplateDetailMapping FirstOrDefault(Expression<Func<TemplateDetailMapping, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<TemplateDetailMapping> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<TemplateDetailMapping> FirstOrDefaultAsync(Expression<Func<TemplateDetailMapping, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override TemplateDetailMapping SingleOrDefault(Expression<Func<TemplateDetailMapping, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<TemplateDetailMapping> SingleOrDefaultAsync(Expression<Func<TemplateDetailMapping, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override TemplateDetailMapping Update(TemplateDetailMapping entity)
-		{
-			entity = context.TemplateDetailMappings.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

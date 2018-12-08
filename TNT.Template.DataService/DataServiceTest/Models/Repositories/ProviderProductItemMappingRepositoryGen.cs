@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class ProviderProductItemMappingRepository : BaseRepository<ProviderProductItemMapping, int>, IProviderProductItemMappingRepository
 	{
-		public ProviderProductItemMappingRepository() : base()
+		public ProviderProductItemMappingRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override ProviderProductItemMapping Add(ProviderProductItemMapping entity)
-		{
-			entity.Active = true;
-			entity = context.ProviderProductItemMappings.Add(entity);
-			return entity;
-		}
-		
-		public override ProviderProductItemMapping Remove(ProviderProductItemMapping entity)
-		{
-			context.ProviderProductItemMappings.Attach(entity);
-			entity = context.ProviderProductItemMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override ProviderProductItemMapping Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.ProviderProductItemMappings.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<ProviderProductItemMapping> RemoveIf(Expression<Func<ProviderProductItemMapping, bool>> expr)
-		{
-			return context.ProviderProductItemMappings.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<ProviderProductItemMapping> RemoveRange(IEnumerable<ProviderProductItemMapping> list)
-		{
-			return context.ProviderProductItemMappings.RemoveRange(list);
-		}
-		
 		public override ProviderProductItemMapping FindById(int key)
 		{
-			var entity = context.ProviderProductItemMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ProviderProductItemId == key);
 			return entity;
 		}
 		
 		public override ProviderProductItemMapping FindActiveById(int key)
 		{
-			var entity = context.ProviderProductItemMappings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ProviderProductItemId == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<ProviderProductItemMapping> FindByIdAsync(int key)
 		{
-			var entity = await context.ProviderProductItemMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ProviderProductItemId == key);
 			return entity;
 		}
 		
 		public override async Task<ProviderProductItemMapping> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.ProviderProductItemMappings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ProviderProductItemId == key && e.Active);
 			return entity;
-		}
-		
-		public override ProviderProductItemMapping FindByIdInclude<TProperty>(int key, params Expression<Func<ProviderProductItemMapping, TProperty>>[] members)
-		{
-			IQueryable<ProviderProductItemMapping> dbSet = context.ProviderProductItemMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.ProviderProductItemId == key);
-		}
-		
-		public override async Task<ProviderProductItemMapping> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<ProviderProductItemMapping, TProperty>>[] members)
-		{
-			IQueryable<ProviderProductItemMapping> dbSet = context.ProviderProductItemMappings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.ProviderProductItemId == key);
 		}
 		
 		public override ProviderProductItemMapping Activate(ProviderProductItemMapping entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<ProviderProductItemMapping> GetActive()
 		{
-			return context.ProviderProductItemMappings.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<ProviderProductItemMapping> GetActive(Expression<Func<ProviderProductItemMapping, bool>> expr)
 		{
-			return context.ProviderProductItemMappings.Where(e => e.Active).Where(expr);
-		}
-		
-		public override ProviderProductItemMapping FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override ProviderProductItemMapping FirstOrDefault(Expression<Func<ProviderProductItemMapping, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<ProviderProductItemMapping> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<ProviderProductItemMapping> FirstOrDefaultAsync(Expression<Func<ProviderProductItemMapping, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override ProviderProductItemMapping SingleOrDefault(Expression<Func<ProviderProductItemMapping, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<ProviderProductItemMapping> SingleOrDefaultAsync(Expression<Func<ProviderProductItemMapping, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override ProviderProductItemMapping Update(ProviderProductItemMapping entity)
-		{
-			entity = context.ProviderProductItemMappings.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

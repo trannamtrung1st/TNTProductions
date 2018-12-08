@@ -30,12 +30,16 @@ namespace Promoter.DataService.Global
 		//{
 			//cfg =>
 			//{
-			//	cfg.CreateMap<Brand, BrandViewModel>().ReverseMap();
-			//	cfg.CreateMap<BrandAccount, BrandAccountViewModel>().ReverseMap();
-			//	cfg.CreateMap<Customer, CustomerViewModel>().ReverseMap();
-			//	cfg.CreateMap<Membership, MembershipViewModel>().ReverseMap();
-			//	cfg.CreateMap<MembershipAccount, MembershipAccountViewModel>().ReverseMap();
-			//	cfg.CreateMap<MembershipCard, MembershipCardViewModel>().ReverseMap();
+			//	cfg.CreateMap<PC_DateTimeFilter, PC_DateTimeFilterViewModel>().ReverseMap();
+			//	cfg.CreateMap<PC_ProductFilter, PC_ProductFilterViewModel>().ReverseMap();
+			//	cfg.CreateMap<PC_StoreFilter, PC_StoreFilterViewModel>().ReverseMap();
+			//	cfg.CreateMap<Promotion, PromotionViewModel>().ReverseMap();
+			//	cfg.CreateMap<PromotionAwardCashback, PromotionAwardCashbackViewModel>().ReverseMap();
+			//	cfg.CreateMap<PromotionAwardDiscount, PromotionAwardDiscountViewModel>().ReverseMap();
+			//	cfg.CreateMap<PromotionAwardGift, PromotionAwardGiftViewModel>().ReverseMap();
+			//	cfg.CreateMap<PromotionConstraint, PromotionConstraintViewModel>().ReverseMap();
+			//	cfg.CreateMap<PromotionDetail, PromotionDetailViewModel>().ReverseMap();
+			//	cfg.CreateMap<Voucher, VoucherViewModel>().ReverseMap();
 		//	}
 		//};
 		private static void ConfigureAutomapper()
@@ -58,18 +62,26 @@ namespace Promoter.DataService.Global
 			Builder.RegisterRequestScopeHandlerModule();
 			Builder.RegisterType<IUnitOfWork, UnitOfWork>();
 			Builder.RegisterType<PromoterEntities>();
-			Builder.RegisterType<IBrandRepository, BrandRepository>();
-			Builder.RegisterType<IBrandAccountRepository, BrandAccountRepository>();
-			Builder.RegisterType<ICustomerRepository, CustomerRepository>();
-			Builder.RegisterType<IMembershipRepository, MembershipRepository>();
-			Builder.RegisterType<IMembershipAccountRepository, MembershipAccountRepository>();
-			Builder.RegisterType<IMembershipCardRepository, MembershipCardRepository>();
-			Builder.RegisterType<IBrandService, BrandService>();
-			Builder.RegisterType<IBrandAccountService, BrandAccountService>();
-			Builder.RegisterType<ICustomerService, CustomerService>();
-			Builder.RegisterType<IMembershipService, MembershipService>();
-			Builder.RegisterType<IMembershipAccountService, MembershipAccountService>();
-			Builder.RegisterType<IMembershipCardService, MembershipCardService>();
+			Builder.RegisterType<IPC_DateTimeFilterRepository, PC_DateTimeFilterRepository>();
+			Builder.RegisterType<IPC_ProductFilterRepository, PC_ProductFilterRepository>();
+			Builder.RegisterType<IPC_StoreFilterRepository, PC_StoreFilterRepository>();
+			Builder.RegisterType<IPromotionRepository, PromotionRepository>();
+			Builder.RegisterType<IPromotionAwardCashbackRepository, PromotionAwardCashbackRepository>();
+			Builder.RegisterType<IPromotionAwardDiscountRepository, PromotionAwardDiscountRepository>();
+			Builder.RegisterType<IPromotionAwardGiftRepository, PromotionAwardGiftRepository>();
+			Builder.RegisterType<IPromotionConstraintRepository, PromotionConstraintRepository>();
+			Builder.RegisterType<IPromotionDetailRepository, PromotionDetailRepository>();
+			Builder.RegisterType<IVoucherRepository, VoucherRepository>();
+			Builder.RegisterType<IPC_DateTimeFilterService, PC_DateTimeFilterService>();
+			Builder.RegisterType<IPC_ProductFilterService, PC_ProductFilterService>();
+			Builder.RegisterType<IPC_StoreFilterService, PC_StoreFilterService>();
+			Builder.RegisterType<IPromotionService, PromotionService>();
+			Builder.RegisterType<IPromotionAwardCashbackService, PromotionAwardCashbackService>();
+			Builder.RegisterType<IPromotionAwardDiscountService, PromotionAwardDiscountService>();
+			Builder.RegisterType<IPromotionAwardGiftService, PromotionAwardGiftService>();
+			Builder.RegisterType<IPromotionConstraintService, PromotionConstraintService>();
+			Builder.RegisterType<IPromotionDetailService, PromotionDetailService>();
+			Builder.RegisterType<IVoucherService, VoucherService>();
 			G.TContainer = Builder.Build();
 		}
 		

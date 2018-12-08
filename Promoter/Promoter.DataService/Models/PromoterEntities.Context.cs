@@ -25,11 +25,15 @@ namespace Promoter.DataService.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Brand> Brands { get; set; }
-        public virtual DbSet<BrandAccount> BrandAccounts { get; set; }
-        public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<Membership> Memberships { get; set; }
-        public virtual DbSet<MembershipAccount> MembershipAccounts { get; set; }
-        public virtual DbSet<MembershipCard> MembershipCards { get; set; }
+        public virtual DbSet<PC_DateTimeFilter> PC_DateTimeFilter { get; set; }
+        public virtual DbSet<PC_ProductFilter> PC_ProductFilter { get; set; }
+        public virtual DbSet<PC_StoreFilter> PC_StoreFilter { get; set; }
+        public virtual DbSet<Promotion> Promotions { get; set; }
+        public virtual DbSet<PromotionAwardCashback> PromotionAwardCashbacks { get; set; }
+        public virtual DbSet<PromotionAwardDiscount> PromotionAwardDiscounts { get; set; }
+        public virtual DbSet<PromotionAwardGift> PromotionAwardGifts { get; set; }
+        public virtual DbSet<PromotionConstraint> PromotionConstraints { get; set; }
+        public virtual DbSet<PromotionDetail> PromotionDetails { get; set; }
+        public virtual DbSet<Voucher> Vouchers { get; set; }
     }
 }

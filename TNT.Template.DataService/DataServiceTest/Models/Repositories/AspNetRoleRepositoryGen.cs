@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class AspNetRoleRepository : BaseRepository<AspNetRole, string>, IAspNetRoleRepository
 	{
-		public AspNetRoleRepository() : base()
+		public AspNetRoleRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override AspNetRole Add(AspNetRole entity)
-		{
-			
-			entity = context.AspNetRoles.Add(entity);
-			return entity;
-		}
-		
-		public override AspNetRole Remove(AspNetRole entity)
-		{
-			context.AspNetRoles.Attach(entity);
-			entity = context.AspNetRoles.Remove(entity);
-			return entity;
-		}
-		
-		public override AspNetRole Remove(string key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.AspNetRoles.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<AspNetRole> RemoveIf(Expression<Func<AspNetRole, bool>> expr)
-		{
-			return context.AspNetRoles.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<AspNetRole> RemoveRange(IEnumerable<AspNetRole> list)
-		{
-			return context.AspNetRoles.RemoveRange(list);
-		}
-		
 		public override AspNetRole FindById(string key)
 		{
-			var entity = context.AspNetRoles.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override AspNetRole FindActiveById(string key)
 		{
-			var entity = context.AspNetRoles.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<AspNetRole> FindByIdAsync(string key)
 		{
-			var entity = await context.AspNetRoles.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<AspNetRole> FindActiveByIdAsync(string key)
 		{
-			var entity = await context.AspNetRoles.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
-		}
-		
-		public override AspNetRole FindByIdInclude<TProperty>(string key, params Expression<Func<AspNetRole, TProperty>>[] members)
-		{
-			IQueryable<AspNetRole> dbSet = context.AspNetRoles;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.Id == key);
-		}
-		
-		public override async Task<AspNetRole> FindByIdIncludeAsync<TProperty>(string key, params Expression<Func<AspNetRole, TProperty>>[] members)
-		{
-			IQueryable<AspNetRole> dbSet = context.AspNetRoles;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
 		}
 		
 		public override AspNetRole Activate(AspNetRole entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<AspNetRole> GetActive()
 		{
-			return context.AspNetRoles;
+			return dbSet;
 		}
 		
 		public override IQueryable<AspNetRole> GetActive(Expression<Func<AspNetRole, bool>> expr)
 		{
-			return context.AspNetRoles.Where(expr);
-		}
-		
-		public override AspNetRole FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override AspNetRole FirstOrDefault(Expression<Func<AspNetRole, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<AspNetRole> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<AspNetRole> FirstOrDefaultAsync(Expression<Func<AspNetRole, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override AspNetRole SingleOrDefault(Expression<Func<AspNetRole, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<AspNetRole> SingleOrDefaultAsync(Expression<Func<AspNetRole, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override AspNetRole Update(AspNetRole entity)
-		{
-			entity = context.AspNetRoles.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

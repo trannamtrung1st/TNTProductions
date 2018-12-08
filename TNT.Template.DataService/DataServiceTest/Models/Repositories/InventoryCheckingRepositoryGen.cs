@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class InventoryCheckingRepository : BaseRepository<InventoryChecking, int>, IInventoryCheckingRepository
 	{
-		public InventoryCheckingRepository() : base()
+		public InventoryCheckingRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override InventoryChecking Add(InventoryChecking entity)
-		{
-			
-			entity = context.InventoryCheckings.Add(entity);
-			return entity;
-		}
-		
-		public override InventoryChecking Remove(InventoryChecking entity)
-		{
-			context.InventoryCheckings.Attach(entity);
-			entity = context.InventoryCheckings.Remove(entity);
-			return entity;
-		}
-		
-		public override InventoryChecking Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.InventoryCheckings.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<InventoryChecking> RemoveIf(Expression<Func<InventoryChecking, bool>> expr)
-		{
-			return context.InventoryCheckings.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<InventoryChecking> RemoveRange(IEnumerable<InventoryChecking> list)
-		{
-			return context.InventoryCheckings.RemoveRange(list);
-		}
-		
 		public override InventoryChecking FindById(int key)
 		{
-			var entity = context.InventoryCheckings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.CheckingId == key);
 			return entity;
 		}
 		
 		public override InventoryChecking FindActiveById(int key)
 		{
-			var entity = context.InventoryCheckings.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.CheckingId == key);
 			return entity;
 		}
 		
 		public override async Task<InventoryChecking> FindByIdAsync(int key)
 		{
-			var entity = await context.InventoryCheckings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.CheckingId == key);
 			return entity;
 		}
 		
 		public override async Task<InventoryChecking> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.InventoryCheckings.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.CheckingId == key);
 			return entity;
-		}
-		
-		public override InventoryChecking FindByIdInclude<TProperty>(int key, params Expression<Func<InventoryChecking, TProperty>>[] members)
-		{
-			IQueryable<InventoryChecking> dbSet = context.InventoryCheckings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.CheckingId == key);
-		}
-		
-		public override async Task<InventoryChecking> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<InventoryChecking, TProperty>>[] members)
-		{
-			IQueryable<InventoryChecking> dbSet = context.InventoryCheckings;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.CheckingId == key);
 		}
 		
 		public override InventoryChecking Activate(InventoryChecking entity)
@@ -131,49 +75,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<InventoryChecking> GetActive()
 		{
-			return context.InventoryCheckings;
+			return dbSet;
 		}
 		
 		public override IQueryable<InventoryChecking> GetActive(Expression<Func<InventoryChecking, bool>> expr)
 		{
-			return context.InventoryCheckings.Where(expr);
-		}
-		
-		public override InventoryChecking FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override InventoryChecking FirstOrDefault(Expression<Func<InventoryChecking, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<InventoryChecking> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<InventoryChecking> FirstOrDefaultAsync(Expression<Func<InventoryChecking, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override InventoryChecking SingleOrDefault(Expression<Func<InventoryChecking, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<InventoryChecking> SingleOrDefaultAsync(Expression<Func<InventoryChecking, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override InventoryChecking Update(InventoryChecking entity)
-		{
-			entity = context.InventoryCheckings.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(expr);
 		}
 		#endregion
 		

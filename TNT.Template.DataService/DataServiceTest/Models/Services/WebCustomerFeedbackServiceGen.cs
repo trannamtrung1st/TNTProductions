@@ -9,6 +9,7 @@ using DataServiceTest.Managers;
 using DataServiceTest.Models.Repositories;
 using DataServiceTest.Global;
 using TNT.IoContainer.Wrapper;
+using System.Data.Entity;
 
 namespace DataServiceTest.Models.Services
 {
@@ -21,6 +22,11 @@ namespace DataServiceTest.Models.Services
 		public WebCustomerFeedbackService(IUnitOfWork uow)
 		{
 			repository = uow.Scope.Resolve<IWebCustomerFeedbackRepository>(uow);
+		}
+		
+		public WebCustomerFeedbackService(DbContext context)
+		{
+			repository = G.TContainer.Resolve<IWebCustomerFeedbackRepository>(context);
 		}
 		
 	}

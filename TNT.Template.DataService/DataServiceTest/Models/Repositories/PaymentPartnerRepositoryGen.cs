@@ -16,7 +16,7 @@ namespace DataServiceTest.Models.Repositories
 	
 	public partial class PaymentPartnerRepository : BaseRepository<PaymentPartner, int>, IPaymentPartnerRepository
 	{
-		public PaymentPartnerRepository() : base()
+		public PaymentPartnerRepository(DbContext context) : base(context)
 		{
 		}
 		
@@ -25,88 +25,32 @@ namespace DataServiceTest.Models.Repositories
 		}
 		
 		#region CRUD Area
-		public override PaymentPartner Add(PaymentPartner entity)
-		{
-			entity.Active = true;
-			entity = context.PaymentPartners.Add(entity);
-			return entity;
-		}
-		
-		public override PaymentPartner Remove(PaymentPartner entity)
-		{
-			context.PaymentPartners.Attach(entity);
-			entity = context.PaymentPartners.Remove(entity);
-			return entity;
-		}
-		
-		public override PaymentPartner Remove(int key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				entity = context.PaymentPartners.Remove(entity);
-			return entity;
-		}
-		
-		public override IEnumerable<PaymentPartner> RemoveIf(Expression<Func<PaymentPartner, bool>> expr)
-		{
-			return context.PaymentPartners.RemoveRange(GetActive(expr).ToList());
-		}
-		
-		public override IEnumerable<PaymentPartner> RemoveRange(IEnumerable<PaymentPartner> list)
-		{
-			return context.PaymentPartners.RemoveRange(list);
-		}
-		
 		public override PaymentPartner FindById(int key)
 		{
-			var entity = context.PaymentPartners.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override PaymentPartner FindActiveById(int key)
 		{
-			var entity = context.PaymentPartners.FirstOrDefault(
+			var entity = dbSet.FirstOrDefault(
 				e => e.ID == key && e.Active);
 			return entity;
 		}
 		
 		public override async Task<PaymentPartner> FindByIdAsync(int key)
 		{
-			var entity = await context.PaymentPartners.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key);
 			return entity;
 		}
 		
 		public override async Task<PaymentPartner> FindActiveByIdAsync(int key)
 		{
-			var entity = await context.PaymentPartners.FirstOrDefaultAsync(
+			var entity = await dbSet.FirstOrDefaultAsync(
 				e => e.ID == key && e.Active);
 			return entity;
-		}
-		
-		public override PaymentPartner FindByIdInclude<TProperty>(int key, params Expression<Func<PaymentPartner, TProperty>>[] members)
-		{
-			IQueryable<PaymentPartner> dbSet = context.PaymentPartners;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return dbSet.FirstOrDefault(
-				e => e.ID == key);
-		}
-		
-		public override async Task<PaymentPartner> FindByIdIncludeAsync<TProperty>(int key, params Expression<Func<PaymentPartner, TProperty>>[] members)
-		{
-			IQueryable<PaymentPartner> dbSet = context.PaymentPartners;
-			foreach (var m in members)
-			{
-				dbSet = dbSet.Include(m);
-			}
-			
-			return await dbSet.FirstOrDefaultAsync(
-				e => e.ID == key);
 		}
 		
 		public override PaymentPartner Activate(PaymentPartner entity)
@@ -143,49 +87,12 @@ namespace DataServiceTest.Models.Repositories
 		
 		public override IQueryable<PaymentPartner> GetActive()
 		{
-			return context.PaymentPartners.Where(e => e.Active);
+			return dbSet.Where(e => e.Active);
 		}
 		
 		public override IQueryable<PaymentPartner> GetActive(Expression<Func<PaymentPartner, bool>> expr)
 		{
-			return context.PaymentPartners.Where(e => e.Active).Where(expr);
-		}
-		
-		public override PaymentPartner FirstOrDefault()
-		{
-			return GetActive().FirstOrDefault();
-		}
-		
-		public override PaymentPartner FirstOrDefault(Expression<Func<PaymentPartner, bool>> expr)
-		{
-			return GetActive().FirstOrDefault(expr);
-		}
-		
-		public override async Task<PaymentPartner> FirstOrDefaultAsync()
-		{
-			return await GetActive().FirstOrDefaultAsync();
-		}
-		
-		public override async Task<PaymentPartner> FirstOrDefaultAsync(Expression<Func<PaymentPartner, bool>> expr)
-		{
-			return await GetActive().FirstOrDefaultAsync(expr);
-		}
-		
-		public override PaymentPartner SingleOrDefault(Expression<Func<PaymentPartner, bool>> expr)
-		{
-			return GetActive().SingleOrDefault(expr);
-		}
-		
-		public override async Task<PaymentPartner> SingleOrDefaultAsync(Expression<Func<PaymentPartner, bool>> expr)
-		{
-			return await GetActive().SingleOrDefaultAsync(expr);
-		}
-		
-		public override PaymentPartner Update(PaymentPartner entity)
-		{
-			entity = context.PaymentPartners.Attach(entity);
-			context.Entry(entity).State = EntityState.Modified;
-			return entity;
+			return dbSet.Where(e => e.Active).Where(expr);
 		}
 		#endregion
 		

@@ -69,80 +69,14 @@ namespace TNT.Template.DataService.Models.Repositories
         public void GenerateEntityRepositoryBody()
         {
             var c1 = new ContainerGen();
-            c1.Signature = "public `entity`Repository(`context` context) : base(context)";
+            c1.Signature = "public `entity`Repository(DbContext context) : base(context)";
             var c2 = new ContainerGen();
             c2.Signature = "public `entity`Repository(IUnitOfWork uow) : base(uow)";
-
-            var m3 = new ContainerGen();
-            m3.Signature = "public override `entity` Add(`entity` entity)";
-            m3.Body.Add(new StatementGen(
-                EInfo.Activable ? (EInfo.Data.ActiveCol ? "entity.Active = true;" : "entity.Deactive = false;") : "",
-                "entity = context.`entities`.Add(entity);",
-                //"if (AutoSave)",
-                //"\tcontext.SaveChanges();",
-                "return entity;"));
-
-            //var m4 = new ContainerGen();
-            //m4.Signature = "public override async Task<`entity`> AddAsync(`entity` entity)";
-            //m4.Body.Add(new StatementGen(
-            //    EInfo.Activable ? (EInfo.Data.ActiveCol ? "entity.Active = true;" : "entity.Deactive = false;") : "",
-            //    "entity = context.`entities`.Add(entity);",
-            //    //"if (AutoSave)",
-            //    //"\tawait context.SaveChangesAsync();",
-            //    "return entity;"));
-
-            var m5 = new ContainerGen();
-            m5.Signature = "public override `entity` Remove(`entity` entity)";
-            m5.Body.Add(new StatementGen(
-                "context.`entities`.Attach(entity);",
-                "entity = context.`entities`.Remove(entity);",
-                //"if (AutoSave)",
-                //"\tcontext.SaveChanges();",
-                "return entity;"));
-
-            //var m6 = new ContainerGen();
-            //m6.Signature = "public override async Task<`entity`> RemoveAsync(`entity` entity)";
-            //m6.Body.Add(new StatementGen(
-            //    "context.`entities`.Attach(entity);",
-            //    "entity = context.`entities`.Remove(entity);",
-            //    //"if (AutoSave)",
-            //    //"\tawait context.SaveChangesAsync();",
-            //    "return entity;"));
-
-            var m7 = new ContainerGen();
-            m7.Signature = "public override `entity` Remove(`entityPK` key)";
-            m7.Body.Add(new StatementGen(
-                "var entity = FindById(key);",
-                "if (entity!=null)",
-                "\tentity = context.`entities`.Remove(entity);",
-                //"if (AutoSave)",
-                //"\tcontext.SaveChanges();",
-                "return entity;"));
-
-            var m8 = new ContainerGen();
-            m8.Signature = "public override IEnumerable<`entity`> RemoveIf(Expression<Func<`entity`, bool>> expr)";
-            m8.Body.Add(new StatementGen(
-                "return context.`entities`.RemoveRange(GetActive(expr).ToList());"));
-
-            var m81 = new ContainerGen();
-            m81.Signature = "public override IEnumerable<`entity`> RemoveRange(IEnumerable<`entity`> list)";
-            m81.Body.Add(new StatementGen(
-                "return context.`entities`.RemoveRange(list);"));
-
-            //var m8 = new ContainerGen();
-            //m8.Signature = "public override async Task<`entity`> RemoveAsync(`entityPK` key)";
-            //m8.Body.Add(new StatementGen(
-            //    "var entity = FindById(key);",
-            //    "if (entity!=null)",
-            //    "\tentity = context.`entities`.Remove(entity);",
-            //    //"if (AutoSave)",
-            //    //"\tawait context.SaveChangesAsync();",
-            //    "return entity;"));
 
             var m9 = new ContainerGen();
             m9.Signature = "public override `entity` FindById(`entityPK` key)";
             m9.Body.Add(new StatementGen(
-                "var entity = context.`entities`.FirstOrDefault(",
+                "var entity = dbSet.FirstOrDefault(",
                 GetKeyCompareExpr() + ");",
                 "return entity;"));
 
@@ -150,14 +84,14 @@ namespace TNT.Template.DataService.Models.Repositories
             m10.Signature = "public override async Task<`entity`> FindByIdAsync(`entityPK` key)";
             m10.Body.Add(
                 new StatementGen(
-                "var entity = await context.`entities`.FirstOrDefaultAsync(",
+                "var entity = await dbSet.FirstOrDefaultAsync(",
                 GetKeyCompareExpr() + ");",
                 "return entity;"));
 
             var m91 = new ContainerGen();
             m91.Signature = "public override `entity` FindActiveById(`entityPK` key)";
             m91.Body.Add(new StatementGen(
-                "var entity = context.`entities`.FirstOrDefault(",
+                "var entity = dbSet.FirstOrDefault(",
                 GetKeyCompareExpr() +
                 (EInfo.Activable ? (EInfo.Data.ActiveCol ? " && e.Active" : " && !e.Deactive") : "") + ");",
                 "return entity;"));
@@ -166,35 +100,35 @@ namespace TNT.Template.DataService.Models.Repositories
             m101.Signature = "public override async Task<`entity`> FindActiveByIdAsync(`entityPK` key)";
             m101.Body.Add(
                 new StatementGen(
-                "var entity = await context.`entities`.FirstOrDefaultAsync(",
+                "var entity = await dbSet.FirstOrDefaultAsync(",
                 GetKeyCompareExpr() +
                 (EInfo.Activable ? (EInfo.Data.ActiveCol ? " && e.Active" : " && !e.Deactive") : "") + ");",
                 "return entity;"));
 
-            var m11 = new ContainerGen();
-            m11.Signature = "public override `entity` FindByIdInclude<TProperty>(`entityPK` key, params Expression<Func<`entity`, TProperty>>[] members)";
-            m11.Body.Add(new StatementGen(
-                "IQueryable<`entity`> dbSet = context.`entities`;",
-                "foreach (var m in members)",
-                "{",
-                "\tdbSet = dbSet.Include(m);",
-                "}",
-                "",
-                "return dbSet.FirstOrDefault(",
-                GetKeyCompareExpr() + ");"));
+            //var m11 = new ContainerGen();
+            //m11.Signature = "public override `entity` FindByIdInclude<TProperty>(`entityPK` key, params Expression<Func<`entity`, TProperty>>[] members)";
+            //m11.Body.Add(new StatementGen(
+            //    "IQueryable<`entity`> dbSet = this.dbSet;",
+            //    "foreach (var m in members)",
+            //    "{",
+            //    "\tdbSet = dbSet.Include(m);",
+            //    "}",
+            //    "",
+            //    "return dbSet.FirstOrDefault(",
+            //    GetKeyCompareExpr() + ");"));
 
-            var m12 = new ContainerGen();
-            m12.Signature = "public override async Task<`entity`> FindByIdIncludeAsync<TProperty>(`entityPK` key, params Expression<Func<`entity`, TProperty>>[] members)";
-            m12.Body.Add(
-                new StatementGen(
-                "IQueryable<`entity`> dbSet = context.`entities`;",
-                "foreach (var m in members)",
-                "{",
-                "\tdbSet = dbSet.Include(m);",
-                "}",
-                "",
-                "return await dbSet.FirstOrDefaultAsync(",
-                GetKeyCompareExpr() + ");"));
+            //var m12 = new ContainerGen();
+            //m12.Signature = "public override async Task<`entity`> FindByIdIncludeAsync<TProperty>(`entityPK` key, params Expression<Func<`entity`, TProperty>>[] members)";
+            //m12.Body.Add(
+            //    new StatementGen(
+            //    "IQueryable<`entity`> dbSet = this.dbSet;",
+            //    "foreach (var m in members)",
+            //    "{",
+            //    "\tdbSet = dbSet.Include(m);",
+            //    "}",
+            //    "",
+            //    "return await dbSet.FirstOrDefaultAsync(",
+            //    GetKeyCompareExpr() + ");"));
 
             var m131 = new ContainerGen();
             m131.Signature = "public override `entity` Activate(`entity` entity)";
@@ -252,87 +186,31 @@ namespace TNT.Template.DataService.Models.Repositories
 
             var m13 = new ContainerGen();
             m13.Signature = "public override IQueryable<`entity`> GetActive()";
-            var getActive = "return context.`entities`" +
+            var getActive = "return dbSet" +
                 (EInfo.Activable ? (EInfo.Data.ActiveCol ? ".Where(e => e.Active);" : ".Where(e => !e.Deactive);") : ";");
             m13.Body.Add(new StatementGen(getActive));
 
             var m14 = new ContainerGen();
             m14.Signature = "public override IQueryable<`entity`> GetActive(Expression<Func<`entity`, bool>> expr)";
-            m14.Body.Add(new StatementGen("return context.`entities`" +
+            m14.Body.Add(new StatementGen("return dbSet" +
                 (EInfo.Activable ? (EInfo.Data.ActiveCol ? ".Where(e => e.Active)" : ".Where(e => !e.Deactive)") : "") + ".Where(expr);"));
 
-            var m15 = new ContainerGen();
-            m15.Signature = "public override `entity` FirstOrDefault()";
-            m15.Body.Add(new StatementGen("return GetActive().FirstOrDefault();"));
-
-            var m151 = new ContainerGen();
-            m151.Signature = "public override `entity` FirstOrDefault(Expression<Func<`entity`, bool>> expr)";
-            m151.Body.Add(new StatementGen("return GetActive().FirstOrDefault(expr);"));
-
-            var m16 = new ContainerGen();
-            m16.Signature = "public override async Task<`entity`> FirstOrDefaultAsync()";
-            m16.Body.Add(new StatementGen("return await GetActive().FirstOrDefaultAsync();"));
-
-            var m161 = new ContainerGen();
-            m161.Signature = "public override async Task<`entity`> FirstOrDefaultAsync(Expression<Func<`entity`, bool>> expr)";
-            m161.Body.Add(new StatementGen("return await GetActive().FirstOrDefaultAsync(expr);"));
-
-            var m17 = new ContainerGen();
-            m17.Signature = "public override `entity` SingleOrDefault(Expression<Func<`entity`, bool>> expr)";
-            m17.Body.Add(new StatementGen("return GetActive().SingleOrDefault(expr);"));
-
-            var m18 = new ContainerGen();
-            m18.Signature = "public override async Task<`entity`> SingleOrDefaultAsync(Expression<Func<`entity`, bool>> expr)";
-            m18.Body.Add(new StatementGen("return await GetActive().SingleOrDefaultAsync(expr);"));
-
-            var m19 = new ContainerGen();
-            m19.Signature = "public override `entity` Update(`entity` entity)";
-            m19.Body.Add(new StatementGen(
-                "entity = context.`entities`.Attach(entity);",
-                "context.Entry(entity).State = EntityState.Modified;",
-                //"if (AutoSave)",
-                //"\tcontext.SaveChanges();",
-                "return entity;"));
-
-            //var m20 = new ContainerGen();
-            //m20.Signature = "public override async Task<`entity`> UpdateAsync(`entity` entity)";
-            //m20.Body.Add(new StatementGen(
-            //    "entity = context.`entities`.Attach(entity);",
-            //    "context.Entry(entity).State = EntityState.Modified;",
-            //    //"if (AutoSave)",
-            //    //"\tawait context.SaveChangesAsync();",
-            //    "return entity;"));
 
             EntityRepositoryBody.Add(
                 c1, new StatementGen(""),
                 c2, new StatementGen("", "#region CRUD Area"),
-                m3, new StatementGen(""),
-                //m4, new StatementGen(""),
-                m5, new StatementGen(""),
-                //m6, new StatementGen(""),
-                m7, new StatementGen(""),
-                m8, new StatementGen(""),
-                m81, new StatementGen(""),
                 m9, new StatementGen(""),
                 m91, new StatementGen(""),
                 m10, new StatementGen(""),
                 m101, new StatementGen(""),
-                m11, new StatementGen(""),
-                m12, new StatementGen(""),
+                //m11, new StatementGen(""),
+                //m12, new StatementGen(""),
                 m131, new StatementGen(""),
                 m1311, new StatementGen(""),
                 m132, new StatementGen(""),
                 m1322, new StatementGen(""),
                 m13, new StatementGen(""),
-                m14, new StatementGen(""),
-                m15, new StatementGen(""),
-                m151, new StatementGen(""),
-                m16, new StatementGen(""),
-                m161, new StatementGen(""),
-                m17, new StatementGen(""),
-                m18, new StatementGen(""),
-                m19, new StatementGen("#endregion", ""));
-            //m20, new StatementGen("#endregion", ""));
+                m14, new StatementGen("#endregion", ""));
 
         }
 

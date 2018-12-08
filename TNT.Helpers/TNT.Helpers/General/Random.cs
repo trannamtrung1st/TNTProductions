@@ -51,5 +51,16 @@ namespace TNT.Helpers.General
             return Letters[rand.Next(0, Letters.Length)];
         }
 
+        public static string RandomStringFrom(this Random rand, string srcStr, int length)
+        {
+            var str = new StringBuilder("");
+            var srcLen = srcStr.Length;
+            for (int i = 0; i < length; i++)
+            {
+                str.Append(srcStr[rand.Next(srcLen)]);
+            }
+            return str.ToString();
+        }
+
     }
 }
