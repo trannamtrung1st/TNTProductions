@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class ProviderViewModel: BaseViewModel<Provider>
+	{
+		[JsonProperty("id")]
+		public int Id { get; set; }
+		[JsonProperty("provider_name")]
+		public string ProviderName { get; set; }
+		[JsonProperty("is_available")]
+		public Nullable<bool> IsAvailable { get; set; }
+		[JsonProperty("address")]
+		public string Address { get; set; }
+		[JsonProperty("phone")]
+		public string Phone { get; set; }
+		[JsonProperty("email")]
+		public string Email { get; set; }
+		[JsonProperty("manager_name")]
+		public string ManagerName { get; set; }
+		[JsonProperty("license")]
+		public string License { get; set; }
+		[JsonProperty("brand_id")]
+		public Nullable<int> BrandId { get; set; }
+		[JsonProperty("type")]
+		public Nullable<int> Type { get; set; }
+		[JsonProperty("vatcode")]
+		public string VATCode { get; set; }
+		[JsonProperty("account_no")]
+		public string AccountNo { get; set; }
+		//[JsonProperty("inventory_receipts")]
+		//public IEnumerable<InventoryReceiptViewModel> InventoryReceiptsVM { get; set; }
+		//[JsonProperty("provider_product_item_mappings")]
+		//public IEnumerable<ProviderProductItemMappingViewModel> ProviderProductItemMappingsVM { get; set; }
+		//[JsonProperty("vatorders")]
+		//public IEnumerable<VATOrderViewModel> VATOrdersVM { get; set; }
+		
+		public ProviderViewModel(Provider entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public ProviderViewModel()
+		{
+			//this.InventoryReceiptsVM = new HashSet<InventoryReceiptViewModel>();
+			//this.ProviderProductItemMappingsVM = new HashSet<ProviderProductItemMappingViewModel>();
+			//this.VATOrdersVM = new HashSet<VATOrderViewModel>();
+		}
+		
+	}
+}

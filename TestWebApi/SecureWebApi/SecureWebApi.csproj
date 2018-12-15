@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -155,13 +156,15 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\TNT.Helpers.WebApi\TNT.Helpers.WebApi\bin\Debug\TNT.Helpers.dll</HintPath>
+    <Reference Include="TNT.Helpers">
+      <HintPath>..\..\CommonLibs\TProject\TNT.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="TNT.Helpers.WebApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TNT.Helpers.WebApi">
+      <HintPath>..\..\CommonLibs\TProject\TNT.Helpers.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="TNT.Helpers.WebApi.Owin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\TNT.Helpers.WebApi\TNT.Helpers.WebApi\bin\Debug\TNT.Helpers.WebApi.dll</HintPath>
+      <HintPath>..\..\CommonLibs\TProject\TNT.Helpers.WebApi.Owin.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>

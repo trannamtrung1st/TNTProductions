@@ -54,7 +54,7 @@ namespace TNT.Helpers.WebApi
         {
             return new HttpResponseMessage()
             {
-                Content = new JsonContent<BaseResponse<T>>(BaseResponse<T>.Response(obj, message)),
+                Content = new JsonContent<BaseResponse<T>>(BaseResponse<T>.Ok(obj, message)),
                 StatusCode = HttpStatusCode.OK,
                 ReasonPhrase = reasonPhrase
             };
@@ -78,7 +78,7 @@ namespace TNT.Helpers.WebApi
         {
             return new HttpResponseMessage()
             {
-                Content = new JsonContent<BaseResponse>(BaseResponse.Response(obj, message)),
+                Content = new JsonContent<BaseResponse>(BaseResponse.Ok(obj, message)),
                 StatusCode = HttpStatusCode.OK,
                 ReasonPhrase = reasonPhrase
             };
@@ -102,7 +102,7 @@ namespace TNT.Helpers.WebApi
         {
             return new HttpResponseMessage()
             {
-                Content = new JsonContent<BaseResponse<T>>(BaseResponse<T>.Response(obj, message)),
+                Content = new JsonContent<BaseResponse<T>>(BaseResponse<T>.Ok(obj, message)),
                 StatusCode = HttpStatusCode.NotFound,
                 ReasonPhrase = reasonPhrase
             };
@@ -126,7 +126,7 @@ namespace TNT.Helpers.WebApi
         {
             return new HttpResponseMessage()
             {
-                Content = new JsonContent<BaseResponse>(BaseResponse.Response(obj, message)),
+                Content = new JsonContent<BaseResponse>(BaseResponse.Ok(obj, message)),
                 StatusCode = HttpStatusCode.NotFound,
                 ReasonPhrase = reasonPhrase
             };
@@ -150,7 +150,7 @@ namespace TNT.Helpers.WebApi
         {
             return new HttpResponseMessage()
             {
-                Content = new JsonContent<BaseResponse<T>>(BaseResponse<T>.Error(obj, message)),
+                Content = new JsonContent<BaseResponse<T>>(BaseResponse<T>.Fail(message, obj)),
                 StatusCode = HttpStatusCode.InternalServerError,
                 ReasonPhrase = reasonPhrase
             };
@@ -174,7 +174,7 @@ namespace TNT.Helpers.WebApi
         {
             return new HttpResponseMessage()
             {
-                Content = new JsonContent<BaseResponse>(BaseResponse.Error(obj, message)),
+                Content = new JsonContent<BaseResponse>(BaseResponse.Fail(message, obj)),
                 StatusCode = HttpStatusCode.InternalServerError,
                 ReasonPhrase = reasonPhrase
             };
@@ -198,7 +198,7 @@ namespace TNT.Helpers.WebApi
         {
             return new HttpResponseMessage()
             {
-                Content = new JsonContent<BaseResponse<T>>(BaseResponse<T>.Error(obj, message)),
+                Content = new JsonContent<BaseResponse<T>>(BaseResponse<T>.Fail(message, obj)),
                 StatusCode = HttpStatusCode.Unauthorized,
                 ReasonPhrase = reasonPhrase
             };
@@ -222,7 +222,7 @@ namespace TNT.Helpers.WebApi
         {
             return new HttpResponseMessage()
             {
-                Content = new JsonContent<BaseResponse>(BaseResponse.Error(obj, message)),
+                Content = new JsonContent<BaseResponse>(BaseResponse.Fail(message, obj)),
                 StatusCode = HttpStatusCode.Unauthorized,
                 ReasonPhrase = reasonPhrase
             };
@@ -246,7 +246,7 @@ namespace TNT.Helpers.WebApi
         {
             return new HttpResponseMessage()
             {
-                Content = new JsonContent<BaseResponse<T>>(BaseResponse<T>.Error(obj, message)),
+                Content = new JsonContent<BaseResponse<T>>(BaseResponse<T>.Fail(message, obj)),
                 StatusCode = HttpStatusCode.BadRequest,
                 ReasonPhrase = reasonPhrase
             };
@@ -270,7 +270,7 @@ namespace TNT.Helpers.WebApi
         {
             return new HttpResponseMessage()
             {
-                Content = new JsonContent<BaseResponse>(BaseResponse.Error(obj, message)),
+                Content = new JsonContent<BaseResponse>(BaseResponse.Fail(message, obj)),
                 StatusCode = HttpStatusCode.BadRequest,
                 ReasonPhrase = reasonPhrase
             };

@@ -10,34 +10,24 @@ namespace TNT.Helpers.Logging
     public enum LogMode
     {
         OneFile,
-        ByDate,
+        FileByDate,
         Console
     }
 
-    public interface ILoggerAdapter
+    public interface ITLogger
     {
         StringBuilder Buffer { get; set; }
         string LogFolder { get; set; }
         string LogName { get; set; }
         string FileExtension { get; set; }
         bool AutoDateHeader { get; set; }
-        Action<ILoggerAdapter, Exception> ErrorHandler { get; set; }
-        void Log(string content, bool push = false);
+        Action<ITLogger, Exception> ErrorHandler { get; set; }
+        void Log(string content);
+        void LogBuffer(string content);
         void ClearBuffer();
     }
 
-    interface ILoggerAdaptee
-    {
-        StringBuilder Buffer { get; set; }
-        string LogFolder { get; set; }
-        string LogName { get; set; }
-        string FileExtension { get; set; }
-        bool AutoDateHeader { get; set; }
-        void Log(string content, bool push = false);
-        void ClearBuffer();
-    }
-
-    abstract class BaseLogger : ILoggerAdaptee
+    abstract class BaseLogger : ITLogger
     {
         public StringBuilder Buffer { get; set; }
         public virtual string LogName { get; set; }
@@ -68,21 +58,32 @@ namespace TNT.Helpers.Logging
         public bool AutoDateHeader { get; set; } = true;
 
         public virtual string FileExtension { get; set; } = "txt";
+        public Action<ITLogger, Exception> ErrorHandler { get; set; }
 
         public void ClearBuffer()
         {
             Buffer = null;
         }
 
-        public void Log(string content, bool push = false)
+        public void Log(string content)
         {
             if (Buffer == null)
                 Buffer = new StringBuilder("");
             Buffer.AppendLine(content);
-            if (push)
+            try
             {
                 PushLog();
             }
+            catch (Exception e)
+            {
+                ErrorHandler.Invoke(this, e);
+            }
+        }
+        public void LogBuffer(string content)
+        {
+            if (Buffer == null)
+                Buffer = new StringBuilder("");
+            Buffer.AppendLine(content);
         }
         protected abstract void PushLog();
     }
@@ -134,19 +135,19 @@ namespace TNT.Helpers.Logging
 
     public class LoggerBuilder
     {
-        private ILoggerAdapter logger;
-        public LoggerBuilder(LogMode mode = LogMode.Console)
+        private ITLogger logger;
+        public LoggerBuilder(LogMode mode)
         {
             switch (mode)
             {
                 case LogMode.Console:
-                    logger = new Logger(new ConsoleLogger());
+                    logger = new ConsoleLogger();
                     break;
                 case LogMode.OneFile:
-                    logger = new Logger(new OneFileLogger());
+                    logger = new OneFileLogger();
                     break;
-                case LogMode.ByDate:
-                    logger = new Logger(new ByDateLogger());
+                case LogMode.FileByDate:
+                    logger = new ByDateLogger();
                     break;
             }
         }
@@ -171,107 +172,15 @@ namespace TNT.Helpers.Logging
             logger.AutoDateHeader = auto;
             return this;
         }
-        public LoggerBuilder ErrorHandler(Action<ILoggerAdapter, Exception> errHandler)
+        public LoggerBuilder ErrorHandler(Action<ITLogger, Exception> errHandler)
         {
             logger.ErrorHandler = errHandler;
             return this;
         }
-        public ILoggerAdapter Build()
+        public ITLogger Build()
         {
             return logger;
         }
     }
 
-    class Logger : ILoggerAdapter
-    {
-        private ILoggerAdaptee Adaptee { get; set; }
-        public bool AutoDateHeader
-        {
-            get
-            {
-                return Adaptee.AutoDateHeader;
-            }
-
-            set
-            {
-                Adaptee.AutoDateHeader = value;
-            }
-        }
-
-        public StringBuilder Buffer
-        {
-            get
-            {
-                return Adaptee.Buffer;
-            }
-            set
-            {
-                Adaptee.Buffer = value;
-            }
-        }
-
-        public Action<ILoggerAdapter, Exception> ErrorHandler { get; set; }
-
-        public string FileExtension
-        {
-            get
-            {
-                return Adaptee.FileExtension;
-            }
-
-            set
-            {
-                Adaptee.FileExtension = value;
-            }
-        }
-
-        public string LogFolder
-        {
-            get
-            {
-                return Adaptee.LogFolder;
-            }
-
-            set
-            {
-                Adaptee.LogFolder = value;
-            }
-        }
-
-        public string LogName
-        {
-            get
-            {
-                return Adaptee.LogName;
-            }
-
-            set
-            {
-                Adaptee.LogName = value;
-            }
-        }
-
-        public void ClearBuffer()
-        {
-            Adaptee.ClearBuffer();
-        }
-
-        public void Log(string content, bool push = false)
-        {
-            try
-            {
-                Adaptee.Log(content, push);
-            }
-            catch (Exception e)
-            {
-                if (ErrorHandler != null)
-                    ErrorHandler.Invoke(this, e);
-            }
-        }
-
-        public Logger(ILoggerAdaptee adaptee)
-        {
-            Adaptee = adaptee;
-        }
-    }
 }

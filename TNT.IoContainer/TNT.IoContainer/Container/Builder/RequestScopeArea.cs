@@ -46,7 +46,8 @@ namespace TNT.IoContainer.Container
 
         public void RegisterRequestScopeHandlerModule()
         {
-            HttpApplication.RegisterModule(typeof(TContainerModule));
+            if (HttpContext.Current != null)
+                HttpApplication.RegisterModule(typeof(TContainerModule));
         }
 
     }

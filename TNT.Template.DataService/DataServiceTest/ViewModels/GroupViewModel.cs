@@ -1,0 +1,41 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class GroupViewModel: BaseViewModel<Group>
+	{
+		[JsonProperty("group_id")]
+		public int GroupId { get; set; }
+		[JsonProperty("name")]
+		public string Name { get; set; }
+		[JsonProperty("description")]
+		public string Description { get; set; }
+		[JsonProperty("is_displayed")]
+		public Nullable<bool> IsDisplayed { get; set; }
+		[JsonProperty("brand_id")]
+		public int BrandId { get; set; }
+		//[JsonProperty("products")]
+		//public IEnumerable<ProductViewModel> ProductsVM { get; set; }
+		//[JsonProperty("stores")]
+		//public IEnumerable<StoreViewModel> StoresVM { get; set; }
+		
+		public GroupViewModel(Group entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public GroupViewModel()
+		{
+			//this.ProductsVM = new HashSet<ProductViewModel>();
+			//this.StoresVM = new HashSet<StoreViewModel>();
+		}
+		
+	}
+}

@@ -87,7 +87,6 @@
     <Compile Include="OAuth\Filters\ProviderBasedAuthenticationFilter.cs" />
     <Compile Include="Http.cs" />
     <Compile Include="JsonContent.cs" />
-    <Compile Include="Messages\MessageManagers.cs" />
     <Compile Include="OAuth\AuthenticationProvider.cs" />
     <Compile Include="OAuth\Providers\FacebookOAuthProvider.cs" />
     <Compile Include="OAuth\Providers\GoogleOAuthProvider.cs" />

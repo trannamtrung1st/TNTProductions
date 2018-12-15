@@ -10,16 +10,15 @@ namespace TNT.Helpers.WebApi
 {
     public class BaseResponse
     {
-        [JsonProperty("sucess")]
+        [JsonProperty("success")]
         public bool Success { get; set; }
         [JsonProperty("message")]
-        public dynamic Message { get; set; }
+        public object Message { get; set; }
         [JsonProperty("data")]
-        public dynamic Data { get; set; }
-        private BaseResponse() { }
+        public object Data { get; set; }
 
         public static BaseResponse From<T>(
-            T data = default(T), bool success = true, dynamic message = null)
+            T data = default(T), bool success = true, object message = null)
         {
             return new BaseResponse()
             {
@@ -30,7 +29,7 @@ namespace TNT.Helpers.WebApi
         }
 
         public static BaseResponse From(
-            dynamic data = null, bool success = true, dynamic message = null)
+            object data = null, bool success = true, object message = null)
         {
             return new BaseResponse()
             {
@@ -40,8 +39,8 @@ namespace TNT.Helpers.WebApi
             };
         }
 
-        public static BaseResponse Response<T>(
-            T data = default(T), dynamic message = null)
+        public static BaseResponse Ok<T>(
+            T data = default(T), object message = null)
         {
             return new BaseResponse()
             {
@@ -51,8 +50,8 @@ namespace TNT.Helpers.WebApi
             };
         }
 
-        public static BaseResponse Response(
-            dynamic data = null, dynamic message = null)
+        public static BaseResponse Ok(
+            object data = null, object message = null)
         {
             return new BaseResponse()
             {
@@ -62,8 +61,8 @@ namespace TNT.Helpers.WebApi
             };
         }
 
-        public static BaseResponse Error<T>(
-             T data = default(T), dynamic message = null)
+        public static BaseResponse Fail<T>(
+             object message = null, T data = default(T))
         {
             return new BaseResponse()
             {
@@ -73,8 +72,8 @@ namespace TNT.Helpers.WebApi
             };
         }
 
-        public static BaseResponse Error(
-            dynamic data = null, dynamic message = null)
+        public static BaseResponse Fail(
+            object message = null, object data = null)
         {
             return new BaseResponse()
             {
@@ -88,17 +87,17 @@ namespace TNT.Helpers.WebApi
 
     public class BaseResponse<T>
     {
-        [JsonProperty("sucess")]
+        [JsonProperty("success")]
         public bool Success { get; set; }
         [JsonProperty("message")]
-        public dynamic Message { get; set; }
+        public object Message { get; set; }
         [JsonProperty("data")]
         public T Data { get; set; }
-        private BaseResponse() { }
 
         public static BaseResponse<T> From(
-            T data = default(T), bool success = true, dynamic message = null)
+            T data = default(T), bool success = true, object message = null)
         {
+
             return new BaseResponse<T>()
             {
                 Success = success,
@@ -107,8 +106,8 @@ namespace TNT.Helpers.WebApi
             };
         }
 
-        public static BaseResponse<T> Response(
-            T data = default(T), dynamic message = null)
+        public static BaseResponse<T> Ok(
+            T data = default(T), object message = null)
         {
             return new BaseResponse<T>()
             {
@@ -118,8 +117,8 @@ namespace TNT.Helpers.WebApi
             };
         }
 
-        public static BaseResponse<T> Error(
-            T data = default(T), dynamic message = null)
+        public static BaseResponse<T> Fail(
+            object message = null, T data = default(T))
         {
             return new BaseResponse<T>()
             {

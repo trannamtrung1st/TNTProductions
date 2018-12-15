@@ -22,7 +22,16 @@ namespace TNT.DataService
     {
         static void Main(string[] args)
         {
-            
+            Console.WriteLine(new EntityExtensionGen(new EntityInfo(new DataInfo()
+            {
+                ActiveCol = true,
+                ContextName = "DataEntities",
+                EdmxPath = @"T:\TNT\Workspace\SkyAdmin\Wisky.SkyAdmin.Manage\CrmApi\Models\DataEntities.edmx",
+                Entities = new List<EntityInfo>(),
+                ProjectName = "CrmApi",
+                RequestScope = false,
+                ServicePool = false
+            })).ENamespace.Generate());
         }
         
     }

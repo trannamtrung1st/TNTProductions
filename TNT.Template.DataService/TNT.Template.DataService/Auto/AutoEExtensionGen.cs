@@ -50,7 +50,8 @@ namespace TNT.Template.DataService.Auto
                 new StatementGen(true,
                     "var eeGen = new EntityExtensionGen(e);",
                     "manager.StartNewFile(e.EntityName+\"ExtensionGen.cs\");")),
-                new TemplateTextBlock("<#=eeGen.Generate()#>"),
+                new TemplateTextBlock("<#=eeGen.Generate()\r\n#>"),
+                new TemplateTextBlock("<#=eeGen.ENamespace.Generate()#>"),
                 new TemplateCodeBlock(new StatementGen(
                     "}",
                     "manager.Process();")));

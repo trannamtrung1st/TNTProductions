@@ -77,10 +77,10 @@ namespace TNT.Template.DataService.ViewModels
                 if (!ExceptProps.Contains(p.Key))
                 {
                     if (JsonIgnoreProps.Contains(p.Key))
-                        s0.Add("[JsonIgnore]");
+                        s0.Add("//[JsonIgnore]");
                     else
-                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key, Style) + "\")]");// + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
-                    s0.Add("public " + p.Value + " " + p.Key + "VM { get; set; }");
+                        s0.Add("//[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key, Style) + "\")]");// + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
+                    s0.Add("//public " + p.Value + " " + p.Key + "VM { get; set; }");
                 }
             }
             foreach (var p in EInfo.NavCollectionPropMapping)
@@ -88,26 +88,26 @@ namespace TNT.Template.DataService.ViewModels
                 if (!ExceptProps.Contains(p.Key))
                 {
                     if (JsonIgnoreProps.Contains(p.Key))
-                        s0.Add("[JsonIgnore]");
+                        s0.Add("//[JsonIgnore]");
                     else
-                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key, Style) + "\")]");// + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
-                    s0.Add("public " + p.Value + " " + p.Key + "VM { get; set; }");
+                        s0.Add("//[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key, Style) + "\")]");// + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
+                    s0.Add("//public " + p.Value + " " + p.Key + "VM { get; set; }");
                 }
             }
 
             var c2 = new ContainerGen();
-            c2.Signature = "public `entityVM`(`entity` entity) : this()";
+            c2.Signature = "public `entityVM`(`entity` entity)"; //: this()";
             c2.Body.Add(new StatementGen("FromEntity(entity);"));
 
             var c21 = new ContainerGen();
             c21.Signature = "public `entityVM`()";
-            foreach (var p in EInfo.NavCollectionPropMapping)
-            {
-                var type = p.Value;
-                var firstBracket = type.IndexOf('<') + 1;
-                type = type.Substring(firstBracket, type.IndexOf('>') - firstBracket);
-                c21.Body.Add(new StatementGen("this." + p.Key + "VM = new HashSet<" + type + ">();"));
-            }
+            //foreach (var p in EInfo.NavCollectionPropMapping)
+            //{
+            //    var type = p.Value;
+            //    var firstBracket = type.IndexOf('<') + 1;
+            //    type = type.Substring(firstBracket, type.IndexOf('>') - firstBracket);
+            //    c21.Body.Add(new StatementGen("//this." + p.Key + "VM = new HashSet<" + type + ">();"));
+            //}
 
             VMClassBody.Add(
                 s0, new StatementGen(""),

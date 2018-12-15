@@ -62,6 +62,7 @@ namespace TNT.Template.DataService.Models.Repositories
                     "E Add(E entity);",
                     "IEnumerable<E> AddRange(IEnumerable<E> entities);",
                     "E Update(E entity);",
+                    "IEnumerable<E> UpdateRange(IEnumerable<E> entities);",
                     "E Remove(E entity);",
                     "E Remove(K key);",
                     "IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);",
@@ -76,6 +77,8 @@ namespace TNT.Template.DataService.Models.Repositories
                     "E Activate(K key);",
                     "E Deactivate(E entity);",
                     "E Deactivate(K key);",
+                    "IQueryable<E> Get();",
+                    "IQueryable<E> Get(Expression<Func<E, bool>> expr);",
                     "IQueryable<E> GetActive();",
                     "IQueryable<E> GetActive(Expression<Func<E, bool>> expr);",
                     "E FirstOrDefault();",
@@ -188,6 +191,24 @@ namespace TNT.Template.DataService.Models.Repositories
                 "context.Entry(entity).State = EntityState.Modified;",
                 "return entity;"));
 
+            var m1411 = new ContainerGen();
+            m1411.Signature = "public IEnumerable<E> UpdateRange(IEnumerable<E> entities)";
+            m1411.Body.Add(new StatementGen(
+                "foreach (var e in entities)",
+                "{",
+                "\tdbSet.Attach(e);",
+                "\tcontext.Entry(e).State = EntityState.Modified;",
+                "}",
+                "return entities;"));
+
+            var m142 = new ContainerGen();
+            m142.Signature = "public IQueryable<E> Get()";
+            m142.Body.Add(new StatementGen("return dbSet;"));
+
+            var m143 = new ContainerGen();
+            m143.Signature = "public IQueryable<E> Get(Expression<Func<E, bool>> expr)";
+            m143.Body.Add(new StatementGen("return dbSet.Where(expr);"));
+
             var m15 = new ContainerGen();
             m15.Signature = "public E FirstOrDefault()";
             m15.Body.Add(new StatementGen("return GetActive().FirstOrDefault();"));
@@ -245,6 +266,9 @@ namespace TNT.Template.DataService.Models.Repositories
                 m13, new StatementGen(""),
                 m14, new StatementGen(""),
                 m141, new StatementGen(""),
+                m1411, new StatementGen(""),
+                m142, new StatementGen(""),
+                m143, new StatementGen(""),
                 m15, new StatementGen(""),
                 m151, new StatementGen(""),
                 m16, new StatementGen(""),

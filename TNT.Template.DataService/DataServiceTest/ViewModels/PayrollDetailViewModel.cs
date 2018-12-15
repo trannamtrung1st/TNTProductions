@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class PayrollDetailViewModel: BaseViewModel<PayrollDetail>
+	{
+		[JsonProperty("id")]
+		public int Id { get; set; }
+		[JsonProperty("name")]
+		public string Name { get; set; }
+		[JsonProperty("value")]
+		public Nullable<double> Value { get; set; }
+		[JsonProperty("payroll_category_id")]
+		public Nullable<int> PayrollCategoryId { get; set; }
+		[JsonProperty("active")]
+		public bool Active { get; set; }
+		[JsonProperty("brand_id")]
+		public int BrandId { get; set; }
+		//[JsonProperty("payroll_category")]
+		//public PayrollCategoryViewModel PayrollCategoryVM { get; set; }
+		//[JsonProperty("pay_slip_items")]
+		//public IEnumerable<PaySlipItemViewModel> PaySlipItemsVM { get; set; }
+		//[JsonProperty("template_detail_mappings")]
+		//public IEnumerable<TemplateDetailMappingViewModel> TemplateDetailMappingsVM { get; set; }
+		
+		public PayrollDetailViewModel(PayrollDetail entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public PayrollDetailViewModel()
+		{
+			//this.PaySlipItemsVM = new HashSet<PaySlipItemViewModel>();
+			//this.TemplateDetailMappingsVM = new HashSet<TemplateDetailMappingViewModel>();
+		}
+		
+	}
+}

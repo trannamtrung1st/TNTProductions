@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class PriceGroupViewModel: BaseViewModel<PriceGroup>
+	{
+		[JsonProperty("price_group_id")]
+		public int PriceGroupID { get; set; }
+		[JsonProperty("price_group_name")]
+		public string PriceGroupName { get; set; }
+		[JsonProperty("start_day_time")]
+		public DateTime StartDayTime { get; set; }
+		[JsonProperty("end_night_time")]
+		public DateTime EndNightTime { get; set; }
+		[JsonProperty("day_price")]
+		public double DayPrice { get; set; }
+		[JsonProperty("round_minute")]
+		public int RoundMinute { get; set; }
+		[JsonProperty("first_hour_price")]
+		public double FirstHourPrice { get; set; }
+		[JsonProperty("second_hour_price")]
+		public double SecondHourPrice { get; set; }
+		[JsonProperty("third_hour_price")]
+		public double ThirdHourPrice { get; set; }
+		[JsonProperty("next_hour_price")]
+		public double NextHourPrice { get; set; }
+		[JsonProperty("night_addition_price_id")]
+		public int NightAdditionPriceID { get; set; }
+		[JsonProperty("is_available")]
+		public bool IsAvailable { get; set; }
+		[JsonProperty("addition_price")]
+		public double AdditionPrice { get; set; }
+		[JsonProperty("day_limit_time1")]
+		public int DayLimitTime1 { get; set; }
+		[JsonProperty("day_price_limit_time1")]
+		public double DayPriceLimitTime1 { get; set; }
+		[JsonProperty("day_limit_time2")]
+		public int DayLimitTime2 { get; set; }
+		[JsonProperty("day_price_limit_time2")]
+		public double DayPriceLimitTime2 { get; set; }
+		//[JsonProperty("order_fee_items")]
+		//public IEnumerable<OrderFeeItemViewModel> OrderFeeItemsVM { get; set; }
+		//[JsonProperty("room_category_price_group_mappings")]
+		//public IEnumerable<RoomCategoryPriceGroupMappingViewModel> RoomCategoryPriceGroupMappingsVM { get; set; }
+		//[JsonProperty("price_nights")]
+		//public IEnumerable<PriceNightViewModel> PriceNightsVM { get; set; }
+		
+		public PriceGroupViewModel(PriceGroup entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public PriceGroupViewModel()
+		{
+			//this.OrderFeeItemsVM = new HashSet<OrderFeeItemViewModel>();
+			//this.RoomCategoryPriceGroupMappingsVM = new HashSet<RoomCategoryPriceGroupMappingViewModel>();
+			//this.PriceNightsVM = new HashSet<PriceNightViewModel>();
+		}
+		
+	}
+}

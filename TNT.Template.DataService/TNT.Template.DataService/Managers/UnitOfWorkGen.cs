@@ -116,7 +116,6 @@ namespace TNT.Template.DataService.Managers
             m6.Signature = "public DbContextTransaction BeginTransaction()";
             m6.Body.Add(new StatementGen(
                 "var trans = Context.Database.BeginTransaction();",
-                "Scope.ManageResources(trans);",
                 "return trans;"));
 
             var s7 = new StatementGen(

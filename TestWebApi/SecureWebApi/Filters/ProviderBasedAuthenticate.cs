@@ -11,6 +11,7 @@ using TNT.Helpers.WebApi;
 using System.Security.Claims;
 using TNT.Helpers.WebApi.OAuth.Filters;
 using TNT.Helpers.WebApi.OAuth.Providers;
+using TNT.Helpers.WebApi.OAuth;
 
 namespace SecureWebApi.Filters
 {
@@ -25,6 +26,8 @@ namespace SecureWebApi.Filters
                 "931960859587-hjibavglvimtv5d4rofuiul7sdqblht7.apps.googleusercontent.com", 
                 "USs_I-dgw4l1Voj2hsyvi0kC");
         }
+
+        public override IEnumerable<string> ProviderAuthenticationTypes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         protected override IHttpActionResult MissingAuthorizationParameter
         {
@@ -41,6 +44,10 @@ namespace SecureWebApi.Filters
             return Task.FromResult(0);
         }
 
+        protected override IAuthenticationProvider<ProviderBasedAuthenticationFilter> GetProvider()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class FacebookOAuth : FacebookProvider

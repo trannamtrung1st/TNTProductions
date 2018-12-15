@@ -33,7 +33,7 @@
 	foreach (var e in dt.Entities)
 	{
 		var vmGen = new VMGen(e, jIgnore, except, JsonPropertyFormatEnum.JsonStyle);
-		manager.StartNewFile(e.EntityName+"ViewModel.txt");
+		manager.StartNewFile(e.EntityName+"ViewModel.cs");
 #>
 <#=vmGen.Generate()#><#
 	}

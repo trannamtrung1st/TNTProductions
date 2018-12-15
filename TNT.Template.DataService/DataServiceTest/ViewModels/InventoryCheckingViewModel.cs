@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class InventoryCheckingViewModel: BaseViewModel<InventoryChecking>
+	{
+		[JsonProperty("checking_id")]
+		public int CheckingId { get; set; }
+		[JsonProperty("store_id")]
+		public int StoreId { get; set; }
+		[JsonProperty("checking_date")]
+		public DateTime CheckingDate { get; set; }
+		[JsonProperty("creator")]
+		public string Creator { get; set; }
+		[JsonProperty("status")]
+		public int Status { get; set; }
+		//[JsonProperty("inventory_checking_items")]
+		//public IEnumerable<InventoryCheckingItemViewModel> InventoryCheckingItemsVM { get; set; }
+		
+		public InventoryCheckingViewModel(InventoryChecking entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public InventoryCheckingViewModel()
+		{
+			//this.InventoryCheckingItemsVM = new HashSet<InventoryCheckingItemViewModel>();
+		}
+		
+	}
+}

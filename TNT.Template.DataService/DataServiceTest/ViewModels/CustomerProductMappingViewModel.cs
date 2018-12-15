@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class CustomerProductMappingViewModel: BaseViewModel<CustomerProductMapping>
+	{
+		[JsonProperty("id")]
+		public int ID { get; set; }
+		[JsonProperty("customer_id")]
+		public int CustomerID { get; set; }
+		[JsonProperty("product_id")]
+		public int ProductID { get; set; }
+		[JsonProperty("total_quantity")]
+		public int TotalQuantity { get; set; }
+		[JsonProperty("update_date")]
+		public DateTime UpdateDate { get; set; }
+		//[JsonProperty("customer")]
+		//public CustomerViewModel CustomerVM { get; set; }
+		//[JsonProperty("product")]
+		//public ProductViewModel ProductVM { get; set; }
+		
+		public CustomerProductMappingViewModel(CustomerProductMapping entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public CustomerProductMappingViewModel()
+		{
+		}
+		
+	}
+}

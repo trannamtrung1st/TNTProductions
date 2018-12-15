@@ -2089,12 +2089,495 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UtilityTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AccountViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ApplicationViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AreaDeliveryViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ArticleViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AspNetRoleViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AspNetUserClaimViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AspNetUserLoginViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AspNetUserViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AttendanceDateViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AttendanceViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\BaseViewModelGen.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BlogCategoryViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BlogPostCollectionItemMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BlogPostCollectionItemViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BlogPostCollectionViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BlogPostImageViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BlogPostViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\BrandViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CategoryExtraMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CategoryExtraViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CheckFingerViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ContactViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CostCategoryViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CostInventoryMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CostViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CouponCampaignViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CouponProviderViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CouponViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerFeedbackViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerFilterViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerProductMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerStoreReportMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerTypeViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\CustomerViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\C_TransactionIndex_2244ceaa_24f5_4fde_bd5f_baf8ea08cdc4ViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\C__MigrationHistoryViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DateHotelReportViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DateProductItemViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DateProductViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DateReportViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DayModeViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DeliveryInformationViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DeliveryInfoViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DeviceViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\DistrictViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EmployeeFingerViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EmployeeGroupViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EmployeeInStoreViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EmployeeViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\EventLocationViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\FavoritedViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\FingerScanMachineViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\GroupViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\GuestViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ImageCollectionItemViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ImageCollectionViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InventoryCheckingItemViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InventoryCheckingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InventoryDateReportItemViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InventoryDateReportViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InventoryReceiptItemViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InventoryReceiptViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InventoryTemplateReportViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\LanguageKeyViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\LanguageValueViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\LanguageViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MachineConnectViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MembershipCardTypeViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MembershipCardViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MenuViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\NotificationViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderDetailPromotionMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderDetailViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderFeeItemViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderGroupViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderPromotionMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\OrderViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PartnerMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PartnerViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PaymentPartnerViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PaymentReportViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PaymentViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PayrollCategoryViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PayrollDetailViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PayrollPeriodViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PayslipAttributeMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PayslipAttributeViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PaySlipItemViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PaySlipTemplateViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PaySlipViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PosConfigViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PosFileViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PosViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PriceAdditionViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PriceGroupViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PriceNightViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductCategoryViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductCollectionItemMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductCollectionViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductComboDetailViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductDetailMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductImageCollectionItemMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductImageCollectionViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductImageViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductItemCategoryViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductItemCompositionMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductItemViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductSpecificationViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProductViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProfileViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PromotionDetailViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PromotionStoreMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PromotionViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProviderProductItemMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProviderViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ProvinceViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RatingProductViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RatingStarViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ReportTrackingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RoleViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RoomCategoryPriceGroupMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RoomCategoryViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RoomFloorViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\RoomViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SalaryHourViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SalaryRuleViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreDomainViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreGroupMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreGroupViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreThemeViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreUserViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreWebRouteModelViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreWebRouteViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreWebSettingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\StoreWebViewCounterViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SubRentGroupViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\sysdiagramViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SystemPartnerMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TagMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TagViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TemplateDetailMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TemplateReportProductItemMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TemplateRuleMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ThemeViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TimeFrameViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TimeModeRuleViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TimeModeTypeViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TokenUserViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TransactionViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\UserViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\VATOrderMappingViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\VATOrderViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ViewCounterViewModel.cs">
       <DependentUpon>ViewModelTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ViewModelTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\VoucherViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WardViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WebCustomerFeedbackViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WebElementTypeViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WebElementViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WebMenuCategoryViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WebMenuViewModel.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\WebPageViewModel.cs">
       <DependentUpon>ViewModelTemplate.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -2153,492 +2636,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>UtilityTemplate.cs</LastGenOutput>
     </Content>
-    <Content Include="ViewModels\AccountViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ApplicationViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\AreaDeliveryViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ArticleViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\AspNetRoleViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\AspNetUserClaimViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\AspNetUserLoginViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\AspNetUserViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\AttendanceDateViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\AttendanceViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\BlogCategoryViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\BlogPostCollectionItemMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\BlogPostCollectionItemViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\BlogPostCollectionViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\BlogPostImageViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\BlogPostViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\BrandViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CategoryExtraMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CategoryExtraViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CheckFingerViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ContactViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CostCategoryViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CostInventoryMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CostViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CouponCampaignViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CouponProviderViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CouponViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CustomerFeedbackViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CustomerFilterViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CustomerProductMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CustomerStoreReportMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CustomerTypeViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\CustomerViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\C_TransactionIndex_2244ceaa_24f5_4fde_bd5f_baf8ea08cdc4ViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\C__MigrationHistoryViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\DateHotelReportViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\DateProductItemViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\DateProductViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\DateReportViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\DayModeViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\DeliveryInformationViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\DeliveryInfoViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\DeviceViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\DistrictViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\EmployeeFingerViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\EmployeeGroupViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\EmployeeInStoreViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\EmployeeViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\EventLocationViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\FavoritedViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\FingerScanMachineViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\GroupViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\GuestViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ImageCollectionItemViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ImageCollectionViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\InventoryCheckingItemViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\InventoryCheckingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\InventoryDateReportItemViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\InventoryDateReportViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\InventoryReceiptItemViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\InventoryReceiptViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\InventoryTemplateReportViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\LanguageKeyViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\LanguageValueViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\LanguageViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\MachineConnectViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\MembershipCardTypeViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\MembershipCardViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\MenuViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\NotificationViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\OrderDetailPromotionMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\OrderDetailViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\OrderFeeItemViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\OrderGroupViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\OrderPromotionMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\OrderViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PartnerMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PartnerViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PaymentPartnerViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PaymentReportViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PaymentViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PayrollCategoryViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PayrollDetailViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PayrollPeriodViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PayslipAttributeMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PayslipAttributeViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PaySlipItemViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PaySlipTemplateViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PaySlipViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PosConfigViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PosFileViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PosViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PriceAdditionViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PriceGroupViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PriceNightViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProductCategoryViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProductCollectionItemMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProductCollectionViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProductComboDetailViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProductDetailMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProductImageCollectionItemMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProductImageCollectionViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProductImageViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProductItemCategoryViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProductItemCompositionMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProductItemViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProductSpecificationViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProductViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProfileViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PromotionDetailViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PromotionStoreMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\PromotionViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProviderProductItemMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProviderViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ProvinceViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\RatingProductViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\RatingStarViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ReportTrackingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\RoleViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\RoomCategoryPriceGroupMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\RoomCategoryViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\RoomFloorViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\RoomViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\SalaryHourViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\SalaryRuleViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\StoreDomainViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\StoreGroupMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\StoreGroupViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\StoreThemeViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\StoreUserViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\StoreViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\StoreWebRouteModelViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\StoreWebRouteViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\StoreWebSettingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\StoreWebViewCounterViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\SubRentGroupViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\sysdiagramViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\SystemPartnerMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\TagMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\TagViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\TemplateDetailMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\TemplateReportProductItemMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\TemplateRuleMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ThemeViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\TimeFrameViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\TimeModeRuleViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\TimeModeTypeViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\TokenUserViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\TransactionViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\UserViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\VATOrderMappingViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\VATOrderViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\ViewCounterViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
     <Content Include="ViewModels\ViewModelTemplate.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ViewModelTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="ViewModels\VoucherViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\WardViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\WebCustomerFeedbackViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\WebElementTypeViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\WebElementViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\WebMenuCategoryViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\WebMenuViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\WebPageViewModel.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

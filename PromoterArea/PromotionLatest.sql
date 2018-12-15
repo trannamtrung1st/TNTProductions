@@ -1,6 +1,18 @@
 ﻿--PROMOTION
 ALTER TABLE Promotion 
 ADD 
+	/*begin voucher config*/
+	VoucherLength int,
+	Prefix nvarchar(100),
+	Postfix nvarchar(100),
+	AllowAutoCreateVoucher bit,
+	VoucherAllowUseQuantity int,
+	VoucherPattern nvarchar(100),
+	VoucherExpiredAfterHours int,
+	/*end voucher config*/
+
+	AllowApplyWithOthers bit,
+
 	DetailApplyType int,
 	CreatedDate datetime,
 	AdjustedDate datetime,
@@ -13,16 +25,12 @@ DROP COLUMN [PromotionClassName]
       ,[ApplyFromTime]
       ,[ApplyToTime]
       ,[IsApplyOnce]
-      ,[VoucherQuantity]
-      ,[VoucherUsedQuantity]
       ,[FromHappyDay]
       ,[ToHappyDay]
       ,[FromHoursHappy]
       ,[ToHoursHappy]
       ,[UsingPoint]
-      ,[ApplyToPartner]
       ,[PartnerID]; -- xoa tay*/
-
 
 --PROMOTION DETAIL
 ALTER TABLE PromotionDetail
@@ -55,7 +63,7 @@ ADD
 	MaxAge int,
 
 	HasPaymentAttributes bit,--NOT NULL
-	PaymentType int,
+	PaymentTypes varchar(100),
 	PaymentPartnerId int,
 
 	HasMembershipAttributes bit, --NOT NULL
@@ -63,21 +71,21 @@ ADD
 	MembershipTypeCode nvarchar(250),
 	MembershipMinLevel int,
 	MembershipMaxLevel int,
-	CanApplyPerPoints float,
 
 	HasSaleModeAttributes bit, --NOT NULL
-	ForTakeAway bit,
-	ForDelivery bit,
-	ForInstore bit,
-	ForInstorePreorder bit,
+	OrderTypes nvarchar(100),
 
 	HasCollectionAttributes bit, --NOT NULL,
+
+	HasEventAttributes bit,
+	EventValues varchar(100),
+	CanApplyPerPoints float,
 
 	/*begin voucher config*/
 	VoucherLength int,
 	Prefix nvarchar(100),
 	Postfix nvarchar(100),
-	VoucherApplyType int,
+	AllowAutoCreateVoucher bit,
 	VoucherAllowUseQuantity int,
 	VoucherPattern nvarchar(100),
 	/*end voucher config*/
@@ -117,7 +125,7 @@ EXEC sp_RENAME 'Voucher.MembershipCardID', 'MembershipID', 'COLUMN';
 DROP COLUMN	
 	[isUsed]--x
 	,[PromotionID]--xoa tay*/
-      
+
 CREATE TABLE PromotionAward (
 	PromotionAwardId int IDENTITY(1,1) PRIMARY KEY,
 	
@@ -134,6 +142,7 @@ CREATE TABLE PromotionAward (
 	AwardGift bit NOT NULL,
 	GiftForProductCode nvarchar(250),
 	GiftVoucherOfPromotionDetailCode nvarchar(250),
+	GiftVoucherOfPromotionCode nvarchar(250),
 	GiftVoucherQuantity int,
 	GiftProductCode nvarchar(250),
 	GiftProductQuantity int,
@@ -152,6 +161,7 @@ CREATE TABLE PromotionAward (
 	AffliatorAmountPerXVND float,
 	/*end attributes*/
 
+	Active bit,
 	PromotionDetailId int NOT NULL,
 	FOREIGN KEY (PromotionDetailID) REFERENCES PromotionDetail(PromotionDetailID),
 );
@@ -166,4 +176,6 @@ FOREIGN KEY (BuyProductCollectionId) REFERENCES ProductCollection(Id);
 ALTER TABLE PromotionDetail WITH NOCHECK ADD CONSTRAINT FL_PaymentPartnerPromotionDetail
 FOREIGN KEY (PaymentPartnerId) REFERENCES PaymentPartner(Id);
 ALTER TABLE PromotionDetail WITH NOCHECK ADD CONSTRAINT FL_PromotionPartnerPromotionDetail
-FOREIGN KEY (PromotionPartnerId) REFERENCES Partner(Id);*/
+FOREIGN KEY (PromotionPartnerId) REFERENCES Partner(Id);
+ALTER TABLE Promotion ALTER COLUMN ApplyLevel INTEGER NULL
+*/

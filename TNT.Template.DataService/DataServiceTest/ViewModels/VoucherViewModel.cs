@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class VoucherViewModel: BaseViewModel<Voucher>
+	{
+		[JsonProperty("voucher_id")]
+		public int VoucherID { get; set; }
+		[JsonProperty("voucher_code")]
+		public string VoucherCode { get; set; }
+		[JsonProperty("promotion_detail_id")]
+		public Nullable<int> PromotionDetailID { get; set; }
+		[JsonProperty("promotion_id")]
+		public int PromotionID { get; set; }
+		[JsonProperty("quantity")]
+		public int Quantity { get; set; }
+		[JsonProperty("used_quantity")]
+		public int UsedQuantity { get; set; }
+		[JsonProperty("active")]
+		public bool Active { get; set; }
+		[JsonProperty("is_getted")]
+		public Nullable<bool> IsGetted { get; set; }
+		[JsonProperty("is_used")]
+		public Nullable<bool> isUsed { get; set; }
+		[JsonProperty("membership_card_id")]
+		public Nullable<int> MembershipCardId { get; set; }
+		//[JsonProperty("membership_card")]
+		//public MembershipCardViewModel MembershipCardVM { get; set; }
+		//[JsonProperty("promotion")]
+		//public PromotionViewModel PromotionVM { get; set; }
+		//[JsonProperty("promotion_detail")]
+		//public PromotionDetailViewModel PromotionDetailVM { get; set; }
+		
+		public VoucherViewModel(Voucher entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public VoucherViewModel()
+		{
+		}
+		
+	}
+}

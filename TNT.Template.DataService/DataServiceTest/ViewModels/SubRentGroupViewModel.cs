@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class SubRentGroupViewModel: BaseViewModel<SubRentGroup>
+	{
+		[JsonProperty("id")]
+		public int Id { get; set; }
+		[JsonProperty("name")]
+		public string Name { get; set; }
+		[JsonProperty("room_type")]
+		public int RoomType { get; set; }
+		[JsonProperty("from_date")]
+		public DateTime FromDate { get; set; }
+		[JsonProperty("to_date")]
+		public DateTime ToDate { get; set; }
+		[JsonProperty("quantity")]
+		public int Quantity { get; set; }
+		[JsonProperty("serviced_quantity")]
+		public Nullable<int> ServicedQuantity { get; set; }
+		[JsonProperty("rent_group_id")]
+		public int RentGroupID { get; set; }
+		[JsonProperty("status")]
+		public Nullable<int> Status { get; set; }
+		[JsonProperty("source_id")]
+		public Nullable<int> SourceId { get; set; }
+		//[JsonProperty("order_group")]
+		//public OrderGroupViewModel OrderGroupVM { get; set; }
+		//[JsonProperty("room_category")]
+		//public RoomCategoryViewModel RoomCategoryVM { get; set; }
+		
+		public SubRentGroupViewModel(SubRentGroup entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public SubRentGroupViewModel()
+		{
+		}
+		
+	}
+}

@@ -60,6 +60,7 @@ namespace TNT.Template.DataService.Models.Services
                     "E Add(E entity);",
                     "IEnumerable<E> AddRange(IEnumerable<E> entities);",
                     "E Update(E entity);",
+                    "IEnumerable<E> UpdateRange(IEnumerable<E> entities);",
                     "E Remove(E entity);",
                     "E Remove(K key);",
                     "IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);",
@@ -70,6 +71,8 @@ namespace TNT.Template.DataService.Models.Services
                     "E Activate(K key);",
                     "E Deactivate(E entity);",
                     "E Deactivate(K key);",
+                    "IQueryable<E> Get();",
+                    "IQueryable<E> Get(Expression<Func<E, bool>> expr);",
                     "IQueryable<E> GetActive();",
                     "IQueryable<E> GetActive(Expression<Func<E, bool>> expr);",
                     "E FirstOrDefault();",
@@ -128,6 +131,11 @@ namespace TNT.Template.DataService.Models.Services
             m6.Signature = "public E Update(E entity)";
             m6.Body.Add(new StatementGen(
                 "return repository.Update(entity);"));
+
+            var m7 = new ContainerGen();
+            m7.Signature = "public IEnumerable<E> UpdateRange(IEnumerable<E> entities)";
+            m7.Body.Add(new StatementGen(
+                "return repository.UpdateRange(entities);"));
 
             //var m7 = new ContainerGen();
             //m7.Signature = "public async Task<E> UpdateAsync(E entity)";
@@ -189,6 +197,14 @@ namespace TNT.Template.DataService.Models.Services
             m1422.Signature = "public E Deactivate(K key)";
             m1422.Body.Add(new StatementGen("return repository.Deactivate(key);"));
 
+            var mn14 = new ContainerGen();
+            mn14.Signature = "public IQueryable<E> Get()";
+            mn14.Body.Add(new StatementGen("return repository.Get();"));
+
+            var mn15 = new ContainerGen();
+            mn15.Signature = "public IQueryable<E> Get(Expression<Func<E, bool>> expr)";
+            mn15.Body.Add(new StatementGen("return repository.Get(expr);"));
+
             var m14 = new ContainerGen();
             m14.Signature = "public IQueryable<E> GetActive()";
             m14.Body.Add(new StatementGen("return repository.GetActive();"));
@@ -221,6 +237,7 @@ namespace TNT.Template.DataService.Models.Services
                 m4, new StatementGen(""),
                 m41, new StatementGen(""),
                 m6, new StatementGen(""),
+                m7, new StatementGen(""),
                 m8, new StatementGen(""),
                 m10, new StatementGen(""),
                 m101, new StatementGen(""),
@@ -231,6 +248,8 @@ namespace TNT.Template.DataService.Models.Services
                 m1411, new StatementGen(""),
                 m142, new StatementGen(""),
                 m1422, new StatementGen(""),
+                mn14, new StatementGen(""),
+                mn15, new StatementGen(""),
                 m14, new StatementGen(""),
                 m15, new StatementGen(""),
                 m16, new StatementGen(""),

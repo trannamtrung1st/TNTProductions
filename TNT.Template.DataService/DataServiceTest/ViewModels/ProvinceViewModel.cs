@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataServiceTest.Global;
+using DataServiceTest.Models;
+using Newtonsoft.Json;
+
+namespace DataServiceTest.ViewModels
+{
+	public partial class ProvinceViewModel: BaseViewModel<Province>
+	{
+		[JsonProperty("province_code")]
+		public int ProvinceCode { get; set; }
+		[JsonProperty("province_name")]
+		public string ProvinceName { get; set; }
+		[JsonProperty("province_type")]
+		public string ProvinceType { get; set; }
+		[JsonProperty("base_price_delivery")]
+		public Nullable<decimal> BasePriceDelivery { get; set; }
+		[JsonProperty("area_province_id")]
+		public Nullable<int> AreaProvinceId { get; set; }
+		//[JsonProperty("area_delivery")]
+		//public AreaDeliveryViewModel AreaDeliveryVM { get; set; }
+		//[JsonProperty("delivery_informations")]
+		//public IEnumerable<DeliveryInformationViewModel> DeliveryInformationsVM { get; set; }
+		//[JsonProperty("districts")]
+		//public IEnumerable<DistrictViewModel> DistrictsVM { get; set; }
+		
+		public ProvinceViewModel(Province entity) : this()
+		{
+			FromEntity(entity);
+		}
+		
+		public ProvinceViewModel()
+		{
+			//this.DeliveryInformationsVM = new HashSet<DeliveryInformationViewModel>();
+			//this.DistrictsVM = new HashSet<DistrictViewModel>();
+		}
+		
+	}
+}

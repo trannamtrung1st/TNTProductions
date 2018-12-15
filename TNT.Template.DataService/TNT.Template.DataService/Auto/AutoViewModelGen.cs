@@ -76,7 +76,7 @@ namespace TNT.Template.DataService.Auto
                 new StatementGen(true,
                     "var vmGen = new VMGen(e, jIgnore, except, JsonPropertyFormatEnum." 
                         + Enum.GetName(typeof(JsonPropertyFormatEnum), Style) + ");",
-                    "manager.StartNewFile(e.EntityName+\"ViewModel.txt\");")),
+                    "manager.StartNewFile(e.EntityName+\"ViewModelGen.cs\");")),
                 new TemplateTextBlock("<#=vmGen.Generate()#>"),
                 new TemplateCodeBlock(new StatementGen(
                     "}",
