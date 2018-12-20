@@ -188,14 +188,13 @@ namespace TNT.Template.DataService.Data
         private bool IsActivable(XElement entity)
         {
             var colName = (Data.ActiveCol ? "Active" : "Deactive");
-            var col = entity.Descendants().Where(e =>
+            return entity.Descendants().Any(e =>
                 e.Attribute("Name") != null
                 && e.Attribute("Name").Value.Equals(colName)
                 && e.Attribute("Type") != null
                 && e.Attribute("Type").Value.Equals("Boolean")
-                && e.Attribute("Nullable") != null
-                && e.Attribute("Nullable").Value.Equals("false")).SingleOrDefault();
-            return (col != null);
+                //&& e.Attribute("Nullable") != null
+                /*&& e.Attribute("Nullable").Value.Equals("false")*/);
         }
 
     }

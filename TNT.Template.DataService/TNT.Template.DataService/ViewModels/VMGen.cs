@@ -66,9 +66,9 @@ namespace TNT.Template.DataService.ViewModels
                 if (!ExceptProps.Contains(p.Key))
                 {
                     if (JsonIgnoreProps.Contains(p.Key))
-                        s0.Add("[JsonIgnore]");
+                        s0.Add("//[JsonIgnore]");
                     else
-                        s0.Add("[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key, Style) + "\")]");//+ "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
+                        s0.Add("//[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key, Style) + "\")]");//+ "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
                     s0.Add("public " + p.Value + " " + p.Key + " { get; set; }");
                 }
             }
@@ -96,8 +96,7 @@ namespace TNT.Template.DataService.ViewModels
             }
 
             var c2 = new ContainerGen();
-            c2.Signature = "public `entityVM`(`entity` entity)"; //: this()";
-            c2.Body.Add(new StatementGen("FromEntity(entity);"));
+            c2.Signature = "public `entityVM`(`entity` entity) : base(entity)"; //: this()";
 
             var c21 = new ContainerGen();
             c21.Signature = "public `entityVM`()";

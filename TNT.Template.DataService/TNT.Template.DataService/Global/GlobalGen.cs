@@ -14,11 +14,11 @@ namespace TNT.Template.DataService.Global
         public GlobalGen(DataInfo dt)
         {
             Data = dt;
-            Directive.Add("TNT.IoContainer.Container", "AutoMapper",
+            Directive.Add("TNT.IoC.Container", "AutoMapper",
                 "System.Web",
+                "System.Data.Entity",
                 Data.ProjectName + ".Models",
                 Data.ProjectName + ".Models.Repositories",
-                Data.ProjectName + ".Models.Services",
                 Data.ProjectName + ".Managers",
                 Data.ProjectName + ".ViewModels");
 
@@ -90,7 +90,7 @@ namespace TNT.Template.DataService.Global
 
             initMethod.Body.Add(
                 new StatementGen("ConfigureAutomapper();"),
-                new StatementGen("ConfigureIoContainer();")
+                new StatementGen("ConfigureIoC();")
                 );
 
             GlobalClassBody.Add(initMethod, new StatementGen(""));
@@ -123,25 +123,22 @@ namespace TNT.Template.DataService.Global
         private void GenerateInitContainer()
         {
             var method = new ContainerGen();
-            method.Signature = "private static void ConfigureIoContainer()";
+            method.Signature = "private static void ConfigureIoC()";
 
-            var s2 = new StatementGen("//IoContainer",
-                Data.RequestScope ? "Builder.RegisterRequestScopeHandlerModule();" : null,
-                "Builder.RegisterType<IUnitOfWork, UnitOfWork>();");
-            s2.Add("Builder.RegisterType<" + Data.ContextName + ">();");
+            var s2 = new StatementGen("//IoC",
+                Data.RequestScope ? "Builder.RegisterRequestScopeHandlerModule()" : "Builder",
+                "\t.RegisterType<IUnitOfWork, UnitOfWork>().AttachToLifetimeScope<IUnitOfWork>()");
+            s2.Add("\t.RegisterType<" + Data.ContextName + ">()");
+            s2.Add("\t.RegisterType<DbContext, " + Data.ContextName + ">()");
 
-            foreach (var e in Data.Entities)
+            var entities = Data.Entities;
+            var len = entities.Count;
+            int i = 0;
+            for (i = 0; i < len - 1; i++)
             {
-                s2.Add("Builder.RegisterType<I" + e.EntityName + "Repository, " + e.EntityName + "Repository>();");
+                s2.Add("\t.RegisterType<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>()");
             }
-
-            foreach (var e in Data.Entities)
-            {
-                if (Data.ServicePool)
-                    s2.Add("Builder.RegisterToPool<I" + e.EntityName + "Service, " + e.EntityName + "Service>(10, 100);");
-                else
-                    s2.Add("Builder.RegisterType<I" + e.EntityName + "Service, " + e.EntityName + "Service>();");
-            }
+            s2.Add("\t.RegisterType<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>();");
 
             s2.Add("G.TContainer = Builder.Build();");
             method.Body.Add(s2);

@@ -14,10 +14,10 @@ namespace TNT.Template.DataService.Managers
         public UnitOfWorkGen(DataInfo dt)
         {
             Data = dt;
-            Directive.Add("TNT.IoContainer.Wrapper", "TNT.IoContainer.Container",
+            Directive.Add("TNT.IoC.Wrapper", "TNT.IoC.Container",
                 "System.Web",
                 "System.Data.Entity",
-                Data.ProjectName + ".Global", Data.ProjectName + ".Models.Services",
+                Data.ProjectName + ".Global", Data.ProjectName + ".Models.Repositories",
                 Data.ProjectName + ".Models");
             ResolveMapping.Add("context", Data.ContextName);
 
@@ -51,7 +51,7 @@ namespace TNT.Template.DataService.Managers
             var s1 = new StatementGen(
                 "ITContainer Scope { get; set; }",
                 "DbContext Context { get; set; }",
-                "S Service<S>() where S : class, IService;",
+                "S Repository<S>() where S : class, IRepository;",
                 "int SaveChanges();",
                 "Task<int> SaveChangesAsync();",
                 "DbContextTransaction BeginTransaction();");
@@ -92,14 +92,14 @@ namespace TNT.Template.DataService.Managers
                 "ResourcePool = new Dictionary<Type, object>();"));
 
             var m3 = new ContainerGen();
-            m3.Signature = "public S Service<S>() where S : class, IService";
+            m3.Signature = "public S Repository<S>() where S : class, IRepository";
             m3.Body.Add(new StatementGen(
                 "var type = typeof(S);",
                 "if (ResourcePool.ContainsKey(type))",
                 "\treturn (S)ResourcePool[type];",
-                "var service = " + (Data.ServicePool ? "Scope.ResolveFromPool<S>(this);" : "Scope.Resolve<S>(this);"),
-                "ResourcePool.Add(type, service);",
-                "return service;"
+                "var repository = Scope.Resolve<S>(Args.Array(Context));",
+                "ResourcePool.Add(type, repository);",
+                "return repository;"
             ));
 
             var m4 = new ContainerGen();

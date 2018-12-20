@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 using TNT.Template.DataService.Models.Domains;
 using TNT.Template.DataService.Data;
 using TNT.Template.DataService.Global;
-using TNT.Template.DataService.Managers;
 using TNT.Template.DataService.Models;
 using TNT.Template.DataService.Models.Extensions;
 using TNT.Template.DataService.Models.Repositories;
-using TNT.Template.DataService.Models.Services;
 using TNT.Template.DataService.ViewModels;
 
 namespace TNT.DataService
@@ -30,7 +28,6 @@ namespace TNT.DataService
                 Entities = new List<EntityInfo>(),
                 ProjectName = "CrmApi",
                 RequestScope = false,
-                ServicePool = false
             })).ENamespace.Generate());
         }
         

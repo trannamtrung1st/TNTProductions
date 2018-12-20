@@ -69,6 +69,13 @@ namespace TNT.Template.DataService.ViewModels
             var BaseViewModel = new ContainerGen();
             BaseViewModel.Signature = "public abstract partial class BaseViewModel<E>: IBaseViewModel<E>";
 
+            var c0 = new ContainerGen();
+            c0.Signature = "public BaseViewModel(E entity)";
+            c0.Body.Add(new StatementGen("FromEntity(entity);"));
+
+            var c1 = new ContainerGen();
+            c1.Signature = "public BaseViewModel()";
+
             var s1 = new StatementGen("protected E Entity { get; set; }");
 
             var m3 = new ContainerGen();
@@ -110,6 +117,8 @@ namespace TNT.Template.DataService.ViewModels
                 "return G.Mapper.Map<E>(this);"));
 
             BaseViewModel.Body.Add(
+                c1, new StatementGen(""),
+                c0, new StatementGen(""),
                 s1, new StatementGen(""),
                 m3, new StatementGen(""),
                 m31, new StatementGen(""),

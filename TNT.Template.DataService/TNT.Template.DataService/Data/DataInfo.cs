@@ -13,7 +13,6 @@ namespace TNT.Template.DataService.Data
         public string EdmxPath { get; set; }
         public string ContextName { get; set; }
         public bool RequestScope { get; set; }
-        public bool ServicePool { get; set; }
         public bool ActiveCol { get; set; } //or else Deactive col
         public List<EntityInfo> Entities { get; set; }
 

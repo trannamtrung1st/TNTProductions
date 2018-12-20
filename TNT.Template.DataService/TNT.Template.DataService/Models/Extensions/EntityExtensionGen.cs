@@ -103,34 +103,34 @@ namespace TNT.Template.DataService.Models.Extensions
             var m1 = new ContainerGen();
             m1.Signature = "public static `entity` Id(this IQueryable<`entity`> query, `entityPK` key)";
             m1.Body.Add(
-                new StatementGen("return query.FirstOrDefault("), 
+                new StatementGen("return query.FirstOrDefault("),
                 new StatementGen(GetKeyCompareExpr() + ");"));
 
             var m2 = new ContainerGen();
             m2.Signature = "public static `entity` Id(this IEnumerable<`entity`> query, `entityPK` key)";
             m2.Body.Add(
-                new StatementGen("return query.FirstOrDefault("), 
+                new StatementGen("return query.FirstOrDefault("),
                 new StatementGen(GetKeyCompareExpr() + ");"));
 
             var m3 = new ContainerGen();
             m3.Signature = "public static IQueryable<`entity`> Active(this IQueryable<`entity`> query)";
-            var getActive = "return query" + (EInfo.Activable ? (EInfo.Data.ActiveCol ? ".Where(e => e.Active);" : ".Where(e => !e.Deactive);") : ";");
+            var getActive = "return query" + (EInfo.Data.ActiveCol ? ".Where(e => e.Active == true);" : ".Where(e => e.Deactive == false);");
             m3.Body.Add(new StatementGen(getActive));
 
             var m4 = new ContainerGen();
             m4.Signature = "public static IQueryable<`entity`> NotActive(this IQueryable<`entity`> query)";
             m4.Body.Add(new StatementGen(
-                "return query" + (EInfo.Activable ? (EInfo.Data.ActiveCol ? ".Where(e => !e.Active);" : ".Where(e => e.Deactive);") : ";")));
+                "return query" + (EInfo.Data.ActiveCol ? ".Where(e => e.Active == false);" : ".Where(e => e.Deactive == true);")));
 
             var m5 = new ContainerGen();
             m5.Signature = "public static IEnumerable<`entity`> Active(this IEnumerable<`entity`> query)";
             m5.Body.Add(new StatementGen(
-                "return query" + (EInfo.Activable ? (EInfo.Data.ActiveCol ? ".Where(e => e.Active);" : ".Where(e => !e.Deactive);") : ";")));
+                "return query" + (EInfo.Data.ActiveCol ? ".Where(e => e.Active == true);" : ".Where(e => e.Deactive == false);")));
 
             var m6 = new ContainerGen();
             m6.Signature = "public static IEnumerable<`entity`> NotActive(this IEnumerable<`entity`> query)";
             m6.Body.Add(new StatementGen(
-                "return query" + (EInfo.Activable ? (EInfo.Data.ActiveCol ? ".Where(e => !e.Active);" : ".Where(e => e.Deactive);") : ";")));
+                "return query" + (EInfo.Data.ActiveCol ? ".Where(e => e.Active == false);" : ".Where(e => e.Deactive == true);")));
 
             EntityExtensionBody.Add(
                 m1, new StatementGen(""),

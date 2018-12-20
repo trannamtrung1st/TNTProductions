@@ -33,7 +33,6 @@ namespace TNT.Template.DataService.Auto
             string edmxFile,
             JsonPropertyFormatEnum vmPropStyle,
             bool activeCol = true,
-            bool servicePool = false,
             bool requestScope = false
             )
         {
@@ -57,7 +56,6 @@ namespace TNT.Template.DataService.Auto
             EdmxFile = ProjectPath + edmxFile;
             Data = new EdmxParser(EdmxFile, projectName).Data;
             Data.EdmxPath = edmxFile;
-            Data.ServicePool = servicePool;
             Data.RequestScope = requestScope;
             Data.ActiveCol = activeCol;
         }
@@ -81,17 +79,16 @@ namespace TNT.Template.DataService.Auto
             GenerateGlobal();
             GenerateEntityExtension();
             GenerateRepository();
-            GenerateService();
             GenerateManager();
             GenerateDomain();
-            GenerateUtility();
+            GenerateHelpers();
             GenerateReadmeText();
         }
 
-        private void GenerateUtility()
+        private void GenerateHelpers()
         {
-            var uGen = new AutoUtilityGen(Data, ExtraDirectives.ToArray());
-            FileHelper.Write(ProjectPath + "Utilities", "UtilityTemplate.tt", uGen.Generate());
+            var uGen = new AutoHelpersGen(Data, ExtraDirectives.ToArray());
+            FileHelper.Write(ProjectPath + "Helpers", "HelpersTemplate.tt", uGen.Generate());
         }
 
         private void GenerateTemplateManager()
@@ -124,12 +121,6 @@ namespace TNT.Template.DataService.Auto
             FileHelper.Write(ProjectPath + "Models/Repositories", "RepositoryTemplate.tt", rGen.Generate());
         }
 
-        private void GenerateService()
-        {
-            var sGen = new AutoServiceGen(Data, ExtraDirectives.ToArray());
-            FileHelper.Write(ProjectPath + "Models/Services", "ServiceTemplate.tt", sGen.Generate());
-        }
-
         private void GenerateManager()
         {
             var mGen = new AutoManagerGen(Data, ExtraDirectives.ToArray());
@@ -148,7 +139,7 @@ namespace TNT.Template.DataService.Auto
                 "NOTES:\r\n" +
                 "- Add a config class that will use config methods of G class\r\n" +
                 "- Add PreStartApplicationMethod attribute on the class (type: [configClass], method: [configMethod])\r\n" +
-                "- UnitOfWork will manage the DbContext, Scope IoContainer, and Transaction for you \r\n" +
+                "- UnitOfWork will manage the DbContext, Scope IoC, and Transaction for you \r\n" +
                 "  so you don't need to explicit dispose them\r\n" +
                 "- To use Request scope (app server required) UnitOfWork: \r\n" +
                 "\t+ DO: var uow = G.TContainer.ResolveRequestScope<IUnitOfWork>(); for each work\r\n" +

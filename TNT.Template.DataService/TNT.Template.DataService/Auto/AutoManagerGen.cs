@@ -30,19 +30,11 @@ namespace TNT.Template.DataService.Auto
             var init = new TemplateCodeBlock(new StatementGen(
                 @"var projectPath = Host.ResolveAssemblyReference(""$(ProjectDir)"");",
                 @"var dt = new EdmxParser(projectPath+@""" + Data.EdmxPath + @""",""`project`"").Data;",
-                (Data.ServicePool ? "dt.ServicePool = true;" : "") + (Data.RequestScope ? "dt.RequestScope = true;" : ""),
+                (Data.RequestScope ? "dt.RequestScope = true;" : ""),
                 "var manager = TemplateFileManager.Create(this);"
                 ));
             Add(init);
         }
-
-        //private void GenrateContextManager()
-        //{
-        //    Add(new TemplateCodeBlock(new StatementGen(
-        //        "var cGen = new ContextManagerGen(dt);",
-        //        @"manager.StartNewFile(""ContextManagerGen.cs"");")),
-        //        new TemplateTextBlock("<#=cGen.Generate()#>"));
-        //}
 
         private void GenerateUnitOfWork()
         {

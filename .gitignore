@@ -2,3 +2,5 @@
 *.suo
 *obj/
 *packages/
+TNT.Core/.vs/
+.vs/

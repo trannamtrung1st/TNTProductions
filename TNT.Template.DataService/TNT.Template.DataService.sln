@@ -1,14 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataServiceTest", "DataServiceTest\DataServiceTest.csproj", "{98834E31-337F-4B2E-B33C-4DD266A32DEA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApi", "TestApi\TestApi.csproj", "{93285601-36EB-46A0-9E9A-951B631FC0EB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNT.TemplateAPI", "..\TNT.TemplateAPI\TNT.TemplateAPI\TNT.TemplateAPI.csproj", "{0E35997B-6FB9-4CED-98A1-6DCD912247D6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNT.Template.DataService", "TNT.Template.DataService\TNT.Template.DataService.csproj", "{7E0EEA74-527F-41B1-9D48-E0D093EF6661}"
 EndProject
 Global
@@ -17,18 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{98834E31-337F-4B2E-B33C-4DD266A32DEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{98834E31-337F-4B2E-B33C-4DD266A32DEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{98834E31-337F-4B2E-B33C-4DD266A32DEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{98834E31-337F-4B2E-B33C-4DD266A32DEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{93285601-36EB-46A0-9E9A-951B631FC0EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93285601-36EB-46A0-9E9A-951B631FC0EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93285601-36EB-46A0-9E9A-951B631FC0EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93285601-36EB-46A0-9E9A-951B631FC0EB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E35997B-6FB9-4CED-98A1-6DCD912247D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E35997B-6FB9-4CED-98A1-6DCD912247D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E35997B-6FB9-4CED-98A1-6DCD912247D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E35997B-6FB9-4CED-98A1-6DCD912247D6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7E0EEA74-527F-41B1-9D48-E0D093EF6661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7E0EEA74-527F-41B1-9D48-E0D093EF6661}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E0EEA74-527F-41B1-9D48-E0D093EF6661}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -36,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44572562-8C82-4C5B-B953-8F1DBF3CE51D}
 	EndGlobalSection
 EndGlobal

@@ -16,7 +16,7 @@ namespace TNT.Template.DataService.Models.Repositories
             Data = dt;
             Directive.Add("System.Linq.Expressions", dt.ProjectName + ".Models"
                 , dt.ProjectName + ".Managers"
-                , "TNT.IoContainer.Container"
+                , "TNT.IoC.Container"
                 , "System.Data.Entity"
                 , "System.Data.Entity.Infrastructure");
             ResolveMapping.Add("context", dt.ContextName);
@@ -54,7 +54,6 @@ namespace TNT.Template.DataService.Models.Repositories
 
             IBaseRepositoryBody.Add(
                 new StatementGen(
-                    //"bool AutoSave { get; set; }",
                     "int SaveChanges();",
                     "Task<int> SaveChangesAsync();",
                     "",
@@ -69,18 +68,8 @@ namespace TNT.Template.DataService.Models.Repositories
                     "IEnumerable<E> RemoveRange(IEnumerable<E> list);",
                     "E FindById(K key);",
                     "Task<E> FindByIdAsync(K key);",
-                    "E FindActiveById(K key);",
-                    "Task<E> FindActiveByIdAsync(K key);",
-                    //"E FindByIdInclude<TProperty>(K key, params Expression<Func<E, TProperty>>[] members);",
-                    //"Task<E> FindByIdIncludeAsync<TProperty>(K key, params Expression<Func<E, TProperty>>[] members);",
-                    "E Activate(E entity);",
-                    "E Activate(K key);",
-                    "E Deactivate(E entity);",
-                    "E Deactivate(K key);",
                     "IQueryable<E> Get();",
                     "IQueryable<E> Get(Expression<Func<E, bool>> expr);",
-                    "IQueryable<E> GetActive();",
-                    "IQueryable<E> GetActive(Expression<Func<E, bool>> expr);",
                     "E FirstOrDefault();",
                     "E FirstOrDefault(Expression<Func<E, bool>> expr);",
                     "Task<E> FirstOrDefaultAsync();",
@@ -113,12 +102,6 @@ namespace TNT.Template.DataService.Models.Repositories
             var s12 = new StatementGen(
                 "protected DbContext context;",
                 "protected DbSet<E> dbSet;");
-
-            var c3 = new ContainerGen();
-            c3.Signature = "public BaseRepository(IUnitOfWork uow)";
-            c3.Body.Add(new StatementGen(
-                "this.context = uow.Context;",
-                "this.dbSet = context.Set<E>();"));
 
             var c4 = new ContainerGen();
             c4.Signature = "public BaseRepository(DbContext context)";
@@ -177,7 +160,7 @@ namespace TNT.Template.DataService.Models.Repositories
             var m13 = new ContainerGen();
             m13.Signature = "public IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr)";
             m13.Body.Add(new StatementGen(
-                "return dbSet.RemoveRange(GetActive(expr).ToList());"));
+                "return dbSet.RemoveRange(dbSet.Where(expr).ToList());"));
 
             var m14 = new ContainerGen();
             m14.Signature = "public IEnumerable<E> RemoveRange(IEnumerable<E> list)";
@@ -211,48 +194,37 @@ namespace TNT.Template.DataService.Models.Repositories
 
             var m15 = new ContainerGen();
             m15.Signature = "public E FirstOrDefault()";
-            m15.Body.Add(new StatementGen("return GetActive().FirstOrDefault();"));
+            m15.Body.Add(new StatementGen("return dbSet.FirstOrDefault();"));
 
             var m151 = new ContainerGen();
             m151.Signature = "public E FirstOrDefault(Expression<Func<E, bool>> expr)";
-            m151.Body.Add(new StatementGen("return GetActive().FirstOrDefault(expr);"));
+            m151.Body.Add(new StatementGen("return dbSet.FirstOrDefault(expr);"));
 
             var m16 = new ContainerGen();
             m16.Signature = "public async Task<E> FirstOrDefaultAsync()";
-            m16.Body.Add(new StatementGen("return await GetActive().FirstOrDefaultAsync();"));
+            m16.Body.Add(new StatementGen("return await dbSet.FirstOrDefaultAsync();"));
 
             var m161 = new ContainerGen();
             m161.Signature = "public async Task<E> FirstOrDefaultAsync(Expression<Func<E, bool>> expr)";
-            m161.Body.Add(new StatementGen("return await GetActive().FirstOrDefaultAsync(expr);"));
+            m161.Body.Add(new StatementGen("return await dbSet.FirstOrDefaultAsync(expr);"));
 
             var m17 = new ContainerGen();
             m17.Signature = "public E SingleOrDefault(Expression<Func<E, bool>> expr)";
-            m17.Body.Add(new StatementGen("return GetActive().SingleOrDefault(expr);"));
+            m17.Body.Add(new StatementGen("return dbSet.SingleOrDefault(expr);"));
 
             var m18 = new ContainerGen();
             m18.Signature = "public async Task<E> SingleOrDefaultAsync(Expression<Func<E, bool>> expr)";
-            m18.Body.Add(new StatementGen("return await GetActive().SingleOrDefaultAsync(expr);"));
+            m18.Body.Add(new StatementGen("return await dbSet.SingleOrDefaultAsync(expr);"));
 
             var cm10 = new CommentGen(type: CommentType.BLOCK);
             cm10.Add("******************** ABSTRACT AREA *********************");
 
             var s11 = new StatementGen(
                 "public abstract E FindById(K key);",
-                "public abstract Task<E> FindByIdAsync(K key);",
-                "public abstract E FindActiveById(K key);",
-                "public abstract Task<E> FindActiveByIdAsync(K key);",
-                //"public abstract E FindByIdInclude<TProperty>(K key, params Expression<Func<E, TProperty>>[] members);",
-                //"public abstract Task<E> FindByIdIncludeAsync<TProperty>(K key, params Expression<Func<E, TProperty>>[] members);",
-                "public abstract E Activate(E entity);",
-                "public abstract E Activate(K key);",
-                "public abstract E Deactivate(E entity);",
-                "public abstract E Deactivate(K key);",
-                "public abstract IQueryable<E> GetActive();",
-                "public abstract IQueryable<E> GetActive(Expression<Func<E, bool>> expr);");
+                "public abstract Task<E> FindByIdAsync(K key);");
 
             BaseRepositoryBody.Add(
                 s12, new StatementGen(""),
-                c3, new StatementGen(""),
                 c4, new StatementGen(""),
                 m31, new StatementGen(""),
                 m32, new StatementGen(""),

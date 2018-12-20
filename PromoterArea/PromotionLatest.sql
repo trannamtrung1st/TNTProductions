@@ -1,6 +1,7 @@
 ﻿--PROMOTION
 ALTER TABLE Promotion 
 ADD 
+
 	/*begin voucher config*/
 	VoucherLength int,
 	Prefix nvarchar(100),
@@ -11,8 +12,19 @@ ADD
 	VoucherExpiredAfterHours int,
 	/*end voucher config*/
 
+	HasTimeAttributes bit, --NOT NULL,
+	HasPaymentAttributes bit,--NOT NULL
+	HasSaleModeAttributes bit, --NOT NULL
+	HasEventAttributes bit,
 	AllowApplyWithOthers bit,
-
+	BeginTime time,
+	EndTime time,
+	DaysOfWeek varchar(20),
+	PaymentTypes varchar(100),
+	PaymentPartnerId int,
+	OrderTypes nvarchar(100),
+	EventValues varchar(100),
+	CanApplyPerPoints float,
 	DetailApplyType int,
 	CreatedDate datetime,
 	AdjustedDate datetime,
@@ -22,8 +34,6 @@ ADD
 /*ALTER TABLE Promotion
 DROP COLUMN [PromotionClassName]
       ,[GiftType]
-      ,[ApplyFromTime]
-      ,[ApplyToTime]
       ,[IsApplyOnce]
       ,[FromHappyDay]
       ,[ToHappyDay]
@@ -48,7 +58,7 @@ ADD
 	,HasTimeAttributes bit --NOT NULL,
 	,BeginDate datetime
 	,EndDate datetime
-	,DaysOfWeek varchar(20)-- T2T4T6
+	,DaysOfWeek varchar(20)
 	,BeginHour time
 	,EndHour time,
 
@@ -117,6 +127,7 @@ ADD
 	IssuedTime datetime,
 	LatestUsedTime datetime,
 	GeneratedTime datetime,
+	GettedTime datetime,
 	ExpiredTime datetime,
 	MembershipCode nvarchar(250);
 EXEC sp_RENAME 'Voucher.MembershipCardID', 'MembershipID', 'COLUMN';
