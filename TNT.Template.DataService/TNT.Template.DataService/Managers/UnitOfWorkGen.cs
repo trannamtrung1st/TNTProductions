@@ -97,7 +97,7 @@ namespace TNT.Template.DataService.Managers
                 "var type = typeof(S);",
                 "if (ResourcePool.ContainsKey(type))",
                 "\treturn (S)ResourcePool[type];",
-                "var repository = Scope.Resolve<S>(Args.Array(Context));",
+                "var repository = Scope.Resolve<S>(Args.Array(this));",
                 "ResourcePool.Add(type, repository);",
                 "return repository;"
             ));

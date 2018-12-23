@@ -60,39 +60,25 @@ namespace TNT.Template.DataService.Models.Domains
             var c0 = new ContainerGen();
             c0.Signature = "public BaseDomain()";
             c0.Body.Add(new StatementGen(
-                "_uow = G.TContainer.ResolveScopeInstance<IUnitOfWork>();"));
+                "this.uow = G.TContainer.ResolveScopeInstance<IUnitOfWork>();",
+                "this.context = uow.Context;"));
 
             var c01 = new ContainerGen();
             c01.Signature = "public BaseDomain(DbContext context)";
             c01.Body.Add(new StatementGen(
-                "_context = context;"));
+                "this.context = context;"));
 
             var s1 = new StatementGen(
-                "private DbContext _context;");
-            var m1 = new StatementGen(
-                "protected DbContext Context",
-                "{",
-                "\tget",
-                "\t{",
-                "\t\treturn _context;",
-                "\t}",
-                "}");
+                "protected DbContext context;");
 
             var c1 = new ContainerGen();
             c1.Signature = "public BaseDomain(IUnitOfWork uow)";
             c1.Body.Add(new StatementGen(
-                "_uow = uow;"));
+                "this.uow = uow;",
+                "this.context = uow.Context;"));
 
             var s2 = new StatementGen(
-                "private IUnitOfWork _uow;");
-            var m2 = new StatementGen(
-                "protected IUnitOfWork UoW",
-                "{",
-                "\tget",
-                "\t{",
-                "\t\treturn _uow;",
-                "\t}",
-                "}");
+                "protected IUnitOfWork uow;");
 
             if (Data.RequestScope)
             {
@@ -101,9 +87,9 @@ namespace TNT.Template.DataService.Models.Domains
 
             BaseDomainBody.Add(
                 c1, new StatementGen(""),
-                s2, m2, new StatementGen(""),
+                s2, new StatementGen(""),
                 c01, new StatementGen(""),
-                s1, m1, new StatementGen("")
+                s1, new StatementGen("")
                 );
         }
 

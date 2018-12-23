@@ -132,6 +132,24 @@ ADD
 	MembershipCode nvarchar(250);
 EXEC sp_RENAME 'Voucher.MembershipCardID', 'MembershipID', 'COLUMN';
 
+CREATE TABLE CustomerEvents (
+	Id int IDENTITY(1,1) PRIMARY KEY,
+	CustomerCode nvarchar(250),
+	MembershipCode nvarchar(250),
+	EventType int,
+	FromLevel int,
+	ToLevel int,
+	FromType int,
+	ToType int,
+	ChargeAmount float,
+	AwardedPromotionCode nvarchar(250),
+	AwardedPromotionDetailCode nvarchar(250),
+	HappenedDate datetime,
+
+	CustomerId int NOT NULL,
+	FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId),
+);
+
 /*ALTER TABLE Voucher
 DROP COLUMN	
 	[isUsed]--x

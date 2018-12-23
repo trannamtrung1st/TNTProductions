@@ -54,10 +54,6 @@ namespace TNT.Template.DataService.Models.Repositories
                 IEntityRepositoryBody.Add(
                     new StatementGen("`entity` FindActiveById(`entityPK` key);"),
                     new StatementGen("Task<`entity`> FindActiveByIdAsync(`entityPK` key);"),
-                    new StatementGen("`entity` Activate(`entity` entity);"),
-                    new StatementGen("`entity` Activate(`entityPK` key);"),
-                    new StatementGen("`entity` Deactivate(`entity` entity);"),
-                    new StatementGen("`entity` Deactivate(`entityPK` key);"),
                     new StatementGen("IQueryable<`entity`> GetActive();"),
                     new StatementGen("IQueryable<`entity`> GetActive(Expression<Func<`entity`, bool>> expr);")
                     );
@@ -124,52 +120,6 @@ namespace TNT.Template.DataService.Models.Repositories
                     (EInfo.Data.ActiveCol ? " && e.Active == true" : " && e.Deactive == false") + ");",
                     "return entity;"));
                 EntityRepositoryBody.Add(m101, new StatementGen(""));
-
-                var m131 = new ContainerGen();
-                m131.Signature = "public `entity` Activate(`entity` entity)";
-                var activate =
-                    (EInfo.Data.ActiveCol ?
-                        "entity.Active = true; Update(entity); return entity;" :
-                        "entity.Deactive = false; Update(entity); return entity;");
-                m131.Body.Add(new StatementGen(activate));
-                EntityRepositoryBody.Add(m131, new StatementGen(""));
-
-                var m1311 = new ContainerGen();
-                m1311.Signature = "public `entity` Activate(`entityPK` key)";
-                m1311.Body.Add(new StatementGen(
-                    "var entity = FindById(key);",
-                    "if (entity!=null)",
-                    "{",
-                    (EInfo.Activable ? (EInfo.Data.ActiveCol ?
-                    "\tentity.Active = true;" :
-                    "\tentity.Deactive = false;") : null),
-                    "\tUpdate(entity);",
-                    "}",
-                    "return entity;"));
-                EntityRepositoryBody.Add(m1311, new StatementGen(""));
-
-                var m132 = new ContainerGen();
-                m132.Signature = "public `entity` Deactivate(`entity` entity)";
-                var deactivate =
-                    (EInfo.Data.ActiveCol ?
-                        "entity.Active = false; Update(entity); return entity;" :
-                        "entity.Deactive = true; Update(entity); return entity;");
-                m132.Body.Add(new StatementGen(deactivate));
-                EntityRepositoryBody.Add(m132, new StatementGen(""));
-
-                var m1322 = new ContainerGen();
-                m1322.Signature = "public `entity` Deactivate(`entityPK` key)";
-                m1322.Body.Add(new StatementGen(
-                    "var entity = FindById(key);",
-                    "if (entity!=null)",
-                    "{",
-                    (EInfo.Activable ? (EInfo.Data.ActiveCol ?
-                    "\tentity.Active = false;" :
-                    "\tentity.Deactive = true;") : null),
-                    "\tUpdate(entity);",
-                    "}",
-                    "return entity;"));
-                EntityRepositoryBody.Add(m1322, new StatementGen(""));
 
                 var m13 = new ContainerGen();
                 m13.Signature = "public IQueryable<`entity`> GetActive()";

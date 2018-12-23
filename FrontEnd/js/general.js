@@ -3,25 +3,24 @@ function initComponents() {
     initHeader();
     initFooter();
     initLeftMenu();
+    initPages();
 }
 
 function initLeftMenu() {
-    var leftMenu = document.getElementById("left-menu");
-    leftMenu.innerHTML =
-        "<div>" +
-        "<ul>" +
-        "<li>Menu 1</li>" +
-        "<li>Menu 2</li>" +
-        "<li>Menu 3</li>" +
-        "<li>Menu 4</li>" +
-        "</ul>" +
-        "</div>";
+
+    //call api to get data
+    var menus = ['HTML', 'CSS', 'Javascript', 'JQuery', 'Bootstrap'];
+
+    var html = "<ul>";
+    for (var i = 0; i < menus.length; i++)
+        html += "<li>" + menus[i] + "</li>";
+    html += "</ul>";
+
+    innerHTML("#left-menu", html);
 }
 
 function initHeader() {
-    var header = document.getElementsByTagName("header")[0];
-    header.innerHTML = 
-        "<div>This is header</div>" +
+    var content = "<div>This is header</div>" +
         "" +
         "" +
         "" +
@@ -29,11 +28,12 @@ function initHeader() {
         "" +
         "" +
         "";
+
+    innerHTML('header', content, 0);
 }
 
 function initFooter() {
-    var footer = document.getElementsByTagName("footer")[0];
-    footer.innerHTML =
+    var content =
         "<div>This is footer</div>" +
         "" +
         "" +
@@ -42,23 +42,23 @@ function initFooter() {
         "" +
         "" +
         "";
+    innerHTML('footer', content, 0);
 }
 
-function loadScripts(url, callback) {
-    // Adding the script tag to the head as suggested before
-    var head = document.head;
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = url;
+function initPages() {
+    var pageList = by('#page');
+    for (var i = 0; i < pagesContent.length; i++) {
+        var liElement = document.createElement('li');
+        liElement.setAttribute('class', 'page-element');
+        liElement.innerHTML = '<span onclick="changePage(' + i + ')">' + i + '</span>';
+        pageList.appendChild(liElement);
+    }
+}
 
-    // Then bind the event to the callback function.
-    // There are several events for cross browser compatibility.
-    script.onreadystatechange = callback;
-    script.onload = callback;
-
-    // Fire the loading
-    head.appendChild(script);
+function changePage(page) {
+    var content = pagesContent[page];
+    innerHTML('#app', content);
 }
 
 //run ...........
-loadScripts(root + "js/helpers.js", initComponents);
+initComponents();

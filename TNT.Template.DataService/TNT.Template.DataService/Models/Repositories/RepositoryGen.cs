@@ -17,6 +17,7 @@ namespace TNT.Template.DataService.Models.Repositories
             Directive.Add("System.Linq.Expressions", dt.ProjectName + ".Models"
                 , dt.ProjectName + ".Managers"
                 , "TNT.IoC.Container"
+                , "TNT.IoC.Attributes"
                 , "System.Data.Entity"
                 , "System.Data.Entity.Infrastructure");
             ResolveMapping.Add("context", dt.ContextName);
@@ -58,10 +59,12 @@ namespace TNT.Template.DataService.Models.Repositories
                     "Task<int> SaveChangesAsync();",
                     "",
                     "void Reload(E entity);",
-                    "E Add(E entity);",
-                    "IEnumerable<E> AddRange(IEnumerable<E> entities);",
+                    "E Create(E entity);",
+                    "IEnumerable<E> CreateRange(IEnumerable<E> entities);",
                     "E Update(E entity);",
                     "IEnumerable<E> UpdateRange(IEnumerable<E> entities);",
+                    "E Update(E entity, Action<E> patchAction);",
+                    "void Attach(E entity);",
                     "E Remove(E entity);",
                     "E Remove(K key);",
                     "IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);",
@@ -101,12 +104,20 @@ namespace TNT.Template.DataService.Models.Repositories
         {
             var s12 = new StatementGen(
                 "protected DbContext context;",
-                "protected DbSet<E> dbSet;");
+                "protected DbSet<E> dbSet;",
+                "protected IUnitOfWork uow;");
 
             var c4 = new ContainerGen();
             c4.Signature = "public BaseRepository(DbContext context)";
             c4.Body.Add(new StatementGen(
                 "this.context = context;",
+                "this.dbSet = context.Set<E>();"));
+
+            var c5 = new ContainerGen();
+            c5.Signature = "public BaseRepository(IUnitOfWork uow)";
+            c5.Body.Add(new StatementGen(
+                "this.uow = uow;",
+                "this.context = uow.Context;",
                 "this.dbSet = context.Set<E>();"));
 
             var m31 = new ContainerGen();
@@ -133,13 +144,13 @@ namespace TNT.Template.DataService.Models.Repositories
                 "context.Entry(entity).Reload();"));
 
             var m10 = new ContainerGen();
-            m10.Signature = "public E Add(E entity)";
+            m10.Signature = "public E Create(E entity)";
             m10.Body.Add(new StatementGen(
                 "entity = dbSet.Add(entity);",
                 "return entity;"));
 
             var m101 = new ContainerGen();
-            m101.Signature = "public IEnumerable<E> AddRange(IEnumerable<E> entities)";
+            m101.Signature = "public IEnumerable<E> CreateRange(IEnumerable<E> entities)";
             m101.Body.Add(new StatementGen(
                 "return dbSet.AddRange(entities);"));
 
@@ -170,19 +181,27 @@ namespace TNT.Template.DataService.Models.Repositories
             var m141 = new ContainerGen();
             m141.Signature = "public E Update(E entity)";
             m141.Body.Add(new StatementGen(
-                "entity = dbSet.Attach(entity);",
                 "context.Entry(entity).State = EntityState.Modified;",
+                "return entity;"));
+
+            var m1421 = new ContainerGen();
+            m1421.Signature = "public E Update(E entity, Action<E> patchAction)";
+            m1421.Body.Add(new StatementGen(
+                "dbSet.Attach(entity);",
+                "patchAction.Invoke(entity);",
                 "return entity;"));
 
             var m1411 = new ContainerGen();
             m1411.Signature = "public IEnumerable<E> UpdateRange(IEnumerable<E> entities)";
             m1411.Body.Add(new StatementGen(
                 "foreach (var e in entities)",
-                "{",
-                "\tdbSet.Attach(e);",
                 "\tcontext.Entry(e).State = EntityState.Modified;",
-                "}",
                 "return entities;"));
+
+            var m1412 = new ContainerGen();
+            m1412.Signature = "public void Attach(E entity)";
+            m1412.Body.Add(new StatementGen(
+                "dbSet.Attach(entity);"));
 
             var m142 = new ContainerGen();
             m142.Signature = "public IQueryable<E> Get()";
@@ -226,6 +245,7 @@ namespace TNT.Template.DataService.Models.Repositories
             BaseRepositoryBody.Add(
                 s12, new StatementGen(""),
                 c4, new StatementGen(""),
+                c5, new StatementGen(""),
                 m31, new StatementGen(""),
                 m32, new StatementGen(""),
                 m5, new StatementGen(""),
@@ -239,6 +259,8 @@ namespace TNT.Template.DataService.Models.Repositories
                 m14, new StatementGen(""),
                 m141, new StatementGen(""),
                 m1411, new StatementGen(""),
+                m1421, new StatementGen(""),
+                m1412, new StatementGen(""),
                 m142, new StatementGen(""),
                 m143, new StatementGen(""),
                 m15, new StatementGen(""),
