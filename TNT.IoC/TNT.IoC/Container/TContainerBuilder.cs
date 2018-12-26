@@ -12,38 +12,7 @@ using TNT.IoC.Wrapper;
 namespace TNT.IoC.Container
 {
 
-    public interface ITContainerBuilder
-    {
-        ITContainerBuilder RegisterType(Type baseType, Type implType);
-        ITContainerBuilder RegisterType<BaseType, ImplType>() where ImplType : BaseType;
-        ITContainerBuilder RegisterType(Type type);
-        ITContainerBuilder RegisterType<Type>();
-        ITContainerBuilder ResolveDefaultFor<Type>(ResolveType resolveType);
-        ITContainerBuilder ResolveDefaultFor(Type type, ResolveType resolveType);
-
-        ITContainerBuilder RegisterType(Type baseType, Type implType, params Expression<Func<ITContainer, object>>[] arguments);
-        ITContainerBuilder RegisterType(Type baseType, Type implType, object[] arguments);
-        ITContainerBuilder RegisterType(Type type, params Expression<Func<ITContainer, object>>[] arguments);
-        ITContainerBuilder RegisterType(Type type, object[] arguments);
-        ITContainerBuilder RegisterType<BaseType, ImplType>(params Expression<Func<ITContainer, object>>[] arguments) where ImplType : BaseType;
-        ITContainerBuilder RegisterType<BaseType, ImplType>(object[] arguments) where ImplType : BaseType;
-        ITContainerBuilder RegisterType<Type>(params Expression<Func<ITContainer, object>>[] arguments);
-        ITContainerBuilder RegisterType<Type>(object[] arguments);
-
-        ITContainerBuilder RegisterSingleton(Type type, object obj);
-        ITContainerBuilder RegisterSingleton<Type>(Type obj);
-        ITContainerBuilder RegisterSingleton<BaseType, ImplType>(object[] arguments) where ImplType : BaseType;
-        ITContainerBuilder RegisterSingleton(Type baseType, Type implType, object[] arguments);
-
-        ITContainerBuilder AttachToLifetimeScope<Type>();
-        ITContainerBuilder AttachToLifetimeScope(Type type);
-
-        ITContainerBuilder RegisterRequestScopeHandlerModule();
-
-        ITContainer Build();
-    }
-
-    public partial class TContainerBuilder : ITContainerBuilder
+    public partial class TContainerBuilder
     {
         private TContainer container;
 
@@ -69,6 +38,93 @@ namespace TNT.IoC.Container
             }
         }
 
+        private void CheckInjectableCtor(ImplementType implType, Params[] ctorParams, int id = 0)
+        {
+            var wType = implType.WrappedType;
+            var ctor = wType.GetConstructor(ctorParams.Select(p => p.ParameterType).ToArray());
+
+            if (ctor == null)
+                throw new Exception("Can not find suitable constructor");
+            if (implType.InjectableConstructorParamTypesById == null)
+                implType.InjectableConstructorParamTypesById = new Dictionary<int, Args[]>();
+            implType.InjectableConstructorParamTypesById[id] = ctorParams.Select(p => new Args()
+            {
+                argsType = p.ParameterType,
+                injectMode = p.ResolveType == ParamResolveType.Injectable,
+                val = null
+            }).ToArray();
+        }
+
+        public TContainerBuilder RegisterType(Type baseType, Type implType, BuilderOptions options)
+        {
+            if (options.ArgumentsProviders != null)
+                RegisterType(baseType, implType, options.ArgumentsProviders);
+            if (options.DefaultArguments != null)
+                RegisterType(baseType, implType, options.DefaultArguments);
+            if (!container.typeMappings.ContainsKey(baseType))
+                RegisterType(baseType, implType);
+
+            var typeMapping = container.typeMappings[baseType];
+            var iType = typeMapping.ImplementType;
+            if (options.InjectableConstructors != null)
+            {
+                foreach (var kvp in options.InjectableConstructors)
+                    CheckInjectableCtor(iType, kvp.Value, kvp.Key);
+            }
+            if (options.PostConstructs != null)
+            {
+                if (iType.PostConstructs == null)
+                    iType.PostConstructs = new List<MethodWrapper>();
+                iType.PostConstructs.AddRange(options.PostConstructs.Select(p => new MethodWrapper
+                {
+                    Method = p,
+                    ParamTypes = p.GetParameters().Select(para => para.ParameterType).ToArray()
+                }));
+            }
+
+            if (options.InjectableMethods != null)
+            {
+                if (iType.InjectableMethods == null)
+                    iType.InjectableMethods = new List<MethodWrapper>();
+                iType.InjectableMethods.AddRange(options.InjectableMethods.Select(m => new MethodWrapper
+                {
+                    Method = m,
+                    ParamTypes = m.GetParameters().Select(para => para.ParameterType).ToArray()
+                }));
+            }
+
+            if (options.InjectableProperties != null)
+            {
+                if (iType.InjectableProperties == null)
+                    iType.InjectableProperties = new List<PropertyInfo>();
+                iType.InjectableProperties.AddRange(options.InjectableProperties);
+            }
+
+            if (options.DefaultResolveType != null)
+                ResolveDefaultFor(baseType, options.DefaultResolveType.Value);
+            if (options.AttachToLifetimeScope)
+                AttachToLifetimeScope(baseType);
+            return this;
+        }
+
+        public TContainerBuilder RegisterType(Type type, BuilderOptions options)
+        {
+            return RegisterType(type, type, options);
+        }
+
+        public TContainerBuilder RegisterType<BaseType, ImplType>(BuilderOptions options) where ImplType : BaseType
+        {
+            var bType = typeof(BaseType);
+            var iType = typeof(ImplType);
+            return RegisterType(bType, iType, options);
+        }
+
+        public TContainerBuilder RegisterType<Type>(BuilderOptions options)
+        {
+            var type = typeof(Type);
+            return RegisterType(type, type, options);
+        }
+
         public ITContainer Build()
         {
             foreach (var t in container.typeMappings)
@@ -78,7 +134,7 @@ namespace TNT.IoC.Container
             return container;
         }
 
-        public ITContainerBuilder RegisterRequestScopeHandlerModule()
+        public TContainerBuilder RegisterRequestScopeHandlerModule()
         {
             TContainerModule.GlobalContainer = container;
             HttpApplication.RegisterModule(typeof(TContainerModule));
@@ -95,6 +151,7 @@ namespace TNT.IoC.Container
                 var iType = new ImplementType()
                 {
                     WrappedType = implType,
+                    Constructors = implType.GetConstructors(),
                     ConstructorDefaultArguments = args,
                     ConstructorParamProviders = null,
                 };
@@ -127,6 +184,7 @@ namespace TNT.IoC.Container
                 var iType = new ImplementType()
                 {
                     WrappedType = implType,
+                    Constructors = implType.GetConstructors(),
                     ConstructorDefaultArguments = null,
                     ConstructorParamProviders = providers.Select(e => e.Compile()).ToArray(),
                 };
@@ -262,31 +320,31 @@ namespace TNT.IoC.Container
             }
         }
 
-        public ITContainerBuilder RegisterType(Type baseType, Type implType, params Expression<Func<ITContainer, object>>[] arguments)
+        public TContainerBuilder RegisterType(Type baseType, Type implType, params Expression<Func<ITContainer, object>>[] arguments)
         {
             Map(baseType, implType, arguments);
             return this;
         }
 
-        public ITContainerBuilder RegisterType(Type baseType, Type implType, object[] arguments)
+        public TContainerBuilder RegisterType(Type baseType, Type implType, object[] arguments)
         {
             Map(baseType, implType, arguments);
             return this;
         }
 
-        public ITContainerBuilder RegisterType(Type type, params Expression<Func<ITContainer, object>>[] arguments)
+        public TContainerBuilder RegisterType(Type type, params Expression<Func<ITContainer, object>>[] arguments)
         {
             Map(type, type, arguments);
             return this;
         }
 
-        public ITContainerBuilder RegisterType(Type type, object[] arguments)
+        public TContainerBuilder RegisterType(Type type, object[] arguments)
         {
             Map(type, type, arguments);
             return this;
         }
 
-        public ITContainerBuilder RegisterType<BaseType, ImplType>(params Expression<Func<ITContainer, object>>[] arguments) where ImplType : BaseType
+        public TContainerBuilder RegisterType<BaseType, ImplType>(params Expression<Func<ITContainer, object>>[] arguments) where ImplType : BaseType
         {
             var bType = typeof(BaseType);
             var iType = typeof(ImplType);
@@ -294,7 +352,7 @@ namespace TNT.IoC.Container
             return this;
         }
 
-        public ITContainerBuilder RegisterType<BaseType, ImplType>(object[] arguments) where ImplType : BaseType
+        public TContainerBuilder RegisterType<BaseType, ImplType>(object[] arguments) where ImplType : BaseType
         {
             var bType = typeof(BaseType);
             var iType = typeof(ImplType);
@@ -302,51 +360,51 @@ namespace TNT.IoC.Container
             return this;
         }
 
-        public ITContainerBuilder RegisterType<Type>(Expression<Func<ITContainer, object>>[] arguments)
+        public TContainerBuilder RegisterType<Type>(params Expression<Func<ITContainer, object>>[] arguments)
         {
             var type = typeof(Type);
             Map(type, type, arguments);
             return this;
         }
 
-        public ITContainerBuilder RegisterType<Type>(object[] arguments)
+        public TContainerBuilder RegisterType<Type>(object[] arguments)
         {
             var type = typeof(Type);
             Map(type, type, arguments);
             return this;
         }
 
-        public ITContainerBuilder RegisterSingleton(Type type, object obj)
+        public TContainerBuilder RegisterSingleton(Type type, object obj)
         {
             container.singletonObjs[type] = obj;
             return this;
         }
 
-        public ITContainerBuilder RegisterSingleton<Type>(Type obj)
+        public TContainerBuilder RegisterSingleton<Type>(Type obj)
         {
             container.singletonObjs[typeof(Type)] = obj;
             return this;
         }
 
-        public ITContainerBuilder RegisterSingleton<BaseType, ImplType>(object[] arguments) where ImplType : BaseType
+        public TContainerBuilder RegisterSingleton<BaseType, ImplType>(object[] arguments) where ImplType : BaseType
         {
             container.singletonObjs[typeof(BaseType)] = Activator.CreateInstance(typeof(ImplType), arguments);
             return this;
         }
 
-        public ITContainerBuilder RegisterSingleton(Type baseType, Type implType, object[] arguments)
+        public TContainerBuilder RegisterSingleton(Type baseType, Type implType, object[] arguments)
         {
             container.singletonObjs[baseType] = Activator.CreateInstance(implType, arguments);
             return this;
         }
 
-        public ITContainerBuilder RegisterType(Type baseType, Type implType)
+        public TContainerBuilder RegisterType(Type baseType, Type implType)
         {
             Map(baseType, implType, new object[] { });
             return this;
         }
 
-        public ITContainerBuilder RegisterType<BaseType, ImplType>() where ImplType : BaseType
+        public TContainerBuilder RegisterType<BaseType, ImplType>() where ImplType : BaseType
         {
             var bType = typeof(BaseType);
             var iType = typeof(ImplType);
@@ -354,46 +412,110 @@ namespace TNT.IoC.Container
             return this;
         }
 
-        public ITContainerBuilder RegisterType<Type>()
+        public TContainerBuilder RegisterType<Type>()
         {
             var type = typeof(Type);
             Map(type, type, new object[] { });
             return this;
         }
 
-        public ITContainerBuilder RegisterType(Type type)
+        public TContainerBuilder RegisterType(Type type)
         {
             Map(type, type, new object[] { });
             return this;
         }
 
-        public ITContainerBuilder ResolveDefaultFor<Type>(ResolveType resolveType)
+        public TContainerBuilder ResolveDefaultFor<Type>(ResolveType resolveType)
         {
             var bType = container.typeMappings[typeof(Type)];
             bType.ImplementType.DefaultResolveType = resolveType;
             return this;
         }
 
-        public ITContainerBuilder ResolveDefaultFor(Type type, ResolveType resolveType)
+        public TContainerBuilder ResolveDefaultFor(Type type, ResolveType resolveType)
         {
             var bType = container.typeMappings[type];
             bType.ImplementType.DefaultResolveType = resolveType;
             return this;
         }
 
-        public ITContainerBuilder AttachToLifetimeScope<Type>()
+        public TContainerBuilder AttachAllRegisteredToLifetimeScope()
+        {
+            foreach (var t in container.typeMappings)
+                t.Value.ImplementType.HasLifetimeScope = true;
+            return this;
+        }
+
+        public TContainerBuilder AttachToLifetimeScope<Type>()
         {
             var bType = container.typeMappings[typeof(Type)];
             bType.ImplementType.HasLifetimeScope = true;
             return this;
         }
 
-        public ITContainerBuilder AttachToLifetimeScope(Type type)
+        public TContainerBuilder AttachToLifetimeScope(Type type)
         {
             var bType = container.typeMappings[type];
             bType.ImplementType.HasLifetimeScope = true;
             return this;
         }
+
+        public TContainerBuilder Concatenate(TContainerBuilder anotherBuilder)
+        {
+            var anotherContainer = anotherBuilder.container;
+            foreach (var tM in anotherContainer.typeMappings)
+                this.container.typeMappings.Add(tM);
+            foreach (var sgt in anotherContainer.singletonObjs)
+                this.container.singletonObjs.Add(sgt);
+            return this;
+        }
+
+    }
+
+    public enum ParamResolveType
+    {
+        Injectable,
+        Normal
+    }
+
+    public class Params
+    {
+        public ParamResolveType ResolveType { get; private set; }
+        public Type ParameterType { get; private set; }
+        internal Params() { }
+
+        public static Params Injectable<Type>()
+        {
+            return new Params() { ResolveType = ParamResolveType.Injectable, ParameterType = typeof(Type) };
+        }
+        public static Params Injectable(Type type)
+        {
+            return new Params() { ResolveType = ParamResolveType.Injectable, ParameterType = type };
+        }
+        public static Params Normal<Type>()
+        {
+            return new Params() { ResolveType = ParamResolveType.Injectable, ParameterType = typeof(Type) };
+        }
+        public static Params Normal(Type type)
+        {
+            return new Params() { ResolveType = ParamResolveType.Injectable, ParameterType = type };
+        }
+
+    }
+
+    public class BuilderOptions
+    {
+        public ResolveType? DefaultResolveType { get; set; }
+        public IDictionary<int, Params[]> InjectableConstructors { get; set; }
+        public object[] DefaultArguments { get; set; }
+        public Expression<Func<ITContainer, object>>[] ArgumentsProviders { get; set; }
+        public object SingletonObj { get; set; }
+
+        public List<PropertyInfo> InjectableProperties { get; set; }
+        public List<MethodInfo> InjectableMethods { get; set; }
+        public List<MethodInfo> PostConstructs { get; set; }
+
+        public bool AttachToLifetimeScope { get; set; }
     }
 
     public class TContainerModule : IHttpModule

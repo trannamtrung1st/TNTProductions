@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -48,7 +49,6 @@ namespace TNT.IoC.Container
 
         ITContainer CreateScope();
         bool ResourcesControlModeOn { get; set; }
-        ITContainer RequestScope { get; }
 
         void InjectTo(object obj, params object[] arguments);
     }
@@ -71,14 +71,14 @@ namespace TNT.IoC.Container
         internal TContainer(TContainer parent)
         {
             typeMappings = parent.typeMappings;
-            resources = parent.resources;
+            resources = new HashSet<IDisposable>();
             singletonObjs = parent.singletonObjs;
-            lifetimeScopeObjs = parent.lifetimeScopeObjs;
+            lifetimeScopeObjs = new Dictionary<Type, object>();
         }
 
         public bool ResourcesControlModeOn { get; set; } = true;
 
-        public ITContainer RequestScope => HttpContext.Current.Items[typeof(ITContainer)] as ITContainer;
+        public static ITContainer RequestScope => HttpContext.Current.Items[typeof(ITContainer)] as ITContainer;
 
         public void ClearResources(bool autoDispose)
         {
@@ -271,12 +271,18 @@ namespace TNT.IoC.Container
 
         internal object FinalResolve(Type bType, ImplementType implType, params object[] arguments)
         {
-            var len = arguments.Length;
-            var types = new Type[len];
-            for (int i = 0; i < len; i++)
-                types[i] = arguments[i].GetType();
+            object instance = null;
+            foreach (var c in implType.Constructors)
+            {
+                if (c.IsSuitableForArgs(arguments))
+                {
+                    instance = c.Invoke(arguments);
+                    break;
+                }
+            }
+            if (instance == null)
+                throw new Exception("Can not find suitable constructor");
 
-            var instance = implType.WrappedType.GetConstructor(types).Invoke(arguments);
             if (implType.HasLifetimeScope)
                 lifetimeScopeObjs[bType] = instance;
 
@@ -287,12 +293,19 @@ namespace TNT.IoC.Container
 
         internal object FinalResolve(Type bType, ImplementType implType, Args[] arguments)
         {
-            var len = arguments.Length;
-            var types = new Type[len];
-            for (int i = 0; i < len; i++)
-                types[i] = arguments[i].argsType;
+            object instance = null;
+            var realArgs = arguments.Select(a => a.val).ToArray();
+            foreach (var c in implType.Constructors)
+            {
+                if (c.IsSuitableForArgs(realArgs))
+                {
+                    instance = c.Invoke(realArgs);
+                    break;
+                }
+            }
+            if (instance == null)
+                throw new Exception("Can not find suitable constructor");
 
-            var instance = implType.WrappedType.GetConstructor(types).Invoke(arguments.Select(a => a.val).ToArray());
             if (implType.HasLifetimeScope)
                 lifetimeScopeObjs[bType] = instance;
 
@@ -450,4 +463,5 @@ namespace TNT.IoC.Container
         #endregion
 
     }
+
 }

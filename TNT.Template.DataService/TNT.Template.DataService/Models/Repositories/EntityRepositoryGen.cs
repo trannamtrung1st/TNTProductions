@@ -16,6 +16,7 @@ namespace TNT.Template.DataService.Models.Repositories
             EInfo = eInfo;
             Directive.Add(EInfo.Data.ProjectName + ".Models",
                 EInfo.Data.ProjectName + ".Managers",
+                "TNT.IoC.Attributes",
                 "System.Linq.Expressions", "System.Data.Entity");
             ResolveMapping.Add("entity", EInfo.EntityName);
             ResolveMapping.Add("entities", EInfo.PluralEntityName);
@@ -80,7 +81,11 @@ namespace TNT.Template.DataService.Models.Repositories
             var c1 = new ContainerGen();
             c1.Signature = "public `entity`Repository(DbContext context) : base(context)";
 
-            EntityRepositoryBody.Add(c1, new StatementGen(""), new StatementGen("#region CRUD area"));
+            EntityRepositoryBody.Add(c1, new StatementGen(""));
+
+            var c2 = new ContainerGen();
+            c2.Signature = "public `entity`Repository(IUnitOfWork uow) : base(uow)";
+            EntityRepositoryBody.Add(c2, new StatementGen(""), new StatementGen("#region CRUD area"));
 
             var m9 = new ContainerGen();
             m9.Signature = "public override `entity` FindById(`entityPK` key)";

@@ -20,9 +20,8 @@ namespace IoCTest
     {
         public int p1 { get; set; }
 
-        public A(int iasd)
+        public A()
         {
-            p1 = iasd;
         }
 
     }
@@ -36,11 +35,13 @@ namespace IoCTest
     {
         public IA GetA { get; set; }
 
-        [Injectable]
-        public B(int i, [Injectable] IA a)
+        public B()
+        {
+        }
+
+        public B(IA a)
         {
             GetA = a;
-            Console.WriteLine(i + "" + GetA);
         }
 
     }
@@ -49,12 +50,24 @@ namespace IoCTest
     {
         static void Main(string[] args)
         {
+            var options = new BuilderOptions();
+            options.InjectableConstructors = new Dictionary<int, Params[]>();
+            options.InjectableConstructors[0] = new Params[] { Params.Injectable<IA>() };
+
             var container = new TContainerBuilder()
                 .RegisterType<A>()
-                .RegisterType<B>()
+                .RegisterType<B>(options)
                 .RegisterType<IA, A>().Build();
-            var a = container.Resolve<A>(new object[] { 1123 });
-            Console.WriteLine(a.p1);
+
+            var sw = Stopwatch.StartNew();
+            var type = typeof(B);
+            var cons = type.GetConstructor(new Type[] { typeof(int), typeof(A) });
+            for (int i = 0; i < 1000; i++)
+            {
+                //var a = cons.Invoke(new object[] { 1, new A(1) });
+                var a = container.Resolve<B>();
+            }
+            Console.WriteLine(sw.ElapsedMilliseconds);
         }
     }
 }

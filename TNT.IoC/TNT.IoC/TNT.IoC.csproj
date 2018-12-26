@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Attributes\PostConstruct.cs" />
     <Compile Include="Attributes\InjectableAttribute.cs" />
+    <Compile Include="Container\Helpers.cs" />
     <Compile Include="Container\TContainer.cs" />
     <Compile Include="Container\TContainerBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

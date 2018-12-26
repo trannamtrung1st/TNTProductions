@@ -57,7 +57,7 @@ namespace TNT.Template.DataService.Global
                 new StatementGen(
                     "public static IMapper Mapper;",
                     "public static ITContainer TContainer;",
-                    "private static ITContainerBuilder Builder = new TContainerBuilder();"
+                    "private static TContainerBuilder Builder = new TContainerBuilder();"
                 ));
 
             NamespaceBody.Add(GlobalClass);
@@ -126,8 +126,12 @@ namespace TNT.Template.DataService.Global
             method.Signature = "private static void ConfigureIoC()";
 
             var s2 = new StatementGen("//IoC",
+                "var repoOpt = new BuilderOptions();",
+                "repoOpt.InjectableConstructors = new Dictionary<int, Params[]>();",
+                "repoOpt.InjectableConstructors[0] = new Params[] { Params.Injectable<IUnitOfWork>() };",
+                "",
                 Data.RequestScope ? "Builder.RegisterRequestScopeHandlerModule()" : "Builder",
-                "\t.RegisterType<IUnitOfWork, UnitOfWork>().AttachToLifetimeScope<IUnitOfWork>()");
+                "\t.RegisterType<IUnitOfWork, UnitOfWork>()");
             s2.Add("\t.RegisterType<" + Data.ContextName + ">()");
             s2.Add("\t.RegisterType<DbContext, " + Data.ContextName + ">()");
 
@@ -136,9 +140,9 @@ namespace TNT.Template.DataService.Global
             int i = 0;
             for (i = 0; i < len - 1; i++)
             {
-                s2.Add("\t.RegisterType<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>()");
+                s2.Add("\t.RegisterType<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>(repoOpt)");
             }
-            s2.Add("\t.RegisterType<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>();");
+            s2.Add("\t.RegisterType<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>(repoOpt)", "\t.AttachAllRegisteredToLifetimeScope();");
 
             s2.Add("G.TContainer = Builder.Build();");
             method.Body.Add(s2);

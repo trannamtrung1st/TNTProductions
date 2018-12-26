@@ -141,9 +141,9 @@ CREATE TABLE CustomerEvents (
 	ToLevel int,
 	FromType int,
 	ToType int,
-	ChargeAmount float,
-	AwardedPromotionCode nvarchar(250),
-	AwardedPromotionDetailCode nvarchar(250),
+	Amount float,
+	AwardedPromotionCode nvarchar(MAX),
+	AwardedPromotionDetailCode nvarchar(MAX),
 	HappenedDate datetime,
 
 	CustomerId int NOT NULL,

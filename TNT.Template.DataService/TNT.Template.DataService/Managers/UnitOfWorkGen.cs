@@ -74,31 +74,24 @@ namespace TNT.Template.DataService.Managers
 
             var s1 = new StatementGen(
                 "public ITContainer Scope { get; set; }",
-                "public DbContext Context { get; set; }",
-                "private IDictionary<Type, object> ResourcePool { get; set; }");
+                "public DbContext Context { get; set; }");
 
             var c2 = new ContainerGen();
             c2.Signature = "public UnitOfWork()";
             c2.Body.Add(new StatementGen(
-                "Scope = G.TContainer.RequestScope;",
-                "Context = new `context`();",
-                "ResourcePool = new Dictionary<Type, object>();"));
+                "Scope = TContainer.RequestScope;",
+                "Context = new `context`();"));
 
             var c21 = new ContainerGen();
             c21.Signature = "public UnitOfWork(ITContainer scope)";
             c21.Body.Add(new StatementGen(
                 "Scope = scope;",
-                "Context = new `context`();",
-                "ResourcePool = new Dictionary<Type, object>();"));
+                "Context = new `context`();"));
 
             var m3 = new ContainerGen();
             m3.Signature = "public S Repository<S>() where S : class, IRepository";
             m3.Body.Add(new StatementGen(
-                "var type = typeof(S);",
-                "if (ResourcePool.ContainsKey(type))",
-                "\treturn (S)ResourcePool[type];",
-                "var repository = Scope.Resolve<S>(Args.Array(this));",
-                "ResourcePool.Add(type, repository);",
+                "var repository = Scope.Resolve<S>();",
                 "return repository;"
             ));
 

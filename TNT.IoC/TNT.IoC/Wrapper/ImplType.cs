@@ -12,6 +12,8 @@ namespace TNT.IoC.Wrapper
     {
         public ResolveType? DefaultResolveType { get; set; }
         public Type WrappedType { get; set; }
+        public ConstructorInfo[] Constructors { get; set; }
+
         public object[] ConstructorDefaultArguments { get; set; }
         public Func<ITContainer, object>[] ConstructorParamProviders { get; set; }
         public IDictionary<int, Args[]> InjectableConstructorParamTypesById { get; set; }

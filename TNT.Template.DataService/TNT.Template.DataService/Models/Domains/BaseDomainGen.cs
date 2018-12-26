@@ -18,12 +18,11 @@ namespace TNT.Template.DataService.Models.Domains
                 Data.ProjectName + ".Models.Repositories",
                 Data.ProjectName + ".ViewModels",
                 Data.ProjectName + ".Managers",
-                Data.ProjectName + ".Helpers",
                 Data.ProjectName + ".Models",
                 Data.ProjectName + ".Global",
                 "System.Data.Entity",
                 "System.Linq.Expressions",
-                "TNT.IoC.Wrapper");
+                "TNT.IoC.Container");
             ResolveMapping.Add("context", dt.ContextName);
             //GENERATE
             GenerateNamespace();
@@ -60,7 +59,7 @@ namespace TNT.Template.DataService.Models.Domains
             var c0 = new ContainerGen();
             c0.Signature = "public BaseDomain()";
             c0.Body.Add(new StatementGen(
-                "this.uow = G.TContainer.ResolveScopeInstance<IUnitOfWork>();",
+                "this.uow = TContainer.RequestScope.ResolveScopeInstance<IUnitOfWork>();",
                 "this.context = uow.Context;"));
 
             var c01 = new ContainerGen();
