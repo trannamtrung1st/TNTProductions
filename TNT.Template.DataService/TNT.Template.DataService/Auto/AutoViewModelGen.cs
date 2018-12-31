@@ -39,7 +39,8 @@ namespace TNT.Template.DataService.Auto
         {
             var init = new TemplateCodeBlock(new StatementGen(
                 @"var projectPath = Host.ResolveAssemblyReference(""$(ProjectDir)"");",
-                @"var dt = new EdmxParser(projectPath+@""" + Data.EdmxPath + @""",""`project`"").Data;",
+                @"var solutionPath = Host.ResolveAssemblyReference(""$(SolutionDir)"");",
+                @"var dt = new EdmxParser(@""" + Data.EdmxPath + @""".Replace(""{project}"", projectPath).Replace(""{solution}"", solutionPath) ,""`project`"").Data;",
                 "var manager = TemplateFileManager.Create(this);"
                 ));
             Add(init);
@@ -74,7 +75,7 @@ namespace TNT.Template.DataService.Auto
             Add(new TemplateCodeBlock(jIgnoreArr, exceptArr, new StatementGen(
                 "foreach (var e in dt.Entities)", "{"),
                 new StatementGen(true,
-                    "var vmGen = new VMGen(e, jIgnore, except, JsonPropertyFormatEnum." 
+                    "var vmGen = new VMGen(e, jIgnore, except, JsonPropertyFormatEnum."
                         + Enum.GetName(typeof(JsonPropertyFormatEnum), Style) + ");",
                     "manager.StartNewFile(e.EntityName+\"ViewModelGen.cs\");")),
                 new TemplateTextBlock("<#=vmGen.Generate()#>"),

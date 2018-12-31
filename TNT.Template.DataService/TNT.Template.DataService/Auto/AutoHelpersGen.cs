@@ -28,7 +28,8 @@ namespace TNT.Template.DataService.Auto
         {
             var init = new TemplateCodeBlock(new StatementGen(
                 @"var projectPath = Host.ResolveAssemblyReference(""$(ProjectDir)"");",
-                @"var dt = new EdmxParser(projectPath+@""" + Data.EdmxPath + @""",""`project`"").Data;",
+                @"var solutionPath = Host.ResolveAssemblyReference(""$(SolutionDir)"");",
+                @"var dt = new EdmxParser(@""" + Data.EdmxPath + @""".Replace(""{project}"", projectPath).Replace(""{solution}"", solutionPath) ,""`project`"").Data;",
                 "var manager = TemplateFileManager.Create(this);"
                 ));
             Add(init);

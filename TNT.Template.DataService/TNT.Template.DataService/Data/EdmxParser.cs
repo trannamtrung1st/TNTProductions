@@ -11,6 +11,7 @@ namespace TNT.Template.DataService.Data
 {
     public class EdmxParser
     {
+
         private XElement Root { get; set; }
         public DataInfo Data { get; set; }
         private HashSet<string> DefaultNullableType
@@ -64,6 +65,7 @@ namespace TNT.Template.DataService.Data
             var conceptModel = Root.Descendants().SingleOrDefault(e => e.Name.LocalName.Equals("ConceptualModels"));
             var entityContainer = conceptModel.Descendants().SingleOrDefault(e => e.Name.LocalName.Equals("EntityContainer"));
             Data.ContextName = entityContainer.Attribute("Name").Value;
+
         }
 
         private void SetEntitiesInfo()

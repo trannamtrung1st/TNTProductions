@@ -25,6 +25,7 @@ ADD
 	OrderTypes nvarchar(100),
 	EventValues varchar(100),
 	CanApplyPerPoints float,
+
 	DetailApplyType int,
 	CreatedDate datetime,
 	AdjustedDate datetime,
@@ -34,7 +35,6 @@ ADD
 /*ALTER TABLE Promotion
 DROP COLUMN [PromotionClassName]
       ,[GiftType]
-      ,[IsApplyOnce]
       ,[FromHappyDay]
       ,[ToHappyDay]
       ,[FromHoursHappy]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace TNT.Template.DataService.Auto
         private string EdmxFile { get; set; }
         private string ProjectName { get; set; }
         private string ProjectPath { get; set; }
+        private string SolutionPath { get; set; }
         private JsonPropertyFormatEnum Style { get; set; }
         private DataInfo Data { get; set; }
         private List<string> ExtraDirectives { get; set; }
@@ -26,6 +28,7 @@ namespace TNT.Template.DataService.Auto
 
         //all relative to project: (projectPath/[continue])
         public AutoDataServiceGen(
+            string solutionPath,
             string projectPath,
             string projectName,
             string templateApiLib,
@@ -36,16 +39,29 @@ namespace TNT.Template.DataService.Auto
             bool requestScope = false
             )
         {
+
+            SolutionPath = solutionPath;
+            if (SolutionPath[SolutionPath.Length - 1] == '\\' || SolutionPath[SolutionPath.Length - 1] == '/')
+                SolutionPath = SolutionPath.Remove(SolutionPath.Length - 1);
+            SolutionPath += "/";
+
             ProjectPath = projectPath;
             if (ProjectPath[ProjectPath.Length - 1] == '\\' || ProjectPath[ProjectPath.Length - 1] == '/')
                 ProjectPath = ProjectPath.Remove(ProjectPath.Length - 1);
             ProjectPath += "/";
+
+            var curDir = Directory.GetCurrentDirectory() + '/';
+
             this.Style = vmPropStyle;
             ProjectName = projectName;
 
-            TemplateAPILib = "$(ProjectDir)" + templateApiLib;
-            DataServiceLib = "$(ProjectDir)" + dataServiceTemplateLib;
-            var includeFile = "$(ProjectDir)" + "Templates/TTManager.ttinclude";
+            TemplateAPILib = templateApiLib.Replace("{project}", "$(ProjectDir)")
+                .Replace("{current}", curDir)
+                .Replace("{solution}", "$(SolutionDir)");
+            DataServiceLib = dataServiceTemplateLib.Replace("{project}", "$(ProjectDir)")
+                .Replace("{current}", curDir)
+                .Replace("{solution}", "$(SolutionDir)");
+            var includeFile = "$(ProjectDir)Templates/TTManager.ttinclude";
             ExtraDirectives = new List<string>()
             {
                 "assembly name=\""+TemplateAPILib+"\"",
@@ -53,7 +69,9 @@ namespace TNT.Template.DataService.Auto
                 "include file=\""+includeFile+"\""
             };
 
-            EdmxFile = ProjectPath + edmxFile;
+            EdmxFile = edmxFile.Replace("{project}", ProjectPath).Replace("{current}", curDir)
+                .Replace("{solution}", SolutionPath);
+
             Data = new EdmxParser(EdmxFile, projectName).Data;
             Data.EdmxPath = edmxFile;
             Data.RequestScope = requestScope;

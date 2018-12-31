@@ -77,8 +77,8 @@ namespace TNT.IoC.Container
         }
 
         public bool ResourcesControlModeOn { get; set; } = true;
-
-        public static ITContainer RequestScope => HttpContext.Current.Items[typeof(ITContainer)] as ITContainer;
+        internal static string ContextKey = typeof(TContainer).FullName;
+        public static ITContainer RequestScope => HttpContext.Current.Items[ContextKey] as ITContainer;
 
         public void ClearResources(bool autoDispose)
         {

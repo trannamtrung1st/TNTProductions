@@ -50,24 +50,10 @@ namespace IoCTest
     {
         static void Main(string[] args)
         {
-            var options = new BuilderOptions();
-            options.InjectableConstructors = new Dictionary<int, Params[]>();
-            options.InjectableConstructors[0] = new Params[] { Params.Injectable<IA>() };
-
-            var container = new TContainerBuilder()
-                .RegisterType<A>()
-                .RegisterType<B>(options)
-                .RegisterType<IA, A>().Build();
-
-            var sw = Stopwatch.StartNew();
-            var type = typeof(B);
-            var cons = type.GetConstructor(new Type[] { typeof(int), typeof(A) });
-            for (int i = 0; i < 1000; i++)
+            using (var db = new EmployeeManagerEntities())
             {
-                //var a = cons.Invoke(new object[] { 1, new A(1) });
-                var a = container.Resolve<B>();
+                Console.WriteLine(db.Employees.FirstOrDefault().EmpName);
             }
-            Console.WriteLine(sw.ElapsedMilliseconds);
         }
     }
 }

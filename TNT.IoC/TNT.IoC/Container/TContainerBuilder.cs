@@ -535,19 +535,19 @@ namespace TNT.IoC.Container
 
         protected void Application_BeginRequest(object sender, EventArgs args)
         {
-            HttpContext.Current.Items[typeof(ITContainer)] = GlobalContainer.CreateScope();
+            HttpContext.Current.Items[TContainer.ContextKey] = GlobalContainer.CreateScope();
         }
 
         protected void Application_EndRequest(object sender, EventArgs args)
         {
-            var container = HttpContext.Current.Items[typeof(ITContainer)];
+            var container = HttpContext.Current.Items[TContainer.ContextKey];
             if (container != null)
                 ((ITContainer)container).Dispose();
         }
 
         protected void Application_Error(object sender, EventArgs args)
         {
-            var container = HttpContext.Current.Items[typeof(ITContainer)];
+            var container = HttpContext.Current.Items[TContainer.ContextKey];
             if (container != null)
                 ((ITContainer)container).Dispose();
         }
