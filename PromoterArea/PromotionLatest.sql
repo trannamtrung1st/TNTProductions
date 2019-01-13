@@ -1,7 +1,6 @@
 ﻿--PROMOTION
 ALTER TABLE Promotion 
 ADD 
-
 	/*begin voucher config*/
 	VoucherLength int,
 	Prefix nvarchar(100),
@@ -23,8 +22,8 @@ ADD
 	PaymentTypes varchar(100),
 	PaymentPartnerId int,
 	OrderTypes nvarchar(100),
-	EventValues varchar(100),
-	CanApplyPerPoints float,
+	EventType int,
+	EventValue float,
 
 	DetailApplyType int,
 	CreatedDate datetime,
@@ -42,7 +41,7 @@ DROP COLUMN [PromotionClassName]
       ,[UsingPoint]
       ,[PartnerID]; -- xoa tay*/
 
---PROMOTION DETAIL
+--PROMOTION DETAIL 
 ALTER TABLE PromotionDetail
 ADD	
 	DetailLevel int
@@ -88,8 +87,8 @@ ADD
 	HasCollectionAttributes bit, --NOT NULL,
 
 	HasEventAttributes bit,
-	EventValues varchar(100),
-	CanApplyPerPoints float,
+	EventType int,
+	EventValue float, 
 
 	/*begin voucher config*/
 	VoucherLength int,
@@ -139,6 +138,8 @@ CREATE TABLE CustomerEvents (
 	EventType int,
 	FromLevel int,
 	ToLevel int,
+	FromStatus int,
+	ToStatus int,
 	FromType int,
 	ToType int,
 	Amount float,
