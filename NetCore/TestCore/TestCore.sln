@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCore", "TestCore\TestCore.csproj", "{5E50BA7C-EC36-4872-9758-4C7E242AEE44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestCore", "TestCore\TestCore.csproj", "{5E50BA7C-EC36-4872-9758-4C7E242AEE44}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TNT.Core.Helpers", "..\TNT.Core.Helpers\TNT.Core.Helpers\TNT.Core.Helpers.csproj", "{50411C3E-1462-4B28-B514-067530858CA9}"
 EndProject
@@ -12,6 +12,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TNT.Core.OAuth", "..\TNT.Core.OAuth\TNT.Core.OAuth\TNT.Core.OAuth.csproj", "{EF57BC84-334C-42A0-A61A-BEF1ED70655B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TNT.Core.WebApi", "..\TNT.Core.WebApi\TNT.Core.WebApi\TNT.Core.WebApi.csproj", "{B8F35BD1-95D3-46DE-9CA1-50B4E9A09778}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TNT.Core.Template.DataService", "..\TNT.Core.Template\TNT.Core.Template.DataService\TNT.Core.Template.DataService.csproj", "{0759B070-68FF-420E-A11F-BE182C52A1BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TNT.Core.Template", "..\TNT.Core.Template\TNT.Core.Template\TNT.Core.Template.csproj", "{5DB18753-8D63-4393-BB28-B04E9A1DF368}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDataService", "..\TNT.Core.Template\TestDataService\TestDataService.csproj", "{4EBC611A-19EB-4830-8A82-97B1D3B9732F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +45,18 @@ Global
 		{B8F35BD1-95D3-46DE-9CA1-50B4E9A09778}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8F35BD1-95D3-46DE-9CA1-50B4E9A09778}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8F35BD1-95D3-46DE-9CA1-50B4E9A09778}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0759B070-68FF-420E-A11F-BE182C52A1BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0759B070-68FF-420E-A11F-BE182C52A1BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0759B070-68FF-420E-A11F-BE182C52A1BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0759B070-68FF-420E-A11F-BE182C52A1BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DB18753-8D63-4393-BB28-B04E9A1DF368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DB18753-8D63-4393-BB28-B04E9A1DF368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DB18753-8D63-4393-BB28-B04E9A1DF368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DB18753-8D63-4393-BB28-B04E9A1DF368}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EBC611A-19EB-4830-8A82-97B1D3B9732F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EBC611A-19EB-4830-8A82-97B1D3B9732F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EBC611A-19EB-4830-8A82-97B1D3B9732F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EBC611A-19EB-4830-8A82-97B1D3B9732F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

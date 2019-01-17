@@ -60,5 +60,21 @@ namespace TNT.Core.IoC.Wrapper
             return args;
         }
 
+        public static ConstructorId CtorId(int id = 0)
+        {
+            return new ConstructorId(id);
+        }
+
+    }
+
+    public class ConstructorId
+    {
+        public static readonly ConstructorId Default = new ConstructorId(0);
+
+        public int Value { get; set; }
+        internal ConstructorId(int id)
+        {
+            Value = id;
+        }
     }
 }

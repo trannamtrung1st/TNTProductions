@@ -10,6 +10,12 @@ namespace TNT.Core.OAuth.Authorization
     {
         public Task ValidateTokenRequest(OAuthValidateTokenRequestContext context)
         {
+            if (!Options.AllowInsecureHttp && !context.HttpContext.Request.IsHttps)
+            {
+                context.SetError(StatusCodes.Status400BadRequest, Constants.InvalidRequest, Constants.HttpsOnly);
+                return Task.CompletedTask;
+            }
+
             if (!context.HttpContext.Request.Method.ToLowerInvariant().Equals("post"))
             {
                 context.SetError(StatusCodes.Status400BadRequest, Constants.InvalidRequest, Constants.UnsupportedMethod);
@@ -20,14 +26,14 @@ namespace TNT.Core.OAuth.Authorization
             {
                 case "password":
                     if (!context.FormData.ContainsKey("username") || !context.FormData.ContainsKey("password"))
-                        context.SetError(StatusCodes.Status400BadRequest, Constants.InvalidTokenRequest);
+                        context.SetError(StatusCodes.Status400BadRequest, Constants.InvalidRequest, Constants.InvalidTokenRequest);
                     break;
                 case "refresh_token":
                     if (!context.FormData.ContainsKey("refresh_token"))
-                        context.SetError(StatusCodes.Status400BadRequest, Constants.InvalidTokenRequest);
+                        context.SetError(StatusCodes.Status400BadRequest, Constants.InvalidRequest, Constants.InvalidTokenRequest);
                     break;
                 case null:
-                    context.SetError(StatusCodes.Status400BadRequest, Constants.InvalidTokenRequest);
+                    context.SetError(StatusCodes.Status400BadRequest, Constants.InvalidRequest, Constants.InvalidTokenRequest);
                     break;
             }
             if (!context.HasError)

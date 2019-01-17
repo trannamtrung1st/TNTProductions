@@ -55,9 +55,7 @@ namespace TNT.Core.OAuth.Externals
             var dataStr = await res.Content.ReadAsStringAsync();
             var data = JsonConvert.DeserializeObject<FacebookDebugToken>(dataStr);
             data.ProviderId = AppId;
-            if (data.IsValid)
-                return data;
-            return null;
+            return data;
         }
 
         public void Dispose()

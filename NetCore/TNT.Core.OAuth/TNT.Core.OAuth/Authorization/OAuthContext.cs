@@ -9,12 +9,40 @@ using TNT.Core.WebApi;
 
 namespace TNT.Core.OAuth.Authorization
 {
+    public class Data
+    {
+        protected IDictionary<string, string> dict;
+        public Data(IDictionary<string, string> dict)
+        {
+            this.dict = dict;
+        }
+
+        public string this[string key]
+        {
+            get
+            {
+                if (dict.ContainsKey(key))
+                    return dict[key];
+                return null;
+            }
+            set
+            {
+                dict[key] = value;
+            }
+        }
+
+        public bool ContainsKey(string key)
+        {
+            return dict.ContainsKey(key);
+        }
+    }
+
     public abstract class OAuthContext
     {
         public ErrorResponse Error { get; protected set; }
         public bool HasError { get; protected set; }
         public bool IsValidated { get; protected set; }
-        public IDictionary<string, string> FormData { get; private set; }
+        public Data FormData { get; private set; }
         public HttpContext HttpContext { get; internal set; }
         public AuthenticationTicket Ticket { get; set; }
         public AuthorizationServerOptions Options { get; protected set; }
@@ -23,7 +51,7 @@ namespace TNT.Core.OAuth.Authorization
         {
             HttpContext = httpContext;
             Options = options;
-            FormData = httpContext.Request.ReadAsFormAsync().Result;
+            FormData = new Data(httpContext.Request.ReadAsFormAsync().Result);
             Ticket = new AuthenticationTicket(httpContext.User, new AuthenticationProperties(), null);
         }
 

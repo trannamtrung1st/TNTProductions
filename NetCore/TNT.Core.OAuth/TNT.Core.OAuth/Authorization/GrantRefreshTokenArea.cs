@@ -38,12 +38,12 @@ namespace TNT.Core.OAuth.Authorization
 
                     if (refreshTicket.Properties.ExpiresUtc != null
                         && refreshTicket.Properties.ExpiresUtc < DateTime.UtcNow)
-                        context.SetError(StatusCodes.Status401Unauthorized, Constants.InvalidTokenRequest, Constants.TokenExpired);
+                        context.SetError(StatusCodes.Status401Unauthorized, Constants.InvalidRequest, Constants.TokenExpired);
                     else context.Validate(refreshTicket);
                 }
                 catch (Exception e)
                 {
-                    context.SetError(StatusCodes.Status400BadRequest, Constants.InvalidTokenRequest, Constants.InvalidToken);
+                    context.SetError(StatusCodes.Status400BadRequest, Constants.InvalidRequest, Constants.InvalidToken);
                 }
             }
             return Task.CompletedTask;

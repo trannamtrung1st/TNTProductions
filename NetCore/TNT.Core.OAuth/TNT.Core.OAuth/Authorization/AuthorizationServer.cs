@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -12,6 +13,7 @@ using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using TNT.Core.Helpers.Cryptography;
 using TNT.Core.OAuth.Authentication;
+using TNT.Core.OAuth.Externals;
 
 namespace TNT.Core.OAuth.Authorization
 {
@@ -59,12 +61,30 @@ namespace TNT.Core.OAuth.Authorization
 
         public async Task Invoke(HttpContext http)
         {
+            CheckingResult? result = null;
+            try
+            {
+                result = await Process(http);
+            }
+            catch (Exception e)
+            {
+                result = CheckingResult.Error;
+                var err = new ErrorResponse(StatusCodes.Status500InternalServerError, Constants.InvalidRequest, null);
+                http.Response.StatusCode = err.StatusCode();
+                await http.Response.WriteAsync(err.ToString());
+            }
+            if (result != CheckingResult.Error)
+                await _next.Invoke(http);
+        }
+
+        protected async Task<CheckingResult> Process(HttpContext http)
+        {
             #region Match endpoint
             var matchEndpointContext = new OAuthMatchEndpointContext(http, Options);
             await Provider.MatchEndpoint(matchEndpointContext);
-            var valid = await CheckIfValid(matchEndpointContext, http, _next);
-            if (!valid)
-                return;
+            var check = await CheckIfValid(matchEndpointContext, http);
+            if (check != CheckingResult.Continue)
+                return check;
             #endregion
 
             OAuthTokenEndpointResponseContext responseContext = null;
@@ -74,27 +94,27 @@ namespace TNT.Core.OAuth.Authorization
             {
                 var validateTokenContext = new OAuthValidateTokenRequestContext(matchEndpointContext);
                 await Provider.ValidateTokenRequest(validateTokenContext);
-                valid = await CheckIfValid(validateTokenContext, http, _next);
-                if (!valid)
-                    return;
+                check = await CheckIfValid(validateTokenContext, http);
+                if (check != CheckingResult.Continue)
+                    return check;
 
                 switch (validateTokenContext.GrantType)
                 {
                     case "password":
                         var resourceOwnerContext = new OAuthGrantResourceOwnerCredentialsContext(validateTokenContext);
                         await Provider.GrantResourceOwnerCredentials(resourceOwnerContext);
-                        valid = await CheckIfValid(resourceOwnerContext, http, _next);
-                        if (!valid)
-                            return;
+                        check = await CheckIfValid(resourceOwnerContext, http);
+                        if (check != CheckingResult.Continue)
+                            return check;
                         responseContext = new OAuthTokenEndpointResponseContext(
                             resourceOwnerContext.Ticket, resourceOwnerContext);
                         break;
                     case "refresh_token":
                         var refreshTokenContext = new OAuthGrantRefreshTokenContext(validateTokenContext);
                         await Provider.GrantRefreshToken(refreshTokenContext);
-                        valid = await CheckIfValid(refreshTokenContext, http, _next);
-                        if (!valid)
-                            return;
+                        check = await CheckIfValid(refreshTokenContext, http);
+                        if (check != CheckingResult.Continue)
+                            return check;
                         var refreshTicket = refreshTokenContext.Ticket;
                         var newTicket = new AuthenticationTicket(refreshTicket.Principal,
                             new AuthenticationProperties(), refreshTicket.AuthenticationScheme);
@@ -104,9 +124,9 @@ namespace TNT.Core.OAuth.Authorization
                     default:
                         var customContext = new OAuthGrantCustomExtensionContext(validateTokenContext);
                         await Provider.GrantCustomExtension(customContext);
-                        valid = await CheckIfValid(customContext, http, _next);
-                        if (!valid)
-                            return;
+                        check = await CheckIfValid(customContext, http);
+                        if (check != CheckingResult.Continue)
+                            return check;
                         responseContext = new OAuthTokenEndpointResponseContext(
                             customContext.Ticket, customContext);
                         break;
@@ -116,28 +136,35 @@ namespace TNT.Core.OAuth.Authorization
 
             #region Token endpoint response
             await Provider.TokenEndpointResponse(responseContext);
-            valid = await CheckIfValid(responseContext, http, _next);
-            if (!valid)
-                return;
+            check = await CheckIfValid(responseContext, http);
+            if (check != CheckingResult.Continue)
+                return check;
             await http.Response.WriteAsync(JsonConvert.SerializeObject(responseContext.ResponseParameters));
             #endregion
 
+            return CheckingResult.Continue;
         }
 
-        private static async Task<bool> CheckIfValid(OAuthContext context, HttpContext http, RequestDelegate next)
+        public enum CheckingResult
+        {
+            Error, //error: response an error
+            Return, //do nothing: escape process, return to next middleware
+            Continue, //continue process
+        }
+
+        private static async Task<CheckingResult> CheckIfValid(OAuthContext context, HttpContext http)
         {
             if (!context.IsValidated && !context.HasError)
             {
-                await next(http);
-                return false;
+                return CheckingResult.Return;
             }
             if (context.HasError)
             {
                 http.Response.StatusCode = context.Error.StatusCode();
                 await http.Response.WriteAsync(context.Error.ToString());
-                return false;
+                return CheckingResult.Error;
             }
-            return true;
+            return CheckingResult.Continue;
         }
     }
 
@@ -156,46 +183,70 @@ namespace TNT.Core.OAuth.Authorization
         Task TokenEndpointResponse(OAuthTokenEndpointResponseContext context);
     }
 
+    public class ExternalOAuthOptions
+    {
+        public FacebookClient FacebookClient { get; set; }
+        public Func<AuthorizationServerOptions, FacebookDebugToken, Task<AuthenticationTicket>> FacebookAuthenticate { get; set; }
+        public GoogleClient GoogleClient { get; set; }
+        public Func<AuthorizationServerOptions, GoogleDebugToken, Task<AuthenticationTicket>> GoogleAuthenticate { get; set; }
+    }
+
     public class AuthorizationServerOptions
     {
-        public TimeSpan RefreshTokenExpireTimeSpan { get; set; } = TimeSpan.FromDays(1);
-        public TimeSpan AccessTokenExpireTimeSpan { get; set; } = TimeSpan.FromHours(1);
+        public TimeSpan RefreshTokenExpireTimeSpan { get; set; }
+        public TimeSpan AccessTokenExpireTimeSpan { get; set; }
 
-        public string Domain { get; set; } = "localhost";
-        public string AuthenticationScheme { get; set; } = "Application";
-        public string AccessTokenCookieKey { get; set; } = "Application";
+        public string Domain { get; set; }
+        public string AuthenticationScheme { get; set; }
+        public string AccessTokenCookieKey { get; set; }
         //parameter 1: access token expire date
         public Func<DateTime, CookieOptions> AccessTokenCookieOptions { get; set; }
-            = exp =>
+
+        public PathString TokenEndpointPath { get; set; }
+        public IOAuthAuthorizationServerProvider Provider { get; set; }
+        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; set; }
+        public ISecureDataFormat<AuthenticationTicket> RefreshTokenFormat { get; set; }
+        public IAuthenticationTokenProvider AccessTokenProvider { get; set; }
+        public IAuthenticationTokenProvider RefreshTokenProvider { get; set; }
+        public bool AllowInsecureHttp { get; set; }
+
+        public ExternalOAuthOptions ExternalOAuthOptions { get; set; }
+
+        public static AuthorizationServerOptions Default
+        {
+            get
             {
-                return new CookieOptions()
+                var options = new AuthorizationServerOptions();
+                options.Domain = "localhost";
+                options.RefreshTokenExpireTimeSpan = TimeSpan.FromDays(1);
+                options.AccessTokenExpireTimeSpan = TimeSpan.FromHours(1);
+                options.AuthenticationScheme = "Application";
+                options.AccessTokenCookieKey = "Application";
+                options.AccessTokenCookieOptions = exp => new CookieOptions()
                 {
                     Expires = exp,
                     HttpOnly = false,
                     Secure = false
                 };
-            };
-
-        public PathString TokenEndpointPath { get; set; } = new PathString("/token");
-        public IOAuthAuthorizationServerProvider Provider { get; set; }
-        public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; set; } = new DefaultTokenFormat();
-        public ISecureDataFormat<AuthenticationTicket> RefreshTokenFormat { get; set; } = new DefaultTokenFormat();
-        public IAuthenticationTokenProvider AccessTokenProvider { get; set; }
-        public IAuthenticationTokenProvider RefreshTokenProvider { get; set; }
-        public bool AllowInsecureHttp { get; set; } = false;
+                options.TokenEndpointPath = new PathString("/token");
+                options.AccessTokenFormat = new DefaultTokenFormat();
+                options.RefreshTokenFormat = new DefaultTokenFormat();
+                options.RefreshTokenProvider = new RefreshTokenProvider(options);
+                options.AccessTokenProvider = new AccessTokenProvider(options);
+                options.AllowInsecureHttp = true;
+                options.ExternalOAuthOptions = null;
+                return options;
+            }
+        }
     }
 
     public abstract partial class AuthorizationServerProvider : IOAuthAuthorizationServerProvider
     {
         public AuthorizationServerOptions Options { get; set; }
-        public AuthorizationServerProvider()
-        {
-        }
+
         public AuthorizationServerProvider(AuthorizationServerOptions options)
         {
             this.Options = options;
-            options.AccessTokenProvider = new AccessTokenProvider(options);
-            options.RefreshTokenProvider = new RefreshTokenProvider(options);
         }
     }
 
@@ -372,7 +423,12 @@ namespace TNT.Core.OAuth.Authorization
 
         protected override async Task<AuthenticateResult> AuthenticateAsync(string cookie)
         {
-            var ticket = Options.ServerOptions.AccessTokenFormat.Unprotect(cookie);
+            AuthenticationTicket ticket = null;
+            try
+            {
+                ticket = Options.ServerOptions.AccessTokenFormat.Unprotect(cookie);
+            }
+            catch (Exception) { }
             if (ticket != null)
                 ticket = await AuthenticateUnprotectedTicket(ticket);
             if (ticket == null)
@@ -428,4 +484,20 @@ namespace TNT.Core.OAuth.Authorization
         Task CreateAsync(AuthenticationTokenCreateContext context);
         Task ReceiveAsync(AuthenticationTokenReceiveContext context);
     }
+
+    public class AuthenticationRequirement : IAuthorizationRequirement
+    {
+
+    }
+    public class AuthenticationAuthorizationPolicy : AuthorizationHandler<AuthenticationRequirement>
+    {
+        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, AuthenticationRequirement requirement)
+        {
+            if (context.User.Identity.IsAuthenticated)
+                context.Succeed(requirement);
+            else context.Fail();
+            return Task.CompletedTask;
+        }
+    }
+
 }

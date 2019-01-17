@@ -13,16 +13,55 @@ using Microsoft.EntityFrameworkCore;
 using TestCore.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TNT.Core.OAuth.Authorization;
+using TNT.Core.OAuth;
+using Microsoft.AspNetCore.Authentication;
+using TestDataService.Global;
+using TNT.Core.OAuth.Externals;
+using System.Security.Claims;
 
 namespace TestCore
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
 
+            #region Config OAuth
+            OAuthOptions = AuthorizationServerOptions.Default;
+            OAuthOptions.AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(30);
+            OAuthOptions.AllowInsecureHttp = false;
+            OAuthOptions.Provider = new AuthorizationServer(OAuthOptions);
+            OAuthOptions.ExternalOAuthOptions = new ExternalOAuthOptions()
+            {
+                FacebookClient = new FacebookClient(
+                    "523869358117226",
+                    "14b9045c0222858c250ac81394778665"),
+                GoogleClient = new GoogleClient(
+                    "931960859587-hjibavglvimtv5d4rofuiul7sdqblht7.apps.googleusercontent.com",
+                    "USs_I-dgw4l1Voj2hsyvi0kC"),
+                FacebookAuthenticate = async (options, debug) =>
+                {
+                    var identity = new ClaimsIdentity(options.AuthenticationScheme);
+                    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, debug.Data.UserId));
+                    identity.AddClaim(new Claim("Provider", "Facebook"));
+                    var principal = new ClaimsPrincipal(identity);
+                    return await Task.FromResult(new AuthenticationTicket(principal, options.AuthenticationScheme));
+                },
+                GoogleAuthenticate = async (options, debug) =>
+                {
+                    var identity = new ClaimsIdentity(options.AuthenticationScheme);
+                    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, debug.SubId));
+                    identity.AddClaim(new Claim("Provider", "Google"));
+                    var principal = new ClaimsPrincipal(identity);
+                    return await Task.FromResult(new AuthenticationTicket(principal, options.AuthenticationScheme));
+                },
+            };
+            #endregion
+        }
+        public AuthorizationServerOptions OAuthOptions { get; }
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -42,13 +81,26 @@ namespace TestCore
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services
+                .AddBearerAuthorizationPolicy()
+                .AddCookieAuthorizationPolicy()
+                .AddBasicAuthorizationPolicy()
+                .AddAuthentication()
+                .AddBasicAuthentication<BasicAuthentication, AuthenticationSchemeOptions>()
+                .AddBearerAuthentication(OAuthOptions)
+                .AddCookieAuthentication(OAuthOptions);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddRazorPagesOptions(o =>
+                {
+                    o.Conventions.AuthorizePageWithPolicies("/Index", "Cookie", "Bearer", "Basic");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -61,13 +113,17 @@ namespace TestCore
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            //app.UseCookiePolicy();
 
             app.UseAuthentication();
+            app.UseAuthorizationServer(OAuthOptions);
 
             app.UseMvc();
         }
     }
+
+
+
 }

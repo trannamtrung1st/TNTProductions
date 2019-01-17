@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TNT.Core.OAuth", "TNT.Core.OAuth\TNT.Core.OAuth.csproj", "{37D1C841-D17D-4DD8-8818-68EAD88C5D27}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSecurityWeb", "TestSecurityWeb\TestSecurityWeb.csproj", "{FD2D9760-CAF3-452C-A381-B00218C9D8C4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TNT.Core.Helpers", "..\TNT.Core.Helpers\TNT.Core.Helpers\TNT.Core.Helpers.csproj", "{4F8A354E-D4DB-437E-9D79-D8FD8C936DC4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNT.OAuth", "..\..\NetFramework\TNT.OAuth\TNT.OAuth\TNT.OAuth.csproj", "{309FE5E5-E4E6-4BC7-9AAF-AB9270799B9E}"
@@ -23,10 +21,6 @@ Global
 		{37D1C841-D17D-4DD8-8818-68EAD88C5D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37D1C841-D17D-4DD8-8818-68EAD88C5D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37D1C841-D17D-4DD8-8818-68EAD88C5D27}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD2D9760-CAF3-452C-A381-B00218C9D8C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD2D9760-CAF3-452C-A381-B00218C9D8C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD2D9760-CAF3-452C-A381-B00218C9D8C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD2D9760-CAF3-452C-A381-B00218C9D8C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4F8A354E-D4DB-437E-9D79-D8FD8C936DC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4F8A354E-D4DB-437E-9D79-D8FD8C936DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F8A354E-D4DB-437E-9D79-D8FD8C936DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU

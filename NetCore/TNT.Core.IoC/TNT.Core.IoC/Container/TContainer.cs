@@ -27,12 +27,14 @@ namespace TNT.Core.IoC.Container
         void ClearResources(bool autoDispose);
         void ClearResources();
 
-        Type Resolve<Type>(object[] arguments = null);
-        object Resolve(Type type, object[] arguments = null);
-        Type Resolve<Type>(Args[] args, int id = 0);
-        object Resolve(Type type, Args[] args, int id = 0);
-        Type Resolve<Type>(int id);
-        object Resolve(Type type, int id);
+        Type Resolve<Type>(params object[] arguments);
+        object Resolve(Type type, params object[] arguments);
+        Type Resolve<Type>(Args[] args);
+        object Resolve(Type type, Args[] args);
+        Type Resolve<Type>(Args[] args, ConstructorId id);
+        object Resolve(Type type, Args[] args, ConstructorId id);
+        Type Resolve<Type>(ConstructorId id);
+        object Resolve(Type type, ConstructorId id);
         Type ResolveScopeInstance<Type>();
         object ResolveScopeInstance(Type type);
 
@@ -42,10 +44,14 @@ namespace TNT.Core.IoC.Container
         object Simple(Type type, params object[] arguments);
         Type Provided<Type>();
         object Provided(Type type);
-        Type Injected<Type>(int id = 0);
-        object Injected(Type type, int id = 0);
-        Type Injected<Type>(Args[] args, int id = 0);
-        object Injected(Type type, Args[] args, int id = 0);
+        Type Injected<Type>(ConstructorId id);
+        object Injected(Type type, ConstructorId id);
+        Type Injected<Type>(Args[] args, ConstructorId id);
+        object Injected(Type type, Args[] args, ConstructorId id);
+        Type Injected<Type>();
+        object Injected(Type type);
+        Type Injected<Type>(Args[] args);
+        object Injected(Type type, Args[] args);
         Type Singleton<Type>();
         object Singleton(Type type);
 
@@ -70,7 +76,7 @@ namespace TNT.Core.IoC.Container
             lifetimeScopeObjs = new Dictionary<Type, object>();
         }
 
-        internal TContainer(TContainer parent)
+        public TContainer(TContainer parent)
         {
             typeMappings = parent.typeMappings;
             resources = new HashSet<IDisposable>();
@@ -194,16 +200,16 @@ namespace TNT.Core.IoC.Container
                 this.resources.Add(r);
         }
 
-        public Type Injected<Type>(int id = 0)
+        public Type Injected<Type>(ConstructorId id)
         {
             var type = typeof(Type);
             return (Type)Injected(type, id);
         }
 
-        public object Injected(Type type, int id = 0)
+        public object Injected(Type type, ConstructorId id)
         {
             var implType = typeMappings[type].ImplementType;
-            var injectableParams = implType.InjectableConstructorParamTypesById[id];
+            var injectableParams = implType.InjectableConstructorParamTypesById[id.Value];
             var len = injectableParams.Length;
             var args = new object[len];
             for (int i = 0; i < len; i++)
@@ -253,16 +259,16 @@ namespace TNT.Core.IoC.Container
             return FinalResolve(type, implType, implType.ConstructorDefaultArguments);
         }
 
-        public Type Injected<Type>(Args[] args, int id = 0)
+        public Type Injected<Type>(Args[] args, ConstructorId id)
         {
             var type = typeof(Type);
             return (Type)Injected(type, args, id);
         }
 
-        public object Injected(Type type, Args[] arguments, int id = 0)
+        public object Injected(Type type, Args[] arguments, ConstructorId id)
         {
             var implType = typeMappings[type].ImplementType;
-            var injectableParams = implType.InjectableConstructorParamTypesById[id];
+            var injectableParams = implType.InjectableConstructorParamTypesById[id.Value];
             var len = injectableParams.Length;
             for (int i = 0; i < len; i++)
                 if (arguments[i].injectMode)
@@ -324,7 +330,7 @@ namespace TNT.Core.IoC.Container
                 case ResolveType.Default: return Default(bType);
                 case ResolveType.Simple: return FinalResolve(bType, implType);
                 case ResolveType.Provided: return Provided(bType);
-                case ResolveType.Injected: return Injected(bType, 0);
+                case ResolveType.Injected: return Injected(bType, ConstructorId.Default);
                 case ResolveType.Singleton: return Singleton(bType);
             }
             return FinalResolve(bType, implType);
@@ -340,16 +346,16 @@ namespace TNT.Core.IoC.Container
             return singletonObjs[type];
         }
 
-        public Type Resolve<Type>(object[] arguments = null)
+        public Type Resolve<Type>(params object[] arguments)
         {
             var type = typeof(Type);
             return (Type)Resolve(type, arguments);
         }
 
-        public object Resolve(Type type, object[] arguments = null)
+        public object Resolve(Type type, params object[] arguments)
         {
             var implType = typeMappings[type].ImplementType;
-            if (arguments != null)
+            if (arguments != null && arguments.Length > 0)
                 return FinalResolve(type, implType, arguments);
             if (implType.HasLifetimeScope)
                 return ResolveScopeInstance(type);
@@ -358,22 +364,22 @@ namespace TNT.Core.IoC.Container
                 case ResolveType.Default: return Default(type);
                 case ResolveType.Simple: return FinalResolve(type, implType);
                 case ResolveType.Provided: return Provided(type);
-                case ResolveType.Injected: return Injected(type, 0);
+                case ResolveType.Injected: return Injected(type, ConstructorId.Default);
                 case ResolveType.Singleton: return Singleton(type);
             }
             return FinalResolve(type, implType);
         }
 
-        public Type Resolve<Type>(Args[] args, int id)
+        public Type Resolve<Type>(Args[] args, ConstructorId id)
         {
             var type = typeof(Type);
             return (Type)Resolve(type, args, id);
         }
 
-        public object Resolve(Type type, Args[] arguments, int id)
+        public object Resolve(Type type, Args[] arguments, ConstructorId id)
         {
             var implType = typeMappings[type].ImplementType;
-            var injectableParams = implType.InjectableConstructorParamTypesById[id];
+            var injectableParams = implType.InjectableConstructorParamTypesById[id.Value];
             var len = injectableParams.Length;
             for (int i = 0; i < len; i++)
                 if (arguments[i].injectMode)
@@ -381,16 +387,16 @@ namespace TNT.Core.IoC.Container
             return FinalResolve(type, implType, arguments);
         }
 
-        public Type Resolve<Type>(int id)
+        public Type Resolve<Type>(ConstructorId id)
         {
             var type = typeof(Type);
             return (Type)Resolve(type, id);
         }
 
-        public object Resolve(Type type, int id)
+        public object Resolve(Type type, ConstructorId id)
         {
             var implType = typeMappings[type].ImplementType;
-            var injectableParams = implType.InjectableConstructorParamTypesById[id];
+            var injectableParams = implType.InjectableConstructorParamTypesById[id.Value];
             var len = injectableParams.Length;
             var args = new object[len];
             for (int i = 0; i < len; i++)
@@ -406,7 +412,7 @@ namespace TNT.Core.IoC.Container
                 case ResolveType.Default: return Default(type);
                 case ResolveType.Simple: return FinalResolve(type, implType);
                 case ResolveType.Provided: return Provided(type);
-                case ResolveType.Injected: return Injected(type, 0);
+                case ResolveType.Injected: return Injected(type, ConstructorId.Default);
                 case ResolveType.Singleton: return Singleton(type);
             }
             return FinalResolve(type, implType);
@@ -425,6 +431,36 @@ namespace TNT.Core.IoC.Container
             if (!lifetimeScopeObjs.ContainsKey(type))
                 lifetimeScopeObjs[type] = ResolveNewScopeInstance(type);
             return lifetimeScopeObjs[type];
+        }
+
+        public Type Resolve<Type>(Args[] args)
+        {
+            return Resolve<Type>(args, ConstructorId.Default);
+        }
+
+        public object Resolve(Type type, Args[] args)
+        {
+            return Resolve(type, args, ConstructorId.Default);
+        }
+
+        public Type Injected<Type>()
+        {
+            return Injected<Type>(ConstructorId.Default);
+        }
+
+        public object Injected(Type type)
+        {
+            return Injected(type, ConstructorId.Default);
+        }
+
+        public Type Injected<Type>(Args[] args)
+        {
+            return Injected<Type>(args, ConstructorId.Default);
+        }
+
+        public object Injected(Type type, Args[] args)
+        {
+            return Injected(type, args, ConstructorId.Default);
         }
 
         #region IDisposable Support

@@ -14,6 +14,9 @@ namespace TNT.Core.IoC.Container
         {
             var para = ctor.GetParameters();
             var len = para.Length;
+            if (args == null)
+                return len == 0;
+
             if (len == args.Length)
             {
                 for (var i = 0; i < len; i++)

@@ -136,7 +136,7 @@ namespace TNT.Core.IoC.Container
             return container;
         }
 
-        public TContainerBuilder CreateContainerPerRequest(IApplicationBuilder app)
+        public TContainerBuilder RegisterRequestScopeInstance(IApplicationBuilder app)
         {
             app.UseMiddleware<TContainerMiddleware>(container);
             return this;

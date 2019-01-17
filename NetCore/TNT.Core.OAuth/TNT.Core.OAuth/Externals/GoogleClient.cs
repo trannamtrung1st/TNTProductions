@@ -65,7 +65,7 @@ namespace TNT.Core.OAuth.Externals
 #if !DEBUG
                     SubId != null && Audience.Equals(ProviderId) &&
 #endif
-                    (Issuer.Equals("https://accounts.google.com") || Issuer.Equals("accounts.google.com"))
+                    (Issuer != null && (Issuer.Equals("https://accounts.google.com") || Issuer.Equals("accounts.google.com")))
                     && (long.Parse(Expires) * 1000).ToUnixDateTime().CompareTo(DateTime.UtcNow) > 0;
             }
         }

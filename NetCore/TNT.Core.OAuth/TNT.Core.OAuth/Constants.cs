@@ -10,6 +10,7 @@ namespace TNT.Core.OAuth
     {
         public const string RefreshTokenExpiresKey = ".refresh_token_expires";
         public static readonly DateTime LongTimeAgo = new DateTime(1970, 1, 1);
+        public const string HttpsOnly = "Only https connection allowed";
         public const string InvalidEndpoint = "Invalid endpoint";
         public const string TokenExpired = "Token expired";
         public const string InvalidTokenRequest = "Invalid token request";

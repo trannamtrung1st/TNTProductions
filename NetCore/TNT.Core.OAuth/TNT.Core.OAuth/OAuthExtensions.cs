@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -42,11 +43,25 @@ namespace TNT.Core.OAuth
                 new List<string>() { BasicAuthenticationHandler.HandlerSchemes }, requirement);
         }
 
+        public static IServiceCollection AddBasicAuthorizationPolicy(this IServiceCollection services)
+        {
+            return AddAuthorizationPolicy<AuthenticationAuthorizationPolicy, AuthenticationRequirement>(services,
+                BasicAuthenticationHandler.HandlerSchemes,
+                new List<string>() { BasicAuthenticationHandler.HandlerSchemes }, new AuthenticationRequirement());
+        }
+
         public static IServiceCollection AddBearerAuthorizationPolicy<Handler, TReq>(this IServiceCollection services, TReq requirement)
             where TReq : IAuthorizationRequirement where Handler : AuthorizationHandler<TReq>
         {
             return AddAuthorizationPolicy<Handler, TReq>(services, BearerAuthenticationHandler.HandlerSchemes,
                 new List<string>() { BearerAuthenticationHandler.HandlerSchemes }, requirement);
+        }
+
+        public static IServiceCollection AddBearerAuthorizationPolicy(this IServiceCollection services)
+        {
+            return AddAuthorizationPolicy<AuthenticationAuthorizationPolicy, AuthenticationRequirement>(services,
+                BearerAuthenticationHandler.HandlerSchemes,
+                new List<string>() { BearerAuthenticationHandler.HandlerSchemes }, new AuthenticationRequirement());
         }
 
         public static IServiceCollection AddCookieAuthorizationPolicy<Handler, TReq>(this IServiceCollection services, TReq requirement)
@@ -56,19 +71,26 @@ namespace TNT.Core.OAuth
                 new List<string>() { CookieAuthenticationHandler.HandlerSchemes }, requirement);
         }
 
-        public static AuthenticationBuilder AddBasicAuthentication<Handler>(this AuthenticationBuilder builder,
-            Action<AuthenticationSchemeOptions> opt = null
-        ) where Handler : BasicAuthenticationHandler
+        public static IServiceCollection AddCookieAuthorizationPolicy(this IServiceCollection services)
         {
-            builder.AddScheme<AuthenticationSchemeOptions, Handler>(BasicAuthenticationHandler.HandlerSchemes, opt);
+            return AddAuthorizationPolicy<AuthenticationAuthorizationPolicy, AuthenticationRequirement>(services,
+                CookieAuthenticationHandler.HandlerSchemes,
+                new List<string>() { CookieAuthenticationHandler.HandlerSchemes }, new AuthenticationRequirement());
+        }
+
+        public static AuthenticationBuilder AddBasicAuthentication<Handler, TOptions>(this AuthenticationBuilder builder,
+            Action<AuthenticationSchemeOptions> opt = null
+            ) where Handler : BasicAuthenticationHandler<TOptions> where TOptions : AuthenticationSchemeOptions, new()
+        {
+            builder.AddScheme<TOptions, Handler>(BasicAuthenticationHandler.HandlerSchemes, opt);
             return builder;
         }
 
-        public static AuthenticationBuilder AddBearerAuthentication<Handler>(this AuthenticationBuilder builder,
+        public static AuthenticationBuilder AddBearerAuthentication<Handler, TOptions>(this AuthenticationBuilder builder,
             Action<AuthenticationSchemeOptions> opt = null
-        ) where Handler : BearerAuthenticationHandler
+            ) where Handler : BasicAuthenticationHandler<TOptions> where TOptions : AuthenticationSchemeOptions, new()
         {
-            builder.AddScheme<AuthenticationSchemeOptions, Handler>(BearerAuthenticationHandler.HandlerSchemes, opt);
+            builder.AddScheme<TOptions, Handler>(BearerAuthenticationHandler.HandlerSchemes, opt);
             return builder;
         }
 
@@ -92,17 +114,45 @@ namespace TNT.Core.OAuth
             return builder;
         }
 
-        public static AuthenticationBuilder AddCookieAuthentication<Handler>(this AuthenticationBuilder builder,
+        public static AuthenticationBuilder AddCookieAuthentication<Handler, TOptions>(this AuthenticationBuilder builder,
             Action<AuthenticationCookieOptions> opt = null
-        ) where Handler : CookieAuthenticationHandler
+            ) where Handler : BasicAuthenticationHandler<TOptions> where TOptions : AuthenticationCookieOptions, new()
         {
-            builder.AddScheme<AuthenticationCookieOptions, Handler>(CookieAuthenticationHandler.HandlerSchemes, opt);
+            builder.AddScheme<TOptions, Handler>(CookieAuthenticationHandler.HandlerSchemes, opt);
             return builder;
         }
 
         public static IApplicationBuilder UseAuthorizationServer(this IApplicationBuilder app, AuthorizationServerOptions options)
         {
             return app.UseMiddleware<AuthorizationServerMiddleware>(options);
+        }
+
+        public static PageConventionCollection AuthorizePageWithPolicies(this PageConventionCollection collection, string pagePath, params string[] policies)
+        {
+            foreach (var p in policies)
+                collection.AuthorizePage(pagePath, p);
+            return collection;
+        }
+
+        public static PageConventionCollection AuthorizeFolderWithPolicies(this PageConventionCollection collection, string folderPath, params string[] policies)
+        {
+            foreach (var p in policies)
+                collection.AuthorizeFolder(folderPath, p);
+            return collection;
+        }
+
+        public static PageConventionCollection AuthorizeAreaPageWithPolicies(this PageConventionCollection collection, string area, string pagePath, params string[] policies)
+        {
+            foreach (var p in policies)
+                collection.AuthorizeAreaPage(area, pagePath, p);
+            return collection;
+        }
+
+        public static PageConventionCollection AuthorizeAreaFolderWithPolicies(this PageConventionCollection collection, string area, string folderPath, params string[] policies)
+        {
+            foreach (var p in policies)
+                collection.AuthorizeAreaFolder(area, folderPath, p);
+            return collection;
         }
 
     }
