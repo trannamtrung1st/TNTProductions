@@ -220,12 +220,8 @@ namespace TNT.IoC.Container
         public object Provided(Type type)
         {
             var implType = typeMappings[type].ImplementType;
-            var providers = implType.ConstructorParamProviders;
-            var len = providers.Length;
-            var args = new object[len];
-            for (int i = 0; i < len; i++)
-                args[i] = providers[i].Invoke(this);
-            return FinalResolve(type, implType, args);
+            var provider = implType.Provider;
+            return provider.Invoke(this);
         }
 
         public Type Simple<Type>(params object[] arguments)

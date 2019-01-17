@@ -77,12 +77,6 @@ namespace TNT.Template.DataService.Models
                 "public ITContainer Scope { get; }",
                 "public DbContext Context { get; }");
 
-            var c2 = new ContainerGen();
-            c2.Signature = "public UnitOfWork()";
-            c2.Body.Add(new StatementGen(
-                "Scope = TContainer.RequestScope;",
-                "Context = this;"));
-
             var c21 = new ContainerGen();
             c21.Signature = "public UnitOfWork(ITContainer scope)";
             c21.Body.Add(new StatementGen(
@@ -101,11 +95,6 @@ namespace TNT.Template.DataService.Models
             m6.Body.Add(new StatementGen(
                 "var trans = this.Database.BeginTransaction();",
                 "return trans;"));
-
-            if (Data.RequestScope)
-            {
-                UnitOfWorkBody.Add(c2, new StatementGen(""));
-            }
 
             UnitOfWorkBody.Add(
                 c21, new StatementGen(""),

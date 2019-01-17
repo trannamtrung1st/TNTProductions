@@ -4,67 +4,538 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="A">
+    <Schema Namespace="AppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="OfUserId" />
+            <PropertyRef Name="ToPostId" />
+          </Key>
+          <Property Name="OfUserId" Type="int" Nullable="false" />
+          <Property Name="ToPostId" Type="int" Nullable="false" />
+          <Property Name="TextContent" Type="text" />
+          <Property Name="PostedTime" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AppUser">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nchar" MaxLength="10" />
+          <Property Name="Username" Type="varchar" MaxLength="100" />
+          <Property Name="DoB" Type="datetime" />
+          <Property Name="Sex" Type="bit" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="B">
+        <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="100" />
+          <Property Name="ToPostId" Type="int" />
+          <Property Name="ToAnswerId" Type="int" />
+          <Property Name="TextContent" Type="nvarchar" MaxLength="250" />
+          <Property Name="PostedTime" Type="datetime" />
+          <Property Name="OfUserId" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Interactive">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ToPostId" Type="int" />
+          <Property Name="ToAnswerId" Type="int" />
+          <Property Name="ToCommentId" Type="int" />
+          <Property Name="IsLike" Type="bit" />
+          <Property Name="OfUserId" Type="int" />
+          <Property Name="HappenedTime" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="TextContent" Type="text" />
+          <Property Name="OfUserId" Type="int" />
+          <Property Name="PostedTime" Type="datetime" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TagsOfPost">
+          <Key>
+            <PropertyRef Name="PostId" />
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="PostId" Type="int" Nullable="false" />
+          <Property Name="TagId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Answer_AppUser">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="OfUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Answer_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="ToPostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_AppUser">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="OfUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="ToPostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interactive_AppUser">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+          <End Role="Interactive" Type="Self.Interactive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Interactive">
+              <PropertyRef Name="OfUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interactive_Comment">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Interactive" Type="Self.Interactive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Interactive">
+              <PropertyRef Name="ToCommentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interactive_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Interactive" Type="Self.Interactive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Interactive">
+              <PropertyRef Name="ToPostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_AppUser">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="OfUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagsOfPost_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="TagsOfPost" Type="Self.TagsOfPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TagsOfPost">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="AppModelStoreContainer">
-          <EntitySet Name="A" EntityType="Self.A" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="B" EntityType="Self.B" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppUser" EntityType="Self.AppUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Interactive" EntityType="Self.Interactive" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TagsOfPost" EntityType="Self.TagsOfPost" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Answer_AppUser" Association="Self.FK_Answer_AppUser">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Answer_Post" Association="Self.FK_Answer_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Answer" EntitySet="Answer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_AppUser" Association="Self.FK_Comment_AppUser">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Post" Association="Self.FK_Comment_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interactive_AppUser" Association="Self.FK_Interactive_AppUser">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="Interactive" EntitySet="Interactive" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interactive_Comment" Association="Self.FK_Interactive_Comment">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="Interactive" EntitySet="Interactive" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interactive_Post" Association="Self.FK_Interactive_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Interactive" EntitySet="Interactive" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_AppUser" Association="Self.FK_Post_AppUser">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagsOfPost_Post" Association="Self.FK_TagsOfPost_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="TagsOfPost" EntitySet="TagsOfPost" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="A">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-        </EntityType>
-        <EntityType Name="B">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityContainer Name="AppEntity" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="A" EntityType="Self.A" />
-          <EntitySet Name="B" EntityType="Self.B" />
+          <EntitySet Name="Answers" EntityType="AppModel.Answer" />
+          <EntitySet Name="AppUsers" EntityType="AppModel.AppUser" />
+          <EntitySet Name="Comments" EntityType="AppModel.Comment" />
+          <EntitySet Name="Interactives" EntityType="AppModel.Interactive" />
+          <EntitySet Name="Posts" EntityType="AppModel.Post" />
+          <EntitySet Name="TagsOfPosts" EntityType="AppModel.TagsOfPost" />
+          <AssociationSet Name="FK_Answer_AppUser" Association="AppModel.FK_Answer_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Answer_Post" Association="AppModel.FK_Answer_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Answer" EntitySet="Answers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_AppUser" Association="AppModel.FK_Comment_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interactive_AppUser" Association="AppModel.FK_Interactive_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Interactive" EntitySet="Interactives" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_AppUser" Association="AppModel.FK_Post_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Post" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Post" Association="AppModel.FK_Comment_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interactive_Comment" Association="AppModel.FK_Interactive_Comment">
+            <End Role="Comment" EntitySet="Comments" />
+            <End Role="Interactive" EntitySet="Interactives" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interactive_Post" Association="AppModel.FK_Interactive_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Interactive" EntitySet="Interactives" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagsOfPost_Post" Association="AppModel.FK_TagsOfPost_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="TagsOfPost" EntitySet="TagsOfPosts" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Answer">
+          <Key>
+            <PropertyRef Name="OfUserId" />
+            <PropertyRef Name="ToPostId" />
+          </Key>
+          <Property Name="OfUserId" Type="Int32" Nullable="false" />
+          <Property Name="ToPostId" Type="Int32" Nullable="false" />
+          <Property Name="TextContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PostedTime" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AppUser" Relationship="AppModel.FK_Answer_AppUser" FromRole="Answer" ToRole="AppUser" />
+          <NavigationProperty Name="Post" Relationship="AppModel.FK_Answer_Post" FromRole="Answer" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="AppUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DoB" Type="DateTime" Precision="3" />
+          <Property Name="Sex" Type="Boolean" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Answers" Relationship="AppModel.FK_Answer_AppUser" FromRole="AppUser" ToRole="Answer" />
+          <NavigationProperty Name="Comments" Relationship="AppModel.FK_Comment_AppUser" FromRole="AppUser" ToRole="Comment" />
+          <NavigationProperty Name="Interactives" Relationship="AppModel.FK_Interactive_AppUser" FromRole="AppUser" ToRole="Interactive" />
+          <NavigationProperty Name="Posts" Relationship="AppModel.FK_Post_AppUser" FromRole="AppUser" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ToPostId" Type="Int32" />
+          <Property Name="ToAnswerId" Type="Int32" />
+          <Property Name="TextContent" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PostedTime" Type="DateTime" Precision="3" />
+          <Property Name="OfUserId" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AppUser" Relationship="AppModel.FK_Comment_AppUser" FromRole="Comment" ToRole="AppUser" />
+          <NavigationProperty Name="Post" Relationship="AppModel.FK_Comment_Post" FromRole="Comment" ToRole="Post" />
+          <NavigationProperty Name="Interactives" Relationship="AppModel.FK_Interactive_Comment" FromRole="Comment" ToRole="Interactive" />
+        </EntityType>
+        <EntityType Name="Interactive">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ToPostId" Type="Int32" />
+          <Property Name="ToAnswerId" Type="Int32" />
+          <Property Name="ToCommentId" Type="Int32" />
+          <Property Name="IsLike" Type="Boolean" />
+          <Property Name="OfUserId" Type="Int32" />
+          <Property Name="HappenedTime" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AppUser" Relationship="AppModel.FK_Interactive_AppUser" FromRole="Interactive" ToRole="AppUser" />
+          <NavigationProperty Name="Comment" Relationship="AppModel.FK_Interactive_Comment" FromRole="Interactive" ToRole="Comment" />
+          <NavigationProperty Name="Post" Relationship="AppModel.FK_Interactive_Post" FromRole="Interactive" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TextContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OfUserId" Type="Int32" />
+          <Property Name="PostedTime" Type="DateTime" Precision="3" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Answers" Relationship="AppModel.FK_Answer_Post" FromRole="Post" ToRole="Answer" />
+          <NavigationProperty Name="AppUser" Relationship="AppModel.FK_Post_AppUser" FromRole="Post" ToRole="AppUser" />
+          <NavigationProperty Name="Comments" Relationship="AppModel.FK_Comment_Post" FromRole="Post" ToRole="Comment" />
+          <NavigationProperty Name="Interactives" Relationship="AppModel.FK_Interactive_Post" FromRole="Post" ToRole="Interactive" />
+          <NavigationProperty Name="TagsOfPosts" Relationship="AppModel.FK_TagsOfPost_Post" FromRole="Post" ToRole="TagsOfPost" />
+        </EntityType>
+        <EntityType Name="TagsOfPost">
+          <Key>
+            <PropertyRef Name="PostId" />
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="PostId" Type="Int32" Nullable="false" />
+          <Property Name="TagId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Post" Relationship="AppModel.FK_TagsOfPost_Post" FromRole="TagsOfPost" ToRole="Post" />
+        </EntityType>
+        <Association Name="FK_Answer_AppUser">
+          <End Type="AppModel.AppUser" Role="AppUser" Multiplicity="1" />
+          <End Type="AppModel.Answer" Role="Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="OfUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Answer_Post">
+          <End Type="AppModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="AppModel.Answer" Role="Answer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Answer">
+              <PropertyRef Name="ToPostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_AppUser">
+          <End Type="AppModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="AppModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="OfUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interactive_AppUser">
+          <End Type="AppModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="AppModel.Interactive" Role="Interactive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Interactive">
+              <PropertyRef Name="OfUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_AppUser">
+          <End Type="AppModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="AppModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="OfUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Post">
+          <End Type="AppModel.Post" Role="Post" Multiplicity="0..1" />
+          <End Type="AppModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="ToPostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interactive_Comment">
+          <End Type="AppModel.Comment" Role="Comment" Multiplicity="0..1" />
+          <End Type="AppModel.Interactive" Role="Interactive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Interactive">
+              <PropertyRef Name="ToCommentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interactive_Post">
+          <End Type="AppModel.Post" Role="Post" Multiplicity="0..1" />
+          <End Type="AppModel.Interactive" Role="Interactive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Interactive">
+              <PropertyRef Name="ToPostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagsOfPost_Post">
+          <End Type="AppModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="AppModel.TagsOfPost" Role="TagsOfPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TagsOfPost">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="AppModelStoreContainer" CdmEntityContainer="AppEntity">
-          <EntitySetMapping Name="A">
-            <EntityTypeMapping TypeName="AppModel.A">
-              <MappingFragment StoreEntitySet="A">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+          <EntitySetMapping Name="Answers">
+            <EntityTypeMapping TypeName="AppModel.Answer">
+              <MappingFragment StoreEntitySet="Answer">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PostedTime" ColumnName="PostedTime" />
+                <ScalarProperty Name="TextContent" ColumnName="TextContent" />
+                <ScalarProperty Name="ToPostId" ColumnName="ToPostId" />
+                <ScalarProperty Name="OfUserId" ColumnName="OfUserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="B">
-            <EntityTypeMapping TypeName="AppModel.B">
-              <MappingFragment StoreEntitySet="B">
+          <EntitySetMapping Name="AppUsers">
+            <EntityTypeMapping TypeName="AppModel.AppUser">
+              <MappingFragment StoreEntitySet="AppUser">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="AppModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="OfUserId" ColumnName="OfUserId" />
+                <ScalarProperty Name="PostedTime" ColumnName="PostedTime" />
+                <ScalarProperty Name="TextContent" ColumnName="TextContent" />
+                <ScalarProperty Name="ToAnswerId" ColumnName="ToAnswerId" />
+                <ScalarProperty Name="ToPostId" ColumnName="ToPostId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Interactives">
+            <EntityTypeMapping TypeName="AppModel.Interactive">
+              <MappingFragment StoreEntitySet="Interactive">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="HappenedTime" ColumnName="HappenedTime" />
+                <ScalarProperty Name="OfUserId" ColumnName="OfUserId" />
+                <ScalarProperty Name="IsLike" ColumnName="IsLike" />
+                <ScalarProperty Name="ToCommentId" ColumnName="ToCommentId" />
+                <ScalarProperty Name="ToAnswerId" ColumnName="ToAnswerId" />
+                <ScalarProperty Name="ToPostId" ColumnName="ToPostId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="AppModel.Post">
+              <MappingFragment StoreEntitySet="Post">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PostedTime" ColumnName="PostedTime" />
+                <ScalarProperty Name="OfUserId" ColumnName="OfUserId" />
+                <ScalarProperty Name="TextContent" ColumnName="TextContent" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TagsOfPosts">
+            <EntityTypeMapping TypeName="AppModel.TagsOfPost">
+              <MappingFragment StoreEntitySet="TagsOfPost">
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

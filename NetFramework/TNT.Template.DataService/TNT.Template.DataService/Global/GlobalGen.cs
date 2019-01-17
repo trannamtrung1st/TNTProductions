@@ -129,9 +129,9 @@ namespace TNT.Template.DataService.Global
                 "repoOpt.InjectableConstructors = new Dictionary<int, Params[]>();",
                 "repoOpt.InjectableConstructors[0] = new Params[] { Params.Injectable<IUnitOfWork>() };",
                 "",
-                "Builder.RegisterType<IUnitOfWork, UnitOfWork>()");
-            s2.Add("\t.RegisterType<" + Data.ContextName + ", UnitOfWork>()");
-            s2.Add("\t.RegisterType<DbContext, UnitOfWork>()");
+                "Builder.RegisterType<IUnitOfWork, UnitOfWork>(container => new UnitOfWork(container))");
+            s2.Add("\t.RegisterType<" + Data.ContextName + ", UnitOfWork>(container => new UnitOfWork(container))");
+            s2.Add("\t.RegisterType<DbContext, UnitOfWork>(container => new UnitOfWork(container))");
 
             var entities = Data.Entities;
             var len = entities.Count;

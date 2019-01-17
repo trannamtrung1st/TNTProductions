@@ -14,8 +14,8 @@ namespace TestDataService
         static void Main(string[] args)
         {
             var autoGen = new AutoDataServiceGen(
-                @"T:\Workspace\TNTProductions\TNT.Template.DataService",
-                @"T:\Workspace\TNTProductions\TNT.Template.DataService\TestDataService",
+                @"T:\Workspace\TNTProductions\NetFramework\TNT.Template.DataService",
+                @"T:\Workspace\TNTProductions\NetFramework\TNT.Template.DataService\TestDataService",
                 "TestDataService", "{project}bin/Debug/TNT.TemplateAPI.dll", "{project}bin/Debug/TNT.Template.DataService.dll",
                 "{project}Models/AppEntity.edmx", TNT.Template.DataService.Helpers.GeneralHelper.JsonPropertyFormatEnum.CamelCase,
                 false, true);

@@ -26,12 +26,6 @@ namespace TestDataService.Models
 	}
 	public partial class UnitOfWork : AppEntity, IUnitOfWork
 	{
-		public UnitOfWork()
-		{
-			Scope = TContainer.RequestScope;
-			Context = this;
-		}
-		
 		public UnitOfWork(ITContainer scope)
 		{
 			Scope = scope;

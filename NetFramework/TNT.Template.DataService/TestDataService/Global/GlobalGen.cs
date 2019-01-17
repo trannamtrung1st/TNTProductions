@@ -29,8 +29,12 @@ namespace TestDataService.Global
 		//{
 			//cfg =>
 			//{
-			//	cfg.CreateMap<A, AViewModel>().ReverseMap();
-			//	cfg.CreateMap<B, BViewModel>().ReverseMap();
+			//	cfg.CreateMap<Answer, AnswerViewModel>().ReverseMap();
+			//	cfg.CreateMap<AppUser, AppUserViewModel>().ReverseMap();
+			//	cfg.CreateMap<Comment, CommentViewModel>().ReverseMap();
+			//	cfg.CreateMap<Interactive, InteractiveViewModel>().ReverseMap();
+			//	cfg.CreateMap<Post, PostViewModel>().ReverseMap();
+			//	cfg.CreateMap<TagsOfPost, TagsOfPostViewModel>().ReverseMap();
 		//	}
 		//};
 		private static void ConfigureAutomapper()
@@ -54,11 +58,15 @@ namespace TestDataService.Global
 			repoOpt.InjectableConstructors = new Dictionary<int, Params[]>();
 			repoOpt.InjectableConstructors[0] = new Params[] { Params.Injectable<IUnitOfWork>() };
 			
-			Builder.RegisterType<IUnitOfWork, UnitOfWork>()
-				.RegisterType<AppEntity, UnitOfWork>()
-				.RegisterType<DbContext, UnitOfWork>()
-				.RegisterType<IARepository, ARepository>(repoOpt)
-				.RegisterType<IBRepository, BRepository>(repoOpt)
+			Builder.RegisterType<IUnitOfWork, UnitOfWork>(container => new UnitOfWork(container))
+				.RegisterType<AppEntity, UnitOfWork>(container => new UnitOfWork(container))
+				.RegisterType<DbContext, UnitOfWork>(container => new UnitOfWork(container))
+				.RegisterType<IAnswerRepository, AnswerRepository>(repoOpt)
+				.RegisterType<IAppUserRepository, AppUserRepository>(repoOpt)
+				.RegisterType<ICommentRepository, CommentRepository>(repoOpt)
+				.RegisterType<IInteractiveRepository, InteractiveRepository>(repoOpt)
+				.RegisterType<IPostRepository, PostRepository>(repoOpt)
+				.RegisterType<ITagsOfPostRepository, TagsOfPostRepository>(repoOpt)
 				.AttachAllRegisteredToLifetimeScope();
 			G.TContainer = Builder.Build();
 		}

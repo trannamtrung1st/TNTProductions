@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global\Global.cs" />
     <Compile Include="Global\GlobalGen.cs">
       <DependentUpon>GlobalTemplate.tt</DependentUpon>
     </Compile>
@@ -82,7 +83,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HelpersTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\A.cs">
+    <Compile Include="Models\Answer.cs">
       <DependentUpon>AppEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AppEntity.Context.cs">
@@ -100,14 +101,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppEntity.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\B.cs">
+    <Compile Include="Models\AppUser.cs">
+      <DependentUpon>AppEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Comment.cs">
       <DependentUpon>AppEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Domains\BaseDomainGen.cs" />
-    <Compile Include="Models\Extensions\AExtensionGen.cs">
+    <Compile Include="Models\Extensions\AnswerExtensionGen.cs">
       <DependentUpon>ExtensionTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Extensions\BExtensionGen.cs">
+    <Compile Include="Models\Extensions\AppUserExtensionGen.cs">
+      <DependentUpon>ExtensionTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\CommentExtensionGen.cs">
       <DependentUpon>ExtensionTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Extensions\EntityGen.cs">
@@ -118,13 +125,37 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExtensionTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repositories\ARepositoryGen.cs">
+    <Compile Include="Models\Extensions\InteractiveExtensionGen.cs">
+      <DependentUpon>ExtensionTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PostExtensionGen.cs">
+      <DependentUpon>ExtensionTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\TagsOfPostExtensionGen.cs">
+      <DependentUpon>ExtensionTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Interactive.cs">
+      <DependentUpon>AppEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Post.cs">
+      <DependentUpon>AppEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\AnswerRepositoryGen.cs">
+      <DependentUpon>RepositoryTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\AppUserRepositoryGen.cs">
       <DependentUpon>RepositoryTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repositories\BaseRepositoryGen.cs">
       <DependentUpon>RepositoryTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repositories\BRepositoryGen.cs">
+    <Compile Include="Models\Repositories\CommentRepositoryGen.cs">
+      <DependentUpon>RepositoryTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\InteractiveRepositoryGen.cs">
+      <DependentUpon>RepositoryTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\PostRepositoryGen.cs">
       <DependentUpon>RepositoryTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repositories\RepositoryTemplate.cs">
@@ -132,16 +163,34 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RepositoryTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repositories\TagsOfPostRepositoryGen.cs">
+      <DependentUpon>RepositoryTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TagsOfPost.cs">
+      <DependentUpon>AppEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UnitOfWorkGen.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\AViewModelGen.cs">
+    <Compile Include="ViewModels\AnswerViewModelGen.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\AppUserViewModelGen.cs">
       <DependentUpon>ViewModelTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BaseViewModelGen.cs">
       <DependentUpon>ViewModelTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\BViewModelGen.cs">
+    <Compile Include="ViewModels\CommentViewModelGen.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\InteractiveViewModelGen.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\PostViewModelGen.cs">
+      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\TagsOfPostViewModelGen.cs">
       <DependentUpon>ViewModelTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ViewModelTemplate.cs">

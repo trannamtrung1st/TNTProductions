@@ -7,16 +7,22 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using TestDataService.Global;
+using TestWebApi;
 
+[assembly: PreApplicationStartMethod(typeof(PreConfig), "Configure")]
 namespace TestWebApi
 {
+    public static class PreConfig
+    {
+
+        public static void Configure()
+        {
+            G.Configure();
+        }
+    }
+
     public class WebApiApplication : System.Web.HttpApplication
     {
-        public override void Init()
-        {
-            base.Init();
-            G.Configure(this);
-        }
 
         protected void Application_Start()
         {

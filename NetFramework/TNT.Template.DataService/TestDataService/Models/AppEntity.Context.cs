@@ -25,7 +25,11 @@ namespace TestDataService.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<A> A { get; set; }
-        public virtual DbSet<B> B { get; set; }
+        public virtual DbSet<Answer> Answers { get; set; }
+        public virtual DbSet<AppUser> AppUsers { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Interactive> Interactives { get; set; }
+        public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<TagsOfPost> TagsOfPosts { get; set; }
     }
 }
