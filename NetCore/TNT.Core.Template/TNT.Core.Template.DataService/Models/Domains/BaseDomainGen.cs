@@ -20,8 +20,7 @@ namespace TNT.Core.Template.DataService.Models.Domains
                 Data.ProjectName + ".Models",
                 Data.ProjectName + ".Global",
                 "Microsoft.EntityFrameworkCore",
-                "System.Linq.Expressions",
-                "TNT.Core.IoC.Container");
+                "System.Linq.Expressions");
             ResolveMapping["context"] = dt.ContextName;
 
             //GENERATE
@@ -77,9 +76,10 @@ namespace TNT.Core.Template.DataService.Models.Domains
             BaseDomainBody.Add(
                 c1, new StatementGen(""),
                 s2, new StatementGen(""),
-                c01, new StatementGen(""),
                 s1, new StatementGen("")
                 );
+            if (Data.DIContainer == DIContainer.TContainer)
+                BaseDomainBody.Add(c01, new StatementGen(""));
         }
 
     }

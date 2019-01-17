@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using TestDataService.Models;
-using TestDataService.Models.Domains;
 using TNT.Core.IoC.Container;
 
 namespace TestCore.Controllers
@@ -19,9 +19,8 @@ namespace TestCore.Controllers
             {
                 if (uow == null)
                     uow = this.GetIoC().Resolve<IUnitOfWork>();
-                return uow;
+                return uow; ;
             }
         }
-
     }
 }

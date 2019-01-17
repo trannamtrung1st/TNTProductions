@@ -33,6 +33,7 @@ namespace TNT.Core.Template.DataService.Auto
             string projectPath,
             string projectName,
             JsonPropertyFormatEnum vmPropStyle,
+            DIContainer dIContainer,
             bool activeCol = true,
             bool requestScope = false
             )
@@ -49,6 +50,7 @@ namespace TNT.Core.Template.DataService.Auto
             ProjectName = projectName;
 
             Data = new ContextParser(dbContext, projectName).Data;
+            Data.DIContainer = dIContainer;
             Data.RequestScope = requestScope;
             Data.ActiveCol = activeCol;
         }

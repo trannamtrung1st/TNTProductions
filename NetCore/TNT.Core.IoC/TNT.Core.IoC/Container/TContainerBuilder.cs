@@ -32,7 +32,7 @@ namespace TNT.Core.IoC.Container
                     implType.DefaultResolveType = ResolveType.Singleton;
                 else if (implType.InjectableConstructorParamTypesById != null)
                     implType.DefaultResolveType = ResolveType.Injected;
-                else if (implType.ConstructorParamProviders != null)
+                else if (implType.Provider != null)
                     implType.DefaultResolveType = ResolveType.Provided;
                 else if (implType.ConstructorDefaultArguments != null)
                     implType.DefaultResolveType = ResolveType.Default;
@@ -59,8 +59,8 @@ namespace TNT.Core.IoC.Container
 
         public TContainerBuilder RegisterType(Type baseType, Type implType, BuilderOptions options)
         {
-            if (options.ArgumentsProviders != null)
-                RegisterType(baseType, implType, options.ArgumentsProviders);
+            if (options.Provider != null)
+                RegisterType(baseType, implType, options.Provider);
             if (options.DefaultArguments != null)
                 RegisterType(baseType, implType, options.DefaultArguments);
             if (!container.typeMappings.ContainsKey(baseType))
@@ -152,7 +152,7 @@ namespace TNT.Core.IoC.Container
                     WrappedType = implType,
                     Constructors = implType.GetConstructors(),
                     ConstructorDefaultArguments = null,
-                    ConstructorParamProviders = null,
+                    Provider = null,
                 };
                 var bType = new BaseType()
                 {
@@ -166,6 +166,8 @@ namespace TNT.Core.IoC.Container
                 CheckPostConstructs(iType);
             }
             container.singletonObjs[baseType] = singleTon;
+            if (addToScope)
+                AttachToLifetimeScope(baseType);
         }
 
         private void MapSingleton(Type baseType, Type implType, object[] args)
@@ -177,7 +179,7 @@ namespace TNT.Core.IoC.Container
                     WrappedType = implType,
                     Constructors = implType.GetConstructors(),
                     ConstructorDefaultArguments = null,
-                    ConstructorParamProviders = null,
+                    Provider = null,
                 };
                 var bType = new BaseType()
                 {
@@ -191,6 +193,8 @@ namespace TNT.Core.IoC.Container
                 CheckPostConstructs(iType);
             }
             container.singletonObjs[baseType] = container.Resolve(baseType, args);
+            if (addToScope)
+                AttachToLifetimeScope(baseType);
         }
 
         private void Map(Type baseType, Type implType, object[] args)
@@ -205,7 +209,7 @@ namespace TNT.Core.IoC.Container
                     WrappedType = implType,
                     Constructors = implType.GetConstructors(),
                     ConstructorDefaultArguments = args,
-                    ConstructorParamProviders = null,
+                    Provider = null,
                 };
                 var bType = new BaseType()
                 {
@@ -224,12 +228,12 @@ namespace TNT.Core.IoC.Container
                 var iType = bType.ImplementType;
                 iType.ConstructorDefaultArguments = args;
             }
+            if (addToScope)
+                AttachToLifetimeScope(baseType);
         }
 
-        private void Map(Type baseType, Type implType, params Expression<Func<ITContainer, object>>[] providers)
+        private void Map(Type baseType, Type implType, Expression<Func<ITContainer, object>> provider)
         {
-            if (providers.Length == 0)
-                providers = null;
 
             if (!container.typeMappings.ContainsKey(baseType))
             {
@@ -238,7 +242,7 @@ namespace TNT.Core.IoC.Container
                     WrappedType = implType,
                     Constructors = implType.GetConstructors(),
                     ConstructorDefaultArguments = null,
-                    ConstructorParamProviders = providers.Select(e => e.Compile()).ToArray(),
+                    Provider = provider.Compile(),
                 };
                 var bType = new BaseType()
                 {
@@ -255,8 +259,10 @@ namespace TNT.Core.IoC.Container
             {
                 var bType = container.typeMappings[baseType];
                 var iType = bType.ImplementType;
-                iType.ConstructorDefaultArguments = providers;
+                iType.Provider = provider.Compile();
             }
+            if (addToScope)
+                AttachToLifetimeScope(baseType);
         }
 
         private void CheckInjectableCtor(ImplementType implType)
@@ -372,9 +378,9 @@ namespace TNT.Core.IoC.Container
             }
         }
 
-        public TContainerBuilder RegisterType(Type baseType, Type implType, params Expression<Func<ITContainer, object>>[] arguments)
+        public TContainerBuilder RegisterType(Type baseType, Type implType, Expression<Func<ITContainer, object>> provider)
         {
-            Map(baseType, implType, arguments);
+            Map(baseType, implType, provider);
             return this;
         }
 
@@ -384,9 +390,9 @@ namespace TNT.Core.IoC.Container
             return this;
         }
 
-        public TContainerBuilder RegisterType(Type type, params Expression<Func<ITContainer, object>>[] arguments)
+        public TContainerBuilder RegisterType(Type type, Expression<Func<ITContainer, object>> provider)
         {
-            Map(type, type, arguments);
+            Map(type, type, provider);
             return this;
         }
 
@@ -396,11 +402,11 @@ namespace TNT.Core.IoC.Container
             return this;
         }
 
-        public TContainerBuilder RegisterType<BaseType, ImplType>(params Expression<Func<ITContainer, object>>[] arguments) where ImplType : BaseType
+        public TContainerBuilder RegisterType<BaseType, ImplType>(Expression<Func<ITContainer, object>> provider) where ImplType : BaseType
         {
             var bType = typeof(BaseType);
             var iType = typeof(ImplType);
-            Map(bType, iType, arguments);
+            Map(bType, iType, provider);
             return this;
         }
 
@@ -412,10 +418,10 @@ namespace TNT.Core.IoC.Container
             return this;
         }
 
-        public TContainerBuilder RegisterType<Type>(params Expression<Func<ITContainer, object>>[] arguments)
+        public TContainerBuilder RegisterType<Type>(Expression<Func<ITContainer, object>> provider)
         {
             var type = typeof(Type);
-            Map(type, type, arguments);
+            Map(type, type, provider);
             return this;
         }
 
@@ -491,6 +497,19 @@ namespace TNT.Core.IoC.Container
             return this;
         }
 
+        protected bool addToScope;
+        public TContainerBuilder BeginScope()
+        {
+            addToScope = true;
+            return this;
+        }
+
+        public TContainerBuilder EndScope()
+        {
+            addToScope = false;
+            return this;
+        }
+
         public TContainerBuilder AttachAllRegisteredToLifetimeScope()
         {
             foreach (var t in container.typeMappings)
@@ -560,7 +579,7 @@ namespace TNT.Core.IoC.Container
         public ResolveType? DefaultResolveType { get; set; }
         public IDictionary<int, Params[]> InjectableConstructors { get; set; }
         public object[] DefaultArguments { get; set; }
-        public Expression<Func<ITContainer, object>>[] ArgumentsProviders { get; set; }
+        public Expression<Func<ITContainer, object>> Provider { get; set; }
         public object SingletonObj { get; set; }
 
         public List<PropertyInfo> InjectableProperties { get; set; }

@@ -11,16 +11,28 @@ namespace TNT.Core.Template.DataService.Models
     public class UnitOfWorkGen : FileGen
     {
         private ContextInfo Data { get; set; }
+        private string Container { get; set; }
         public UnitOfWorkGen(ContextInfo dt)
         {
             Data = dt;
-            Directive.Add("TNT.Core.IoC.Wrapper", "TNT.Core.IoC.Container",
+            Directive.Add(
                 "Microsoft.EntityFrameworkCore.Storage",
                 "Microsoft.EntityFrameworkCore",
                 Data.ProjectName + ".Global", Data.ProjectName + ".Models.Repositories",
                 Data.ProjectName + ".Models.Domains",
                 Data.ProjectName + ".Models");
             ResolveMapping["context"] = Data.ContextName;
+
+            if (dt.DIContainer == DIContainer.TContainer)
+            {
+                Directive.Add("TNT.Core.IoC.Wrapper", "TNT.Core.IoC.Container");
+                Container = "ITContainer";
+            }
+            else
+            {
+                Container = "IServiceProvider";
+                Directive.Add("Microsoft.Extensions.DependencyInjection");
+            }
 
             //GENERATE
             GenerateNamespace();
@@ -50,7 +62,7 @@ namespace TNT.Core.Template.DataService.Models
             IUnitOfWorkBody = IUnitOfWork.Body;
 
             var s1 = new StatementGen(
-                "ITContainer Scope { get; }",
+                Container + " Scope { get; }",
                 "DbContext Context { get; }",
                 "DbSet<E> Set<E>() where E : class;",
                 "S Repository<S>() where S : class, IRepository;",
@@ -60,8 +72,7 @@ namespace TNT.Core.Template.DataService.Models
                 "IDbContextTransaction BeginTransaction();");
 
             IUnitOfWorkBody.Add(
-                s1, new StatementGen("")
-                );
+                s1, new StatementGen(""));
 
             NamespaceBody.Add(IUnitOfWork);
         }
@@ -76,25 +87,27 @@ namespace TNT.Core.Template.DataService.Models
             UnitOfWorkBody = UnitOfWork.Body;
 
             var s1 = new StatementGen(
-                "public ITContainer Scope { get; }",
+               "public " + Container + " Scope { get; }",
                 "public DbContext Context { get; }");
 
             var c21 = new ContainerGen();
-            c21.Signature = "public UnitOfWork(ITContainer scope)";
+            c21.Signature = "public UnitOfWork(" + Container + " scope)";
             c21.Body.Add(new StatementGen(
                 "Scope = scope;",
                 "Context = this;"));
 
+            var method = Data.DIContainer == DIContainer.TContainer ? "Resolve" : "GetService";
+
             var m3 = new ContainerGen();
             m3.Signature = "public S Repository<S>() where S : class, IRepository";
             m3.Body.Add(new StatementGen(
-                "var repository = Scope.Resolve<S>();",
+                "var repository = Scope." + method + "<S>();",
                 "return repository;"
             ));
             var m4 = new ContainerGen();
             m4.Signature = "public D Domain<D>() where D : BaseDomain";
             m4.Body.Add(new StatementGen(
-                "var domain = Scope.Resolve<D>();",
+                "var domain = Scope." + method + "<D>();",
                 "return domain;"
             ));
 

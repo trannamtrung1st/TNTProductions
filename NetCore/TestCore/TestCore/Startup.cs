@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.Authentication;
 using TestDataService.Global;
 using TNT.Core.OAuth.Externals;
 using System.Security.Claims;
+using TestDataService.Models;
+using TestDataService.Models.Repositories;
 
 namespace TestCore
 {
@@ -67,6 +69,7 @@ namespace TestCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -100,6 +103,7 @@ namespace TestCore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            G.Configure(app);
 
             if (env.IsDevelopment())
             {

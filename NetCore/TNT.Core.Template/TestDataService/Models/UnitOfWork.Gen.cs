@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TNT.Core.IoC.Wrapper;
-using TNT.Core.IoC.Container;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
 using TestDataService.Global;
 using TestDataService.Models.Repositories;
 using TestDataService.Models.Domains;
 using TestDataService.Models;
+using TNT.Core.IoC.Wrapper;
+using TNT.Core.IoC.Container;
 
 namespace TestDataService.Models
 {

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestDataService.Models;
-using TNT.Core.IoC.Attributes;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TNT.Core.Template.DataService.Auto;
+using TNT.Core.Template.DataService.Data;
 using static TNT.Core.Template.DataService.Helpers.GeneralHelper;
 
 namespace TNT.Core.Template.DataService
@@ -14,12 +15,13 @@ namespace TNT.Core.Template.DataService
             string projectPath,
             string projectName,
             JsonPropertyFormatEnum vmPropStyle,
+            DIContainer dIContainer,
             bool activeCol = true,
             bool requestScope = false
             )
         {
             return new AutoDataServiceGen(dbContext, projectPath, projectName,
-                vmPropStyle, activeCol, requestScope);
+                vmPropStyle, dIContainer, requestScope);
         }
     }
 }

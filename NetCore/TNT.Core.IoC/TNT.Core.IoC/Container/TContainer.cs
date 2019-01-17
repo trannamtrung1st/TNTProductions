@@ -105,31 +105,14 @@ namespace TNT.Core.IoC.Container
             resources.Clear();
             if (notSuccess.Count > 0)
             {
-                var ex = new Exception("Auto dispose fail, see Data[\"ITContainer.DisposeFail\"] for more informations");
-                ex.Data["ITContainer.DisposeFail"] = notSuccess;
+                var ex = new Exception("Auto dispose fail, see Data[\"TContainer.DisposeFail\"] for more informations");
+                ex.Data["TContainer.DisposeFail"] = notSuccess;
             }
         }
 
         public void ClearResources()
         {
-            List<Exception> notSuccess = new List<Exception>();
-            foreach (var r in resources)
-            {
-                try
-                {
-                    r.Dispose();
-                }
-                catch (Exception e)
-                {
-                    notSuccess.Add(e);
-                }
-            }
-            resources.Clear();
-            if (notSuccess.Count > 0)
-            {
-                var ex = new Exception("Auto dispose fail, see Data[\"ITContainer.DisposeFail\"] for more informations");
-                ex.Data["ITContainer.DisposeFail"] = notSuccess;
-            }
+            ClearResources(true);
         }
 
         public ITContainer CreateScope()
@@ -226,12 +209,8 @@ namespace TNT.Core.IoC.Container
         public object Provided(Type type)
         {
             var implType = typeMappings[type].ImplementType;
-            var providers = implType.ConstructorParamProviders;
-            var len = providers.Length;
-            var args = new object[len];
-            for (int i = 0; i < len; i++)
-                args[i] = providers[i].Invoke(this);
-            return FinalResolve(type, implType, args);
+            var provider = implType.Provider;
+            return provider.Invoke(this);
         }
 
         public Type Simple<Type>(params object[] arguments)

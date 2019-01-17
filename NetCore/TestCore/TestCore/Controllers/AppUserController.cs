@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TestDataService.Models;
 using TestDataService.Models.Domains;
+using TestDataService.Models.Repositories;
 
 namespace TestCore.Controllers
 {
@@ -17,7 +18,7 @@ namespace TestCore.Controllers
         [Authorize("Basic")]
         public ActionResult Test()
         {
-            return null;
+            return Ok(UoW.Repository<IAppUserRepository>().FirstOrDefault());
         }
 
 

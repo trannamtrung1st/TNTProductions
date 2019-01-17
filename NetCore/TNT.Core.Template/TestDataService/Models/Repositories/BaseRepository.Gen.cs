@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
 using TestDataService.Models;
-using TNT.Core.IoC.Container;
-using TNT.Core.IoC.Attributes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 

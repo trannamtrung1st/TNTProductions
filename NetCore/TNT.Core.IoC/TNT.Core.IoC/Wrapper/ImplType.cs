@@ -15,7 +15,7 @@ namespace TNT.Core.IoC.Wrapper
         public ConstructorInfo[] Constructors { get; set; }
 
         public object[] ConstructorDefaultArguments { get; set; }
-        public Func<ITContainer, object>[] ConstructorParamProviders { get; set; }
+        public Func<ITContainer, object> Provider { get; set; }
         public IDictionary<int, Args[]> InjectableConstructorParamTypesById { get; set; }
         public bool HasLifetimeScope { get; set; }
 

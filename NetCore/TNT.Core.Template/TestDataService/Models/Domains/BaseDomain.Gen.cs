@@ -9,7 +9,6 @@ using TestDataService.Models;
 using TestDataService.Global;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using TNT.Core.IoC.Container;
 
 namespace TestDataService.Models.Domains
 {
@@ -23,12 +22,12 @@ namespace TestDataService.Models.Domains
 		
 		protected IUnitOfWork uow;
 		
+		protected DbContext context;
+		
 		public BaseDomain(DbContext context)
 		{
 			this.context = context;
 		}
-		
-		protected DbContext context;
 		
 	}
 }

@@ -15,8 +15,6 @@ namespace TNT.Core.Template.DataService.Models.Repositories
         {
             Data = dt;
             Directive.Add("System.Linq.Expressions", dt.ProjectName + ".Models"
-                , "TNT.Core.IoC.Container"
-                , "TNT.Core.IoC.Attributes"
                 , "Microsoft.EntityFrameworkCore"
                 , "Microsoft.EntityFrameworkCore.ChangeTracking");
             ResolveMapping["context"] = dt.ContextName;
@@ -236,8 +234,10 @@ namespace TNT.Core.Template.DataService.Models.Repositories
 
             BaseRepositoryBody.Add(
                 s12, new StatementGen(""),
-                c4, new StatementGen(""),
-                c5, new StatementGen(""),
+                c4, new StatementGen(""));
+            if (Data.DIContainer == DIContainer.TContainer)
+                BaseRepositoryBody.Add(c5, new StatementGen(""));
+            BaseRepositoryBody.Add(
                 m31, new StatementGen(""),
                 m32, new StatementGen(""),
                 m91, new StatementGen(""),
