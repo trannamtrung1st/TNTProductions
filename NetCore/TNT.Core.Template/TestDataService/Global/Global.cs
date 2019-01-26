@@ -16,13 +16,13 @@ namespace TestDataService.Global
             MapperConfigs.Add(
                 cfg =>
                 {
-                    cfg.CreateMap<Answer, AnswerViewModel>().ReverseMap();
-                    cfg.CreateMap<AppUser, AppUserViewModel>().ReverseMap();
-                    cfg.CreateMap<Comment, CommentViewModel>().ReverseMap();
-                    cfg.CreateMap<Interactive, InteractiveViewModel>().ReverseMap();
-                    cfg.CreateMap<Post, PostViewModel>().ReverseMap();
-                    cfg.CreateMap<Tags, TagsViewModel>().ReverseMap();
-                    cfg.CreateMap<TagsOfPost, TagsOfPostViewModel>().ReverseMap();
+                    //cfg.CreateMap<Answer, BasicAnswerViewModel>().ReverseMap();
+                    //cfg.CreateMap<AppUser, BasicAppUserViewModel>().ReverseMap();
+                    //cfg.CreateMap<Comment, BasicCommentViewModel>().ReverseMap();
+                    //cfg.CreateMap<Interactive, BasicInteractiveViewModel>().ReverseMap();
+                    //cfg.CreateMap<Post, BasicPostViewModel>().ReverseMap();
+                    //cfg.CreateMap<Tags, BasicTagsViewModel>().ReverseMap();
+                    //cfg.CreateMap<TagsOfPost, BasicTagsOfPostViewModel>().ReverseMap();
                 }
             );
             G.ConfigureAutomapper();

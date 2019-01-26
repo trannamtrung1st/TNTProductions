@@ -31,4 +31,19 @@ namespace TestDataService.ViewModels
 		}
 		
 	}
+	
+	public partial class UpdateTagsViewModel: BaseUpdateViewModel<UpdateTagsViewModel, Tags>
+	{
+		//[JsonProperty("id")]
+		public Wrapper<int> Id { get; set; }
+		//[JsonProperty("active")]
+		public Wrapper<bool> Active { get; set; }
+		//[JsonProperty("description")]
+		public Wrapper<string> Description { get; set; }
+		//[JsonProperty("tagCode")]
+		public Wrapper<string> TagCode { get; set; }
+		//[JsonProperty("tagsOfPost")]
+		//public IEnumerable<TagsOfPostViewModel> TagsOfPostVM { get; set; }
+		
+	}
 }

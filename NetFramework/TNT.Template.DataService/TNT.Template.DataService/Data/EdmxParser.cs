@@ -103,7 +103,7 @@ namespace TNT.Template.DataService.Data
                 type = TypeMapping[type];
 
                 if (nullable && !DefaultNullableType.Contains(type))
-                    propMapping.Add(name, "Nullable<" + type + ">");
+                    propMapping.Add(name, type + "?");
                 else
                     propMapping.Add(name, type);
             }

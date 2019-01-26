@@ -14,11 +14,13 @@ namespace TNT.Template.DataService.ViewModels
         public BaseVMGen(DataInfo dt)
         {
             Data = dt;
-            Directive.Add(dt.ProjectName + ".Global");
+            Directive.Add(dt.ProjectName + ".Global",
+                "System.Reflection");
             //GENERATE
             GenerateNamespace();
             GenerateIBaseVM();
             GenerateBaseVM();
+            GenerateBaseUpdateVM();
         }
 
         //generate namespace
@@ -128,6 +130,61 @@ namespace TNT.Template.DataService.ViewModels
                 m5, new StatementGen(""));
 
             NamespaceBody.Add(BaseViewModel, new StatementGen(""));
+        }
+
+        //generate IBaseUpdateVM
+        private ContainerGen BaseUpdateVM { get; set; }
+        private BodyGen BaseUpdateVMBody { get; set; }
+        private void GenerateBaseUpdateVM()
+        {
+            var baseUpdate = new ContainerGen();
+            baseUpdate.Signature = "public abstract partial class BaseUpdateViewModel<VM, Entity>";
+
+            var m1 = new ContainerGen();
+            m1.Signature = "public void PatchTo(Entity dest)";
+            m1.Body.Add(new StatementGen(
+                "foreach (var map in vPropMappings)",
+                "{",
+                "\tvar srcProp = map.Value;",
+                "\tvar srcVal = srcProp.GetValue(this);",
+                "\tif (srcVal != null)",
+                "\t{",
+                "\t\tvar destProp = ePropMappings[map.Key];",
+                "\t\tdestProp.SetValue(dest, (srcVal as IWrapper).GetValue());",
+                "\t}",
+                "}"
+                ));
+
+            var s2 = new StatementGen("protected static IDictionary<string, PropertyInfo> vPropMappings; // viewModel");
+            var s3 = new StatementGen("protected static IDictionary<string, PropertyInfo> ePropMappings; // entity");
+
+            var m4 = new ContainerGen();
+            m4.Signature = "static BaseUpdateViewModel()";
+            m4.Body.Add(new StatementGen(
+                "var entityType = typeof(Entity);",
+                "var vmType = typeof(VM);",
+                "vPropMappings = new Dictionary<string, PropertyInfo>();",
+                "ePropMappings = new Dictionary<string, PropertyInfo>();",
+                "var props = entityType.GetProperties();",
+                "foreach (var p in props)",
+                "{",
+                "\tePropMappings[p.Name] = p;",
+                "}",
+                "props = vmType.GetProperties();",
+                "foreach (var p in props)",
+                "{",
+                "\tif (ePropMappings.ContainsKey(p.Name))",
+                "\t\tvPropMappings[p.Name] = p;",
+                "}"));
+
+            baseUpdate.Body.Add(
+                m1, new StatementGen(""),
+                s2, new StatementGen(""),
+                s3, new StatementGen(""),
+                m4, new StatementGen("")
+                );
+
+            NamespaceBody.Add(baseUpdate, new StatementGen(""));
         }
 
     }

@@ -18,7 +18,7 @@ namespace TestDataService.ViewModels
 		//[JsonProperty("active")]
 		public bool Active { get; set; }
 		//[JsonProperty("postedTime")]
-		public Nullable<DateTime> PostedTime { get; set; }
+		public DateTime? PostedTime { get; set; }
 		//[JsonProperty("textContent")]
 		public string TextContent { get; set; }
 		//[JsonProperty("ofUser")]
@@ -33,6 +33,25 @@ namespace TestDataService.ViewModels
 		public AnswerViewModel()
 		{
 		}
+		
+	}
+	
+	public partial class UpdateAnswerViewModel: BaseUpdateViewModel<UpdateAnswerViewModel, Answer>
+	{
+		//[JsonProperty("ofUserId")]
+		public Wrapper<int> OfUserId { get; set; }
+		//[JsonProperty("toPostId")]
+		public Wrapper<int> ToPostId { get; set; }
+		//[JsonProperty("active")]
+		public Wrapper<bool> Active { get; set; }
+		//[JsonProperty("postedTime")]
+		public Wrapper<DateTime?> PostedTime { get; set; }
+		//[JsonProperty("textContent")]
+		public Wrapper<string> TextContent { get; set; }
+		//[JsonProperty("ofUser")]
+		//public AppUserViewModel OfUserVM { get; set; }
+		//[JsonProperty("toPost")]
+		//public PostViewModel ToPostVM { get; set; }
 		
 	}
 }

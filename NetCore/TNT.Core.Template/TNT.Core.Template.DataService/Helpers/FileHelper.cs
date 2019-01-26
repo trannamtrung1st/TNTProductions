@@ -29,36 +29,37 @@ namespace TNT.Core.Template.DataService.Helpers
             string gFolder = projectPath + "Global";
             string dFolder = projectPath + "Models/Domains";
             string vmFolder = projectPath + "ViewModels";
+            string vmTextFolder = projectPath + "ViewModels/Text";
             string eFolder = projectPath + "Models/Extensions";
             string mFolder = projectPath + "Models";
             string repoFolder = projectPath + "Models/Repositories";
-            var dataServiceStructure = new List<string>() { gFolder, dFolder, vmFolder, eFolder, mFolder, repoFolder };
+            var dataServiceStructure = new List<string>() { gFolder, dFolder, vmFolder, vmTextFolder, eFolder, mFolder, repoFolder };
 
             foreach (var fol in dataServiceStructure)
             {
                 if (Directory.Exists(fol))
                 {
                     var files = Directory.EnumerateFiles(fol);
-                    files = files.Where(f => f.EndsWith(".Gen.cs"));
+                    files = files.Where(f => f.EndsWith(".Gen.cs") || f.EndsWith(".Gen.txt"));
                     foreach (var f in files)
                         File.Delete(f);
                 }
             }
         }
 
-        //public static void ChangeTextToCsFile(string fromFolder, string toFolder)
-        //{
-        //    var from = new DirectoryInfo(fromFolder);
-        //    var files = from.GetFiles("*.txt");
-        //    var lastChar = toFolder[toFolder.Length - 1];
-        //    if (lastChar != '/' && lastChar != '\\')
-        //        toFolder += '/';
-        //    foreach (var f in files)
-        //    {
-        //        var str = File.ReadAllText(f.FullName);
-        //        File.WriteAllText(toFolder + f.Name.Replace(".txt", "") + ".cs", str);
-        //    }
-        //}
+        public static void ChangeTextToCsFile(string fromFolder, string toFolder, string removeStr)
+        {
+            var from = new DirectoryInfo(fromFolder);
+            var files = from.GetFiles("*.txt");
+            var lastChar = toFolder[toFolder.Length - 1];
+            if (lastChar != '/' && lastChar != '\\')
+                toFolder += '/';
+            foreach (var f in files)
+            {
+                var str = File.ReadAllText(f.FullName);
+                File.WriteAllText(toFolder + f.Name.Replace(".txt", "").Replace(removeStr, "") + ".cs", str);
+            }
+        }
 
     }
 }

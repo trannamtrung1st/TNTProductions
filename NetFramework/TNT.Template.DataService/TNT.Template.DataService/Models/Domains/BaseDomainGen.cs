@@ -79,16 +79,21 @@ namespace TNT.Template.DataService.Models.Domains
             var s2 = new StatementGen(
                 "protected IUnitOfWork uow;");
 
+            var s3 = new StatementGen("public IUnitOfWork UoW { get { return uow; } }");
+            var s4 = new StatementGen("public DbContext Context { get { return context; } }");
+
             if (Data.RequestScope)
             {
                 BaseDomainBody.Add(c0, new StatementGen(""));
             }
 
             BaseDomainBody.Add(
-                c1, new StatementGen(""),
                 s2, new StatementGen(""),
+                c1, new StatementGen(""),
+                s1, new StatementGen(""),
                 c01, new StatementGen(""),
-                s1, new StatementGen("")
+                s3, new StatementGen(""),
+                s4, new StatementGen("")
                 );
         }
 

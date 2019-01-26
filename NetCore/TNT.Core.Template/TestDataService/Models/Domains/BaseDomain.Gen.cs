@@ -14,6 +14,11 @@ namespace TestDataService.Models.Domains
 {
 	public abstract partial class BaseDomain
 	{
+		public BaseDomain(DbContext context)
+		{
+			this.context = context;
+		}
+		
 		public BaseDomain(IUnitOfWork uow)
 		{
 			this.uow = uow;
@@ -24,10 +29,9 @@ namespace TestDataService.Models.Domains
 		
 		protected DbContext context;
 		
-		public BaseDomain(DbContext context)
-		{
-			this.context = context;
-		}
+		public IUnitOfWork UoW { get { return uow; } }
+		
+		public DbContext Context { get { return context; } }
 		
 	}
 }

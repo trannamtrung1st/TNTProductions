@@ -33,6 +33,8 @@ namespace TNT.Template.DataService.ViewModels
             GenerateNamespace();
             GenerateVMClass();
             GenerateVMClassBody();
+            GenerateUpdateVMClass();
+            GenerateUpdateVMClassBody();
         }
 
         //generate namespace
@@ -56,7 +58,7 @@ namespace TNT.Template.DataService.ViewModels
             VMClass.Signature = "public partial class `entityVM`: BaseViewModel<`entity`>";
             VMClassBody = VMClass.Body;
 
-            NamespaceBody.Add(VMClass);
+            NamespaceBody.Add(VMClass, new StatementGen(""));
         }
 
         //generate VMClass body
@@ -116,5 +118,58 @@ namespace TNT.Template.DataService.ViewModels
                 c21, new StatementGen(""));
         }
 
+        //generate UpdateVMClass
+        private ContainerGen UpdateVMClass { get; set; }
+        private BodyGen UpdateVMClassBody { get; set; }
+        public void GenerateUpdateVMClass()
+        {
+            UpdateVMClass = new ContainerGen();
+            UpdateVMClass.Signature = "public partial class Update`entityVM`: BaseUpdateViewModel<Update`entityVM`, `entity`>";
+            UpdateVMClassBody = UpdateVMClass.Body;
+
+            NamespaceBody.Add(UpdateVMClass);
+        }
+
+        //generate UpdateVMClass body
+        public void GenerateUpdateVMClassBody()
+        {
+            var s0 = new StatementGen();
+            foreach (var p in EInfo.PropMapping)
+            {
+                if (!ExceptProps.Contains(p.Key))
+                {
+                    if (JsonIgnoreProps.Contains(p.Key))
+                        s0.Add("//[JsonIgnore]");
+                    else
+                        s0.Add("//[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key, Style) + "\")]");//+ "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
+                    s0.Add("public Wrapper<" + p.Value + "> " + p.Key + " { get; set; }");
+                }
+            }
+            foreach (var p in EInfo.NavPropMapping)
+            {
+                if (!ExceptProps.Contains(p.Key))
+                {
+                    if (JsonIgnoreProps.Contains(p.Key))
+                        s0.Add("//[JsonIgnore]");
+                    else
+                        s0.Add("//[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key, Style) + "\")]");// + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
+                    s0.Add("//public " + p.Value + " " + p.Key + "VM { get; set; }");
+                }
+            }
+            foreach (var p in EInfo.NavCollectionPropMapping)
+            {
+                if (!ExceptProps.Contains(p.Key))
+                {
+                    if (JsonIgnoreProps.Contains(p.Key))
+                        s0.Add("//[JsonIgnore]");
+                    else
+                        s0.Add("//[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Key, Style) + "\")]");// + "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
+                    s0.Add("//public " + p.Value + " " + p.Key + "VM { get; set; }");
+                }
+            }
+
+            UpdateVMClassBody.Add(
+                s0, new StatementGen(""));
+        }
     }
 }

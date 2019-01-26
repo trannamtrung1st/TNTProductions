@@ -29,4 +29,17 @@ namespace TestDataService.ViewModels
 		}
 		
 	}
+	
+	public partial class UpdateTagsOfPostViewModel: BaseUpdateViewModel<UpdateTagsOfPostViewModel, TagsOfPost>
+	{
+		//[JsonProperty("postId")]
+		public Wrapper<int> PostId { get; set; }
+		//[JsonProperty("tagId")]
+		public Wrapper<int> TagId { get; set; }
+		//[JsonProperty("post")]
+		//public PostViewModel PostVM { get; set; }
+		//[JsonProperty("tag")]
+		//public TagsViewModel TagVM { get; set; }
+		
+	}
 }

@@ -68,6 +68,7 @@
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\HelpersGen.cs" />
     <Compile Include="ViewModels\BaseVMGen.cs" />
+    <Compile Include="ViewModels\WrapperGen.cs" />
     <Compile Include="ViewModels\VMGen.cs" />
   </ItemGroup>
   <ItemGroup>

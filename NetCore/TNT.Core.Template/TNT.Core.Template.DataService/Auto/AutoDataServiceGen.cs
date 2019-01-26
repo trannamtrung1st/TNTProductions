@@ -87,11 +87,15 @@ namespace TNT.Core.Template.DataService.Auto
         {
             var baseVMGen = new BaseVMGen(Data);
             FileHelper.Write(ProjectPath + "ViewModels", "BaseViewModel.Gen.cs", baseVMGen.Generate());
+
+            var wrapperGen = new WrapperGen(Data);
+            FileHelper.Write(ProjectPath + "ViewModels", "Wrapper.Gen.cs", wrapperGen.Generate());
+
             foreach (var e in Data.Entities)
             {
                 var vmGen = new VMGen(e, VMJsonIgnoreProps,
                     VMExceptProps, Style);
-                FileHelper.Write(ProjectPath + "ViewModels", e.EntityName + "ViewModel.Gen.cs", vmGen.Generate());
+                FileHelper.Write(ProjectPath + "ViewModels/Text", e.EntityName + "ViewModel.Gen.txt", vmGen.Generate());
             }
         }
 

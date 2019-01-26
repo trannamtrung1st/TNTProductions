@@ -15,6 +15,9 @@ namespace TestDataService
     {
         static void Main(string[] args)
         {
+            //FileHelper.ChangeTextToCsFile(
+            //    @"t:\workspace\tntproductions\netcore\tnt.core.template\testdataservice\viewmodels\text",
+            //    @"t:\workspace\tntproductions\netCore\TNT.Core.Template\TestDataService\ViewModels\", ".Gen");
             //FileHelper.DeleteDataServiceStructure(@"T:\Workspace\TNTProductions\NetCore\TNT.Core.Template\TestDataService");
             //GeneralHelper.ExecuteScaffoldFromCmd(
             //    @"T:\Workspace\TNTProductions\NetCore\TNT.Core.Template\TestDataService",

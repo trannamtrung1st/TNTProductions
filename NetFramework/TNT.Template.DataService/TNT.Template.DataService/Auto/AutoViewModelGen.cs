@@ -31,7 +31,7 @@ namespace TNT.Template.DataService.Auto
             ExceptProps = exceptProps;
 
             GenerateInitManager();
-            GenerateBaseViewModel();
+            GenerateWrapperAndBaseViewModel();
             GenerateEntityViewModel();
         }
 
@@ -46,8 +46,13 @@ namespace TNT.Template.DataService.Auto
             Add(init);
         }
 
-        private void GenerateBaseViewModel()
+        private void GenerateWrapperAndBaseViewModel()
         {
+            Add(new TemplateCodeBlock(new StatementGen(
+                "var wrapper = new WrapperGen(dt);",
+                @"manager.StartNewFile(""WrapperGen.cs"");")),
+                new TemplateTextBlock("<#=wrapper.Generate()#>"));
+
             Add(new TemplateCodeBlock(new StatementGen(
                 "var baseVM = new BaseVMGen(dt);",
                 @"manager.StartNewFile(""BaseViewModelGen.cs"");")),
@@ -77,7 +82,7 @@ namespace TNT.Template.DataService.Auto
                 new StatementGen(true,
                     "var vmGen = new VMGen(e, jIgnore, except, JsonPropertyFormatEnum."
                         + Enum.GetName(typeof(JsonPropertyFormatEnum), Style) + ");",
-                    "manager.StartNewFile(e.EntityName+\"ViewModelGen.cs\");")),
+                    "manager.StartNewFile(e.EntityName+\"ViewModelGen.txt\");")),
                 new TemplateTextBlock("<#=vmGen.Generate()#>"),
                 new TemplateCodeBlock(new StatementGen(
                     "}",
