@@ -21,20 +21,24 @@ namespace TestDataService.Models.Domains
 			this.context = uow.Context;
 		}
 		
+		protected IUnitOfWork uow;
+		
 		public BaseDomain(IUnitOfWork uow)
 		{
 			this.uow = uow;
 			this.context = uow.Context;
 		}
 		
-		protected IUnitOfWork uow;
+		protected DbContext context;
 		
 		public BaseDomain(DbContext context)
 		{
 			this.context = context;
 		}
 		
-		protected DbContext context;
+		public IUnitOfWork UoW { get { return uow; } }
+		
+		public DbContext Context { get { return context; } }
 		
 	}
 }

@@ -1,0 +1,81 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestDataService.Global;
+using TestDataService.Models;
+using Newtonsoft.Json;
+
+namespace TestDataService.ViewModels
+{
+	public partial class CustomerFilterViewModel: BaseViewModel<CustomerFilter>
+	{
+		//[JsonProperty("iD")]
+		public int ID { get; set; }
+		//[JsonProperty("code")]
+		public string Code { get; set; }
+		//[JsonProperty("name")]
+		public string Name { get; set; }
+		//[JsonProperty("description")]
+		public string Description { get; set; }
+		//[JsonProperty("ageFrom")]
+		public int? AgeFrom { get; set; }
+		//[JsonProperty("ageTo")]
+		public int? AgeTo { get; set; }
+		//[JsonProperty("birthdayFrom")]
+		public DateTime? BirthdayFrom { get; set; }
+		//[JsonProperty("birthdayTo")]
+		public DateTime? BirthdayTo { get; set; }
+		//[JsonProperty("gender")]
+		public bool? Gender { get; set; }
+		//[JsonProperty("active")]
+		public bool Active { get; set; }
+		//[JsonProperty("brandCode")]
+		public string BrandCode { get; set; }
+		//[JsonProperty("customers")]
+		//public IEnumerable<CustomerViewModel> CustomersVM { get; set; }
+		//[JsonProperty("customerFilterMetadatas")]
+		//public IEnumerable<CustomerFilterMetadataViewModel> CustomerFilterMetadatasVM { get; set; }
+		
+		public CustomerFilterViewModel(CustomerFilter entity) : base(entity)
+		{
+		}
+		
+		public CustomerFilterViewModel()
+		{
+		}
+		
+	}
+	
+	public partial class UpdateCustomerFilterViewModel: BaseUpdateViewModel<UpdateCustomerFilterViewModel, CustomerFilter>
+	{
+		//[JsonProperty("iD")]
+		public Wrapper<int> ID { get; set; }
+		//[JsonProperty("code")]
+		public Wrapper<string> Code { get; set; }
+		//[JsonProperty("name")]
+		public Wrapper<string> Name { get; set; }
+		//[JsonProperty("description")]
+		public Wrapper<string> Description { get; set; }
+		//[JsonProperty("ageFrom")]
+		public Wrapper<int?> AgeFrom { get; set; }
+		//[JsonProperty("ageTo")]
+		public Wrapper<int?> AgeTo { get; set; }
+		//[JsonProperty("birthdayFrom")]
+		public Wrapper<DateTime?> BirthdayFrom { get; set; }
+		//[JsonProperty("birthdayTo")]
+		public Wrapper<DateTime?> BirthdayTo { get; set; }
+		//[JsonProperty("gender")]
+		public Wrapper<bool?> Gender { get; set; }
+		//[JsonProperty("active")]
+		public Wrapper<bool> Active { get; set; }
+		//[JsonProperty("brandCode")]
+		public Wrapper<string> BrandCode { get; set; }
+		//[JsonProperty("customers")]
+		//public IEnumerable<CustomerViewModel> CustomersVM { get; set; }
+		//[JsonProperty("customerFilterMetadatas")]
+		//public IEnumerable<CustomerFilterMetadataViewModel> CustomerFilterMetadatasVM { get; set; }
+		
+	}
+}

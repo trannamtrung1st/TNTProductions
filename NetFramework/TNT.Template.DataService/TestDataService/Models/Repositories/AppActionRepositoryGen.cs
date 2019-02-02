@@ -10,32 +10,32 @@ using System.Data.Entity;
 
 namespace TestDataService.Models.Repositories
 {
-	public partial interface IPostRepository : IBaseRepository<Post, int>
+	public partial interface IAppActionRepository : IBaseRepository<AppAction, int>
 	{
 	}
 	
-	public partial class PostRepository : BaseRepository<Post, int>, IPostRepository
+	public partial class AppActionRepository : BaseRepository<AppAction, int>, IAppActionRepository
 	{
-		public PostRepository(IUnitOfWork uow) : base(uow)
+		public AppActionRepository(IUnitOfWork uow) : base(uow)
 		{
 		}
 		
-		public PostRepository(DbContext context) : base(context)
+		public AppActionRepository(DbContext context) : base(context)
 		{
 		}
 		
 		#region CRUD area
-		public override Post FindById(int key)
+		public override AppAction FindById(int key)
 		{
 			var entity = dbSet.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
-		public override async Task<Post> FindByIdAsync(int key)
+		public override async Task<AppAction> FindByIdAsync(int key)
 		{
 			var entity = await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		

@@ -12,19 +12,18 @@ namespace TestDataService.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Interactive
+    public partial class CustomerEvent
     {
-        public int Id { get; set; }
-        public Nullable<int> ToPostId { get; set; }
-        public Nullable<int> ToAnswerId { get; set; }
-        public Nullable<int> ToCommentId { get; set; }
-        public Nullable<bool> IsLike { get; set; }
-        public Nullable<int> OfUserId { get; set; }
+        public int ID { get; set; }
+        public string Code { get; set; }
+        public string CustomerCode { get; set; }
+        public Nullable<int> Type { get; set; }
         public Nullable<System.DateTime> HappenedTime { get; set; }
-        public bool Active { get; set; }
-    
-        public virtual AppUser AppUser { get; set; }
-        public virtual Comment Comment { get; set; }
-        public virtual Post Post { get; set; }
+        public string Creator { get; set; }
+        public string BrandCode { get; set; }
+        public string Detail_AddedFilterCode { get; set; }
+        public string Detail_RemovedFilterCode { get; set; }
+        public string Detail_ConfirmedCode { get; set; }
+        public Nullable<int> Detail_ConfirmedMediaType { get; set; }
     }
 }

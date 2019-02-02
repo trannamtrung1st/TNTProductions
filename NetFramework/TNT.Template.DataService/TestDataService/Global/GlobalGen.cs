@@ -29,12 +29,13 @@ namespace TestDataService.Global
 		//{
 			//cfg =>
 			//{
-			//	cfg.CreateMap<Answer, AnswerViewModel>().ReverseMap();
-			//	cfg.CreateMap<AppUser, AppUserViewModel>().ReverseMap();
-			//	cfg.CreateMap<Comment, CommentViewModel>().ReverseMap();
-			//	cfg.CreateMap<Interactive, InteractiveViewModel>().ReverseMap();
-			//	cfg.CreateMap<Post, PostViewModel>().ReverseMap();
-			//	cfg.CreateMap<TagsOfPost, TagsOfPostViewModel>().ReverseMap();
+			//	cfg.CreateMap<AppAction, AppActionViewModel>().ReverseMap();
+			//	cfg.CreateMap<Customer, CustomerViewModel>().ReverseMap();
+			//	cfg.CreateMap<CustomerEvent, CustomerEventViewModel>().ReverseMap();
+			//	cfg.CreateMap<CustomerFilter, CustomerFilterViewModel>().ReverseMap();
+			//	cfg.CreateMap<CustomerFilterMetadata, CustomerFilterMetadataViewModel>().ReverseMap();
+			//	cfg.CreateMap<CustomerMetadata, CustomerMetadataViewModel>().ReverseMap();
+			//	cfg.CreateMap<EventTrigger, EventTriggerViewModel>().ReverseMap();
 		//	}
 		//};
 		private static void ConfigureAutomapper()
@@ -61,12 +62,13 @@ namespace TestDataService.Global
 			Builder.RegisterType<IUnitOfWork, UnitOfWork>(container => new UnitOfWork(container))
 				.RegisterType<AppEntity, UnitOfWork>(container => new UnitOfWork(container))
 				.RegisterType<DbContext, UnitOfWork>(container => new UnitOfWork(container))
-				.RegisterType<IAnswerRepository, AnswerRepository>(repoOpt)
-				.RegisterType<IAppUserRepository, AppUserRepository>(repoOpt)
-				.RegisterType<ICommentRepository, CommentRepository>(repoOpt)
-				.RegisterType<IInteractiveRepository, InteractiveRepository>(repoOpt)
-				.RegisterType<IPostRepository, PostRepository>(repoOpt)
-				.RegisterType<ITagsOfPostRepository, TagsOfPostRepository>(repoOpt)
+				.RegisterType<IAppActionRepository, AppActionRepository>(repoOpt)
+				.RegisterType<ICustomerRepository, CustomerRepository>(repoOpt)
+				.RegisterType<ICustomerEventRepository, CustomerEventRepository>(repoOpt)
+				.RegisterType<ICustomerFilterRepository, CustomerFilterRepository>(repoOpt)
+				.RegisterType<ICustomerFilterMetadataRepository, CustomerFilterMetadataRepository>(repoOpt)
+				.RegisterType<ICustomerMetadataRepository, CustomerMetadataRepository>(repoOpt)
+				.RegisterType<IEventTriggerRepository, EventTriggerRepository>(repoOpt)
 				.AttachAllRegisteredToLifetimeScope();
 			G.TContainer = Builder.Build();
 		}

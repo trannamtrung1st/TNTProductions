@@ -25,11 +25,12 @@ namespace TestDataService.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Answer> Answers { get; set; }
-        public virtual DbSet<AppUser> AppUsers { get; set; }
-        public virtual DbSet<Comment> Comments { get; set; }
-        public virtual DbSet<Interactive> Interactives { get; set; }
-        public virtual DbSet<Post> Posts { get; set; }
-        public virtual DbSet<TagsOfPost> TagsOfPosts { get; set; }
+        public virtual DbSet<AppAction> AppActions { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<CustomerEvent> CustomerEvents { get; set; }
+        public virtual DbSet<CustomerFilter> CustomerFilters { get; set; }
+        public virtual DbSet<CustomerFilterMetadata> CustomerFilterMetadatas { get; set; }
+        public virtual DbSet<CustomerMetadata> CustomerMetadatas { get; set; }
+        public virtual DbSet<EventTrigger> EventTriggers { get; set; }
     }
 }

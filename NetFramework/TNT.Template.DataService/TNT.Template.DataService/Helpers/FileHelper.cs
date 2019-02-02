@@ -58,5 +58,34 @@ namespace TNT.Template.DataService.Helpers
             }
         }
 
+        public static void ChangeTextToCsFile(string fromFolder, string toFolder, int removeLastNumberOfChars)
+        {
+            var from = new DirectoryInfo(fromFolder);
+            var files = from.GetFiles("*.txt");
+            var lastChar = toFolder[toFolder.Length - 1];
+            if (lastChar != '/' && lastChar != '\\')
+                toFolder += '/';
+            foreach (var f in files)
+            {
+                var str = File.ReadAllText(f.FullName);
+                File.WriteAllText(toFolder + f.Name.Replace(".txt", "")
+                    .Remove(f.Name.Length - 5 - removeLastNumberOfChars) + ".cs", str);
+            }
+        }
+
+        public static void ChangeTextToCsFile(string fromFolder, string toFolder)
+        {
+            var from = new DirectoryInfo(fromFolder);
+            var files = from.GetFiles("*.txt");
+            var lastChar = toFolder[toFolder.Length - 1];
+            if (lastChar != '/' && lastChar != '\\')
+                toFolder += '/';
+            foreach (var f in files)
+            {
+                var str = File.ReadAllText(f.FullName);
+                File.WriteAllText(toFolder + f.Name.Replace(".txt", "") + ".cs", str);
+            }
+        }
+
     }
 }

@@ -138,7 +138,9 @@ namespace TNT.Template.DataService.Data
                     var toRole = p.Attribute("ToRole").Value;
                     if (toRole.Equals(role1Name))
                     {
-                        navProp.Add(name, role1Type + "ViewModel");
+                        if (!role1multiplicity.Equals("*"))
+                            navProp.Add(name, role1Type + "ViewModel");
+                        else navProp.Add(name, "IEnumerable<" + role1Type + "ViewModel>");
                     }
                     else
                     {

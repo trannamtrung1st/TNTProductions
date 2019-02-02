@@ -1,0 +1,77 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestDataService.Global;
+using TestDataService.Models;
+using Newtonsoft.Json;
+
+namespace TestDataService.ViewModels
+{
+	public partial class EventTriggerViewModel: BaseViewModel<EventTrigger>
+	{
+		//[JsonProperty("iD")]
+		public int ID { get; set; }
+		//[JsonProperty("brandCode")]
+		public string BrandCode { get; set; }
+		//[JsonProperty("active")]
+		public bool Active { get; set; }
+		//[JsonProperty("action_SmsEnable")]
+		public bool? Action_SmsEnable { get; set; }
+		//[JsonProperty("action_EmailEnable")]
+		public bool? Action_EmailEnable { get; set; }
+		//[JsonProperty("action_LetterCode")]
+		public string Action_LetterCode { get; set; }
+		//[JsonProperty("action_LetterContent")]
+		public string Action_LetterContent { get; set; }
+		//[JsonProperty("action_Placeholder")]
+		public string Action_Placeholder { get; set; }
+		//[JsonProperty("event_OnEnterFilterCode")]
+		public string Event_OnEnterFilterCode { get; set; }
+		//[JsonProperty("event_OnLeaveFilterCode")]
+		public string Event_OnLeaveFilterCode { get; set; }
+		//[JsonProperty("event_OnSmsCodeConfirmed")]
+		public string Event_OnSmsCodeConfirmed { get; set; }
+		//[JsonProperty("event_OnEmailCodeConfirmed")]
+		public string Event_OnEmailCodeConfirmed { get; set; }
+		
+		public EventTriggerViewModel(EventTrigger entity) : base(entity)
+		{
+		}
+		
+		public EventTriggerViewModel()
+		{
+		}
+		
+	}
+	
+	public partial class UpdateEventTriggerViewModel: BaseUpdateViewModel<UpdateEventTriggerViewModel, EventTrigger>
+	{
+		//[JsonProperty("iD")]
+		public Wrapper<int> ID { get; set; }
+		//[JsonProperty("brandCode")]
+		public Wrapper<string> BrandCode { get; set; }
+		//[JsonProperty("active")]
+		public Wrapper<bool> Active { get; set; }
+		//[JsonProperty("action_SmsEnable")]
+		public Wrapper<bool?> Action_SmsEnable { get; set; }
+		//[JsonProperty("action_EmailEnable")]
+		public Wrapper<bool?> Action_EmailEnable { get; set; }
+		//[JsonProperty("action_LetterCode")]
+		public Wrapper<string> Action_LetterCode { get; set; }
+		//[JsonProperty("action_LetterContent")]
+		public Wrapper<string> Action_LetterContent { get; set; }
+		//[JsonProperty("action_Placeholder")]
+		public Wrapper<string> Action_Placeholder { get; set; }
+		//[JsonProperty("event_OnEnterFilterCode")]
+		public Wrapper<string> Event_OnEnterFilterCode { get; set; }
+		//[JsonProperty("event_OnLeaveFilterCode")]
+		public Wrapper<string> Event_OnLeaveFilterCode { get; set; }
+		//[JsonProperty("event_OnSmsCodeConfirmed")]
+		public Wrapper<string> Event_OnSmsCodeConfirmed { get; set; }
+		//[JsonProperty("event_OnEmailCodeConfirmed")]
+		public Wrapper<string> Event_OnEmailCodeConfirmed { get; set; }
+		
+	}
+}

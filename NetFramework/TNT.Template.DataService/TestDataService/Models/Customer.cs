@@ -12,31 +12,32 @@ namespace TestDataService.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AppUser
+    public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AppUser()
+        public Customer()
         {
-            this.Answers = new HashSet<Answer>();
-            this.Comments = new HashSet<Comment>();
-            this.Interactives = new HashSet<Interactive>();
-            this.Posts = new HashSet<Post>();
+            this.CustomerMetadatas = new HashSet<CustomerMetadata>();
+            this.CustomerFilters = new HashSet<CustomerFilter>();
         }
     
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public Nullable<System.DateTime> DoB { get; set; }
-        public Nullable<bool> Sex { get; set; }
+        public int ID { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
         public string Email { get; set; }
+        public Nullable<bool> Gender { get; set; }
+        public Nullable<System.DateTime> DoB { get; set; }
+        public string District { get; set; }
+        public string City { get; set; }
+        public string BrandCode { get; set; }
+        public string ImageUrl { get; set; }
         public bool Active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<CustomerMetadata> CustomerMetadatas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comment> Comments { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Interactive> Interactives { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<CustomerFilter> CustomerFilters { get; set; }
     }
 }

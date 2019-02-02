@@ -21,6 +21,10 @@
 	var manager = TemplateFileManager.Create(this);
 #>
 <#
+	var wrapper = new WrapperGen(dt);
+	manager.StartNewFile("WrapperGen.cs");
+#>
+<#=wrapper.Generate()#><#
 	var baseVM = new BaseVMGen(dt);
 	manager.StartNewFile("BaseViewModelGen.cs");
 #>
@@ -34,7 +38,7 @@
 	foreach (var e in dt.Entities)
 	{
 		var vmGen = new VMGen(e, jIgnore, except, JsonPropertyFormatEnum.CamelCase);
-		manager.StartNewFile(e.EntityName+"ViewModelGen.cs");
+		manager.StartNewFile(e.EntityName+"ViewModelGen.txt");
 #>
 <#=vmGen.Generate()#><#
 	}

@@ -12,15 +12,13 @@ namespace TestDataService.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Answer
+    public partial class CustomerMetadata
     {
-        public int OfUserId { get; set; }
-        public int ToPostId { get; set; }
-        public string TextContent { get; set; }
-        public Nullable<System.DateTime> PostedTime { get; set; }
+        public int CustomerID { get; set; }
+        public string MetadataKey { get; set; }
+        public string Value { get; set; }
         public bool Active { get; set; }
     
-        public virtual AppUser AppUser { get; set; }
-        public virtual Post Post { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }

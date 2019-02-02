@@ -8,43 +8,43 @@ using TestDataService.Global;
 
 namespace TestDataService.Models
 {
-	public partial class AppUser : BaseEntity
+	public partial class Customer : BaseEntity
 	{
 	}
 	
 }
 namespace TestDataService.Models.Extensions
 {
-	public static partial class AppUserExtension
+	public static partial class CustomerExtension
 	{
-		public static AppUser Id(this IQueryable<AppUser> query, int key)
+		public static Customer Id(this IQueryable<Customer> query, int key)
 		{
 			return query.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 		}
 		
-		public static AppUser Id(this IEnumerable<AppUser> query, int key)
+		public static Customer Id(this IEnumerable<Customer> query, int key)
 		{
 			return query.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 		}
 		
-		public static IQueryable<AppUser> Active(this IQueryable<AppUser> query)
+		public static IQueryable<Customer> Active(this IQueryable<Customer> query)
 		{
 			return query.Where(e => e.Active == true);
 		}
 		
-		public static IQueryable<AppUser> NotActive(this IQueryable<AppUser> query)
+		public static IQueryable<Customer> NotActive(this IQueryable<Customer> query)
 		{
 			return query.Where(e => e.Active == false);
 		}
 		
-		public static IEnumerable<AppUser> Active(this IEnumerable<AppUser> query)
+		public static IEnumerable<Customer> Active(this IEnumerable<Customer> query)
 		{
 			return query.Where(e => e.Active == true);
 		}
 		
-		public static IEnumerable<AppUser> NotActive(this IEnumerable<AppUser> query)
+		public static IEnumerable<Customer> NotActive(this IEnumerable<Customer> query)
 		{
 			return query.Where(e => e.Active == false);
 		}

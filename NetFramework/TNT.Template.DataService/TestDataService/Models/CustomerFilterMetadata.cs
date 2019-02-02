@@ -12,11 +12,13 @@ namespace TestDataService.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TagsOfPost
+    public partial class CustomerFilterMetadata
     {
-        public int PostId { get; set; }
-        public int TagId { get; set; }
+        public int FilterID { get; set; }
+        public string MetadataKey { get; set; }
+        public string Value { get; set; }
+        public bool Active { get; set; }
     
-        public virtual Post Post { get; set; }
+        public virtual CustomerFilter CustomerFilter { get; set; }
     }
 }

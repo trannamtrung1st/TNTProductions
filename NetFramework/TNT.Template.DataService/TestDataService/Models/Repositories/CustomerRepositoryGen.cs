@@ -10,32 +10,32 @@ using System.Data.Entity;
 
 namespace TestDataService.Models.Repositories
 {
-	public partial interface IInteractiveRepository : IBaseRepository<Interactive, int>
+	public partial interface ICustomerRepository : IBaseRepository<Customer, int>
 	{
 	}
 	
-	public partial class InteractiveRepository : BaseRepository<Interactive, int>, IInteractiveRepository
+	public partial class CustomerRepository : BaseRepository<Customer, int>, ICustomerRepository
 	{
-		public InteractiveRepository(IUnitOfWork uow) : base(uow)
+		public CustomerRepository(IUnitOfWork uow) : base(uow)
 		{
 		}
 		
-		public InteractiveRepository(DbContext context) : base(context)
+		public CustomerRepository(DbContext context) : base(context)
 		{
 		}
 		
 		#region CRUD area
-		public override Interactive FindById(int key)
+		public override Customer FindById(int key)
 		{
 			var entity = dbSet.FirstOrDefault(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
-		public override async Task<Interactive> FindByIdAsync(int key)
+		public override async Task<Customer> FindByIdAsync(int key)
 		{
 			var entity = await dbSet.FirstOrDefaultAsync(
-				e => e.Id == key);
+				e => e.ID == key);
 			return entity;
 		}
 		
