@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataService.Global;
+using DataService.Models;
+using Newtonsoft.Json;
+
+namespace DataService.ViewModels
+{
+	public partial class TagsOfPostViewModel: BaseViewModel<TagsOfPost>
+	{
+		//[JsonProperty("post_id")]
+		public int PostId { get; set; }
+		//[JsonProperty("tag_id")]
+		public int TagId { get; set; }
+		//[JsonProperty("post")]
+		//public PostViewModel PostVM { get; set; }
+		//[JsonProperty("tag")]
+		//public TagsViewModel TagVM { get; set; }
+		
+		public TagsOfPostViewModel(TagsOfPost entity) : base(entity)
+		{
+		}
+		
+		public TagsOfPostViewModel()
+		{
+		}
+		
+	}
+	
+	public partial class UpdateTagsOfPostViewModel: BaseUpdateViewModel<UpdateTagsOfPostViewModel, TagsOfPost>
+	{
+		//[JsonProperty("post_id")]
+		public Wrapper<int> PostId { get; set; }
+		//[JsonProperty("tag_id")]
+		public Wrapper<int> TagId { get; set; }
+		//[JsonProperty("post")]
+		//public PostViewModel PostVM { get; set; }
+		//[JsonProperty("tag")]
+		//public TagsViewModel TagVM { get; set; }
+		
+	}
+}

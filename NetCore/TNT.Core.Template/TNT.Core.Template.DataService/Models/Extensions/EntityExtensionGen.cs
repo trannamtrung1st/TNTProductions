@@ -133,9 +133,16 @@ namespace TNT.Core.Template.DataService.Models.Extensions
             m6.Body.Add(new StatementGen(
                 "return query" + (EInfo.Data.ActiveCol ? ".Where(e => e.Active == false);" : ".Where(e => e.Deactive == true);")));
 
+            var m7 = new ContainerGen();
+            m7.Signature = "public static bool Existed(this IQueryable<`entity`> query, `entityPK` key)";
+            m7.Body.Add(
+                new StatementGen("return query.Any("),
+                new StatementGen(GetKeyCompareExpr() + ");"));
+
             EntityExtensionBody.Add(
                 m1, new StatementGen(""),
-                m2, new StatementGen(""));
+                m2, new StatementGen(""),
+                m7, new StatementGen(""));
 
             if (EInfo.Activable)
             {

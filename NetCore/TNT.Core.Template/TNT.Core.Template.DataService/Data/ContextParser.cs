@@ -41,6 +41,7 @@ namespace TNT.Core.Template.DataService.Data
                 { "String", "string" },
                 { "Decimal", "decimal" },
                 { "DateTime", "DateTime" },
+                { "TimeSpan", "System.TimeSpan" },
                 { "Binary", "byte[]" },
                 { "Guid", "System.Guid" },
                 { "Time", "System.TimeSpan" }
@@ -138,7 +139,7 @@ namespace TNT.Core.Template.DataService.Data
         {
             var colName = (Data.ActiveCol ? "Active" : "Deactive");
             var prop = eType.FindProperty(colName);
-            return (prop != null && !prop.IsNullable && prop.ClrType.Equals(typeof(bool)));
+            return (prop != null && (prop.ClrType.Equals(typeof(bool)) || prop.ClrType.Equals(typeof(bool?))));
         }
 
     }

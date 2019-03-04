@@ -1,0 +1,69 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataService.Global;
+using DataService.Models;
+using Newtonsoft.Json;
+
+namespace DataService.ViewModels
+{
+	public partial class CommentViewModel: BaseViewModel<Comment>
+	{
+		//[JsonProperty("id")]
+		public int Id { get; set; }
+		//[JsonProperty("active")]
+		public bool Active { get; set; }
+		//[JsonProperty("of_user_id")]
+		public int? OfUserId { get; set; }
+		//[JsonProperty("posted_time")]
+		public DateTime? PostedTime { get; set; }
+		//[JsonProperty("text_content")]
+		public string TextContent { get; set; }
+		//[JsonProperty("to_answer_id")]
+		public int? ToAnswerId { get; set; }
+		//[JsonProperty("to_post_id")]
+		public int? ToPostId { get; set; }
+		//[JsonProperty("of_user")]
+		//public AppUserViewModel OfUserVM { get; set; }
+		//[JsonProperty("to_post")]
+		//public PostViewModel ToPostVM { get; set; }
+		//[JsonProperty("interactive")]
+		//public IEnumerable<InteractiveViewModel> InteractiveVM { get; set; }
+		
+		public CommentViewModel(Comment entity) : base(entity)
+		{
+		}
+		
+		public CommentViewModel()
+		{
+		}
+		
+	}
+	
+	public partial class UpdateCommentViewModel: BaseUpdateViewModel<UpdateCommentViewModel, Comment>
+	{
+		//[JsonProperty("id")]
+		public Wrapper<int> Id { get; set; }
+		//[JsonProperty("active")]
+		public Wrapper<bool> Active { get; set; }
+		//[JsonProperty("of_user_id")]
+		public Wrapper<int?> OfUserId { get; set; }
+		//[JsonProperty("posted_time")]
+		public Wrapper<DateTime?> PostedTime { get; set; }
+		//[JsonProperty("text_content")]
+		public Wrapper<string> TextContent { get; set; }
+		//[JsonProperty("to_answer_id")]
+		public Wrapper<int?> ToAnswerId { get; set; }
+		//[JsonProperty("to_post_id")]
+		public Wrapper<int?> ToPostId { get; set; }
+		//[JsonProperty("of_user")]
+		//public AppUserViewModel OfUserVM { get; set; }
+		//[JsonProperty("to_post")]
+		//public PostViewModel ToPostVM { get; set; }
+		//[JsonProperty("interactive")]
+		//public IEnumerable<InteractiveViewModel> InteractiveVM { get; set; }
+		
+	}
+}

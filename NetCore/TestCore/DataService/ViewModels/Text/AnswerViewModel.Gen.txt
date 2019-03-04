@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataService.Global;
+using DataService.Models;
+using Newtonsoft.Json;
+
+namespace DataService.ViewModels
+{
+	public partial class AnswerViewModel: BaseViewModel<Answer>
+	{
+		//[JsonProperty("of_user_id")]
+		public int OfUserId { get; set; }
+		//[JsonProperty("to_post_id")]
+		public int ToPostId { get; set; }
+		//[JsonProperty("active")]
+		public bool Active { get; set; }
+		//[JsonProperty("posted_time")]
+		public DateTime? PostedTime { get; set; }
+		//[JsonProperty("text_content")]
+		public string TextContent { get; set; }
+		//[JsonProperty("of_user")]
+		//public AppUserViewModel OfUserVM { get; set; }
+		//[JsonProperty("to_post")]
+		//public PostViewModel ToPostVM { get; set; }
+		
+		public AnswerViewModel(Answer entity) : base(entity)
+		{
+		}
+		
+		public AnswerViewModel()
+		{
+		}
+		
+	}
+	
+	public partial class UpdateAnswerViewModel: BaseUpdateViewModel<UpdateAnswerViewModel, Answer>
+	{
+		//[JsonProperty("of_user_id")]
+		public Wrapper<int> OfUserId { get; set; }
+		//[JsonProperty("to_post_id")]
+		public Wrapper<int> ToPostId { get; set; }
+		//[JsonProperty("active")]
+		public Wrapper<bool> Active { get; set; }
+		//[JsonProperty("posted_time")]
+		public Wrapper<DateTime?> PostedTime { get; set; }
+		//[JsonProperty("text_content")]
+		public Wrapper<string> TextContent { get; set; }
+		//[JsonProperty("of_user")]
+		//public AppUserViewModel OfUserVM { get; set; }
+		//[JsonProperty("to_post")]
+		//public PostViewModel ToPostVM { get; set; }
+		
+	}
+}

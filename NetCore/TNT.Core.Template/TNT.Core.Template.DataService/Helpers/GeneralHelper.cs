@@ -13,7 +13,7 @@ namespace TNT.Core.Template.DataService.Helpers
     public static class GeneralHelper
     {
         public static void ExecuteScaffoldFromCmd(string projectPath,
-            string server, string database, string user, string password, string output, string context)
+            string server, string database, string user, string password, string output, string context, bool trustedConnection = false)
         {
             Process cmd = new Process();
             cmd.StartInfo.FileName = "cmd.exe";
@@ -23,9 +23,9 @@ namespace TNT.Core.Template.DataService.Helpers
 
             cmd.StandardInput.WriteLine("cd " + projectPath);
             cmd.StandardInput.WriteLine(String.Format(
-                "dotnet ef dbcontext scaffold \"Server={0}; Database={1}; Trusted_Connection = True;User Id={3};Password={4};\" " +
+                "dotnet ef dbcontext scaffold \"Server={0}; Database={1}; Trusted_Connection = {6};User Id={2};Password={3};\" " +
                 "Microsoft.EntityFrameworkCore.SqlServer -o {4} -c {5} -f",
-                server, database, user, password, output, context));
+                server, database, user, password, output, context, trustedConnection ? "True" : "False"));
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
             cmd.Close();
