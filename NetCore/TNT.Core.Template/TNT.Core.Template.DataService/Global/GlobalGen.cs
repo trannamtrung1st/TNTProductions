@@ -124,9 +124,11 @@ namespace TNT.Core.Template.DataService.Global
                     "repoOpt.InjectableConstructors = new Dictionary<int, Params[]>();",
                     "repoOpt.InjectableConstructors[0] = new Params[] { Params.Injectable<IUnitOfWork>() };",
                     "",
-                    "Builder.RegisterType<IUnitOfWork, UnitOfWork>(container => new UnitOfWork(container))");
-                s2.Add("\t.RegisterType<" + Data.ContextName + ", UnitOfWork>(container => new UnitOfWork(container))");
-                s2.Add("\t.RegisterType<DbContext, UnitOfWork>(container => new UnitOfWork(container))");
+                    "Builder.RegisterType<ITContainer>(container => container)");
+                s2.Add("\t.RegisterType<UnitOfWork>(container => container.Resolve<UnitOfWork>())");
+                s2.Add("\t.RegisterType<IUnitOfWork, UnitOfWork>(container => container.Resolve<UnitOfWork>())");
+                s2.Add("\t.RegisterType<" + Data.ContextName + ", UnitOfWork>(container => container.Resolve<UnitOfWork>())");
+                s2.Add("\t.RegisterType<DbContext, UnitOfWork>(container => container.Resolve<UnitOfWork>())");
 
                 var entities = Data.Entities;
                 var len = entities.Count;
@@ -147,9 +149,10 @@ namespace TNT.Core.Template.DataService.Global
                 method.Signature = "private static void ConfigureIoC(IServiceCollection services)";
 
                 var s2 = new StatementGen("//IoC",
-                    "services.AddScoped<IUnitOfWork, UnitOfWork>(provider => new UnitOfWork(provider))");
-                s2.Add("\t.AddScoped<" + Data.ContextName + ", UnitOfWork>(provider => new UnitOfWork(provider))");
-                s2.Add("\t.AddScoped<DbContext, UnitOfWork>(provider => new UnitOfWork(provider))");
+                    "services.AddScoped<UnitOfWork>()");
+                s2.Add("\t.AddScoped<IUnitOfWork, UnitOfWork>()");
+                s2.Add("\t.AddScoped<" + Data.ContextName + ", UnitOfWork>()");
+                s2.Add("\t.AddScoped<DbContext, UnitOfWork>()");
 
                 var entities = Data.Entities;
                 var len = entities.Count;

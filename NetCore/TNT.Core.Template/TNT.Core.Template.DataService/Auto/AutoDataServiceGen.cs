@@ -23,6 +23,8 @@ namespace TNT.Core.Template.DataService.Auto
 
         private string ProjectName { get; set; }
         private string ProjectPath { get; set; }
+        private string OutputPath { get; set; }
+
         private JsonPropertyFormatEnum Style { get; set; }
         private ContextInfo Data { get; set; }
         private string[] VMJsonIgnoreProps { get; set; } = new string[] { };
@@ -38,11 +40,46 @@ namespace TNT.Core.Template.DataService.Auto
             bool requestScope = false
             )
         {
-
             ProjectPath = projectPath;
+
             if (ProjectPath[ProjectPath.Length - 1] == '\\' || ProjectPath[ProjectPath.Length - 1] == '/')
                 ProjectPath = ProjectPath.Remove(ProjectPath.Length - 1);
             ProjectPath += "/";
+            OutputPath = ProjectPath;
+
+            var curDir = Directory.GetCurrentDirectory() + '/';
+
+            this.Style = vmPropStyle;
+            ProjectName = projectName;
+
+            Data = new ContextParser(dbContext, projectName).Data;
+            Data.DIContainer = dIContainer;
+            Data.RequestScope = requestScope;
+            Data.ActiveCol = activeCol;
+        }
+
+        public AutoDataServiceGen(
+            DbContext dbContext,
+            string projectPath,
+            string outputPath,
+            string projectName,
+            JsonPropertyFormatEnum vmPropStyle,
+            DIContainer dIContainer,
+            bool activeCol = true,
+            bool requestScope = false
+            )
+        {
+            ProjectPath = projectPath;
+
+            if (ProjectPath[ProjectPath.Length - 1] == '\\' || ProjectPath[ProjectPath.Length - 1] == '/')
+                ProjectPath = ProjectPath.Remove(ProjectPath.Length - 1);
+            ProjectPath += "/";
+
+            OutputPath = outputPath;
+
+            if (OutputPath[OutputPath.Length - 1] == '\\' || OutputPath[OutputPath.Length - 1] == '/')
+                OutputPath = OutputPath.Remove(OutputPath.Length - 1);
+            OutputPath += "/";
 
             var curDir = Directory.GetCurrentDirectory() + '/';
 
@@ -80,39 +117,41 @@ namespace TNT.Core.Template.DataService.Auto
 
         private void DeleteOldGeneratedFiles()
         {
-            FileHelper.DeleteDataServiceStructure(ProjectPath);
+            if (!ProjectPath.Equals(OutputPath))
+                FileHelper.DeleteDataServiceStructure(ProjectPath);
+            FileHelper.DeleteDataServiceStructure(OutputPath);
         }
 
         private void GenerateViewModel()
         {
             var baseVMGen = new BaseVMGen(Data);
-            FileHelper.Write(ProjectPath + "ViewModels", "BaseViewModel.Gen.cs", baseVMGen.Generate());
+            FileHelper.Write(OutputPath + "ViewModels/Gen", "BaseViewModel.Gen.cs", baseVMGen.Generate());
 
             var wrapperGen = new WrapperGen(Data);
-            FileHelper.Write(ProjectPath + "ViewModels", "Wrapper.Gen.cs", wrapperGen.Generate());
+            FileHelper.Write(OutputPath + "ViewModels/Gen", "Wrapper.Gen.cs", wrapperGen.Generate());
 
             foreach (var e in Data.Entities)
             {
                 var vmGen = new VMGen(e, VMJsonIgnoreProps,
                     VMExceptProps, Style);
-                FileHelper.Write(ProjectPath + "ViewModels/Text", e.EntityName + "ViewModel.Gen.txt", vmGen.Generate());
+                FileHelper.Write(OutputPath + "ViewModels/Gen", e.EntityName + "ViewModel.Gen.txt", vmGen.Generate());
             }
         }
 
         private void GenerateGlobal()
         {
             var gGen = new GlobalGen(Data);
-            FileHelper.Write(ProjectPath + "Global", "Global.Gen.cs", gGen.Generate());
+            FileHelper.Write(OutputPath + "Global/Gen", "Global.Gen.cs", gGen.Generate());
         }
 
         private void GenerateEntityExtension()
         {
             var baseEGen = new EntityGen(Data);
-            FileHelper.Write(ProjectPath + "Models/Extensions", "BaseEntity.Gen.cs", baseEGen.Generate());
+            FileHelper.Write(OutputPath + "Models/Extensions/Gen", "BaseEntity.Gen.cs", baseEGen.Generate());
             foreach (var e in Data.Entities)
             {
                 var eGen = new EntityExtensionGen(e);
-                FileHelper.Write(ProjectPath + "Models/Extensions", e.EntityName + "Extensions.Gen.cs",
+                FileHelper.Write(OutputPath + "Models/Extensions/Gen", e.EntityName + "Extensions.Gen.cs",
                     eGen.Generate() + "\r\n\r\n" + eGen.ENamespace.Generate());
             }
         }
@@ -120,24 +159,24 @@ namespace TNT.Core.Template.DataService.Auto
         private void GenerateRepository()
         {
             var rGen = new RepositoryGen(Data);
-            FileHelper.Write(ProjectPath + "Models/Repositories", "BaseRepository.Gen.cs", rGen.Generate());
+            FileHelper.Write(OutputPath + "Models/Repositories/Gen", "BaseRepository.Gen.cs", rGen.Generate());
             foreach (var e in Data.Entities)
             {
                 var eRGen = new EntityRepositoryGen(e);
-                FileHelper.Write(ProjectPath + "Models/Repositories", e.EntityName + "Repository.Gen.cs", eRGen.Generate());
+                FileHelper.Write(OutputPath + "Models/Repositories/Gen", e.EntityName + "Repository.Gen.cs", eRGen.Generate());
             }
         }
 
         private void GenerateManager()
         {
             var uow = new UnitOfWorkGen(Data);
-            FileHelper.Write(ProjectPath + "Models", "UnitOfWork.Gen.cs", uow.Generate());
+            FileHelper.Write(OutputPath + "Models/Gen", "UnitOfWork.Gen.cs", uow.Generate());
         }
 
         private void GenerateDomain()
         {
             var dGen = new BaseDomainGen(Data);
-            FileHelper.Write(ProjectPath + "Models/Domains", "BaseDomain.Gen.cs", dGen.Generate());
+            FileHelper.Write(OutputPath + "Models/Domains/Gen", "BaseDomain.Gen.cs", dGen.Generate());
         }
 
     }

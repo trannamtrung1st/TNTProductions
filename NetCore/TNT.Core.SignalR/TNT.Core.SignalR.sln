@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28705.295
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TNT.Core.SignalR", "TNT.Core.SignalR\TNT.Core.SignalR.csproj", "{84FC16A2-D165-4B5B-904D-D1981071F306}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84FC16A2-D165-4B5B-904D-D1981071F306}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84FC16A2-D165-4B5B-904D-D1981071F306}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84FC16A2-D165-4B5B-904D-D1981071F306}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84FC16A2-D165-4B5B-904D-D1981071F306}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7BF09EB4-FCA2-4988-B681-8E14FBF4204B}
+	EndGlobalSection
+EndGlobal

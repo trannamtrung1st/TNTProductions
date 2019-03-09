@@ -12,7 +12,7 @@ namespace TNT.Core.Template.DataService.Helpers
 {
     public static class GeneralHelper
     {
-        public static void ExecuteScaffoldFromCmd(string projectPath,
+        public static Process ExecuteScaffoldFromCmd(string projectPath,
             string server, string database, string user, string password, string output, string context, bool trustedConnection = false)
         {
             Process cmd = new Process();
@@ -28,7 +28,37 @@ namespace TNT.Core.Template.DataService.Helpers
                 server, database, user, password, output, context, trustedConnection ? "True" : "False"));
             cmd.StandardInput.Flush();
             cmd.StandardInput.Close();
-            cmd.Close();
+            return cmd;
+        }
+
+        public static Process ExecuteBuildProjectCmd(string solutionPath, string projectName)
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+
+            cmd.StandardInput.WriteLine("cd " + solutionPath);
+            cmd.StandardInput.WriteLine(String.Format("dotnet build {0}", projectName));
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            return cmd;
+        }
+
+        public static Process ExecuteRunDllCmd(string parent, string dllFile)
+        {
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = "cmd.exe";
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+
+            cmd.StandardInput.WriteLine("cd " + parent);
+            cmd.StandardInput.WriteLine(String.Format("dotnet {0}", dllFile));
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            return cmd;
         }
 
         public enum JsonPropertyFormatEnum

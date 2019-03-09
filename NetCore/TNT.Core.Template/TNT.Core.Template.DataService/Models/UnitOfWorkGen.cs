@@ -91,8 +91,14 @@ namespace TNT.Core.Template.DataService.Models
                 "public DbContext Context { get; }");
 
             var c21 = new ContainerGen();
-            c21.Signature = "public UnitOfWork(" + Container + " scope)";
+            c21.Signature = "public UnitOfWork(" + Container + " scope) : base()";
             c21.Body.Add(new StatementGen(
+                "Scope = scope;",
+                "Context = this;"));
+
+            var c22 = new ContainerGen();
+            c22.Signature = "public UnitOfWork(" + Container + " scope, DbContextOptions<`context`> options) : base(options)";
+            c22.Body.Add(new StatementGen(
                 "Scope = scope;",
                 "Context = this;"));
 
@@ -119,6 +125,7 @@ namespace TNT.Core.Template.DataService.Models
 
             UnitOfWorkBody.Add(
                 c21, new StatementGen(""),
+                c22, new StatementGen(""),
                 s1, new StatementGen(""),
                 m3, new StatementGen(""),
                 m4, new StatementGen(""),
