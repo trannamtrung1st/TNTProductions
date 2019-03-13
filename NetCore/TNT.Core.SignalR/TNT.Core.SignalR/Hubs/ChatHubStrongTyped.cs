@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace TNT.Core.SignalR.Hubs
         Task ReceiveMessage(string user, string message);
         Task ReceiveMessage(string message);
     }
+
     public class ChatHubStrongTyped : Hub<IChatClient>
     {
 
@@ -18,9 +20,12 @@ namespace TNT.Core.SignalR.Hubs
         {
         }
 
+        [Authorize]
         [HubMethodName("SendMessage")]
         public async Task SendMessage(string user, string message)
         {
+            var id = Context.UserIdentifier;
+            await Clients.User("TNT").ReceiveMessage("System", "You're the one");
             await Clients.All.ReceiveMessage(user, message);
         }
 
