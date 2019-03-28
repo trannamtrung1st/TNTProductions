@@ -5,16 +5,21 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="13109d161a6246a68f44a771c0999185" Name="Diagram1">
-        <EntityTypeShape EntityType="AppModel.AppAction" Width="1.5" PointX="5.75" PointY="4.75" />
-        <EntityTypeShape EntityType="AppModel.Customer" Width="1.5" PointX="0.75" PointY="2.25" />
-        <EntityTypeShape EntityType="AppModel.CustomerEvent" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="AppModel.CustomerFilter" Width="1.5" PointX="3" PointY="1.125" />
-        <EntityTypeShape EntityType="AppModel.CustomerFilterMetadata" Width="1.5" PointX="5.25" PointY="1.875" />
-        <EntityTypeShape EntityType="AppModel.CustomerMetadata" Width="1.5" PointX="3" PointY="5.375" />
-        <EntityTypeShape EntityType="AppModel.EventTrigger" Width="1.5" PointX="7.75" PointY="4.75" />
-        <AssociationConnector Association="AppModel.FK_CustomerMetadata_Customer" />
-        <AssociationConnector Association="AppModel.FK_CustomerFilterMetadata_CustomerFilter" />
-        <AssociationConnector Association="AppModel.Customers_Filters" />
+        <EntityTypeShape EntityType="AppModel.Answer" Width="1.5" PointX="5.25" PointY="8.625" />
+        <EntityTypeShape EntityType="AppModel.AppUser" Width="1.5" PointX="0.75" PointY="4.875" />
+        <EntityTypeShape EntityType="AppModel.Comment" Width="1.5" PointX="8.25" PointY="8.375" />
+        <EntityTypeShape EntityType="AppModel.Interactive" Width="1.5" PointX="10.5" PointY="8.25" />
+        <EntityTypeShape EntityType="AppModel.Post" Width="1.5" PointX="3" PointY="11.625" />
+        <EntityTypeShape EntityType="AppModel.Tag" Width="1.5" PointX="5.25" PointY="12.25" />
+        <AssociationConnector Association="AppModel.FK_Answer_AppUser" />
+        <AssociationConnector Association="AppModel.FK_Answer_Post" />
+        <AssociationConnector Association="AppModel.FK_Comment_AppUser" />
+        <AssociationConnector Association="AppModel.FK_Interactive_AppUser" />
+        <AssociationConnector Association="AppModel.FK_Post_AppUser" />
+        <AssociationConnector Association="AppModel.FK_Comment_Post" />
+        <AssociationConnector Association="AppModel.FK_Interactive_Comment" />
+        <AssociationConnector Association="AppModel.FK_Interactive_Post" />
+        <AssociationConnector Association="AppModel.TagsOfPost" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

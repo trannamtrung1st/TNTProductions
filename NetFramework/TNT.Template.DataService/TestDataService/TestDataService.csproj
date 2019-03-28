@@ -74,15 +74,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\GeneralHelpersGen.cs">
-      <DependentUpon>HelpersTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\HelpersTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HelpersTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AppAction.cs">
+    <Compile Include="Models\Answer.cs">
       <DependentUpon>AppEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AppEntity.Context.cs">
@@ -100,47 +92,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppEntity.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Customer.cs">
+    <Compile Include="Models\AppUser.cs">
       <DependentUpon>AppEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CustomerEvent.cs">
-      <DependentUpon>AppEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CustomerFilter.cs">
-      <DependentUpon>AppEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CustomerFilterMetadata.cs">
-      <DependentUpon>AppEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CustomerMetadata.cs">
+    <Compile Include="Models\Comment.cs">
       <DependentUpon>AppEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Domains\BaseDomainGen.cs" />
-    <Compile Include="Models\EventTrigger.cs">
-      <DependentUpon>AppEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Extensions\AppActionExtensionGen.cs">
+    <Compile Include="Models\Extensions\AnswerExtensionGen.cs">
       <DependentUpon>ExtensionTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Extensions\CustomerEventExtensionGen.cs">
+    <Compile Include="Models\Extensions\AppUserExtensionGen.cs">
       <DependentUpon>ExtensionTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Extensions\CustomerExtensionGen.cs">
-      <DependentUpon>ExtensionTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Extensions\CustomerFilterExtensionGen.cs">
-      <DependentUpon>ExtensionTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Extensions\CustomerFilterMetadataExtensionGen.cs">
-      <DependentUpon>ExtensionTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Extensions\CustomerMetadataExtensionGen.cs">
+    <Compile Include="Models\Extensions\CommentExtensionGen.cs">
       <DependentUpon>ExtensionTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Extensions\EntityGen.cs">
-      <DependentUpon>ExtensionTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Extensions\EventTriggerExtensionGen.cs">
       <DependentUpon>ExtensionTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Extensions\ExtensionTemplate.cs">
@@ -148,34 +116,49 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExtensionTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repositories\AppActionRepositoryGen.cs">
+    <Compile Include="Models\Extensions\InteractiveExtensionGen.cs">
+      <DependentUpon>ExtensionTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\PostExtensionGen.cs">
+      <DependentUpon>ExtensionTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Extensions\TagExtensionGen.cs">
+      <DependentUpon>ExtensionTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Interactive.cs">
+      <DependentUpon>AppEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Post.cs">
+      <DependentUpon>AppEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\AnswerRepositoryGen.cs">
+      <DependentUpon>RepositoryTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\AppUserRepositoryGen.cs">
       <DependentUpon>RepositoryTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repositories\BaseRepositoryGen.cs">
       <DependentUpon>RepositoryTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repositories\CustomerEventRepositoryGen.cs">
+    <Compile Include="Models\Repositories\CommentRepositoryGen.cs">
       <DependentUpon>RepositoryTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repositories\CustomerFilterMetadataRepositoryGen.cs">
+    <Compile Include="Models\Repositories\InteractiveRepositoryGen.cs">
       <DependentUpon>RepositoryTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repositories\CustomerFilterRepositoryGen.cs">
-      <DependentUpon>RepositoryTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Repositories\CustomerMetadataRepositoryGen.cs">
-      <DependentUpon>RepositoryTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Repositories\CustomerRepositoryGen.cs">
-      <DependentUpon>RepositoryTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Repositories\EventTriggerRepositoryGen.cs">
+    <Compile Include="Models\Repositories\PostRepositoryGen.cs">
       <DependentUpon>RepositoryTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Repositories\RepositoryTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RepositoryTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Repositories\TagRepositoryGen.cs">
+      <DependentUpon>RepositoryTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Tag.cs">
+      <DependentUpon>AppEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UnitOfWorkGen.cs" />
     <Compile Include="Program.cs" />
@@ -219,10 +202,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>GlobalTemplate.cs</LastGenOutput>
     </Content>
-    <Content Include="Helpers\HelpersTemplate.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>HelpersTemplate.cs</LastGenOutput>
-    </Content>
     <Content Include="Models\AppEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AppEntity.Context.cs</LastGenOutput>
@@ -241,25 +220,22 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RepositoryTemplate.cs</LastGenOutput>
     </Content>
-    <Content Include="ViewModels\AppActionViewModelGen.txt">
+    <Content Include="ViewModels\AnswerViewModelGen.txt">
       <DependentUpon>ViewModelTemplate.tt</DependentUpon>
     </Content>
-    <Content Include="ViewModels\CustomerEventViewModelGen.txt">
+    <Content Include="ViewModels\AppUserViewModelGen.txt">
       <DependentUpon>ViewModelTemplate.tt</DependentUpon>
     </Content>
-    <Content Include="ViewModels\CustomerFilterMetadataViewModelGen.txt">
+    <Content Include="ViewModels\CommentViewModelGen.txt">
       <DependentUpon>ViewModelTemplate.tt</DependentUpon>
     </Content>
-    <Content Include="ViewModels\CustomerFilterViewModelGen.txt">
+    <Content Include="ViewModels\InteractiveViewModelGen.txt">
       <DependentUpon>ViewModelTemplate.tt</DependentUpon>
     </Content>
-    <Content Include="ViewModels\CustomerMetadataViewModelGen.txt">
+    <Content Include="ViewModels\PostViewModelGen.txt">
       <DependentUpon>ViewModelTemplate.tt</DependentUpon>
     </Content>
-    <Content Include="ViewModels\CustomerViewModelGen.txt">
-      <DependentUpon>ViewModelTemplate.tt</DependentUpon>
-    </Content>
-    <Content Include="ViewModels\EventTriggerViewModelGen.txt">
+    <Content Include="ViewModels\TagViewModelGen.txt">
       <DependentUpon>ViewModelTemplate.tt</DependentUpon>
     </Content>
     <Content Include="ViewModels\ViewModelTemplate.tt">

@@ -12,13 +12,20 @@ namespace TestDataService.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class CustomerFilterMetadata
+    public partial class Tag
     {
-        public int FilterID { get; set; }
-        public string MetadataKey { get; set; }
-        public string Value { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tag()
+        {
+            this.Posts = new HashSet<Post>();
+        }
+    
+        public int Id { get; set; }
+        public string TagCode { get; set; }
+        public string Description { get; set; }
         public bool Active { get; set; }
     
-        public virtual CustomerFilter CustomerFilter { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

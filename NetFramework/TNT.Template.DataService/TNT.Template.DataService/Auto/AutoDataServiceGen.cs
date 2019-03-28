@@ -101,14 +101,14 @@ namespace TNT.Template.DataService.Auto
             GenerateRepository();
             GenerateManager();
             GenerateDomain();
-            GenerateHelpers();
+            //GenerateHelpers();
         }
 
-        private void GenerateHelpers()
-        {
-            var uGen = new AutoHelpersGen(Data, ExtraDirectives.ToArray());
-            FileHelper.Write(ProjectPath + "Helpers", "HelpersTemplate.tt", uGen.Generate());
-        }
+        //private void GenerateHelpers()
+        //{
+        //    var uGen = new AutoHelpersGen(Data, ExtraDirectives.ToArray());
+        //    FileHelper.Write(ProjectPath + "Helpers", "HelpersTemplate.tt", uGen.Generate());
+        //}
 
         private void GenerateTemplateManager()
         {

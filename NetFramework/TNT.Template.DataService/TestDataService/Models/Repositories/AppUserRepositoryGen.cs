@@ -10,32 +10,32 @@ using System.Data.Entity;
 
 namespace TestDataService.Models.Repositories
 {
-	public partial interface ICustomerEventRepository : IBaseRepository<CustomerEvent, int>
+	public partial interface IAppUserRepository : IBaseRepository<AppUser, int>
 	{
 	}
 	
-	public partial class CustomerEventRepository : BaseRepository<CustomerEvent, int>, ICustomerEventRepository
+	public partial class AppUserRepository : BaseRepository<AppUser, int>, IAppUserRepository
 	{
-		public CustomerEventRepository(IUnitOfWork uow) : base(uow)
+		public AppUserRepository(IUnitOfWork uow) : base(uow)
 		{
 		}
 		
-		public CustomerEventRepository(DbContext context) : base(context)
+		public AppUserRepository(DbContext context) : base(context)
 		{
 		}
 		
 		#region CRUD area
-		public override CustomerEvent FindById(int key)
+		public override AppUser FindById(int key)
 		{
 			var entity = dbSet.FirstOrDefault(
-				e => e.ID == key);
+				e => e.Id == key);
 			return entity;
 		}
 		
-		public override async Task<CustomerEvent> FindByIdAsync(int key)
+		public override async Task<AppUser> FindByIdAsync(int key)
 		{
 			var entity = await dbSet.FirstOrDefaultAsync(
-				e => e.ID == key);
+				e => e.Id == key);
 			return entity;
 		}
 		

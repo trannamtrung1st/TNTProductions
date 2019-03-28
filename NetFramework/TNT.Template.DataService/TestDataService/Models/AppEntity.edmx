@@ -5,187 +5,248 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="AppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="AppAction">
+        <EntityType Name="Answer">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="OfUserId" />
+            <PropertyRef Name="ToPostId" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Type" Type="int" />
-          <Property Name="CustomerCode" Type="varchar" MaxLength="50" />
-          <Property Name="BrandCode" Type="varchar" MaxLength="50" />
-          <Property Name="Detail_LetterCode" Type="varchar" MaxLength="50" />
-          <Property Name="Detail_LetterContent" Type="nvarchar(max)" />
-          <Property Name="Detail_ToCustomerCode" Type="varchar" MaxLength="50" />
-          <Property Name="Detail_ToPhoneNumber" Type="varchar" MaxLength="20" />
-          <Property Name="Detail_ToEmail" Type="varchar" MaxLength="100" />
-        </EntityType>
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Code" Type="varchar" MaxLength="50" />
-          <Property Name="Name" Type="nvarchar" MaxLength="250" />
-          <Property Name="Address" Type="nvarchar" MaxLength="250" />
-          <Property Name="Phone" Type="varchar" MaxLength="50" />
-          <Property Name="Email" Type="varchar" MaxLength="250" />
-          <Property Name="Gender" Type="bit" />
-          <Property Name="DoB" Type="date" />
-          <Property Name="District" Type="nvarchar" MaxLength="100" />
-          <Property Name="City" Type="nvarchar" MaxLength="50" />
-          <Property Name="BrandCode" Type="varchar" MaxLength="50" />
-          <Property Name="ImageUrl" Type="nvarchar(max)" />
+          <Property Name="OfUserId" Type="int" Nullable="false" />
+          <Property Name="ToPostId" Type="int" Nullable="false" />
+          <Property Name="TextContent" Type="text" />
+          <Property Name="PostedTime" Type="datetime" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="CustomerEvent">
+        <EntityType Name="AppUser">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Code" Type="varchar" MaxLength="50" />
-          <Property Name="CustomerCode" Type="varchar" MaxLength="50" />
-          <Property Name="Type" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="100" />
+          <Property Name="DoB" Type="datetime" />
+          <Property Name="Sex" Type="bit" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ToPostId" Type="int" />
+          <Property Name="ToAnswerId" Type="int" />
+          <Property Name="TextContent" Type="nvarchar" MaxLength="250" />
+          <Property Name="PostedTime" Type="datetime" />
+          <Property Name="OfUserId" Type="int" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Interactive">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ToPostId" Type="int" />
+          <Property Name="ToAnswerId" Type="int" />
+          <Property Name="ToCommentId" Type="int" />
+          <Property Name="IsLike" Type="bit" />
+          <Property Name="OfUserId" Type="int" />
           <Property Name="HappenedTime" Type="datetime" />
-          <Property Name="Creator" Type="nvarchar" MaxLength="100" />
-          <Property Name="BrandCode" Type="varchar" MaxLength="50" />
-          <Property Name="Detail_AddedFilterCode" Type="varchar" MaxLength="50" />
-          <Property Name="Detail_RemovedFilterCode" Type="varchar" MaxLength="50" />
-          <Property Name="Detail_ConfirmedCode" Type="varchar" MaxLength="50" />
-          <Property Name="Detail_ConfirmedMediaType" Type="int" />
-        </EntityType>
-        <EntityType Name="CustomerFilter">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Code" Type="varchar" MaxLength="50" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Description" Type="nvarchar" MaxLength="255" />
-          <Property Name="AgeFrom" Type="int" />
-          <Property Name="AgeTo" Type="int" />
-          <Property Name="BirthdayFrom" Type="datetime" />
-          <Property Name="BirthdayTo" Type="datetime" />
-          <Property Name="Gender" Type="bit" />
-          <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="BrandCode" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="CustomerFilterMetadata">
-          <Key>
-            <PropertyRef Name="FilterID" />
-            <PropertyRef Name="MetadataKey" />
-          </Key>
-          <Property Name="FilterID" Type="int" Nullable="false" />
-          <Property Name="MetadataKey" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Value" Type="nvarchar(max)" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="CustomerMetadata">
+        <EntityType Name="Post">
           <Key>
-            <PropertyRef Name="CustomerID" />
-            <PropertyRef Name="MetadataKey" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="CustomerID" Type="int" Nullable="false" />
-          <Property Name="MetadataKey" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Value" Type="nvarchar(max)" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="TextContent" Type="text" />
+          <Property Name="OfUserId" Type="int" />
+          <Property Name="PostedTime" Type="datetime" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="Customers_Filters">
+        <EntityType Name="Tags">
           <Key>
-            <PropertyRef Name="CustomerID" />
-            <PropertyRef Name="FilterID" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="CustomerID" Type="int" Nullable="false" />
-          <Property Name="FilterID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="EventTrigger">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BrandCode" Type="varchar" MaxLength="50" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TagCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
           <Property Name="Active" Type="bit" Nullable="false" />
-          <Property Name="Action_SmsEnable" Type="bit" />
-          <Property Name="Action_EmailEnable" Type="bit" />
-          <Property Name="Action_LetterCode" Type="varchar" MaxLength="50" />
-          <Property Name="Action_LetterContent" Type="nvarchar(max)" />
-          <Property Name="Action_Placeholder" Type="nvarchar(max)" />
-          <Property Name="Event_OnEnterFilterCode" Type="varchar" MaxLength="50" />
-          <Property Name="Event_OnLeaveFilterCode" Type="varchar" MaxLength="50" />
-          <Property Name="Event_OnSmsCodeConfirmed" Type="varchar" MaxLength="50" />
-          <Property Name="Event_OnEmailCodeConfirmed" Type="varchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK_CustomerFilterMetadata_CustomerFilter">
-          <End Role="CustomerFilter" Type="Self.CustomerFilter" Multiplicity="1" />
-          <End Role="CustomerFilterMetadata" Type="Self.CustomerFilterMetadata" Multiplicity="*" />
+        <EntityType Name="TagsOfPost">
+          <Key>
+            <PropertyRef Name="PostId" />
+            <PropertyRef Name="TagId" />
+          </Key>
+          <Property Name="PostId" Type="int" Nullable="false" />
+          <Property Name="TagId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Answer_AppUser">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CustomerFilter">
-              <PropertyRef Name="ID" />
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CustomerFilterMetadata">
-              <PropertyRef Name="FilterID" />
+            <Dependent Role="Answer">
+              <PropertyRef Name="OfUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CustomerMetadata_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="CustomerMetadata" Type="Self.CustomerMetadata" Multiplicity="*" />
+        <Association Name="FK_Answer_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="Answer" Type="Self.Answer" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="ID" />
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CustomerMetadata">
-              <PropertyRef Name="CustomerID" />
+            <Dependent Role="Answer">
+              <PropertyRef Name="ToPostId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Customers_Filters_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="Customers_Filters" Type="Self.Customers_Filters" Multiplicity="*" />
+        <Association Name="FK_Comment_AppUser">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="ID" />
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Customers_Filters">
-              <PropertyRef Name="CustomerID" />
+            <Dependent Role="Comment">
+              <PropertyRef Name="OfUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Customers_Filters_CustomerFilter1">
-          <End Role="CustomerFilter" Type="Self.CustomerFilter" Multiplicity="1" />
-          <End Role="Customers_Filters" Type="Self.Customers_Filters" Multiplicity="*" />
+        <Association Name="FK_Comment_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CustomerFilter">
-              <PropertyRef Name="ID" />
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Customers_Filters">
-              <PropertyRef Name="FilterID" />
+            <Dependent Role="Comment">
+              <PropertyRef Name="ToPostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interactive_AppUser">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+          <End Role="Interactive" Type="Self.Interactive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Interactive">
+              <PropertyRef Name="OfUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interactive_Comment">
+          <End Role="Comment" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Interactive" Type="Self.Interactive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Interactive">
+              <PropertyRef Name="ToCommentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interactive_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Interactive" Type="Self.Interactive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Interactive">
+              <PropertyRef Name="ToPostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_AppUser">
+          <End Role="AppUser" Type="Self.AppUser" Multiplicity="0..1" />
+          <End Role="Post" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="OfUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagsOfPost_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="1" />
+          <End Role="TagsOfPost" Type="Self.TagsOfPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TagsOfPost">
+              <PropertyRef Name="PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TagsOfPost_Tags">
+          <End Role="Tags" Type="Self.Tags" Multiplicity="1" />
+          <End Role="TagsOfPost" Type="Self.TagsOfPost" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tags">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TagsOfPost">
+              <PropertyRef Name="TagId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="AppModelStoreContainer">
-          <EntitySet Name="AppAction" EntityType="Self.AppAction" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CustomerEvent" EntityType="Self.CustomerEvent" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CustomerFilter" EntityType="Self.CustomerFilter" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CustomerFilterMetadata" EntityType="Self.CustomerFilterMetadata" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CustomerMetadata" EntityType="Self.CustomerMetadata" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Customers_Filters" EntityType="Self.Customers_Filters" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EventTrigger" EntityType="Self.EventTrigger" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_CustomerFilterMetadata_CustomerFilter" Association="Self.FK_CustomerFilterMetadata_CustomerFilter">
-            <End Role="CustomerFilter" EntitySet="CustomerFilter" />
-            <End Role="CustomerFilterMetadata" EntitySet="CustomerFilterMetadata" />
+          <EntitySet Name="Answer" EntityType="Self.Answer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AppUser" EntityType="Self.AppUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Interactive" EntityType="Self.Interactive" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TagsOfPost" EntityType="Self.TagsOfPost" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Answer_AppUser" Association="Self.FK_Answer_AppUser">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="Answer" EntitySet="Answer" />
           </AssociationSet>
-          <AssociationSet Name="FK_CustomerMetadata_Customer" Association="Self.FK_CustomerMetadata_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="CustomerMetadata" EntitySet="CustomerMetadata" />
+          <AssociationSet Name="FK_Answer_Post" Association="Self.FK_Answer_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Answer" EntitySet="Answer" />
           </AssociationSet>
-          <AssociationSet Name="FK_Customers_Filters_Customer" Association="Self.FK_Customers_Filters_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="Customers_Filters" EntitySet="Customers_Filters" />
+          <AssociationSet Name="FK_Comment_AppUser" Association="Self.FK_Comment_AppUser">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK_Customers_Filters_CustomerFilter1" Association="Self.FK_Customers_Filters_CustomerFilter1">
-            <End Role="CustomerFilter" EntitySet="CustomerFilter" />
-            <End Role="Customers_Filters" EntitySet="Customers_Filters" />
+          <AssociationSet Name="FK_Comment_Post" Association="Self.FK_Comment_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interactive_AppUser" Association="Self.FK_Interactive_AppUser">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="Interactive" EntitySet="Interactive" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interactive_Comment" Association="Self.FK_Interactive_Comment">
+            <End Role="Comment" EntitySet="Comment" />
+            <End Role="Interactive" EntitySet="Interactive" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interactive_Post" Association="Self.FK_Interactive_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Interactive" EntitySet="Interactive" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_AppUser" Association="Self.FK_Post_AppUser">
+            <End Role="AppUser" EntitySet="AppUser" />
+            <End Role="Post" EntitySet="Post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagsOfPost_Post" Association="Self.FK_TagsOfPost_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="TagsOfPost" EntitySet="TagsOfPost" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TagsOfPost_Tags" Association="Self.FK_TagsOfPost_Tags">
+            <End Role="Tags" EntitySet="Tags" />
+            <End Role="TagsOfPost" EntitySet="TagsOfPost" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -193,160 +254,233 @@
     <edmx:ConceptualModels>
       <Schema Namespace="AppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="AppEntity" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AppActions" EntityType="AppModel.AppAction" />
-          <EntitySet Name="Customers" EntityType="AppModel.Customer" />
-          <EntitySet Name="CustomerEvents" EntityType="AppModel.CustomerEvent" />
-          <EntitySet Name="CustomerFilters" EntityType="AppModel.CustomerFilter" />
-          <EntitySet Name="CustomerFilterMetadatas" EntityType="AppModel.CustomerFilterMetadata" />
-          <EntitySet Name="CustomerMetadatas" EntityType="AppModel.CustomerMetadata" />
-          <EntitySet Name="EventTriggers" EntityType="AppModel.EventTrigger" />
-          <AssociationSet Name="FK_CustomerMetadata_Customer" Association="AppModel.FK_CustomerMetadata_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="CustomerMetadata" EntitySet="CustomerMetadatas" />
+          <EntitySet Name="Answers" EntityType="AppModel.Answer" />
+          <EntitySet Name="AppUsers" EntityType="AppModel.AppUser" />
+          <EntitySet Name="Comments" EntityType="AppModel.Comment" />
+          <EntitySet Name="Interactives" EntityType="AppModel.Interactive" />
+          <EntitySet Name="Posts" EntityType="AppModel.Post" />
+          <EntitySet Name="Tags" EntityType="AppModel.Tag" />
+          <AssociationSet Name="FK_Answer_AppUser" Association="AppModel.FK_Answer_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Answer" EntitySet="Answers" />
           </AssociationSet>
-          <AssociationSet Name="FK_CustomerFilterMetadata_CustomerFilter" Association="AppModel.FK_CustomerFilterMetadata_CustomerFilter">
-            <End Role="CustomerFilter" EntitySet="CustomerFilters" />
-            <End Role="CustomerFilterMetadata" EntitySet="CustomerFilterMetadatas" />
+          <AssociationSet Name="FK_Answer_Post" Association="AppModel.FK_Answer_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Answer" EntitySet="Answers" />
           </AssociationSet>
-          <AssociationSet Name="Customers_Filters" Association="AppModel.Customers_Filters">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="CustomerFilter" EntitySet="CustomerFilters" />
+          <AssociationSet Name="FK_Comment_AppUser" Association="AppModel.FK_Comment_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interactive_AppUser" Association="AppModel.FK_Interactive_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Interactive" EntitySet="Interactives" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Post_AppUser" Association="AppModel.FK_Post_AppUser">
+            <End Role="AppUser" EntitySet="AppUsers" />
+            <End Role="Post" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comment_Post" Association="AppModel.FK_Comment_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Comment" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interactive_Comment" Association="AppModel.FK_Interactive_Comment">
+            <End Role="Comment" EntitySet="Comments" />
+            <End Role="Interactive" EntitySet="Interactives" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Interactive_Post" Association="AppModel.FK_Interactive_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Interactive" EntitySet="Interactives" />
+          </AssociationSet>
+          <AssociationSet Name="TagsOfPost" Association="AppModel.TagsOfPost">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Tag" EntitySet="Tags" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="AppAction">
+        <EntityType Name="Answer">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="OfUserId" />
+            <PropertyRef Name="ToPostId" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="Int32" />
-          <Property Name="CustomerCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BrandCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Detail_LetterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Detail_LetterContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Detail_ToCustomerCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Detail_ToPhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Detail_ToEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="Gender" Type="Boolean" />
-          <Property Name="DoB" Type="DateTime" Precision="0" />
-          <Property Name="District" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BrandCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OfUserId" Type="Int32" Nullable="false" />
+          <Property Name="ToPostId" Type="Int32" Nullable="false" />
+          <Property Name="TextContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PostedTime" Type="DateTime" Precision="3" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="CustomerMetadatas" Relationship="AppModel.FK_CustomerMetadata_Customer" FromRole="Customer" ToRole="CustomerMetadata" />
-          <NavigationProperty Name="CustomerFilters" Relationship="AppModel.Customers_Filters" FromRole="Customer" ToRole="CustomerFilter" />
+          <NavigationProperty Name="AppUser" Relationship="AppModel.FK_Answer_AppUser" FromRole="Answer" ToRole="AppUser" />
+          <NavigationProperty Name="Post" Relationship="AppModel.FK_Answer_Post" FromRole="Answer" ToRole="Post" />
         </EntityType>
-        <EntityType Name="CustomerEvent">
+        <EntityType Name="AppUser">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CustomerCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Type" Type="Int32" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DoB" Type="DateTime" Precision="3" />
+          <Property Name="Sex" Type="Boolean" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Answers" Relationship="AppModel.FK_Answer_AppUser" FromRole="AppUser" ToRole="Answer" />
+          <NavigationProperty Name="Comments" Relationship="AppModel.FK_Comment_AppUser" FromRole="AppUser" ToRole="Comment" />
+          <NavigationProperty Name="Interactives" Relationship="AppModel.FK_Interactive_AppUser" FromRole="AppUser" ToRole="Interactive" />
+          <NavigationProperty Name="Posts" Relationship="AppModel.FK_Post_AppUser" FromRole="AppUser" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ToPostId" Type="Int32" />
+          <Property Name="ToAnswerId" Type="Int32" />
+          <Property Name="TextContent" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PostedTime" Type="DateTime" Precision="3" />
+          <Property Name="OfUserId" Type="Int32" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AppUser" Relationship="AppModel.FK_Comment_AppUser" FromRole="Comment" ToRole="AppUser" />
+          <NavigationProperty Name="Post" Relationship="AppModel.FK_Comment_Post" FromRole="Comment" ToRole="Post" />
+          <NavigationProperty Name="Interactives" Relationship="AppModel.FK_Interactive_Comment" FromRole="Comment" ToRole="Interactive" />
+        </EntityType>
+        <EntityType Name="Interactive">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ToPostId" Type="Int32" />
+          <Property Name="ToAnswerId" Type="Int32" />
+          <Property Name="ToCommentId" Type="Int32" />
+          <Property Name="IsLike" Type="Boolean" />
+          <Property Name="OfUserId" Type="Int32" />
           <Property Name="HappenedTime" Type="DateTime" Precision="3" />
-          <Property Name="Creator" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="BrandCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Detail_AddedFilterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Detail_RemovedFilterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Detail_ConfirmedCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Detail_ConfirmedMediaType" Type="Int32" />
-        </EntityType>
-        <EntityType Name="CustomerFilter">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="AgeFrom" Type="Int32" />
-          <Property Name="AgeTo" Type="Int32" />
-          <Property Name="BirthdayFrom" Type="DateTime" Precision="3" />
-          <Property Name="BirthdayTo" Type="DateTime" Precision="3" />
-          <Property Name="Gender" Type="Boolean" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="BrandCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CustomerFilterMetadatas" Relationship="AppModel.FK_CustomerFilterMetadata_CustomerFilter" FromRole="CustomerFilter" ToRole="CustomerFilterMetadata" />
-          <NavigationProperty Name="Customers" Relationship="AppModel.Customers_Filters" FromRole="CustomerFilter" ToRole="Customer" />
+          <NavigationProperty Name="AppUser" Relationship="AppModel.FK_Interactive_AppUser" FromRole="Interactive" ToRole="AppUser" />
+          <NavigationProperty Name="Comment" Relationship="AppModel.FK_Interactive_Comment" FromRole="Interactive" ToRole="Comment" />
+          <NavigationProperty Name="Post" Relationship="AppModel.FK_Interactive_Post" FromRole="Interactive" ToRole="Post" />
         </EntityType>
-        <EntityType Name="CustomerFilterMetadata">
+        <EntityType Name="Post">
           <Key>
-            <PropertyRef Name="FilterID" />
-            <PropertyRef Name="MetadataKey" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="FilterID" Type="Int32" Nullable="false" />
-          <Property Name="MetadataKey" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TextContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OfUserId" Type="Int32" />
+          <Property Name="PostedTime" Type="DateTime" Precision="3" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="CustomerFilter" Relationship="AppModel.FK_CustomerFilterMetadata_CustomerFilter" FromRole="CustomerFilterMetadata" ToRole="CustomerFilter" />
+          <NavigationProperty Name="Answers" Relationship="AppModel.FK_Answer_Post" FromRole="Post" ToRole="Answer" />
+          <NavigationProperty Name="AppUser" Relationship="AppModel.FK_Post_AppUser" FromRole="Post" ToRole="AppUser" />
+          <NavigationProperty Name="Comments" Relationship="AppModel.FK_Comment_Post" FromRole="Post" ToRole="Comment" />
+          <NavigationProperty Name="Interactives" Relationship="AppModel.FK_Interactive_Post" FromRole="Post" ToRole="Interactive" />
+          <NavigationProperty Name="Tags" Relationship="AppModel.TagsOfPost" FromRole="Post" ToRole="Tag" />
         </EntityType>
-        <EntityType Name="CustomerMetadata">
+        <EntityType Name="Tag">
           <Key>
-            <PropertyRef Name="CustomerID" />
-            <PropertyRef Name="MetadataKey" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <Property Name="MetadataKey" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TagCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="AppModel.FK_CustomerMetadata_Customer" FromRole="CustomerMetadata" ToRole="Customer" />
+          <NavigationProperty Name="Posts" Relationship="AppModel.TagsOfPost" FromRole="Tag" ToRole="Post" />
         </EntityType>
-        <EntityType Name="EventTrigger">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BrandCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="Action_SmsEnable" Type="Boolean" />
-          <Property Name="Action_EmailEnable" Type="Boolean" />
-          <Property Name="Action_LetterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Action_LetterContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Action_Placeholder" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Event_OnEnterFilterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Event_OnLeaveFilterCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Event_OnSmsCodeConfirmed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Event_OnEmailCodeConfirmed" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <Association Name="FK_CustomerMetadata_Customer">
-          <End Type="AppModel.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="AppModel.CustomerMetadata" Role="CustomerMetadata" Multiplicity="*" />
+        <Association Name="FK_Answer_AppUser">
+          <End Type="AppModel.AppUser" Role="AppUser" Multiplicity="1" />
+          <End Type="AppModel.Answer" Role="Answer" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="ID" />
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CustomerMetadata">
-              <PropertyRef Name="CustomerID" />
+            <Dependent Role="Answer">
+              <PropertyRef Name="OfUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CustomerFilterMetadata_CustomerFilter">
-          <End Type="AppModel.CustomerFilter" Role="CustomerFilter" Multiplicity="1" />
-          <End Type="AppModel.CustomerFilterMetadata" Role="CustomerFilterMetadata" Multiplicity="*" />
+        <Association Name="FK_Answer_Post">
+          <End Type="AppModel.Post" Role="Post" Multiplicity="1" />
+          <End Type="AppModel.Answer" Role="Answer" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CustomerFilter">
-              <PropertyRef Name="ID" />
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CustomerFilterMetadata">
-              <PropertyRef Name="FilterID" />
+            <Dependent Role="Answer">
+              <PropertyRef Name="ToPostId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Customers_Filters">
-          <End Type="AppModel.Customer" Role="Customer" Multiplicity="*" />
-          <End Type="AppModel.CustomerFilter" Role="CustomerFilter" Multiplicity="*" />
+        <Association Name="FK_Comment_AppUser">
+          <End Type="AppModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="AppModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="OfUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interactive_AppUser">
+          <End Type="AppModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="AppModel.Interactive" Role="Interactive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Interactive">
+              <PropertyRef Name="OfUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Post_AppUser">
+          <End Type="AppModel.AppUser" Role="AppUser" Multiplicity="0..1" />
+          <End Type="AppModel.Post" Role="Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AppUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Post">
+              <PropertyRef Name="OfUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comment_Post">
+          <End Type="AppModel.Post" Role="Post" Multiplicity="0..1" />
+          <End Type="AppModel.Comment" Role="Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="ToPostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interactive_Comment">
+          <End Type="AppModel.Comment" Role="Comment" Multiplicity="0..1" />
+          <End Type="AppModel.Interactive" Role="Interactive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comment">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Interactive">
+              <PropertyRef Name="ToCommentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Interactive_Post">
+          <End Type="AppModel.Post" Role="Post" Multiplicity="0..1" />
+          <End Type="AppModel.Interactive" Role="Interactive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Interactive">
+              <PropertyRef Name="ToPostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TagsOfPost">
+          <End Type="AppModel.Post" Role="Post" Multiplicity="*" />
+          <End Type="AppModel.Tag" Role="Tag" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -354,118 +488,84 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="AppModelStoreContainer" CdmEntityContainer="AppEntity">
-          <EntitySetMapping Name="AppActions">
-            <EntityTypeMapping TypeName="AppModel.AppAction">
-              <MappingFragment StoreEntitySet="AppAction">
-                <ScalarProperty Name="Detail_ToEmail" ColumnName="Detail_ToEmail" />
-                <ScalarProperty Name="Detail_ToPhoneNumber" ColumnName="Detail_ToPhoneNumber" />
-                <ScalarProperty Name="Detail_ToCustomerCode" ColumnName="Detail_ToCustomerCode" />
-                <ScalarProperty Name="Detail_LetterContent" ColumnName="Detail_LetterContent" />
-                <ScalarProperty Name="Detail_LetterCode" ColumnName="Detail_LetterCode" />
-                <ScalarProperty Name="BrandCode" ColumnName="BrandCode" />
-                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+          <EntitySetMapping Name="Answers">
+            <EntityTypeMapping TypeName="AppModel.Answer">
+              <MappingFragment StoreEntitySet="Answer">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="PostedTime" ColumnName="PostedTime" />
+                <ScalarProperty Name="TextContent" ColumnName="TextContent" />
+                <ScalarProperty Name="ToPostId" ColumnName="ToPostId" />
+                <ScalarProperty Name="OfUserId" ColumnName="OfUserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="AppModel.Customer">
-              <MappingFragment StoreEntitySet="Customer">
+          <EntitySetMapping Name="AppUsers">
+            <EntityTypeMapping TypeName="AppModel.AppUser">
+              <MappingFragment StoreEntitySet="AppUser">
                 <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="BrandCode" ColumnName="BrandCode" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="District" ColumnName="District" />
-                <ScalarProperty Name="DoB" ColumnName="DoB" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="DoB" ColumnName="DoB" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CustomerEvents">
-            <EntityTypeMapping TypeName="AppModel.CustomerEvent">
-              <MappingFragment StoreEntitySet="CustomerEvent">
-                <ScalarProperty Name="Detail_ConfirmedMediaType" ColumnName="Detail_ConfirmedMediaType" />
-                <ScalarProperty Name="Detail_ConfirmedCode" ColumnName="Detail_ConfirmedCode" />
-                <ScalarProperty Name="Detail_RemovedFilterCode" ColumnName="Detail_RemovedFilterCode" />
-                <ScalarProperty Name="Detail_AddedFilterCode" ColumnName="Detail_AddedFilterCode" />
-                <ScalarProperty Name="BrandCode" ColumnName="BrandCode" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="AppModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="OfUserId" ColumnName="OfUserId" />
+                <ScalarProperty Name="PostedTime" ColumnName="PostedTime" />
+                <ScalarProperty Name="TextContent" ColumnName="TextContent" />
+                <ScalarProperty Name="ToAnswerId" ColumnName="ToAnswerId" />
+                <ScalarProperty Name="ToPostId" ColumnName="ToPostId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Interactives">
+            <EntityTypeMapping TypeName="AppModel.Interactive">
+              <MappingFragment StoreEntitySet="Interactive">
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="HappenedTime" ColumnName="HappenedTime" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OfUserId" ColumnName="OfUserId" />
+                <ScalarProperty Name="IsLike" ColumnName="IsLike" />
+                <ScalarProperty Name="ToCommentId" ColumnName="ToCommentId" />
+                <ScalarProperty Name="ToAnswerId" ColumnName="ToAnswerId" />
+                <ScalarProperty Name="ToPostId" ColumnName="ToPostId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CustomerFilters">
-            <EntityTypeMapping TypeName="AppModel.CustomerFilter">
-              <MappingFragment StoreEntitySet="CustomerFilter">
-                <ScalarProperty Name="BrandCode" ColumnName="BrandCode" />
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="AppModel.Post">
+              <MappingFragment StoreEntitySet="Post">
                 <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="BirthdayTo" ColumnName="BirthdayTo" />
-                <ScalarProperty Name="BirthdayFrom" ColumnName="BirthdayFrom" />
-                <ScalarProperty Name="AgeTo" ColumnName="AgeTo" />
-                <ScalarProperty Name="AgeFrom" ColumnName="AgeFrom" />
+                <ScalarProperty Name="PostedTime" ColumnName="PostedTime" />
+                <ScalarProperty Name="OfUserId" ColumnName="OfUserId" />
+                <ScalarProperty Name="TextContent" ColumnName="TextContent" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="AppModel.Tag">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TagCode" ColumnName="TagCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CustomerFilterMetadatas">
-            <EntityTypeMapping TypeName="AppModel.CustomerFilterMetadata">
-              <MappingFragment StoreEntitySet="CustomerFilterMetadata">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="MetadataKey" ColumnName="MetadataKey" />
-                <ScalarProperty Name="FilterID" ColumnName="FilterID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerMetadatas">
-            <EntityTypeMapping TypeName="AppModel.CustomerMetadata">
-              <MappingFragment StoreEntitySet="CustomerMetadata">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="MetadataKey" ColumnName="MetadataKey" />
-                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EventTriggers">
-            <EntityTypeMapping TypeName="AppModel.EventTrigger">
-              <MappingFragment StoreEntitySet="EventTrigger">
-                <ScalarProperty Name="Event_OnEmailCodeConfirmed" ColumnName="Event_OnEmailCodeConfirmed" />
-                <ScalarProperty Name="Event_OnSmsCodeConfirmed" ColumnName="Event_OnSmsCodeConfirmed" />
-                <ScalarProperty Name="Event_OnLeaveFilterCode" ColumnName="Event_OnLeaveFilterCode" />
-                <ScalarProperty Name="Event_OnEnterFilterCode" ColumnName="Event_OnEnterFilterCode" />
-                <ScalarProperty Name="Action_Placeholder" ColumnName="Action_Placeholder" />
-                <ScalarProperty Name="Action_LetterContent" ColumnName="Action_LetterContent" />
-                <ScalarProperty Name="Action_LetterCode" ColumnName="Action_LetterCode" />
-                <ScalarProperty Name="Action_EmailEnable" ColumnName="Action_EmailEnable" />
-                <ScalarProperty Name="Action_SmsEnable" ColumnName="Action_SmsEnable" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="BrandCode" ColumnName="BrandCode" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="Customers_Filters" TypeName="AppModel.Customers_Filters" StoreEntitySet="Customers_Filters">
-            <EndProperty Name="CustomerFilter">
-              <ScalarProperty Name="ID" ColumnName="FilterID" />
+          <AssociationSetMapping Name="TagsOfPost" TypeName="AppModel.TagsOfPost" StoreEntitySet="TagsOfPost">
+            <EndProperty Name="Tag">
+              <ScalarProperty Name="Id" ColumnName="TagId" />
             </EndProperty>
-            <EndProperty Name="Customer">
-              <ScalarProperty Name="ID" ColumnName="CustomerID" />
+            <EndProperty Name="Post">
+              <ScalarProperty Name="Id" ColumnName="PostId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

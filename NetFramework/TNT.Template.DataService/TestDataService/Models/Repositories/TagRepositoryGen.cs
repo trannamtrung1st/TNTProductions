@@ -10,32 +10,32 @@ using System.Data.Entity;
 
 namespace TestDataService.Models.Repositories
 {
-	public partial interface IEventTriggerRepository : IBaseRepository<EventTrigger, int>
+	public partial interface ITagRepository : IBaseRepository<Tag, int>
 	{
 	}
 	
-	public partial class EventTriggerRepository : BaseRepository<EventTrigger, int>, IEventTriggerRepository
+	public partial class TagRepository : BaseRepository<Tag, int>, ITagRepository
 	{
-		public EventTriggerRepository(IUnitOfWork uow) : base(uow)
+		public TagRepository(IUnitOfWork uow) : base(uow)
 		{
 		}
 		
-		public EventTriggerRepository(DbContext context) : base(context)
+		public TagRepository(DbContext context) : base(context)
 		{
 		}
 		
 		#region CRUD area
-		public override EventTrigger FindById(int key)
+		public override Tag FindById(int key)
 		{
 			var entity = dbSet.FirstOrDefault(
-				e => e.ID == key);
+				e => e.Id == key);
 			return entity;
 		}
 		
-		public override async Task<EventTrigger> FindByIdAsync(int key)
+		public override async Task<Tag> FindByIdAsync(int key)
 		{
 			var entity = await dbSet.FirstOrDefaultAsync(
-				e => e.ID == key);
+				e => e.Id == key);
 			return entity;
 		}
 		

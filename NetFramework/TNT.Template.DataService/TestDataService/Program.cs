@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TestDataService.Models;
 using TNT.IoC.Wrapper;
 using TNT.Template.DataService.Auto;
+using TNT.Template.DataService.Helpers;
 
 namespace TestDataService
 {
