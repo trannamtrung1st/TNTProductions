@@ -5,6 +5,8 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
+    <Authors>TNT</Authors>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

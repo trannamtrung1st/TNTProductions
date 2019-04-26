@@ -79,7 +79,7 @@ namespace TNT.Core.OAuth
         }
 
         public static AuthenticationBuilder AddBasicAuthentication<Handler, TOptions>(this AuthenticationBuilder builder,
-            Action<AuthenticationSchemeOptions> opt = null
+            Action<TOptions> opt = null
             ) where Handler : BasicAuthenticationHandler<TOptions> where TOptions : AuthenticationSchemeOptions, new()
         {
             builder.AddScheme<TOptions, Handler>(BasicAuthenticationHandler.HandlerSchemes, opt);
@@ -87,8 +87,8 @@ namespace TNT.Core.OAuth
         }
 
         public static AuthenticationBuilder AddBearerAuthentication<Handler, TOptions>(this AuthenticationBuilder builder,
-            Action<AuthenticationSchemeOptions> opt = null
-            ) where Handler : BasicAuthenticationHandler<TOptions> where TOptions : AuthenticationSchemeOptions, new()
+            Action<TOptions> opt = null
+            ) where Handler : BearerAuthenticationHandler<TOptions> where TOptions : AuthenticationSchemeOptions, new()
         {
             builder.AddScheme<TOptions, Handler>(BearerAuthenticationHandler.HandlerSchemes, opt);
             return builder;
@@ -115,8 +115,8 @@ namespace TNT.Core.OAuth
         }
 
         public static AuthenticationBuilder AddCookieAuthentication<Handler, TOptions>(this AuthenticationBuilder builder,
-            Action<AuthenticationCookieOptions> opt = null
-            ) where Handler : BasicAuthenticationHandler<TOptions> where TOptions : AuthenticationCookieOptions, new()
+            Action<TOptions> opt = null
+            ) where Handler : CookieAuthenticationHandler<TOptions> where TOptions : AuthenticationCookieOptions, new()
         {
             builder.AddScheme<TOptions, Handler>(CookieAuthenticationHandler.HandlerSchemes, opt);
             return builder;

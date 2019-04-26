@@ -67,9 +67,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="TNT.Helpers">
-      <HintPath>..\..\CommonLibs\TProject\TNT.Helpers.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication\BaseAuthentication.cs" />
@@ -86,6 +83,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TNT.Helpers\TNT.Helpers\TNT.Helpers.csproj">
+      <Project>{3d048823-00fc-4320-839a-923a425a0738}</Project>
+      <Name>TNT.Helpers</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

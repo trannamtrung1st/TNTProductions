@@ -5,6 +5,8 @@
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
+    <Authors>TNT</Authors>
+    <Version>1.1.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
