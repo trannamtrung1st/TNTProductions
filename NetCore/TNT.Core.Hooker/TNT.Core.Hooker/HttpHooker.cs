@@ -51,7 +51,7 @@ namespace TNT.Core.Hooker
         public bool HookRequest { get; set; } = true;
         public bool HookResponse { get; set; } = false;
 
-        public Func<UserInfo, RequestInfo, ResponseInfo, Task> Process { get; set; }
+        public Func<HttpContext, UserInfo, RequestInfo, ResponseInfo, Task> Process { get; set; }
     }
 
     public static class Extensions
@@ -110,7 +110,7 @@ namespace TNT.Core.Hooker
                     await next();
                     response = options.HookResponse ? await ResponseInfo.From(context.Response) : null;
                     if (options.Process != null)
-                        await options.Process(user, request, response);
+                        await options.Process(context, user, request, response);
                     await responseBody.CopyToAsync(originalBodyStream);
                 }
             });

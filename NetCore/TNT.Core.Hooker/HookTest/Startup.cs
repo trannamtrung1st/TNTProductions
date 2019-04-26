@@ -54,7 +54,7 @@ namespace HookTest
                 HookMethods = new List<string>() { "get" },
                 HookResponse = true,
                 HookRequest = false,
-                Process = (user, req, resp) =>
+                Process = (context, user, req, resp) =>
                 {
                     var text = JsonConvert.SerializeObject(new
                     {
@@ -70,7 +70,7 @@ namespace HookTest
             {
                 HookMethods = new List<string>() { "post" },
                 HookRequest = true,
-                Process = (user, req, resp) =>
+                Process = (context, user, req, resp) =>
                 {
                     var text = JsonConvert.SerializeObject(new
                     {
