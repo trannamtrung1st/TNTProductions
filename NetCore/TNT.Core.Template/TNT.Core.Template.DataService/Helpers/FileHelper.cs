@@ -61,5 +61,20 @@ namespace TNT.Core.Template.DataService.Helpers
             }
         }
 
+        public static void ChangeTextToCsFile(string fromFolder, string toFolder, int removeLastChars)
+        {
+            var from = new DirectoryInfo(fromFolder);
+            var files = from.GetFiles("*.txt");
+            var lastChar = toFolder[toFolder.Length - 1];
+            if (lastChar != '/' && lastChar != '\\')
+                toFolder += '/';
+            foreach (var f in files)
+            {
+                var str = File.ReadAllText(f.FullName);
+                var file = f.Name.Replace(".txt", "");
+                File.WriteAllText(toFolder + file.Remove(file.Length - removeLastChars) + ".cs", str);
+            }
+        }
+
     }
 }

@@ -69,7 +69,7 @@ namespace TNT.Core.Template.DataService.Models.Repositories
                     "E FindById(K key);",
                     "Task<E> FindByIdAsync(K key);",
                     "IQueryable<E> AsNoTracking();",
-                    "IQueryable<E> Get();",
+                    "DbSet<E> Get();",
                     "IQueryable<E> Get(Expression<Func<E, bool>> expr);",
                     "E FirstOrDefault();",
                     "E FirstOrDefault(Expression<Func<E, bool>> expr);",
@@ -194,7 +194,7 @@ namespace TNT.Core.Template.DataService.Models.Repositories
             mm1.Body.Add(new StatementGen("return dbSet.AsNoTracking();"));
 
             var m142 = new ContainerGen();
-            m142.Signature = "public IQueryable<E> Get()";
+            m142.Signature = "public DbSet<E> Get()";
             m142.Body.Add(new StatementGen("return dbSet;"));
 
             var m143 = new ContainerGen();
