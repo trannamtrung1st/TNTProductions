@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestDataService", "TestData
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TNT.Core.IoC", "..\TNT.Core.IoC\TNT.Core.IoC\TNT.Core.IoC.csproj", "{7AF8091D-85D4-4881-8217-EC466B391DF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratorTest", "GeneratorTest\GeneratorTest.csproj", "{9BE2B666-BDAC-41D8-9CC7-E0D420088010}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7AF8091D-85D4-4881-8217-EC466B391DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AF8091D-85D4-4881-8217-EC466B391DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AF8091D-85D4-4881-8217-EC466B391DF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BE2B666-BDAC-41D8-9CC7-E0D420088010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BE2B666-BDAC-41D8-9CC7-E0D420088010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BE2B666-BDAC-41D8-9CC7-E0D420088010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BE2B666-BDAC-41D8-9CC7-E0D420088010}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,7 +14,7 @@ namespace TNT.Core.Template.DataService.Models.Repositories
         public RepositoryGen(ContextInfo dt)
         {
             Data = dt;
-            Directive.Add("System.Linq.Expressions", dt.ProjectName + ".Models"
+            Directive.Add("System.Linq.Expressions", dt.ContextNamespace
                 , "Microsoft.EntityFrameworkCore"
                 , "Microsoft.EntityFrameworkCore.ChangeTracking");
             ResolveMapping["context"] = dt.ContextName;

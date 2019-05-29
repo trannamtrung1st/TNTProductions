@@ -16,8 +16,8 @@ namespace TNT.Core.Template.DataService.Data
     public class ContextInfo
     {
         public string ProjectName { get; set; }
-        public string ContextFolder { get; set; }
         public string ContextName { get; set; }
+        public string ContextNamespace { get; set; }
         public DIContainer DIContainer { get; set; }
         public bool RequestScope { get; set; }
         public bool ActiveCol { get; set; } //or else Deactive col

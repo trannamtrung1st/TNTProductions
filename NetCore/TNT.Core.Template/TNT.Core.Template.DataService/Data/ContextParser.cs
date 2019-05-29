@@ -42,7 +42,9 @@ namespace TNT.Core.Template.DataService.Data
                 { "Decimal", "decimal" },
                 { "DateTime", "DateTime" },
                 { "TimeSpan", "System.TimeSpan" },
+                { "DateTimeOffset", "DateTimeOffset" },
                 { "Binary", "byte[]" },
+                { "Byte[]", "byte[]" },
                 { "Guid", "System.Guid" },
                 { "Time", "System.TimeSpan" }
             };
@@ -50,16 +52,18 @@ namespace TNT.Core.Template.DataService.Data
         public ContextParser(DbContext context, string projectName, bool activeCol = true)
         {
             Data = new ContextInfo();
+            Data.ProjectName = projectName;
             Data.ActiveCol = activeCol;
             this.context = context;
             SetDBInfo();
             SetEntitiesInfo();
-            Data.ProjectName = projectName;
         }
 
         private void SetDBInfo()
         {
             Data.ContextName = context.GetType().Name;
+            Data.ContextNamespace = context.GetType().Namespace;
+            Data.ContextNamespace = Data.ProjectName + Data.ContextNamespace.Remove(0, Data.ContextNamespace.IndexOf(".Models"));
         }
 
         private void SetEntitiesInfo()

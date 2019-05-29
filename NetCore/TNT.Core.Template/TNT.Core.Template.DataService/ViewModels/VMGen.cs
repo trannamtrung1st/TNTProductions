@@ -26,7 +26,7 @@ namespace TNT.Core.Template.DataService.ViewModels
 
             JsonIgnoreProps = jsonIgnoreProps;
             ExceptProps = exceptProps;
-            Directive.Add(EInfo.Data.ProjectName + ".Global", EInfo.Data.ProjectName + ".Models",
+            Directive.Add(EInfo.Data.ProjectName + ".Global", EInfo.Data.ContextNamespace,
                 "Newtonsoft.Json");
 
             //GENERATE

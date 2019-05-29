@@ -22,6 +22,7 @@ namespace TNT.Core.Template.DataService.Models.Extensions
             ResolveMapping["entityVM"] = EInfo.VMClass;
 
             Directive.Add(EInfo.Data.ProjectName + ".ViewModels",
+                EInfo.Data.ContextNamespace,
                 EInfo.Data.ProjectName + ".Global");
             //GENERATE
             GenerateNamespace();
@@ -37,7 +38,7 @@ namespace TNT.Core.Template.DataService.Models.Extensions
         public void GenerateNamespace()
         {
             Namespace = new ContainerGen();
-            Namespace.Signature = "namespace " + EInfo.Data.ProjectName + ".Models";
+            Namespace.Signature = "namespace " + EInfo.Data.ContextNamespace;
             NamespaceBody = Namespace.Body;
 
             Content = Namespace;

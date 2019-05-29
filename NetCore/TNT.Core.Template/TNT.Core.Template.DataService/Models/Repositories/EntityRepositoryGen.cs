@@ -14,7 +14,7 @@ namespace TNT.Core.Template.DataService.Models.Repositories
         public EntityRepositoryGen(EntityInfo eInfo)
         {
             EInfo = eInfo;
-            Directive.Add(EInfo.Data.ProjectName + ".Models",
+            Directive.Add(EInfo.Data.ContextNamespace,
                 "System.Linq.Expressions", "Microsoft.EntityFrameworkCore");
 
             ResolveMapping["entity"] = EInfo.EntityName;

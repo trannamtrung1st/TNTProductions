@@ -4,7 +4,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using TestDataService.Models;
 using TNT.Core.Template.DataService;
 using TNT.Core.Template.DataService.Data;
 using TNT.Core.Template.DataService.Helpers;
@@ -21,16 +20,16 @@ namespace TestDataService
             //FileHelper.DeleteDataServiceStructure(@"T:\Workspace\TNTProductions\NetCore\TNT.Core.Template\TestDataService");
             //GeneralHelper.ExecuteScaffoldFromCmd(
             //    @"T:\Workspace\TNTProductions\NetCore\TNT.Core.Template\TestDataService",
-            //    "localhost", "FushariEx", "sa", "123456", "Models", "FushariContext");
-            using (var dbContext = new FushariContext())
-            {
-                var generator = dbContext.GetDataServiceGenerator(
-                    @"T:\Workspace\TNTProductions\NetCore\TNT.Core.Template\TestDataService",
-                    "TestDataService",
-                    GeneralHelper.JsonPropertyFormatEnum.CamelCase,
-                    DIContainer.TContainer, true, true);
-                generator.Generate();
-            }
+            //    "localhost", "FlashCardDev", "sa", "123456", "Models/Entities", "DataContext");
+            //using (var dbContext = new DataContext())
+            //{
+            //    var generator = dbContext.GetDataServiceGenerator(
+            //        @"T:\Workspace\TNTProductions\NetCore\TNT.Core.Template\TestDataService",
+            //        "TestDataService",
+            //        GeneralHelper.JsonPropertyFormatEnum.CamelCase,
+            //        DIContainer.TContainer, true, true);
+            //    generator.Generate();
+            //}
         }
 
     }

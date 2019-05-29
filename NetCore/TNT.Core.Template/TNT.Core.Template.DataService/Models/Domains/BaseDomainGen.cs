@@ -17,7 +17,7 @@ namespace TNT.Core.Template.DataService.Models.Domains
             Directive.Add(
                 Data.ProjectName + ".Models.Repositories",
                 Data.ProjectName + ".ViewModels",
-                Data.ProjectName + ".Models",
+                Data.ContextNamespace,
                 Data.ProjectName + ".Global",
                 "Microsoft.EntityFrameworkCore",
                 "System.Linq.Expressions");

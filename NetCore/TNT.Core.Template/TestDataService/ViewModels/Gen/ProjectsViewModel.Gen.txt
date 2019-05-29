@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestDataService.Global;
+using TestDataService.Models.Entities;
+using Newtonsoft.Json;
+
+namespace TestDataService.ViewModels
+{
+	public partial class ProjectsViewModel: BaseViewModel<Projects>
+	{
+		//[JsonProperty("id")]
+		public int Id { get; set; }
+		//[JsonProperty("code")]
+		public string Code { get; set; }
+		//[JsonProperty("name")]
+		public string Name { get; set; }
+		//[JsonProperty("organization_id")]
+		public int OrganizationId { get; set; }
+		//[JsonProperty("organization")]
+		//public OrganizationsViewModel OrganizationVM { get; set; }
+		//[JsonProperty("vision_and_scope_docs")]
+		//public IEnumerable<VisionAndScopeDocsViewModel> VisionAndScopeDocsVM { get; set; }
+		
+		public ProjectsViewModel(Projects entity) : base(entity)
+		{
+		}
+		
+		public ProjectsViewModel()
+		{
+		}
+		
+	}
+	
+	public partial class UpdateProjectsViewModel: BaseUpdateViewModel<UpdateProjectsViewModel, Projects>
+	{
+		//[JsonProperty("id")]
+		public Wrapper<int> Id { get; set; }
+		//[JsonProperty("code")]
+		public Wrapper<string> Code { get; set; }
+		//[JsonProperty("name")]
+		public Wrapper<string> Name { get; set; }
+		//[JsonProperty("organization_id")]
+		public Wrapper<int> OrganizationId { get; set; }
+		//[JsonProperty("organization")]
+		//public OrganizationsViewModel OrganizationVM { get; set; }
+		//[JsonProperty("vision_and_scope_docs")]
+		//public IEnumerable<VisionAndScopeDocsViewModel> VisionAndScopeDocsVM { get; set; }
+		
+	}
+}

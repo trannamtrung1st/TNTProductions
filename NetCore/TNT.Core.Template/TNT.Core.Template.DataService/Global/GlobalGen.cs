@@ -16,6 +16,7 @@ namespace TNT.Core.Template.DataService.Global
             Data = dt;
             Directive.Add("AutoMapper",
                 "Microsoft.EntityFrameworkCore",
+                Data.ContextNamespace,
                 Data.ProjectName + ".Models",
                 Data.ProjectName + ".Models.Repositories",
                 Data.ProjectName + ".ViewModels");
@@ -79,6 +80,7 @@ namespace TNT.Core.Template.DataService.Global
             {
                 mapConfig.Add("//\tcfg.CreateMap<" + e.EntityName + ", " + e.VMClass + ">().ReverseMap();");
             }
+            mapConfig.Add("//\tAutoMapper.Mapper.Initialize(cfg as MapperConfigurationExpression);");
             var close = new StatementGen("//\t}", "//};");
             GlobalClassBody.Add(
                 mapperConfig,

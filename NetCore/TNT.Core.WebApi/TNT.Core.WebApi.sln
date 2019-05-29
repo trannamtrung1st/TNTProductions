@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TNT.Core.WebApi", "TNT.Core.WebApi\TNT.Core.WebApi.csproj", "{F5665994-8489-431F-9606-86232D6CE503}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWebApi", "TestWebApi\TestWebApi.csproj", "{84244EF8-033A-471E-8C9C-DA42BE3BFE3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F5665994-8489-431F-9606-86232D6CE503}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5665994-8489-431F-9606-86232D6CE503}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5665994-8489-431F-9606-86232D6CE503}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84244EF8-033A-471E-8C9C-DA42BE3BFE3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84244EF8-033A-471E-8C9C-DA42BE3BFE3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84244EF8-033A-471E-8C9C-DA42BE3BFE3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84244EF8-033A-471E-8C9C-DA42BE3BFE3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

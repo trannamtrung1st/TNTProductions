@@ -28,7 +28,7 @@ namespace TNT.Core.Template.DataService.Models.Extensions
         public void GenerateNamespace()
         {
             Namespace = new ContainerGen();
-            Namespace.Signature = "namespace " + Data.ProjectName + ".Models";
+            Namespace.Signature = "namespace " + Data.ContextNamespace;
             NamespaceBody = Namespace.Body;
 
             Content = Namespace;

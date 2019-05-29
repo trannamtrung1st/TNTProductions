@@ -1,0 +1,125 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestDataService.Global;
+using TestDataService.Models.Entities;
+using Newtonsoft.Json;
+
+namespace TestDataService.ViewModels
+{
+	public partial class VisionAndScopeDocsViewModel: BaseViewModel<VisionAndScopeDocs>
+	{
+		//[JsonProperty("project_id")]
+		public int ProjectId { get; set; }
+		//[JsonProperty("major")]
+		public int Major { get; set; }
+		//[JsonProperty("minor")]
+		public int Minor { get; set; }
+		//[JsonProperty("background")]
+		public string Background { get; set; }
+		//[JsonProperty("business_assumptions_and_dependencies")]
+		public string BusinessAssumptionsAndDependencies { get; set; }
+		//[JsonProperty("business_context")]
+		public string BusinessContext { get; set; }
+		//[JsonProperty("business_objectives")]
+		public string BusinessObjectives { get; set; }
+		//[JsonProperty("business_opportunity")]
+		public string BusinessOpportunity { get; set; }
+		//[JsonProperty("business_requirements")]
+		public string BusinessRequirements { get; set; }
+		//[JsonProperty("business_risks")]
+		public string BusinessRisks { get; set; }
+		//[JsonProperty("change_name")]
+		public string ChangeName { get; set; }
+		//[JsonProperty("change_reason")]
+		public string ChangeReason { get; set; }
+		//[JsonProperty("created_date")]
+		public DateTime? CreatedDate { get; set; }
+		//[JsonProperty("deployment_considerations")]
+		public string DeploymentConsiderations { get; set; }
+		//[JsonProperty("limitations_and_exclusions")]
+		public string LimitationsAndExclusions { get; set; }
+		//[JsonProperty("major_features")]
+		public string MajorFeatures { get; set; }
+		//[JsonProperty("project_priorities")]
+		public string ProjectPriorities { get; set; }
+		//[JsonProperty("scope_and_limitations")]
+		public string ScopeAndLimitations { get; set; }
+		//[JsonProperty("scope_of_initial_release")]
+		public string ScopeOfInitialRelease { get; set; }
+		//[JsonProperty("scope_of_subsequent_releases")]
+		public string ScopeOfSubsequentReleases { get; set; }
+		//[JsonProperty("stake_holder_profiles")]
+		public string StakeHolderProfiles { get; set; }
+		//[JsonProperty("success_metrics")]
+		public string SuccessMetrics { get; set; }
+		//[JsonProperty("vision_statements")]
+		public string VisionStatements { get; set; }
+		//[JsonProperty("project")]
+		//public ProjectsViewModel ProjectVM { get; set; }
+		
+		public VisionAndScopeDocsViewModel(VisionAndScopeDocs entity) : base(entity)
+		{
+		}
+		
+		public VisionAndScopeDocsViewModel()
+		{
+		}
+		
+	}
+	
+	public partial class UpdateVisionAndScopeDocsViewModel: BaseUpdateViewModel<UpdateVisionAndScopeDocsViewModel, VisionAndScopeDocs>
+	{
+		//[JsonProperty("project_id")]
+		public Wrapper<int> ProjectId { get; set; }
+		//[JsonProperty("major")]
+		public Wrapper<int> Major { get; set; }
+		//[JsonProperty("minor")]
+		public Wrapper<int> Minor { get; set; }
+		//[JsonProperty("background")]
+		public Wrapper<string> Background { get; set; }
+		//[JsonProperty("business_assumptions_and_dependencies")]
+		public Wrapper<string> BusinessAssumptionsAndDependencies { get; set; }
+		//[JsonProperty("business_context")]
+		public Wrapper<string> BusinessContext { get; set; }
+		//[JsonProperty("business_objectives")]
+		public Wrapper<string> BusinessObjectives { get; set; }
+		//[JsonProperty("business_opportunity")]
+		public Wrapper<string> BusinessOpportunity { get; set; }
+		//[JsonProperty("business_requirements")]
+		public Wrapper<string> BusinessRequirements { get; set; }
+		//[JsonProperty("business_risks")]
+		public Wrapper<string> BusinessRisks { get; set; }
+		//[JsonProperty("change_name")]
+		public Wrapper<string> ChangeName { get; set; }
+		//[JsonProperty("change_reason")]
+		public Wrapper<string> ChangeReason { get; set; }
+		//[JsonProperty("created_date")]
+		public Wrapper<DateTime?> CreatedDate { get; set; }
+		//[JsonProperty("deployment_considerations")]
+		public Wrapper<string> DeploymentConsiderations { get; set; }
+		//[JsonProperty("limitations_and_exclusions")]
+		public Wrapper<string> LimitationsAndExclusions { get; set; }
+		//[JsonProperty("major_features")]
+		public Wrapper<string> MajorFeatures { get; set; }
+		//[JsonProperty("project_priorities")]
+		public Wrapper<string> ProjectPriorities { get; set; }
+		//[JsonProperty("scope_and_limitations")]
+		public Wrapper<string> ScopeAndLimitations { get; set; }
+		//[JsonProperty("scope_of_initial_release")]
+		public Wrapper<string> ScopeOfInitialRelease { get; set; }
+		//[JsonProperty("scope_of_subsequent_releases")]
+		public Wrapper<string> ScopeOfSubsequentReleases { get; set; }
+		//[JsonProperty("stake_holder_profiles")]
+		public Wrapper<string> StakeHolderProfiles { get; set; }
+		//[JsonProperty("success_metrics")]
+		public Wrapper<string> SuccessMetrics { get; set; }
+		//[JsonProperty("vision_statements")]
+		public Wrapper<string> VisionStatements { get; set; }
+		//[JsonProperty("project")]
+		//public ProjectsViewModel ProjectVM { get; set; }
+		
+	}
+}

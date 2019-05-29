@@ -10,7 +10,7 @@ namespace TNT.Core.Template.DataService
 {
     public static class Extensions
     {
-        public static AutoDataServiceGen GetDataServiceGenerator(
+        public static DataServiceGen GetDataServiceGenerator(
             this DbContext dbContext,
             string projectPath,
             string projectName,
@@ -20,11 +20,11 @@ namespace TNT.Core.Template.DataService
             bool requestScope = false
             )
         {
-            return new AutoDataServiceGen(dbContext, projectPath, projectName,
+            return new DataServiceGen(dbContext, projectPath, projectName,
                 vmPropStyle, dIContainer, requestScope);
         }
 
-        public static AutoDataServiceGen GetDataServiceGenerator(
+        public static DataServiceGen GetDataServiceGenerator(
             this DbContext dbContext,
             string projectPath,
             string outputPath,
@@ -35,7 +35,7 @@ namespace TNT.Core.Template.DataService
             bool requestScope = false
             )
         {
-            return new AutoDataServiceGen(dbContext, projectPath, outputPath, projectName,
+            return new DataServiceGen(dbContext, projectPath, outputPath, projectName,
                 vmPropStyle, dIContainer, requestScope);
         }
     }

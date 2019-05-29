@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestDataService.Global;
+using TestDataService.Models.Entities;
+using Newtonsoft.Json;
+
+namespace TestDataService.ViewModels
+{
+	public partial class AspNetRolesViewModel: BaseViewModel<AspNetRoles>
+	{
+		//[JsonProperty("id")]
+		public string Id { get; set; }
+		//[JsonProperty("concurrency_stamp")]
+		public string ConcurrencyStamp { get; set; }
+		//[JsonProperty("name")]
+		public string Name { get; set; }
+		//[JsonProperty("normalized_name")]
+		public string NormalizedName { get; set; }
+		//[JsonProperty("asp_net_role_claims")]
+		//public IEnumerable<AspNetRoleClaimsViewModel> AspNetRoleClaimsVM { get; set; }
+		//[JsonProperty("asp_net_user_roles")]
+		//public IEnumerable<AspNetUserRolesViewModel> AspNetUserRolesVM { get; set; }
+		
+		public AspNetRolesViewModel(AspNetRoles entity) : base(entity)
+		{
+		}
+		
+		public AspNetRolesViewModel()
+		{
+		}
+		
+	}
+	
+	public partial class UpdateAspNetRolesViewModel: BaseUpdateViewModel<UpdateAspNetRolesViewModel, AspNetRoles>
+	{
+		//[JsonProperty("id")]
+		public Wrapper<string> Id { get; set; }
+		//[JsonProperty("concurrency_stamp")]
+		public Wrapper<string> ConcurrencyStamp { get; set; }
+		//[JsonProperty("name")]
+		public Wrapper<string> Name { get; set; }
+		//[JsonProperty("normalized_name")]
+		public Wrapper<string> NormalizedName { get; set; }
+		//[JsonProperty("asp_net_role_claims")]
+		//public IEnumerable<AspNetRoleClaimsViewModel> AspNetRoleClaimsVM { get; set; }
+		//[JsonProperty("asp_net_user_roles")]
+		//public IEnumerable<AspNetUserRolesViewModel> AspNetUserRolesVM { get; set; }
+		
+	}
+}

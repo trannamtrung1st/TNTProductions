@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestDataService.Global;
+using TestDataService.Models.Entities;
+using Newtonsoft.Json;
+
+namespace TestDataService.ViewModels
+{
+	public partial class DocumentsViewModel: BaseViewModel<Documents>
+	{
+		//[JsonProperty("code")]
+		public string Code { get; set; }
+		//[JsonProperty("detail")]
+		public string Detail { get; set; }
+		//[JsonProperty("name")]
+		public string Name { get; set; }
+		
+		public DocumentsViewModel(Documents entity) : base(entity)
+		{
+		}
+		
+		public DocumentsViewModel()
+		{
+		}
+		
+	}
+	
+	public partial class UpdateDocumentsViewModel: BaseUpdateViewModel<UpdateDocumentsViewModel, Documents>
+	{
+		//[JsonProperty("code")]
+		public Wrapper<string> Code { get; set; }
+		//[JsonProperty("detail")]
+		public Wrapper<string> Detail { get; set; }
+		//[JsonProperty("name")]
+		public Wrapper<string> Name { get; set; }
+		
+	}
+}
