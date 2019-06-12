@@ -1,0 +1,65 @@
+﻿*** Lần đầu khởi tạo project ***
+1/ New project .Net Core console app DataService
+2/ Install các package: 
+- Microsoft.EntityFrameworkCore.SqlServer 
+- Microsoft.EntityFrameworkCore.Design
+- AutoMapper
+- Newtonsoft.Json
+(bản mới nhất)
+3/ Tạo thư mục Models
+4/ New project .Net Core console Generator (tên tùy ý)
+5/ Install các package:
+- Microsoft.EntityFrameworkCore.Design
+- TNT.Core.Template.DataService
+6/ tạo các biến:
+- projectPath (đường dẫn tới thư mục project DataService): để tránh fix cứng theo 1 máy local, sử dụng "../../../../{tên project}"
+- projectName: tên project
+- server: tên db server (vd: localhost, 115.165.166.32)
+- dbName: tên db
+- username: tài khoản db
+- password: password tài khoản db
+- outputFolder: "Models" hoặc "Models/Entities" tùy vào ý định (thường là Models)
+- contextName: tên của lớp dbContext. vd: DataContext
+7/ Tạo instance của lớp SimpleGenrator bên trong hàm main của project Generator như sau: (ctrl . để import)
++ SimpleGenerator gen = new SimpleGenerator(projectName, server, dbName, username, password, outputFolder, contextName, projectPath);
++ gen.Regen(args);
+8/ Ctrl+ F5 để chạy program 2 lần:
+- Lần 1: gen Models ở project Generator
+- Lần 2: gen DataService templates ở project DataService.
+------------------------------------------------------------------------
+*** Cấu hình trước khi sử dụng DataService ***
+1/ Trong thư mục ViewModels/Gen có các file txt của các class ViewModels. Chọn class cần sử dụng và đổi qua file .cs
+hoặc sử dụng FileHelper.ChangeTextToCsFile(viewModelGenFolder, viewModelFolder, 4); để đổi tất cả text thành file .cs trong thư mục ViewModels
+2/ Tạo file Global.cs ở thư mục Global bên trong chứa code như sau:
+namespace ...
+{
+	public static partial class G
+	{
+
+		public static void Configure(IServiceCollection services)
+		{
+			G.MapperConfigs.Add(cfg =>
+			{
+				//đoạn bên dưới có trong file Global.Gen.cs trong thư mục Global/Gen
+				cfg.CreateMap<...,...>().InverseMap();
+				...
+				AutoMapper.Mapper.Initialize....
+			});
+			G.ConfigureAutomapper();
+			G.ConfigureIoC(services);
+		}
+	}
+
+}
+
+3/ Gọi G.Configure(services) bên trong hàm ConfigureServices ở file Startup.cs của project WebApplication để cấu hình.
+4/ Trong controllers, dependency injection các repository hoặc IUnitOfWork bằng constructor của các Controllers. 
+(khuyến khích tạo 1 BaseController để các controller khác extend, đỡ phải làm lại)
+5/ Gọi repo, IUnitOfWork để làm việc.
+-----------------------------------------------------------------------------
+*** Thay đổi database, regen ***
+1/ Ctrl F5 chạy project Generator 2 lần:
+- Lần 1: gen Models ở Generator
+- Lần 2: gen lại cấu trúc DataService bên project DataService
+2/ Xem xét các thay đổi ở các thư mục ViewModel/Gen (nếu có thay đổi db) để cập nhật các file .cs đang có trong project.
+Chú ý: nếu có xóa bảng thì sau khi cập nhật, phải xóa các class entity ko sử dụng bằng tay vì Db Scaffold ko xóa giúp mình.
