@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -13,31 +14,57 @@ namespace TNT.Core.Helpers.Data
     {
         #region Get properties of type
         private static IDictionary<Type, IDictionary<string, PropertyInfo>> ReflectionCaches;
+        private static IDictionary<Type, IDictionary<string, PropertyInfo>> JsonPropertyReflectionCaches;
+
         static DataExtension()
         {
             ReflectionCaches = new Dictionary<Type, IDictionary<string, PropertyInfo>>();
+            JsonPropertyReflectionCaches = new Dictionary<Type, IDictionary<string, PropertyInfo>>();
         }
 
-        public static void CachePropertiesOfType(Type t)
+        public static void CachePropertiesOfType(Type type, SelectOption option)
         {
-            var props = t.GetProperties();
-            var mappings = new Dictionary<string, PropertyInfo>();
-            foreach (var p in props)
+            var mappings = GetPropMappings(type, option);
+            switch (option)
             {
-                mappings[p.Name] = p;
+                case SelectOption.ByJsonProperty:
+                    JsonPropertyReflectionCaches[type] = mappings;
+                    break;
+                case SelectOption.ByPropertyName:
+                    ReflectionCaches[type] = mappings;
+                    break;
             }
-            ReflectionCaches[t] = mappings;
         }
 
-        private static IDictionary<string, PropertyInfo> GetPropMappings(Type type)
+        private static IDictionary<string, PropertyInfo> GetPropMappings(Type type, SelectOption option)
         {
-            if (ReflectionCaches.ContainsKey(type))
-                return ReflectionCaches[type];
             var mappings = new Dictionary<string, PropertyInfo>();
-            var props = type.GetProperties();
-            foreach (var p in props)
+            switch (option)
             {
-                mappings[p.Name] = p;
+                case SelectOption.ByPropertyName:
+                    if (ReflectionCaches.ContainsKey(type))
+                        return ReflectionCaches[type];
+                    var props = type.GetProperties();
+                    foreach (var p in props)
+                    {
+                        mappings[p.Name] = p;
+                    }
+                    break;
+                case SelectOption.ByJsonProperty:
+                    if (JsonPropertyReflectionCaches.ContainsKey(type))
+                        return JsonPropertyReflectionCaches[type];
+                    mappings = new Dictionary<string, PropertyInfo>();
+                    props = type.GetProperties();
+                    foreach (var p in props)
+                    {
+                        var attr = p.GetCustomAttribute<JsonPropertyAttribute>();
+                        string name = null;
+                        if (attr != null)
+                            name = attr.PropertyName;
+                        else name = p.Name;
+                        mappings[name] = p;
+                    }
+                    break;
             }
             return mappings;
         }
@@ -46,7 +73,7 @@ namespace TNT.Core.Helpers.Data
         #region Dynamic type 
         private static Type DynamicBuildType(
             ref int no, bool keepStructure,
-            IDictionary<string, PropertyInfo> inpMappings, params string[] properties)
+            IDictionary<string, PropertyInfo> inpMappings, SelectOption option, params string[] properties)
         {
             var builder = CreateTypeBuilder(
                 "Dynamic" + no,
@@ -64,12 +91,12 @@ namespace TNT.Core.Helpers.Data
                         if (!checkedList.Contains(prName))
                         {
                             var prType = inpMappings[prName].PropertyType;
-                            var newMappings = GetPropMappings(prType);
+                            var newMappings = GetPropMappings(prType, option);
                             var sames = properties.Where(pr => pr.StartsWith(prName + "."));
                             sames = sames.Select(pr => pr.Substring(pr.IndexOf('.') + 1));
                             ++no;
                             CreateAutoImplementedProperty(
-                                builder, prName, DynamicBuildType(ref no, keepStructure, newMappings, sames.ToArray()));
+                                builder, prName, DynamicBuildType(ref no, keepStructure, newMappings, option, sames.ToArray()));
                             checkedList.Add(prName);
                         }
                     }
@@ -82,12 +109,12 @@ namespace TNT.Core.Helpers.Data
                 {
                     var sames = properties.Where(p => p.Contains(kvp.Key + "."))
                         .Select(p => p.Substring(p.IndexOf('.') + 1)).ToArray();
-                    var newMappings = GetPropMappings(kvp.Value.PropertyType);
+                    var newMappings = GetPropMappings(kvp.Value.PropertyType, option);
                     Type newType = null;
                     if (sames.Length > 0)
                     {
                         ++no;
-                        newType = DynamicBuildType(ref no, keepStructure, newMappings, sames);
+                        newType = DynamicBuildType(ref no, keepStructure, newMappings, option, sames);
                     }
                     else
                         newType = kvp.Value.PropertyType;
@@ -168,18 +195,18 @@ namespace TNT.Core.Helpers.Data
         private static MemberInitExpression CreateNew(
             ref int no, bool keepStructure, bool init,
             Type inpType, Type srcType,
-            Expression src, params string[] properties)
+            Expression src, SelectOption option, params string[] properties)
         {
             int orgNo = no;
-            var srcMappings = GetPropMappings(srcType);
+            var srcMappings = GetPropMappings(srcType, option);
             Type outType;
             if (init)
             {
                 no++;
-                outType = DynamicBuildType(ref no, keepStructure, GetPropMappings(inpType), properties);
+                outType = DynamicBuildType(ref no, keepStructure, GetPropMappings(inpType, option), option, properties);
             }
             else outType = inpType;
-            var outMappings = GetPropMappings(outType);
+            var outMappings = GetPropMappings(outType, option);
 
             NewExpression newObj = Expression.New(outType);
             no = orgNo;
@@ -202,7 +229,7 @@ namespace TNT.Core.Helpers.Data
                         var newSrc = Expression.Property(src, srcMappings[prName]);
                         ++no;
                         var initPr = CreateNew(ref no, keepStructure, false,
-                            prType, srcMappings[prName].PropertyType, newSrc, sames.ToArray());
+                            prType, srcMappings[prName].PropertyType, newSrc, option, sames.ToArray());
                         listAssignments.Add(Expression.Bind(prInfo, initPr));
                         checkedList.Add(prName);
                     }
@@ -223,9 +250,9 @@ namespace TNT.Core.Helpers.Data
 
         private static MemberInitExpression CreateNew(
             Type srcType,
-            Expression src, params string[] properties)
+            Expression src, SelectOption option, params string[] properties)
         {
-            var srcMappings = GetPropMappings(srcType);
+            var srcMappings = GetPropMappings(srcType, option);
 
             NewExpression newObj = Expression.New(srcType);
             var listAssignments = new List<MemberAssignment>();
@@ -244,7 +271,7 @@ namespace TNT.Core.Helpers.Data
                         var sames = properties.Where(pr => pr.StartsWith(prName + "."));
                         sames = sames.Select(pr => pr.Substring(pr.IndexOf('.') + 1));
                         var newSrc = Expression.Property(src, srcMappings[prName]);
-                        var initPr = CreateNew(prType, newSrc, sames.ToArray());
+                        var initPr = CreateNew(prType, newSrc, option, sames.ToArray());
                         listAssignments.Add(Expression.Bind(prInfo, initPr));
                         checkedList.Add(prName);
                     }
@@ -260,40 +287,40 @@ namespace TNT.Core.Helpers.Data
             return initObj;
         }
 
-        public static IQueryable<object> SelectOnly<In>(this IQueryable<In> query, bool keepStructure, params string[] properties)
+        public static IQueryable<object> SelectOnly<In>(this IQueryable<In> query, bool keepStructure, SelectOption option, params string[] properties)
         {
             var inpType = typeof(In);
             ParameterExpression inp = Expression.Parameter(typeof(In), "inp");
             var no = 0;
-            var initObj = CreateNew(ref no, keepStructure, true, inpType, inpType, inp, properties);
+            var initObj = CreateNew(ref no, keepStructure, true, inpType, inpType, inp, option, properties);
             var lambda = Expression.Lambda<Func<In, object>>(initObj, inp);
             return query.Select(lambda);
         }
 
-        public static IEnumerable<object> SelectOnly<In>(this IEnumerable<In> query, bool keepStructure, params string[] properties)
+        public static IEnumerable<object> SelectOnly<In>(this IEnumerable<In> query, bool keepStructure, SelectOption option, params string[] properties)
         {
             var inpType = typeof(In);
             ParameterExpression inp = Expression.Parameter(typeof(In), "inp");
             var no = 0;
-            var initObj = CreateNew(ref no, keepStructure, true, inpType, inpType, inp, properties);
+            var initObj = CreateNew(ref no, keepStructure, true, inpType, inpType, inp, option, properties);
             var lambda = Expression.Lambda<Func<In, object>>(initObj, inp).Compile();
             return query.Select(lambda);
         }
 
-        public static IQueryable<In> SelectOnly<In>(this IQueryable<In> query, params string[] properties)
+        public static IQueryable<In> SelectOnly<In>(this IQueryable<In> query, SelectOption option, params string[] properties)
         {
             var inpType = typeof(In);
             ParameterExpression inp = Expression.Parameter(typeof(In), "inp");
-            var initObj = CreateNew(inpType, inp, properties);
+            var initObj = CreateNew(inpType, inp, option, properties);
             var lambda = Expression.Lambda<Func<In, In>>(initObj, inp);
             return query.Select(lambda);
         }
 
-        public static IEnumerable<In> SelectOnly<In>(this IEnumerable<In> query, params string[] properties)
+        public static IEnumerable<In> SelectOnly<In>(this IEnumerable<In> query, SelectOption option, params string[] properties)
         {
             var inpType = typeof(In);
             ParameterExpression inp = Expression.Parameter(typeof(In), "inp");
-            var initObj = CreateNew(inpType, inp, properties);
+            var initObj = CreateNew(inpType, inp, option, properties);
             var lambda = Expression.Lambda<Func<In, In>>(initObj, inp).Compile();
             return query.Select(lambda);
         }
@@ -303,10 +330,10 @@ namespace TNT.Core.Helpers.Data
         #region Select only (project from In to Out)
         private static MemberInitExpression CreateNew<Out>(
             Type outType, Type srcType,
-            Expression src, params string[] propMappings)
+            Expression src, SelectOption option, params string[] propMappings)
         {
-            var outMappings = GetPropMappings(outType);
-            var srcMappings = GetPropMappings(srcType);
+            var outMappings = GetPropMappings(outType, option);
+            var srcMappings = GetPropMappings(srcType, option);
 
             NewExpression newObj = Expression.New(outType);
             var listAssignments = new List<MemberAssignment>();
@@ -326,7 +353,7 @@ namespace TNT.Core.Helpers.Data
                         var prType = prInfo.PropertyType;
                         var sames = propMappings.Where(pr => pr.Split('=')[0].StartsWith(prName + "."));
                         sames = sames.Select(pr => pr.Substring(pr.IndexOf('.') + 1));
-                        var initPr = CreateNew<object>(prType, srcType, src, sames.ToArray());
+                        var initPr = CreateNew<object>(prType, srcType, src, option, sames.ToArray());
                         listAssignments.Add(Expression.Bind(prInfo, initPr));
                         checkedList.Add(prName);
                     }
@@ -348,7 +375,7 @@ namespace TNT.Core.Helpers.Data
                             newType = srcPrInfo.PropertyType;
                             tmpSrc = Expression.Property(tmpSrc, srcPrInfo);
                             tmpStr = tmpStr.Substring(tmpStr.IndexOf('.') + 1);
-                            tmpMappings = GetPropMappings(newType);
+                            tmpMappings = GetPropMappings(newType, option);
                         }
                         newSrc = Expression.Property(tmpSrc, tmpMappings[tmpStr]);
                     }
@@ -367,22 +394,22 @@ namespace TNT.Core.Helpers.Data
             return initObj;
         }
 
-        public static IQueryable<Out> SelectOnly<In, Out>(this IQueryable<In> query, params string[] propMappings)
+        public static IQueryable<Out> SelectOnly<In, Out>(this IQueryable<In> query, SelectOption option = SelectOption.ByPropertyName, params string[] propMappings)
         {
             var inpType = typeof(In);
             var outType = typeof(Out);
             ParameterExpression inp = Expression.Parameter(typeof(In), "inp");
-            var initObj = CreateNew<Out>(outType, inpType, inp, propMappings);
+            var initObj = CreateNew<Out>(outType, inpType, inp, option, propMappings);
             var lambda = Expression.Lambda<Func<In, Out>>(initObj, inp);
             return query.Select(lambda);
         }
 
-        public static IEnumerable<Out> SelectOnly<In, Out>(this IEnumerable<In> query, params string[] propMappings)
+        public static IEnumerable<Out> SelectOnly<In, Out>(this IEnumerable<In> query, SelectOption option, params string[] propMappings)
         {
             var inpType = typeof(In);
             var outType = typeof(Out);
             ParameterExpression inp = Expression.Parameter(typeof(In), "inp");
-            var initObj = CreateNew<Out>(outType, inpType, inp, propMappings);
+            var initObj = CreateNew<Out>(outType, inpType, inp, option, propMappings);
             var lambda = Expression.Lambda<Func<In, Out>>(initObj, inp).Compile();
             return query.Select(lambda);
         }
@@ -390,25 +417,31 @@ namespace TNT.Core.Helpers.Data
         #endregion
 
         #region Select only (specify output type by method param)
-        public static IQueryable<object> SelectOnly<In>(this IQueryable<In> query, Type outType, params string[] propMappings)
+        public static IQueryable<object> SelectOnly<In>(this IQueryable<In> query, Type outType, SelectOption option, params string[] propMappings)
         {
             var inpType = typeof(In);
             ParameterExpression inp = Expression.Parameter(typeof(In), "inp");
-            var initObj = CreateNew<object>(outType, inpType, inp, propMappings);
+            var initObj = CreateNew<object>(outType, inpType, inp, option, propMappings);
             var lambda = Expression.Lambda<Func<In, object>>(initObj, inp);
             return query.Select(lambda);
         }
 
-        public static IEnumerable<object> SelectOnly<In>(this IEnumerable<In> query, Type outType, params string[] propMappings)
+        public static IEnumerable<object> SelectOnly<In>(this IEnumerable<In> query, Type outType, SelectOption option, params string[] propMappings)
         {
             var inpType = typeof(In);
             ParameterExpression inp = Expression.Parameter(typeof(In), "inp");
-            var initObj = CreateNew<object>(outType, inpType, inp, propMappings);
+            var initObj = CreateNew<object>(outType, inpType, inp, option, propMappings);
             var lambda = Expression.Lambda<Func<In, object>>(initObj, inp).Compile();
             return query.Select(lambda);
         }
 
         #endregion
 
+    }
+
+    public enum SelectOption
+    {
+        ByPropertyName = 1,
+        ByJsonProperty = 2,
     }
 }
