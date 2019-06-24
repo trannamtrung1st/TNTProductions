@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TNT.Core.Helpers.Cryptography;
 using TNT.Core.Helpers.Data;
 
