@@ -349,8 +349,6 @@ namespace TNT.Core.Helpers.Data
                     var prName = outStr.Substring(0, outStr.IndexOf('.'));
                     if (!checkedList.Contains(prName))
                     {
-                        if (!outMappings.ContainsKey(prName))
-                            continue;
                         var prInfo = outMappings[prName];
                         var prType = prInfo.PropertyType;
                         var sames = propMappings.Where(pr => pr.Split('=')[0].StartsWith(prName + "."));
@@ -373,8 +371,6 @@ namespace TNT.Core.Helpers.Data
                         while (tmpStr.Contains('.'))
                         {
                             var srcPrName = tmpStr.Substring(0, tmpStr.IndexOf('.'));
-                            if (!tmpMappings.ContainsKey(srcPrName))
-                                continue;
                             var srcPrInfo = tmpMappings[srcPrName];
                             newType = srcPrInfo.PropertyType;
                             tmpSrc = Expression.Property(tmpSrc, srcPrInfo);
@@ -385,8 +381,6 @@ namespace TNT.Core.Helpers.Data
                     }
                     else
                     {
-                        if (!srcMappings.ContainsKey(srcStr))
-                            continue;
                         var srcPrInfo = srcMappings[srcStr];
                         newSrc = Expression.Property(src, srcPrInfo);
                         newType = srcPrInfo.PropertyType;
