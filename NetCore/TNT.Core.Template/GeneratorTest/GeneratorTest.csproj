@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TNT.Core.Template.DataService.MongoDB\TNT.Core.Template.DataService.MongoDB.csproj" />
     <ProjectReference Include="..\TNT.Core.Template.DataService\TNT.Core.Template.DataService.csproj" />
   </ItemGroup>
 

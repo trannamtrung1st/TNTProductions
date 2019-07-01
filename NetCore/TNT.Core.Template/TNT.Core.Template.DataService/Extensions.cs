@@ -15,13 +15,12 @@ namespace TNT.Core.Template.DataService
             string projectPath,
             string projectName,
             JsonPropertyFormatEnum vmPropStyle,
-            DIContainer dIContainer,
             bool activeCol = true,
             bool requestScope = false
             )
         {
             return new DataServiceGen(dbContext, projectPath, projectName,
-                vmPropStyle, dIContainer, requestScope);
+                vmPropStyle, requestScope);
         }
 
         public static DataServiceGen GetDataServiceGenerator(
@@ -30,13 +29,12 @@ namespace TNT.Core.Template.DataService
             string outputPath,
             string projectName,
             JsonPropertyFormatEnum vmPropStyle,
-            DIContainer dIContainer,
             bool activeCol = true,
             bool requestScope = false
             )
         {
             return new DataServiceGen(dbContext, projectPath, outputPath, projectName,
-                vmPropStyle, dIContainer, requestScope);
+                vmPropStyle, requestScope);
         }
     }
 }

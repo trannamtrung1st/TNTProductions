@@ -55,12 +55,6 @@ namespace TNT.Core.Template.DataService.Models.Domains
 
         public void GenerateBaseDomainBody()
         {
-
-            var c01 = new ContainerGen();
-            c01.Signature = "public BaseDomain(DbContext context)";
-            c01.Body.Add(new StatementGen(
-                "this.context = context;"));
-
             var s1 = new StatementGen(
                 "protected DbContext context;");
 
@@ -75,9 +69,6 @@ namespace TNT.Core.Template.DataService.Models.Domains
 
             var s3 = new StatementGen("public IUnitOfWork UoW { get { return uow; } }");
             var s4 = new StatementGen("public DbContext Context { get { return context; } }");
-
-            if (Data.DIContainer == DIContainer.TContainer)
-                BaseDomainBody.Add(c01, new StatementGen(""));
 
             BaseDomainBody.Add(
                 c1, new StatementGen(""),

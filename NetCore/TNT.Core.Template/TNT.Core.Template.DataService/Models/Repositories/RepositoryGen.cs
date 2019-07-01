@@ -110,12 +110,6 @@ namespace TNT.Core.Template.DataService.Models.Repositories
                 "this.context = uow.Context;",
                 "this.dbSet = context.Set<E>();"));
 
-            var c5 = new ContainerGen();
-            c5.Signature = "public BaseRepository(DbContext context)";
-            c5.Body.Add(new StatementGen(
-                "this.context = context;",
-                "this.dbSet = context.Set<E>();"));
-
             var m31 = new ContainerGen();
             m31.Signature = "public int SaveChanges()";
             m31.Body.Add(new StatementGen(
@@ -235,8 +229,6 @@ namespace TNT.Core.Template.DataService.Models.Repositories
             BaseRepositoryBody.Add(
                 s12, new StatementGen(""),
                 c4, new StatementGen(""));
-            if (Data.DIContainer == DIContainer.TContainer)
-                BaseRepositoryBody.Add(c5, new StatementGen(""));
             BaseRepositoryBody.Add(
                 m31, new StatementGen(""),
                 m32, new StatementGen(""),

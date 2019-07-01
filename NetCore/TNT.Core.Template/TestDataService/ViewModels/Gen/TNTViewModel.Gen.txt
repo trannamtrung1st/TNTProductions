@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestDataService.Models;
+using Newtonsoft.Json;
+
+namespace TestDataService.ViewModels
+{
+	public partial class TNTViewModel: BaseViewModel<TNT>
+	{
+		//[JsonProperty("id")]
+		public String Id { get; set; }
+		//[JsonProperty("books")]
+		public Books Books { get; set; }
+		
+		public TNTViewModel(TNT entity) : base(entity)
+		{
+		}
+		
+		public TNTViewModel()
+		{
+		}
+		
+	}
+	
+}

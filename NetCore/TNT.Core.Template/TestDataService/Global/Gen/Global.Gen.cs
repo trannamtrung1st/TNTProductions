@@ -1,15 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using TestDataService.Models.Entities;
-using TestDataService.Models;
-using TestDataService.Models.Repositories;
-using TestDataService.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using TestDataService.Models.Configs;
+using TestDataService.Models.Repositories;
 
 namespace TestDataService.Global
 {
@@ -21,17 +18,8 @@ namespace TestDataService.Global
 		//{
 			//cfg =>
 			//{
-			//	cfg.CreateMap<AspNetRoleClaims, AspNetRoleClaimsViewModel>().ReverseMap();
-			//	cfg.CreateMap<AspNetRoles, AspNetRolesViewModel>().ReverseMap();
-			//	cfg.CreateMap<AspNetUserClaims, AspNetUserClaimsViewModel>().ReverseMap();
-			//	cfg.CreateMap<AspNetUserLogins, AspNetUserLoginsViewModel>().ReverseMap();
-			//	cfg.CreateMap<AspNetUserRoles, AspNetUserRolesViewModel>().ReverseMap();
-			//	cfg.CreateMap<AspNetUserTokens, AspNetUserTokensViewModel>().ReverseMap();
-			//	cfg.CreateMap<AspNetUsers, AspNetUsersViewModel>().ReverseMap();
-			//	cfg.CreateMap<Documents, DocumentsViewModel>().ReverseMap();
-			//	cfg.CreateMap<Organizations, OrganizationsViewModel>().ReverseMap();
-			//	cfg.CreateMap<Projects, ProjectsViewModel>().ReverseMap();
-			//	cfg.CreateMap<VisionAndScopeDocs, VisionAndScopeDocsViewModel>().ReverseMap();
+			//	cfg.CreateMap<Books, BooksViewModel>().ReverseMap();
+			//	cfg.CreateMap<TNT, TNTViewModel>().ReverseMap();
 			//	AutoMapper.Mapper.Initialize(cfg as MapperConfigurationExpression);
 		//	}
 		//};
@@ -49,24 +37,12 @@ namespace TestDataService.Global
 			
 		}
 		
-		private static void ConfigureIoC(IServiceCollection services)
+		private static void ConfigureIoC(IServiceCollection services, IMongoDbSettings settings)
 		{
 			//IoC
-			services.AddScoped<UnitOfWork>()
-				.AddScoped<IUnitOfWork, UnitOfWork>()
-				.AddScoped<DataContext, UnitOfWork>()
-				.AddScoped<DbContext, UnitOfWork>()
-				.AddScoped<IAspNetRoleClaimsRepository, AspNetRoleClaimsRepository>()
-				.AddScoped<IAspNetRolesRepository, AspNetRolesRepository>()
-				.AddScoped<IAspNetUserClaimsRepository, AspNetUserClaimsRepository>()
-				.AddScoped<IAspNetUserLoginsRepository, AspNetUserLoginsRepository>()
-				.AddScoped<IAspNetUserRolesRepository, AspNetUserRolesRepository>()
-				.AddScoped<IAspNetUserTokensRepository, AspNetUserTokensRepository>()
-				.AddScoped<IAspNetUsersRepository, AspNetUsersRepository>()
-				.AddScoped<IDocumentsRepository, DocumentsRepository>()
-				.AddScoped<IOrganizationsRepository, OrganizationsRepository>()
-				.AddScoped<IProjectsRepository, ProjectsRepository>()
-				.AddScoped<IVisionAndScopeDocsRepository, VisionAndScopeDocsRepository>();
+			services.AddSingleton(settings)
+				.AddSingleton<IBooksRepository, BooksRepository>()
+				.AddSingleton<ITNTRepository, TNTRepository>();
 		}
 		
 	}

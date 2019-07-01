@@ -23,16 +23,8 @@ namespace TNT.Core.Template.DataService.Models
                 Data.ContextNamespace);
             ResolveMapping["context"] = Data.ContextName;
 
-            if (dt.DIContainer == DIContainer.TContainer)
-            {
-                Directive.Add("TNT.Core.IoC.Wrapper", "TNT.Core.IoC.Container");
-                Container = "ITContainer";
-            }
-            else
-            {
-                Container = "IServiceProvider";
-                Directive.Add("Microsoft.Extensions.DependencyInjection");
-            }
+            Container = "IServiceProvider";
+            Directive.Add("Microsoft.Extensions.DependencyInjection");
 
             //GENERATE
             GenerateNamespace();
@@ -102,7 +94,7 @@ namespace TNT.Core.Template.DataService.Models
                 "Scope = scope;",
                 "Context = this;"));
 
-            var method = Data.DIContainer == DIContainer.TContainer ? "Resolve" : "GetService";
+            var method = "GetService";
 
             var m3 = new ContainerGen();
             m3.Signature = "public S Repository<S>() where S : class, IRepository";

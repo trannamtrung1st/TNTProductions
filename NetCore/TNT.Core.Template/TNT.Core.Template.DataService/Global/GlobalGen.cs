@@ -20,10 +20,7 @@ namespace TNT.Core.Template.DataService.Global
                 Data.ProjectName + ".Models",
                 Data.ProjectName + ".Models.Repositories",
                 Data.ProjectName + ".ViewModels");
-            if (Data.DIContainer == DIContainer.TContainer)
-                Directive.Add("TNT.Core.IoC.Container");
-            else
-                Directive.Add("Microsoft.Extensions.DependencyInjection");
+            Directive.Add("Microsoft.Extensions.DependencyInjection");
 
             //GENERATE
             GenerateNamespace();
@@ -59,12 +56,6 @@ namespace TNT.Core.Template.DataService.Global
                 new StatementGen(
                     "public static IMapper Mapper { get; private set; }"
                 ));
-
-            if (Data.DIContainer == DIContainer.TContainer)
-                GlobalClassBody.Add(
-                    new StatementGen(
-                        "public static ITContainer TContainer { get; private set; }",
-                    "private static TContainerBuilder Builder = new TContainerBuilder();"));
 
             NamespaceBody.Add(GlobalClass);
         }
@@ -116,58 +107,26 @@ namespace TNT.Core.Template.DataService.Global
 
         private void GenerateInitDI()
         {
-            if (Data.DIContainer == DIContainer.TContainer)
+            var method = new ContainerGen();
+            method.Signature = "private static void ConfigureIoC(IServiceCollection services)";
+
+            var s2 = new StatementGen("//IoC",
+                "services.AddScoped<UnitOfWork>()");
+            s2.Add("\t.AddScoped<IUnitOfWork, UnitOfWork>()");
+            s2.Add("\t.AddScoped<" + Data.ContextName + ", UnitOfWork>()");
+            s2.Add("\t.AddScoped<DbContext, UnitOfWork>()");
+
+            var entities = Data.Entities;
+            var len = entities.Count;
+            int i = 0;
+            for (i = 0; i < len - 1; i++)
             {
-                var method = new ContainerGen();
-                method.Signature = "private static void ConfigureIoC()";
-
-                var s2 = new StatementGen("//IoC",
-                    "var repoOpt = new BuilderOptions();",
-                    "repoOpt.InjectableConstructors = new Dictionary<int, Params[]>();",
-                    "repoOpt.InjectableConstructors[0] = new Params[] { Params.Injectable<IUnitOfWork>() };",
-                    "",
-                    "Builder.RegisterType<ITContainer>(container => container)");
-                s2.Add("\t.RegisterType<UnitOfWork>(container => container.Resolve<UnitOfWork>())");
-                s2.Add("\t.RegisterType<IUnitOfWork, UnitOfWork>(container => container.Resolve<UnitOfWork>())");
-                s2.Add("\t.RegisterType<" + Data.ContextName + ", UnitOfWork>(container => container.Resolve<UnitOfWork>())");
-                s2.Add("\t.RegisterType<DbContext, UnitOfWork>(container => container.Resolve<UnitOfWork>())");
-
-                var entities = Data.Entities;
-                var len = entities.Count;
-                int i = 0;
-                for (i = 0; i < len - 1; i++)
-                {
-                    s2.Add("\t.RegisterType<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>(repoOpt)");
-                }
-                s2.Add("\t.RegisterType<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>(repoOpt)", "\t.AttachAllRegisteredToLifetimeScope();");
-
-                s2.Add("G.TContainer = Builder.Build();");
-                method.Body.Add(s2);
-                GlobalClassBody.Add(method, new StatementGen(""));
+                s2.Add("\t.AddScoped<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>()");
             }
-            else
-            {
-                var method = new ContainerGen();
-                method.Signature = "private static void ConfigureIoC(IServiceCollection services)";
+            s2.Add("\t.AddScoped<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>();");
 
-                var s2 = new StatementGen("//IoC",
-                    "services.AddScoped<UnitOfWork>()");
-                s2.Add("\t.AddScoped<IUnitOfWork, UnitOfWork>()");
-                s2.Add("\t.AddScoped<" + Data.ContextName + ", UnitOfWork>()");
-                s2.Add("\t.AddScoped<DbContext, UnitOfWork>()");
-
-                var entities = Data.Entities;
-                var len = entities.Count;
-                int i = 0;
-                for (i = 0; i < len - 1; i++)
-                {
-                    s2.Add("\t.AddScoped<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>()");
-                }
-                s2.Add("\t.AddScoped<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>();");
-
-                method.Body.Add(s2);
-                GlobalClassBody.Add(method, new StatementGen(""));
-            }
+            method.Body.Add(s2);
+            GlobalClassBody.Add(method, new StatementGen(""));
         }
 
     }

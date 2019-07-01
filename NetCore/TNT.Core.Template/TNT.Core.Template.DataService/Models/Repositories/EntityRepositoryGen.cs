@@ -81,13 +81,6 @@ namespace TNT.Core.Template.DataService.Models.Repositories
             c1.Signature = "public `entity`Repository(IUnitOfWork uow) : base(uow)";
             EntityRepositoryBody.Add(c1, new StatementGen(""));
 
-            if (EInfo.Data.DIContainer == DIContainer.TContainer)
-            {
-                var c2 = new ContainerGen();
-                c2.Signature = "public `entity`Repository(DbContext context) : base(context)";
-                EntityRepositoryBody.Add(c2, new StatementGen(""));
-
-            }
             EntityRepositoryBody.Add(new StatementGen("#region CRUD area"));
 
             var m9 = new ContainerGen();
