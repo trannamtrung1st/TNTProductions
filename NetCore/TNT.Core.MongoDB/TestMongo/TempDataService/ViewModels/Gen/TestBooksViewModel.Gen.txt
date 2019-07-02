@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TempDataService.Models;
+using Newtonsoft.Json;
+
+namespace TempDataService.ViewModels
+{
+	public partial class TestBooksViewModel: BaseViewModel<TestBooks>
+	{
+		//[JsonProperty("id")]
+		public String Id { get; set; }
+		//[JsonProperty("test_number")]
+		public Int32 TestNumber { get; set; }
+		
+		public TestBooksViewModel(TestBooks entity) : base(entity)
+		{
+		}
+		
+		public TestBooksViewModel()
+		{
+		}
+		
+	}
+	
+}

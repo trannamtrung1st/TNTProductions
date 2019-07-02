@@ -105,7 +105,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Repositories
             c2.Body.Add(new StatementGen(
                 "_client = new MongoClient(settings.ConnectionString);",
                 "_database = _client.GetDatabase(settings.DatabaseName);",
-                "_collection = _database.GetCollection<E>(nameof(E));"));
+                "_collection = _database.GetCollection<E>(typeof(E).Name);"));
 
             var s3 = new StatementGen("#region Create");
 
