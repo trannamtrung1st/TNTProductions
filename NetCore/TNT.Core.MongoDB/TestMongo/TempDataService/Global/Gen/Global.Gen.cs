@@ -18,7 +18,7 @@ namespace TempDataService.Global
 		//{
 			//cfg =>
 			//{
-			//	cfg.CreateMap<TestBooks, TestBooksViewModel>().ReverseMap();
+			//	cfg.CreateMap<BooksTests, BooksTestsViewModel>().ReverseMap();
 			//	AutoMapper.Mapper.Initialize(cfg as MapperConfigurationExpression);
 		//	}
 		//};
@@ -40,7 +40,7 @@ namespace TempDataService.Global
 		{
 			//IoC
 			services.AddSingleton(settings)
-				.AddSingleton<ITestBooksRepository, TestBooksRepository>();
+				.AddSingleton<IBooksTestsRepository, BooksTestsRepository>();
 		}
 		
 	}

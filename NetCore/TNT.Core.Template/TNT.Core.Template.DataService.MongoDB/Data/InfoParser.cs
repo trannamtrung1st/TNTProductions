@@ -26,16 +26,19 @@ namespace TNT.Core.Template.DataService.MongoDB.Data
                 eInfo.SourceType = eT;
                 eInfo.EntityName = eT.Name.Substring(eT.Name.LastIndexOf('.') + 1);
                 eInfo.VMClass = eInfo.EntityName + "ViewModel";
-                SetPKInfo(eInfo, eT);
-                Info.Entities.Add(eInfo);
+                if (SetPKInfo(eInfo, eT))
+                    Info.Entities.Add(eInfo);
             }
         }
 
-        private void SetPKInfo(EntityInfo eInfo, Type eType)
+        private bool SetPKInfo(EntityInfo eInfo, Type eType)
         {
             var property = eType.GetProperties().FirstOrDefault(p => p.GetCustomAttributes(typeof(BsonIdAttribute), true).Any());
+            if (property == null)
+                return false;
             eInfo.PKClass = property.PropertyType.Name;
             eInfo.PKProp = property.Name;
+            return true;
         }
 
     }

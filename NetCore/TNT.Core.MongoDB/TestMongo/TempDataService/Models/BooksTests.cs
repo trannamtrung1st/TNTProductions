@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TempDataService.Models
 {
-    public partial class TestBooks
+    public partial class BooksTests
     {
 
         [BsonId]

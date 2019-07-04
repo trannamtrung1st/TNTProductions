@@ -8,26 +8,26 @@ using MongoDB.Driver;
 
 namespace TempDataService.Models.Repositories
 {
-	public partial interface ITestBooksRepository : IBaseRepository<TestBooks, String>
+	public partial interface IBooksTestsRepository : IBaseRepository<BooksTests, String>
 	{
 	}
 	
-	public partial class TestBooksRepository : BaseRepository<TestBooks, String>, ITestBooksRepository
+	public partial class BooksTestsRepository : BaseRepository<BooksTests, String>, IBooksTestsRepository
 	{
-		public TestBooksRepository(IMongoDbSettings settings) : base(settings)
+		public BooksTestsRepository(IMongoDbSettings settings) : base(settings)
 		{
 		}
 		
 		#region CRUD area
 		
-		public override TestBooks FindById(String id)
+		public override BooksTests FindById(String id)
 		{
 			var entity = _collection.Find(
 				e => e.Id == id).FirstOrDefault();
 			return entity;
 		}
 		
-		public override async Task<TestBooks> FindByIdAsync(String id)
+		public override async Task<BooksTests> FindByIdAsync(String id)
 		{
 			var entity = await (await _collection.FindAsync(
 				e => e.Id == id)).FirstOrDefaultAsync();
@@ -58,28 +58,28 @@ namespace TempDataService.Models.Repositories
 				e => e.Id == id);
 		}
 		
-		public override ReplaceOneResult Replace(TestBooks entity)
+		public override ReplaceOneResult Replace(BooksTests entity)
 		{
 			var id = entity.Id;
 			return _collection.ReplaceOne(
 				e => e.Id == id, entity);
 		}
 		
-		public override async Task<ReplaceOneResult> ReplaceAsync(TestBooks entity)
+		public override async Task<ReplaceOneResult> ReplaceAsync(BooksTests entity)
 		{
 			var id = entity.Id;
 			return await _collection.ReplaceOneAsync(
 				e => e.Id == id, entity);
 		}
 		
-		public override ReplaceOneResult Replace(IClientSessionHandle handle, TestBooks entity)
+		public override ReplaceOneResult Replace(IClientSessionHandle handle, BooksTests entity)
 		{
 			var id = entity.Id;
 			return _collection.ReplaceOne(handle,
 				e => e.Id == id, entity);
 		}
 		
-		public override async Task<ReplaceOneResult> ReplaceAsync(IClientSessionHandle handle, TestBooks entity)
+		public override async Task<ReplaceOneResult> ReplaceAsync(IClientSessionHandle handle, BooksTests entity)
 		{
 			var id = entity.Id;
 			return await _collection.ReplaceOneAsync(handle,

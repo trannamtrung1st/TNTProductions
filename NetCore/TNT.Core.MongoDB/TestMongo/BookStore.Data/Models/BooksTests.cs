@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BookStore.Data.Models
 {
-    public partial class TestBooks
+    public partial class BooksTests
     {
 
         [BsonId]

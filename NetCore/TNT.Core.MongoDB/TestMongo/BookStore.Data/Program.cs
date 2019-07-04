@@ -27,16 +27,14 @@ namespace BookStore.Data
             var client = new MongoClient(provider.GetService<IMongoDbSettings>().ConnectionString);
             var db = client.GetDatabase("BookstoreDb");
             var lisdb = db.ListCollectionNames().ToList();
-            var repo = provider.GetService<ITestBooksRepository>();
+            var repo = provider.GetService<IBooksTestsRepository>();
 
-            repo.Create(new TempDataService.Models.TestBooks()
+            repo.Create(new TempDataService.Models.BooksTests()
             {
                 Id = Guid.NewGuid().ToString()
             });
 
             var list = repo.Get().ToList();
-
-            Console.WriteLine(list.Count);
 
             //SimpleGenerator.Generate("../../../Models", "BookStore.Data.Models", "../../../../TempDataService", "TempDataService",
             //    TNT.Core.Template.DataService.MongoDB.Helpers.GeneralHelper.JsonPropertyFormatEnum.JsonStyle);
