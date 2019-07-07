@@ -12,6 +12,24 @@ namespace TNT.Core.Template.DataService.MongoDB.Helpers
 {
     public static class GeneralHelper
     {
+        public static string SyntaxName(this Type type)
+        {
+            while (type.IsGenericType)
+            {
+                var name = type.Name;
+                name = name.Remove(name.IndexOf('`')) + "<";
+                var genArgs = type.GenericTypeArguments;
+                int i = 0;
+                for (; i < genArgs.Length - 1; i++)
+                {
+                    name += genArgs[i].SyntaxName() + ", ";
+                }
+                name += genArgs[i].SyntaxName() + ">";
+                return name;
+            }
+            return type.Name;
+        }
+
         public static Process ExecuteBuildProjectCmd(string solutionPath, string projectName)
         {
             Process cmd = new Process();

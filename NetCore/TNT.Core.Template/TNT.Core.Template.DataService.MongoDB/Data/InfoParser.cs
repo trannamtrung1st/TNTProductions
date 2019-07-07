@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TNT.Core.Template.DataService.MongoDB.Helpers;
 
 namespace TNT.Core.Template.DataService.MongoDB.Data
 {
@@ -36,7 +37,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Data
             var property = eType.GetProperties().FirstOrDefault(p => p.GetCustomAttributes(typeof(BsonIdAttribute), true).Any());
             if (property == null)
                 return false;
-            eInfo.PKClass = property.PropertyType.Name;
+            eInfo.PKClass = property.PropertyType.SyntaxName();
             eInfo.PKProp = property.Name;
             return true;
         }

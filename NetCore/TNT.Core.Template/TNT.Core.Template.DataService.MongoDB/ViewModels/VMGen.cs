@@ -72,7 +72,7 @@ namespace TNT.Core.Template.DataService.MongoDB.ViewModels
                         s0.Add("//[JsonIgnore]");
                     else
                         s0.Add("//[JsonProperty(\"" + GeneralHelper.ToJsonPropertyFormat(p.Name, Style) + "\")]");//+ "\", DefaultValueHandling = DefaultValueHandling.Ignore)]");
-                    s0.Add("public " + p.PropertyType.Name + " " + p.Name + " { get; set; }");
+                    s0.Add("public " + p.PropertyType.SyntaxName() + " " + p.Name + " { get; set; }");
                 }
             }
 
