@@ -15,6 +15,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Domains
             Info = info;
             Directive.Add(
                 "MongoDB.Driver",
+                "Microsoft.Extensions.DependencyInjection",
                 Info.ProjectName + ".Models.Configs");
 
             //GENERATE
@@ -57,9 +58,15 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Domains
                 "_client = new MongoClient(settings.ConnectionString);",
                 "_database = _client.GetDatabase(settings.DatabaseName);"));
 
+            var m3 = new ContainerGen();
+            m3.Signature = "public T Service<T>()";
+            m3.Body.Add(new StatementGen(
+                "return _serviceProvider.GetRequiredService<T>();"));
+
             BaseDomainBody.Add(
                 s1, new StatementGen(""),
-                c2, new StatementGen("")
+                c2, new StatementGen(""),
+                m3, new StatementGen("")
                 );
 
             NamespaceBody.Add(BaseDomain);
