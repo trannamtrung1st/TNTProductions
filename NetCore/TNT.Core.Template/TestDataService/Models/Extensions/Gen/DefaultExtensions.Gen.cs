@@ -8,35 +8,25 @@ namespace TestDataService.Models
 {
 	public static partial class DefaultExtensions
 	{
+		public static readonly string[] Fam = new string[]
+		{
+			"ặẵẳằắăậẫẩầấâạãảàáa",
+			"ệễểềếêẹẽẻèée",
+			"ỵỹỷỳýy",
+			"ựữửừứưụũủùúu",
+			"ịĩỉìíi",
+			"ợỡởờớơộỗổồốôọõỏòóo",
+			"đd"
+		};
 		public static string ToIgnoreAccentRegex(this string input)
 		{
 			var newString = new StringBuilder("");
 			foreach (var c in input)
 			{
-				switch (c)
-				{
-					case 'a':
-						newString.Append("[ặẵẳằắăậẫẩầấâạãảàáa]");
-					break;
-					case 'e':
-						newString.Append("[ệễểềếêẹẽẻèée]");
-					break;
-					case 'y':
-						newString.Append("[ỵỹỷỳýy]");
-					break;
-					case 'u':
-						newString.Append("[ựữửừứưụũủùúu]");
-					break;
-					case 'i':
-						newString.Append("[ịĩỉìíi]");
-					break;
-					case 'o':
-						newString.Append("[ợỡởờớơộỗổồốôọõỏòóo]");
-					break;
-					default:
-						newString.Append(c);
-					break;
-				}
+				var fam = Fam.FirstOrDefault(f => f.Contains(c));
+				if (fam == null)
+					newString.Append(c);
+				else newString.Append($"[{fam}]");
 			}
 			return newString.ToString();
 		}

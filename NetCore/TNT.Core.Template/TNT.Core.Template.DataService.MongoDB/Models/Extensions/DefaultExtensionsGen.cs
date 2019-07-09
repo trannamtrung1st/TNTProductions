@@ -38,40 +38,35 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Extensions
             Main.Signature = "public static partial class DefaultExtensions";
             MainBody = Main.Body;
 
+            var s1 = new StatementGen(
+                "public static readonly string[] Fam = new string[]",
+                "{",
+                "\t\"ặẵẳằắăậẫẩầấâạãảàáa\",",
+                "\t\"ệễểềếêẹẽẻèée\",",
+                "\t\"ỵỹỷỳýy\",",
+                "\t\"ựữửừứưụũủùúu\",",
+                "\t\"ịĩỉìíi\",",
+                "\t\"ợỡởờớơộỗổồốôọõỏòóo\",",
+                "\t\"đd\"",
+                "};"
+                );
+
             var m1 = new ContainerGen();
             m1.Signature = "public static string ToIgnoreAccentRegex(this string input)";
             m1.Body.Add(new StatementGen(
                 "var newString = new StringBuilder(\"\");",
                 "foreach (var c in input)",
                 "{",
-                "\tswitch (c)",
-                "\t{",
-                "\t\tcase 'a':",
-                "\t\t\tnewString.Append(\"[ặẵẳằắăậẫẩầấâạãảàáa]\");",
-                "\t\tbreak;",
-                "\t\tcase 'e':",
-                "\t\t\tnewString.Append(\"[ệễểềếêẹẽẻèée]\");",
-                "\t\tbreak;",
-                "\t\tcase 'y':",
-                "\t\t\tnewString.Append(\"[ỵỹỷỳýy]\");",
-                "\t\tbreak;",
-                "\t\tcase 'u':",
-                "\t\t\tnewString.Append(\"[ựữửừứưụũủùúu]\");",
-                "\t\tbreak;",
-                "\t\tcase 'i':",
-                "\t\t\tnewString.Append(\"[ịĩỉìíi]\");",
-                "\t\tbreak;",
-                "\t\tcase 'o':",
-                "\t\t\tnewString.Append(\"[ợỡởờớơộỗổồốôọõỏòóo]\");",
-                "\t\tbreak;",
-                "\t\tdefault:",
-                "\t\t\tnewString.Append(c);",
-                "\t\tbreak;",
-                "\t}",
+                "\tvar fam = Fam.FirstOrDefault(f => f.Contains(c));",
+                "\tif (fam == null)",
+                "\t\tnewString.Append(c);",
+                "\telse newString.Append($\"[{fam}]\");",
                 "}",
                 "return newString.ToString();"
                 ));
-            MainBody.Add(m1);
+            MainBody.Add(
+                s1,
+                m1);
 
             NamespaceBody.Add(Main, new StatementGen(""));
         }
