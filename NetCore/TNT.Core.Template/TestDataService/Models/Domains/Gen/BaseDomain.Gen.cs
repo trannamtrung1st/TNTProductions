@@ -22,7 +22,7 @@ namespace TestDataService.Models.Domains
 			_database = _client.GetDatabase(settings.DatabaseName);
 		}
 		
-		public T Service<T>()
+		protected T Service<T>()
 		{
 			return _serviceProvider.GetRequiredService<T>();
 		}

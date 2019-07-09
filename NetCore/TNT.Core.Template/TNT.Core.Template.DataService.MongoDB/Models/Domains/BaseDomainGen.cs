@@ -59,7 +59,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Domains
                 "_database = _client.GetDatabase(settings.DatabaseName);"));
 
             var m3 = new ContainerGen();
-            m3.Signature = "public T Service<T>()";
+            m3.Signature = "protected T Service<T>()";
             m3.Body.Add(new StatementGen(
                 "return _serviceProvider.GetRequiredService<T>();"));
 
