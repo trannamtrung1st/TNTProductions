@@ -91,7 +91,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Auto
             DeleteOldGeneratedFiles();
             GenerateViewModel();
             GenerateGlobal();
-            GenerateEntityExtension();
+            GenerateExtension();
             GenerateRepository();
             GenerateConfigs();
             GenerateDomain();
@@ -129,7 +129,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Auto
             FileHelper.Write(OutputPath + "Global/Gen", "Global.Gen.cs", gGen.Generate());
         }
 
-        private void GenerateEntityExtension()
+        private void GenerateExtension()
         {
             var baseEGen = new BaseEntityGen(Info);
             FileHelper.Write(OutputPath + "Models/Gen", "BaseEntity.Gen.cs", baseEGen.Generate());
@@ -139,6 +139,9 @@ namespace TNT.Core.Template.DataService.MongoDB.Auto
                 FileHelper.Write(OutputPath + "Models/Extensions/Gen", e.EntityName + "Extensions.Gen.cs",
                     eGen.Generate() + "\r\n\r\n" + eGen.ENamespace.Generate());
             }
+
+            var deGen = new DefaultExtensionsGen(Info);
+            FileHelper.Write(OutputPath + "Models/Extensions/Gen", "DefaultExtensions.Gen.cs", deGen.Generate());
         }
 
         private void GenerateRepository()

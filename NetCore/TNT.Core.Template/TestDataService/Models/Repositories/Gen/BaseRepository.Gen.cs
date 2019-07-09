@@ -52,7 +52,7 @@ namespace TestDataService.Models.Repositories
 		{
 			_client = new MongoClient(settings.ConnectionString);
 			_database = _client.GetDatabase(settings.DatabaseName);
-			_collection = _database.GetCollection<E>(nameof(E));
+			_collection = _database.GetCollection<E>(typeof(E).Name);
 		}
 		
 		#region Create

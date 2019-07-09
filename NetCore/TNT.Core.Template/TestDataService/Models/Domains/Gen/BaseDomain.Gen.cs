@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Driver;
+using Microsoft.Extensions.DependencyInjection;
 using TestDataService.Models.Configs;
 
 namespace TestDataService.Models.Domains
@@ -19,6 +20,11 @@ namespace TestDataService.Models.Domains
 			_serviceProvider = provider;
 			_client = new MongoClient(settings.ConnectionString);
 			_database = _client.GetDatabase(settings.DatabaseName);
+		}
+		
+		public T Service<T>()
+		{
+			return _serviceProvider.GetRequiredService<T>();
 		}
 		
 	}
