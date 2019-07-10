@@ -74,7 +74,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Extensions
             EntityExtensionBody = EntityExtension.Body;
 
             var m1 = new ContainerGen();
-            m1.Signature = "public static `entity` Id(this IMongoQueryable<`entity`> query, `entityPK` id)";
+            m1.Signature = "public static `entity` Id(this IQueryable<`entity`> query, `entityPK` id)";
             m1.Body.Add(
                 new StatementGen("return query.FirstOrDefault("),
                 new StatementGen(GetKeyCompareExpr() + ");"));
@@ -86,7 +86,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Extensions
                 new StatementGen(GetKeyCompareExpr() + ");"));
 
             var m3 = new ContainerGen();
-            m3.Signature = "public static bool Existed(this IMongoQueryable<`entity`> query, `entityPK` id)";
+            m3.Signature = "public static bool Existed(this IQueryable<`entity`> query, `entityPK` id)";
             m3.Body.Add(
                 new StatementGen("return query.Any("),
                 new StatementGen(GetKeyCompareExpr() + ");"));

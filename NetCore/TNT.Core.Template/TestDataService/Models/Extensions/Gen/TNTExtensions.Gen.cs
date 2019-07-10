@@ -18,7 +18,7 @@ namespace TestDataService.Models.Extensions
 {
 	public static partial class TNTExtension
 	{
-		public static TNT Id(this IMongoQueryable<TNT> query, String id)
+		public static TNT Id(this IQueryable<TNT> query, String id)
 		{
 			return query.FirstOrDefault(
 				e => e.Id == id);
@@ -30,7 +30,7 @@ namespace TestDataService.Models.Extensions
 				e => e.Id == id);
 		}
 		
-		public static bool Existed(this IMongoQueryable<TNT> query, String id)
+		public static bool Existed(this IQueryable<TNT> query, String id)
 		{
 			return query.Any(
 				e => e.Id == id);

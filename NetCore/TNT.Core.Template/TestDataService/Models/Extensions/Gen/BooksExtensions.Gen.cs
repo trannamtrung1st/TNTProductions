@@ -18,7 +18,7 @@ namespace TestDataService.Models.Extensions
 {
 	public static partial class BooksExtension
 	{
-		public static Books Id(this IMongoQueryable<Books> query, String id)
+		public static Books Id(this IQueryable<Books> query, String id)
 		{
 			return query.FirstOrDefault(
 				e => e.Id == id);
@@ -30,7 +30,7 @@ namespace TestDataService.Models.Extensions
 				e => e.Id == id);
 		}
 		
-		public static bool Existed(this IMongoQueryable<Books> query, String id)
+		public static bool Existed(this IQueryable<Books> query, String id)
 		{
 			return query.Any(
 				e => e.Id == id);
