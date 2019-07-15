@@ -9,13 +9,10 @@ namespace TNT.Core.Clouds
         static void Main(string[] args)
         {
             var client = new FirebaseClient(
-                "s",
-                "s");
+                "731298291546",
+                "AIzaSyDP7am_OqJdKgGRLTtr4JT9AMJtGcazMRE");
 
-            var test = client.CreateDeviceGroup("test_group", new List<string>()
-            {
-                "TNT"
-            }).Result;
+            var test = client.GetNotificationKey("test_group").Result;
             var testResp = test.Content.ReadAsStringAsync();
         }
     }
