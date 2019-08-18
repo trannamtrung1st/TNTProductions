@@ -71,7 +71,6 @@ namespace TNT.Core.Template.DataService.Global
             {
                 mapConfig.Add("//\tcfg.CreateMap<" + e.EntityName + ", " + e.VMClass + ">().ReverseMap();");
             }
-            mapConfig.Add("//\tAutoMapper.Mapper.Initialize(cfg as MapperConfigurationExpression);");
             var close = new StatementGen("//\t}", "//};");
             GlobalClassBody.Add(
                 mapperConfig,
