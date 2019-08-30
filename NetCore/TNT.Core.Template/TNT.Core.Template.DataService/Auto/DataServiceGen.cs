@@ -148,7 +148,7 @@ namespace TNT.Core.Template.DataService.Auto
             {
                 var eGen = new EntityExtensionGen(e);
                 FileHelper.Write(OutputPath + "Models/Extensions/Gen", e.EntityName + "Extensions.Gen.cs",
-                    eGen.Generate() + "\r\n\r\n" + eGen.ENamespace.Generate());
+                    eGen.Generate() /*+ "\r\n\r\n" + eGen.ENamespace.Generate()*/);
             }
         }
 
