@@ -28,8 +28,8 @@ namespace TNT.Core.Template.DataService.Models.Extensions
             GenerateNamespace();
             GenerateEntityPKClass();
             GenerateBaseEntityExtension();
-            GenerateExtensionNamespace();
-            GenerateEntityExtension();
+            //GenerateExtensionNamespace();
+            //GenerateEntityExtension();
         }
 
         //generate namespace

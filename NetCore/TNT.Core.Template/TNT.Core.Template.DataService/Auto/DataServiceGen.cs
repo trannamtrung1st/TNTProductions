@@ -105,7 +105,7 @@ namespace TNT.Core.Template.DataService.Auto
             DeleteOldGeneratedFiles();
             GenerateViewModel();
             GenerateGlobal();
-            //GenerateEntityExtension();
+            GenerateEntityExtension();
             GenerateRepository();
             GenerateManager();
             GenerateDomain();
