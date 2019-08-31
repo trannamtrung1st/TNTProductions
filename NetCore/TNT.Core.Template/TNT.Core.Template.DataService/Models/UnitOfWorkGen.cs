@@ -54,11 +54,12 @@ namespace TNT.Core.Template.DataService.Models
             IUnitOfWorkBody = IUnitOfWork.Body;
 
             var s1 = new StatementGen(
-                Container + " Scope { get; }",
-                "DbContext Context { get; }",
-                "DbSet<E> Set<E>() where E : class;",
-                "S Repository<S>() where S : class, IRepository;",
-                "D Domain<D>() where D : BaseDomain;",
+                //Container + " Scope { get; }",
+                //"DbContext Context { get; }",
+                //"DbSet<E> Set<E>() where E : class;",
+                //"S Repository<S>() where S : class, IRepository;",
+                //"D Domain<D>() where D : BaseDomain;",
+                "T GetService<T>();",
                 "int SaveChanges();",
                 "Task<int> SaveChangesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));",
                 "IDbContextTransaction BeginTransaction();");
@@ -79,34 +80,43 @@ namespace TNT.Core.Template.DataService.Models
             UnitOfWorkBody = UnitOfWork.Body;
 
             var s1 = new StatementGen(
-               "public " + Container + " Scope { get; }",
-                "public DbContext Context { get; }");
+               "protected readonly " + Container + " scope;"
+                //"public DbContext Context { get; }"
+                );
 
             var c21 = new ContainerGen();
             c21.Signature = "public UnitOfWork(" + Container + " scope) : base()";
             c21.Body.Add(new StatementGen(
-                "Scope = scope;",
-                "Context = this;"));
+                "this.scope = scope;"
+                //"Context = this;"
+                ));
 
             var c22 = new ContainerGen();
             c22.Signature = "public UnitOfWork(" + Container + " scope, DbContextOptions<`context`> options) : base(options)";
             c22.Body.Add(new StatementGen(
-                "Scope = scope;",
-                "Context = this;"));
+                "this.scope = scope;"
+                //"Context = this;"
+                ));
 
             var method = "GetService";
 
+            //var m3 = new ContainerGen();
+            //m3.Signature = "public S Repository<S>() where S : class, IRepository";
+            //m3.Body.Add(new StatementGen(
+            //    "var repository = Scope." + method + "<S>();",
+            //    "return repository;"
+            //));
+            //var m4 = new ContainerGen();
+            //m4.Signature = "public D Domain<D>() where D : BaseDomain";
+            //m4.Body.Add(new StatementGen(
+            //    "var domain = Scope." + method + "<D>();",
+            //    "return domain;"
+            //));
+
             var m3 = new ContainerGen();
-            m3.Signature = "public S Repository<S>() where S : class, IRepository";
+            m3.Signature = "public T GetService<T>()";
             m3.Body.Add(new StatementGen(
-                "var repository = Scope." + method + "<S>();",
-                "return repository;"
-            ));
-            var m4 = new ContainerGen();
-            m4.Signature = "public D Domain<D>() where D : BaseDomain";
-            m4.Body.Add(new StatementGen(
-                "var domain = Scope." + method + "<D>();",
-                "return domain;"
+                "return scope." + method + "<T>();"
             ));
 
             var m6 = new ContainerGen();
@@ -120,7 +130,7 @@ namespace TNT.Core.Template.DataService.Models
                 c22, new StatementGen(""),
                 s1, new StatementGen(""),
                 m3, new StatementGen(""),
-                m4, new StatementGen(""),
+                //m4, new StatementGen(""),
                 m6, new StatementGen("")
                 );
 

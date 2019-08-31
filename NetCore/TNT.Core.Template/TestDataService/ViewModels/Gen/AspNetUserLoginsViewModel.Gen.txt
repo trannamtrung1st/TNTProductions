@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestDataService.Global;
+using TestDataService.Models;
+using Newtonsoft.Json;
+
+namespace TestDataService.ViewModels
+{
+	public partial class AspNetUserLoginsViewModel: BaseViewModel<AspNetUserLogins>
+	{
+		//[JsonProperty("login_provider")]
+		public string LoginProvider { get; set; }
+		//[JsonProperty("provider_key")]
+		public string ProviderKey { get; set; }
+		//[JsonProperty("provider_display_name")]
+		public string ProviderDisplayName { get; set; }
+		//[JsonProperty("user_id")]
+		public string UserId { get; set; }
+		//[JsonProperty("user")]
+		//public AspNetUsersViewModel UserVM { get; set; }
+		
+		public AspNetUserLoginsViewModel(AspNetUserLogins entity) : base(entity)
+		{
+		}
+		
+		public AspNetUserLoginsViewModel()
+		{
+		}
+		
+	}
+	
+	public partial class UpdateAspNetUserLoginsViewModel: BaseUpdateViewModel<UpdateAspNetUserLoginsViewModel, AspNetUserLogins>
+	{
+		//[JsonProperty("login_provider")]
+		public Wrapper<string> LoginProvider { get; set; }
+		//[JsonProperty("provider_key")]
+		public Wrapper<string> ProviderKey { get; set; }
+		//[JsonProperty("provider_display_name")]
+		public Wrapper<string> ProviderDisplayName { get; set; }
+		//[JsonProperty("user_id")]
+		public Wrapper<string> UserId { get; set; }
+		//[JsonProperty("user")]
+		//public AspNetUsersViewModel UserVM { get; set; }
+		
+	}
+}

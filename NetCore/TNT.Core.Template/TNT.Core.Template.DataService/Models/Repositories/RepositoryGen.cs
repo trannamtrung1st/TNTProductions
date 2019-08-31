@@ -99,15 +99,22 @@ namespace TNT.Core.Template.DataService.Models.Repositories
         public void GenerateBaseRepositoryBody()
         {
             var s12 = new StatementGen(
-                "protected DbContext context;",
-                "protected DbSet<E> dbSet;",
-                "protected IUnitOfWork uow;");
+                "protected readonly DbContext context;",
+                "protected readonly DbSet<E> dbSet;"
+                //"protected IUnitOfWork uow;"
+                );
+
+            //var c4 = new ContainerGen();
+            //c4.Signature = "public BaseRepository(IUnitOfWork uow)";
+            //c4.Body.Add(new StatementGen(
+            //    "this.uow = uow;",
+            //    "this.context = uow.Context;",
+            //    "this.dbSet = context.Set<E>();"));
 
             var c4 = new ContainerGen();
-            c4.Signature = "public BaseRepository(IUnitOfWork uow)";
+            c4.Signature = "public BaseRepository(DbContext context)";
             c4.Body.Add(new StatementGen(
-                "this.uow = uow;",
-                "this.context = uow.Context;",
+                "this.context = context;",
                 "this.dbSet = context.Set<E>();"));
 
             var m31 = new ContainerGen();

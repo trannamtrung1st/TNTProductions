@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Linq.Expressions;
-using MongoDB.Driver.Linq;
-using MongoDB.Driver;
-using TestDataService.Models.Configs;
+using TestDataService.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace TestDataService.Models.Repositories
 {
@@ -15,177 +15,168 @@ namespace TestDataService.Models.Repositories
 	}
 	public partial interface IBaseRepository<E, K> : IRepository where E : class
 	{
-		E Create(E entity);
-		Task<E> CreateAsync(E entity);
-		IEnumerable<E> Create(IEnumerable<E> entities);
-		Task<IEnumerable<E>> CreateAsync(IEnumerable<E> entities);
-		E Create(IClientSessionHandle handle, E entity);
-		Task<E> CreateAsync(IClientSessionHandle handle, E entity);
-		IEnumerable<E> Create(IClientSessionHandle handle, IEnumerable<E> entities);
-		Task<IEnumerable<E>> CreateAsync(IClientSessionHandle handle, IEnumerable<E> entities);
-		DeleteResult Remove(K id);
-		DeleteResult RemoveIf(Expression<Func<E, bool>> expr);
-		DeleteResult Remove(IClientSessionHandle handle, K id);
-		DeleteResult RemoveIf(IClientSessionHandle handle, Expression<Func<E, bool>> expr);
-		Task<DeleteResult> RemoveAsync(K id);
-		Task<DeleteResult> RemoveIfAsync(Expression<Func<E, bool>> expr);
-		Task<DeleteResult> RemoveAsync(IClientSessionHandle handle, K id);
-		Task<DeleteResult> RemoveIfAsync(IClientSessionHandle handle, Expression<Func<E, bool>> expr);
-		ReplaceOneResult Replace(E entity);
-		Task<ReplaceOneResult> ReplaceAsync(E entity);
-		ReplaceOneResult Replace(IClientSessionHandle handle, E entity);
-		Task<ReplaceOneResult> ReplaceAsync(IClientSessionHandle handle, E entity);
-		IMongoQueryable<E> AsQueryable();
-		IFindFluent<E, E> Get();
-		IFindFluent<E, E> Get(Expression<Func<E, bool>> expr);
-		Task<IAsyncCursor<E>> GetAsync();
-		Task<IAsyncCursor<E>> GetAsync(Expression<Func<E, bool>> expr);
+		int SaveChanges();
+		Task<int> SaveChangesAsync();
+		
+		void Reload(E entity);
+		EntityEntry<E> Create(E entity);
+		void CreateRange(IEnumerable<E> entities);
+		EntityEntry<E> Update(E entity);
+		void UpdateRange(IEnumerable<E> entities);
+		EntityEntry<E> Update(E entity, Action<E> patchAction);
+		EntityEntry<E> Attach(E entity);
+		EntityEntry<E> Remove(E entity);
+		EntityEntry<E> Remove(K key);
+		void RemoveIf(Expression<Func<E, bool>> expr);
+		void RemoveRange(IEnumerable<E> list);
+		E FindById(K key);
+		Task<E> FindByIdAsync(K key);
+		IQueryable<E> AsNoTracking();
+		DbSet<E> Get();
+		IQueryable<E> Get(Expression<Func<E, bool>> expr);
+		E FirstOrDefault();
+		E FirstOrDefault(Expression<Func<E, bool>> expr);
+		Task<E> FirstOrDefaultAsync();
+		Task<E> FirstOrDefaultAsync(Expression<Func<E, bool>> expr);
+		E SingleOrDefault(Expression<Func<E, bool>> expr);
+		Task<E> SingleOrDefaultAsync(Expression<Func<E, bool>> expr);
 	}
 	
 	public abstract partial class BaseRepository<E, K> : IBaseRepository<E, K> where E : class
 	{
-		protected readonly IMongoClient _client;
-		protected readonly IMongoDatabase _database;
-		protected readonly IMongoCollection<E> _collection;
+		protected readonly DbContext context;
+		protected readonly DbSet<E> dbSet;
 		
-		public BaseRepository(IMongoDbSettings settings)
+		public BaseRepository(DbContext context)
 		{
-			_client = new MongoClient(settings.ConnectionString);
-			_database = _client.GetDatabase(settings.DatabaseName);
-			_collection = _database.GetCollection<E>(typeof(E).Name);
+			this.context = context;
+			this.dbSet = context.Set<E>();
 		}
 		
-		#region Create
-		
-		public E Create(E entity)
+		public int SaveChanges()
 		{
-			_collection.InsertOne(entity);
-			return entity;
+			return context.SaveChanges();
 		}
 		
-		public async Task<E> CreateAsync(E entity)
+		public async Task<int> SaveChangesAsync()
 		{
-			await _collection.InsertOneAsync(entity);
-			return entity;
+			return await context.SaveChangesAsync();
 		}
 		
-		public IEnumerable<E> Create(IEnumerable<E> entities)
+		public void Reload(E entity)
 		{
-			_collection.InsertMany(entities);
-			return entities;
+			context.Entry(entity).Reload();
 		}
 		
-		public async Task<IEnumerable<E>> CreateAsync(IEnumerable<E> entities)
+		public EntityEntry<E> Create(E entity)
 		{
-			await _collection.InsertManyAsync(entities);
-			return entities;
+			return dbSet.Add(entity);
 		}
 		
-		public E Create(IClientSessionHandle handle, E entity)
+		public void CreateRange(IEnumerable<E> entities)
 		{
-			_collection.InsertOne(handle, entity);
-			return entity;
+			dbSet.AddRange(entities);
 		}
 		
-		public async Task<E> CreateAsync(IClientSessionHandle handle, E entity)
+		public EntityEntry<E> Remove(E entity)
 		{
-			await _collection.InsertOneAsync(handle, entity);
-			return entity;
+			return dbSet.Remove(entity);
 		}
 		
-		public IEnumerable<E> Create(IClientSessionHandle handle, IEnumerable<E> entities)
+		public EntityEntry<E> Remove(K key)
 		{
-			_collection.InsertMany(handle, entities);
-			return entities;
+			var entity = FindById(key);
+			if (entity!=null)
+				return dbSet.Remove(entity);
+			return null;
 		}
 		
-		public async Task<IEnumerable<E>> CreateAsync(IClientSessionHandle handle, IEnumerable<E> entities)
+		public void RemoveIf(Expression<Func<E, bool>> expr)
 		{
-			await _collection.InsertManyAsync(handle, entities);
-			return entities;
+			dbSet.RemoveRange(dbSet.Where(expr).ToList());
 		}
 		
-		#endregion
-		
-		#region Delete
-		
-		public abstract DeleteResult Remove(K id);
-		
-		public DeleteResult RemoveIf(Expression<Func<E, bool>> expr)
+		public void RemoveRange(IEnumerable<E> list)
 		{
-			return _collection.DeleteMany(expr);
+			dbSet.RemoveRange(list);
 		}
 		
-		public abstract DeleteResult Remove(IClientSessionHandle handle, K id);
-		
-		public DeleteResult RemoveIf(IClientSessionHandle handle, Expression<Func<E, bool>> expr)
+		public EntityEntry<E> Update(E entity)
 		{
-			return _collection.DeleteMany(handle, expr);
+			var entry = context.Entry(entity);
+			entry.State = EntityState.Modified;
+			return entry;
 		}
 		
-		public abstract Task<DeleteResult> RemoveAsync(K id);
-		
-		public async Task<DeleteResult> RemoveIfAsync(Expression<Func<E, bool>> expr)
+		public void UpdateRange(IEnumerable<E> entities)
 		{
-			return await _collection.DeleteManyAsync(expr);
+			foreach (var e in entities)
+				context.Entry(e).State = EntityState.Modified;
 		}
 		
-		public abstract Task<DeleteResult> RemoveAsync(IClientSessionHandle handle, K id);
-		
-		public async Task<DeleteResult> RemoveIfAsync(IClientSessionHandle handle, Expression<Func<E, bool>> expr)
+		public EntityEntry<E> Update(E entity, Action<E> patchAction)
 		{
-			return await _collection.DeleteManyAsync(handle, expr);
+			var entry = dbSet.Attach(entity);
+			patchAction.Invoke(entity);
+			return entry;
 		}
 		
-		#endregion
-		
-		#region Replace
-		
-		public abstract ReplaceOneResult Replace(E entity);
-		
-		public abstract Task<ReplaceOneResult> ReplaceAsync(E entity);
-		
-		public abstract ReplaceOneResult Replace(IClientSessionHandle handle, E entity);
-		
-		public abstract Task<ReplaceOneResult> ReplaceAsync(IClientSessionHandle handle, E entity);
-		
-		#endregion
-		
-		#region Read
-		
-		public IMongoQueryable<E> AsQueryable()
+		public EntityEntry<E> Attach(E entity)
 		{
-			return _collection.AsQueryable();
+			return dbSet.Attach(entity);
 		}
 		
-		public IFindFluent<E, E> Get()
+		public IQueryable<E> AsNoTracking()
 		{
-			return _collection.Find(Builders<E>.Filter.Empty);
+			return dbSet.AsNoTracking();
 		}
 		
-		public IFindFluent<E, E> Get(Expression<Func<E, bool>> expr)
+		public DbSet<E> Get()
 		{
-			return _collection.Find(expr);
+			return dbSet;
 		}
 		
-		public async Task<IAsyncCursor<E>> GetAsync()
+		public IQueryable<E> Get(Expression<Func<E, bool>> expr)
 		{
-			return await _collection.FindAsync<E>(Builders<E>.Filter.Empty);
+			return dbSet.Where(expr);
 		}
 		
-		public async Task<IAsyncCursor<E>> GetAsync(Expression<Func<E, bool>> expr)
+		public E FirstOrDefault()
 		{
-			return await _collection.FindAsync<E>(expr);
+			return dbSet.FirstOrDefault();
 		}
 		
-		#endregion
+		public E FirstOrDefault(Expression<Func<E, bool>> expr)
+		{
+			return dbSet.FirstOrDefault(expr);
+		}
+		
+		public async Task<E> FirstOrDefaultAsync()
+		{
+			return await dbSet.FirstOrDefaultAsync();
+		}
+		
+		public async Task<E> FirstOrDefaultAsync(Expression<Func<E, bool>> expr)
+		{
+			return await dbSet.FirstOrDefaultAsync(expr);
+		}
+		
+		public E SingleOrDefault(Expression<Func<E, bool>> expr)
+		{
+			return dbSet.SingleOrDefault(expr);
+		}
+		
+		public async Task<E> SingleOrDefaultAsync(Expression<Func<E, bool>> expr)
+		{
+			return await dbSet.SingleOrDefaultAsync(expr);
+		}
 		
 		/*
-		********************** ABSTRACT AREA *********************
+		********************* ABSTRACT AREA *********************
 		*/
 		
-		public abstract E FindById(K id);
-		public abstract Task<E> FindByIdAsync(K id);
+		public abstract E FindById(K key);
+		public abstract Task<E> FindByIdAsync(K key);
 		
 	}
 }

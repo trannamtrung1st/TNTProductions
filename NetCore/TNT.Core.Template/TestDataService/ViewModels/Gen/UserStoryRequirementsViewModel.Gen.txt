@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestDataService.Global;
+using TestDataService.Models;
+using Newtonsoft.Json;
+
+namespace TestDataService.ViewModels
+{
+	public partial class UserStoryRequirementsViewModel: BaseViewModel<UserStoryRequirements>
+	{
+		//[JsonProperty("id")]
+		public string Id { get; set; }
+		//[JsonProperty("priority")]
+		public int? Priority { get; set; }
+		//[JsonProperty("requirement_content")]
+		public string RequirementContent { get; set; }
+		//[JsonProperty("story_id")]
+		public string StoryId { get; set; }
+		//[JsonProperty("type")]
+		public int? Type { get; set; }
+		//[JsonProperty("story")]
+		//public UserStoriesViewModel StoryVM { get; set; }
+		
+		public UserStoryRequirementsViewModel(UserStoryRequirements entity) : base(entity)
+		{
+		}
+		
+		public UserStoryRequirementsViewModel()
+		{
+		}
+		
+	}
+	
+	public partial class UpdateUserStoryRequirementsViewModel: BaseUpdateViewModel<UpdateUserStoryRequirementsViewModel, UserStoryRequirements>
+	{
+		//[JsonProperty("id")]
+		public Wrapper<string> Id { get; set; }
+		//[JsonProperty("priority")]
+		public Wrapper<int?> Priority { get; set; }
+		//[JsonProperty("requirement_content")]
+		public Wrapper<string> RequirementContent { get; set; }
+		//[JsonProperty("story_id")]
+		public Wrapper<string> StoryId { get; set; }
+		//[JsonProperty("type")]
+		public Wrapper<int?> Type { get; set; }
+		//[JsonProperty("story")]
+		//public UserStoriesViewModel StoryVM { get; set; }
+		
+	}
+}

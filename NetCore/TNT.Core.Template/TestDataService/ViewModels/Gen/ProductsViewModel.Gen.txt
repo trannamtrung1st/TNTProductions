@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestDataService.Global;
+using TestDataService.Models;
+using Newtonsoft.Json;
+
+namespace TestDataService.ViewModels
+{
+	public partial class ProductsViewModel: BaseViewModel<Products>
+	{
+		//[JsonProperty("id")]
+		public string Id { get; set; }
+		//[JsonProperty("description")]
+		public string Description { get; set; }
+		//[JsonProperty("end_date")]
+		public DateTime? EndDate { get; set; }
+		//[JsonProperty("name")]
+		public string Name { get; set; }
+		//[JsonProperty("start_date")]
+		public DateTime? StartDate { get; set; }
+		//[JsonProperty("status")]
+		public int? Status { get; set; }
+		//[JsonProperty("epics")]
+		//public IEnumerable<EpicsViewModel> EpicsVM { get; set; }
+		//[JsonProperty("sprints")]
+		//public IEnumerable<SprintsViewModel> SprintsVM { get; set; }
+		//[JsonProperty("user_stories")]
+		//public IEnumerable<UserStoriesViewModel> UserStoriesVM { get; set; }
+		
+		public ProductsViewModel(Products entity) : base(entity)
+		{
+		}
+		
+		public ProductsViewModel()
+		{
+		}
+		
+	}
+	
+	public partial class UpdateProductsViewModel: BaseUpdateViewModel<UpdateProductsViewModel, Products>
+	{
+		//[JsonProperty("id")]
+		public Wrapper<string> Id { get; set; }
+		//[JsonProperty("description")]
+		public Wrapper<string> Description { get; set; }
+		//[JsonProperty("end_date")]
+		public Wrapper<DateTime?> EndDate { get; set; }
+		//[JsonProperty("name")]
+		public Wrapper<string> Name { get; set; }
+		//[JsonProperty("start_date")]
+		public Wrapper<DateTime?> StartDate { get; set; }
+		//[JsonProperty("status")]
+		public Wrapper<int?> Status { get; set; }
+		//[JsonProperty("epics")]
+		//public IEnumerable<EpicsViewModel> EpicsVM { get; set; }
+		//[JsonProperty("sprints")]
+		//public IEnumerable<SprintsViewModel> SprintsVM { get; set; }
+		//[JsonProperty("user_stories")]
+		//public IEnumerable<UserStoriesViewModel> UserStoriesVM { get; set; }
+		
+	}
+}

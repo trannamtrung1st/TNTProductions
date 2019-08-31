@@ -77,8 +77,11 @@ namespace TNT.Core.Template.DataService.Models.Repositories
 
         public void GenerateEntityRepositoryBody()
         {
+            //var c1 = new ContainerGen();
+            //c1.Signature = "public `entity`Repository(IUnitOfWork uow) : base(uow)";
+            //EntityRepositoryBody.Add(c1, new StatementGen(""));
             var c1 = new ContainerGen();
-            c1.Signature = "public `entity`Repository(IUnitOfWork uow) : base(uow)";
+            c1.Signature = "public `entity`Repository(DbContext context) : base(context)";
             EntityRepositoryBody.Add(c1, new StatementGen(""));
 
             EntityRepositoryBody.Add(new StatementGen("#region CRUD area"));

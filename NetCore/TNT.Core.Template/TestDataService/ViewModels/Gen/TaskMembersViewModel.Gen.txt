@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestDataService.Global;
+using TestDataService.Models;
+using Newtonsoft.Json;
+
+namespace TestDataService.ViewModels
+{
+	public partial class TaskMembersViewModel: BaseViewModel<TaskMembers>
+	{
+		//[JsonProperty("user_id")]
+		public string UserId { get; set; }
+		//[JsonProperty("task_id")]
+		public string TaskId { get; set; }
+		//[JsonProperty("task")]
+		//public TasksViewModel TaskVM { get; set; }
+		//[JsonProperty("user")]
+		//public AspNetUsersViewModel UserVM { get; set; }
+		
+		public TaskMembersViewModel(TaskMembers entity) : base(entity)
+		{
+		}
+		
+		public TaskMembersViewModel()
+		{
+		}
+		
+	}
+	
+	public partial class UpdateTaskMembersViewModel: BaseUpdateViewModel<UpdateTaskMembersViewModel, TaskMembers>
+	{
+		//[JsonProperty("user_id")]
+		public Wrapper<string> UserId { get; set; }
+		//[JsonProperty("task_id")]
+		public Wrapper<string> TaskId { get; set; }
+		//[JsonProperty("task")]
+		//public TasksViewModel TaskVM { get; set; }
+		//[JsonProperty("user")]
+		//public AspNetUsersViewModel UserVM { get; set; }
+		
+	}
+}

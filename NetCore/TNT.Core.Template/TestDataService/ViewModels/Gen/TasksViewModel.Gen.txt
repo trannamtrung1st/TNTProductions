@@ -1,0 +1,93 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestDataService.Global;
+using TestDataService.Models;
+using Newtonsoft.Json;
+
+namespace TestDataService.ViewModels
+{
+	public partial class TasksViewModel: BaseViewModel<Tasks>
+	{
+		//[JsonProperty("id")]
+		public string Id { get; set; }
+		//[JsonProperty("detail")]
+		public string Detail { get; set; }
+		//[JsonProperty("due_time")]
+		public DateTime? DueTime { get; set; }
+		//[JsonProperty("finished_time")]
+		public DateTime? FinishedTime { get; set; }
+		//[JsonProperty("priority")]
+		public int? Priority { get; set; }
+		//[JsonProperty("sprint_id")]
+		public string SprintId { get; set; }
+		//[JsonProperty("start_time")]
+		public DateTime? StartTime { get; set; }
+		//[JsonProperty("status")]
+		public int? Status { get; set; }
+		//[JsonProperty("story_id")]
+		public string StoryId { get; set; }
+		//[JsonProperty("tags")]
+		public string Tags { get; set; }
+		//[JsonProperty("title")]
+		public string Title { get; set; }
+		//[JsonProperty("sprint")]
+		//public SprintsViewModel SprintVM { get; set; }
+		//[JsonProperty("story")]
+		//public UserStoriesViewModel StoryVM { get; set; }
+		//[JsonProperty("task_activities")]
+		//public IEnumerable<TaskActivitiesViewModel> TaskActivitiesVM { get; set; }
+		//[JsonProperty("task_checklists")]
+		//public IEnumerable<TaskChecklistsViewModel> TaskChecklistsVM { get; set; }
+		//[JsonProperty("task_members")]
+		//public IEnumerable<TaskMembersViewModel> TaskMembersVM { get; set; }
+		
+		public TasksViewModel(Tasks entity) : base(entity)
+		{
+		}
+		
+		public TasksViewModel()
+		{
+		}
+		
+	}
+	
+	public partial class UpdateTasksViewModel: BaseUpdateViewModel<UpdateTasksViewModel, Tasks>
+	{
+		//[JsonProperty("id")]
+		public Wrapper<string> Id { get; set; }
+		//[JsonProperty("detail")]
+		public Wrapper<string> Detail { get; set; }
+		//[JsonProperty("due_time")]
+		public Wrapper<DateTime?> DueTime { get; set; }
+		//[JsonProperty("finished_time")]
+		public Wrapper<DateTime?> FinishedTime { get; set; }
+		//[JsonProperty("priority")]
+		public Wrapper<int?> Priority { get; set; }
+		//[JsonProperty("sprint_id")]
+		public Wrapper<string> SprintId { get; set; }
+		//[JsonProperty("start_time")]
+		public Wrapper<DateTime?> StartTime { get; set; }
+		//[JsonProperty("status")]
+		public Wrapper<int?> Status { get; set; }
+		//[JsonProperty("story_id")]
+		public Wrapper<string> StoryId { get; set; }
+		//[JsonProperty("tags")]
+		public Wrapper<string> Tags { get; set; }
+		//[JsonProperty("title")]
+		public Wrapper<string> Title { get; set; }
+		//[JsonProperty("sprint")]
+		//public SprintsViewModel SprintVM { get; set; }
+		//[JsonProperty("story")]
+		//public UserStoriesViewModel StoryVM { get; set; }
+		//[JsonProperty("task_activities")]
+		//public IEnumerable<TaskActivitiesViewModel> TaskActivitiesVM { get; set; }
+		//[JsonProperty("task_checklists")]
+		//public IEnumerable<TaskChecklistsViewModel> TaskChecklistsVM { get; set; }
+		//[JsonProperty("task_members")]
+		//public IEnumerable<TaskMembersViewModel> TaskMembersVM { get; set; }
+		
+	}
+}
