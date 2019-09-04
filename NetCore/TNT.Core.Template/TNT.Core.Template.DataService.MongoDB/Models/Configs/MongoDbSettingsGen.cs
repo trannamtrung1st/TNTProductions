@@ -60,7 +60,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Models
             MongoDbSettings.Signature = "public partial class MongoDbSettings : IMongoDbSettings";
             MongoDbSettingsBody = MongoDbSettings.Body;
 
-            var s1 = new StatementGen(" public string ConnectionString { get; set; }",
+            var s1 = new StatementGen("public string ConnectionString { get; set; }",
                 "public string DatabaseName { get; set; }");
 
             MongoDbSettingsBody.Add(
