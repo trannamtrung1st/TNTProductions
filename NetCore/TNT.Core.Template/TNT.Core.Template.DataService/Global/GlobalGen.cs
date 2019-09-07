@@ -112,6 +112,7 @@ namespace TNT.Core.Template.DataService.Global
             var s2 = new StatementGen("//IoC",
                 "services.AddScoped<UnitOfWork>()");
             s2.Add("\t.AddScoped<IUnitOfWork, UnitOfWork>()");
+            s2.Add($"\t.AddScoped<DbContext, {Data.ContextName}>()");
 
             var entities = Data.Entities;
             var len = entities.Count;

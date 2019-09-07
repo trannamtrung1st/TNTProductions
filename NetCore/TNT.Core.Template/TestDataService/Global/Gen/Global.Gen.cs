@@ -42,6 +42,7 @@ namespace TestDataService.Global
 			//IoC
 			services.AddScoped<UnitOfWork>()
 				.AddScoped<IUnitOfWork, UnitOfWork>()
+				.AddScoped<DbContext, DataContext>()
 				.AddScoped<IProductsRepository, ProductsRepository>();
 		}
 		

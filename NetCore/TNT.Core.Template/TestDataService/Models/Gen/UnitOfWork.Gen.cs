@@ -26,7 +26,7 @@ namespace TestDataService.Models
 		public UnitOfWork(IServiceProvider scope, DbContext context)
 		{
 			this.scope = scope;
-            this.context = context;
+			this.context = context;
 		}
 		
 		protected readonly IServiceProvider scope;
