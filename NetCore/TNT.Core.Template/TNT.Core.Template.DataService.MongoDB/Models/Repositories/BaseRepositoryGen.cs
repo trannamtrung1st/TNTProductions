@@ -57,19 +57,21 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Repositories
                     "Task<E> CreateAsync(IClientSessionHandle handle, E entity);",
                     "IEnumerable<E> Create(IClientSessionHandle handle, IEnumerable<E> entities);",
                     "Task<IEnumerable<E>> CreateAsync(IClientSessionHandle handle, IEnumerable<E> entities);",
-                    "DeleteResult Remove(K id);",
+                    "E Remove(K id);",
                     "DeleteResult RemoveIf(Expression<Func<E, bool>> expr);",
-                    "DeleteResult Remove(IClientSessionHandle handle, K id);",
+                    "E Remove(IClientSessionHandle handle, K id);",
                     "DeleteResult RemoveIf(IClientSessionHandle handle, Expression<Func<E, bool>> expr);",
-                    "Task<DeleteResult> RemoveAsync(K id);",
+                    "Task<E> RemoveAsync(K id);",
                     "Task<DeleteResult> RemoveIfAsync(Expression<Func<E, bool>> expr);",
-                    "Task<DeleteResult> RemoveAsync(IClientSessionHandle handle, K id);",
+                    "Task<E> RemoveAsync(IClientSessionHandle handle, K id);",
                     "Task<DeleteResult> RemoveIfAsync(IClientSessionHandle handle, Expression<Func<E, bool>> expr);",
-                    "ReplaceOneResult Replace(E entity);",
-                    "Task<ReplaceOneResult> ReplaceAsync(E entity);",
-                    "ReplaceOneResult Replace(IClientSessionHandle handle, E entity);",
-                    "Task<ReplaceOneResult> ReplaceAsync(IClientSessionHandle handle, E entity);",
+                    "E Replace(E entity);",
+                    "Task<E> ReplaceAsync(E entity);",
+                    "E Replace(IClientSessionHandle handle, E entity);",
+                    "Task<E> ReplaceAsync(IClientSessionHandle handle, E entity);",
                     "IMongoQueryable<E> AsQueryable();",
+                    "E FindById(K key);",
+                    "Task<E> FindByIdAsync(K key);",
                     "IFindFluent<E, E> Get();",
                     "IFindFluent<E, E> Get(Expression<Func<E, bool>> expr);",
                     "Task<IAsyncCursor<E>> GetAsync();",
@@ -169,7 +171,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Repositories
 
             var s13 = new StatementGen("#region Delete");
 
-            var s14 = new StatementGen("public abstract DeleteResult Remove(K id);");
+            var s14 = new StatementGen("public abstract E Remove(K id);");
 
             var m15 = new ContainerGen();
             m15.Signature = "public DeleteResult RemoveIf(Expression<Func<E, bool>> expr)";
@@ -177,7 +179,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Repositories
                 "return _collection.DeleteMany(expr);"
                 ));
 
-            var s16 = new StatementGen("public abstract DeleteResult Remove(IClientSessionHandle handle, K id);");
+            var s16 = new StatementGen("public abstract E Remove(IClientSessionHandle handle, K id);");
 
             var m17 = new ContainerGen();
             m17.Signature = "public DeleteResult RemoveIf(IClientSessionHandle handle, Expression<Func<E, bool>> expr)";
@@ -185,7 +187,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Repositories
                 "return _collection.DeleteMany(handle, expr);"
                 ));
 
-            var s18 = new StatementGen("public abstract Task<DeleteResult> RemoveAsync(K id);");
+            var s18 = new StatementGen("public abstract Task<E> RemoveAsync(K id);");
 
             var m19 = new ContainerGen();
             m19.Signature = "public async Task<DeleteResult> RemoveIfAsync(Expression<Func<E, bool>> expr)";
@@ -193,7 +195,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Repositories
                 "return await _collection.DeleteManyAsync(expr);"
                 ));
 
-            var s20 = new StatementGen("public abstract Task<DeleteResult> RemoveAsync(IClientSessionHandle handle, K id);");
+            var s20 = new StatementGen("public abstract Task<E> RemoveAsync(IClientSessionHandle handle, K id);");
 
             var m21 = new ContainerGen();
             m21.Signature = "public async Task<DeleteResult> RemoveIfAsync(IClientSessionHandle handle, Expression<Func<E, bool>> expr)";
@@ -203,10 +205,10 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Repositories
 
             var s22 = new StatementGen("#endregion");
             var s23 = new StatementGen("#region Replace");
-            var s24 = new StatementGen("public abstract ReplaceOneResult Replace(E entity);");
-            var s25 = new StatementGen("public abstract Task<ReplaceOneResult> ReplaceAsync(E entity);");
-            var s26 = new StatementGen("public abstract ReplaceOneResult Replace(IClientSessionHandle handle, E entity);");
-            var s27 = new StatementGen("public abstract Task<ReplaceOneResult> ReplaceAsync(IClientSessionHandle handle, E entity);");
+            var s24 = new StatementGen("public abstract E Replace(E entity);");
+            var s25 = new StatementGen("public abstract Task<E> ReplaceAsync(E entity);");
+            var s26 = new StatementGen("public abstract E Replace(IClientSessionHandle handle, E entity);");
+            var s27 = new StatementGen("public abstract Task<E> ReplaceAsync(IClientSessionHandle handle, E entity);");
             var s28 = new StatementGen("#endregion");
 
             var s29 = new StatementGen("#region Read");

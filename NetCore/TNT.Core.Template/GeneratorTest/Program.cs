@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using TNT.Core.Template.DataService;
+using TNT.Core.Template.DataService.MongoDB;
 
 namespace GeneratorTest
 {
@@ -14,13 +14,12 @@ namespace GeneratorTest
     {
         static void Main(string[] args)
         {
-            var gen = new SimpleGenerator(
+            SimpleGenerator.Generate(
+                "../../../Models",
+                "GeneratorTest.Models",
+                "../../../../TestDataService",
                 "TestDataService",
-                "localhost",
-                "Template", "sa", "123456",
-                "Models", "DataContext",
-                "../../../../TestDataService");
-            gen.Regen(args);
+                TNT.Core.Template.DataService.MongoDB.Helpers.GeneralHelper.JsonPropertyFormatEnum.JsonStyle);
         }
     }
 }

@@ -1,24 +1,30 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestDataService.Models.Repositories;
-using TestDataService.ViewModels;
-using TestDataService.Models;
-using TestDataService.Global;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
+using MongoDB.Driver;
+using Microsoft.Extensions.DependencyInjection;
+using TestDataService.Models.Configs;
 
 namespace TestDataService.Models.Domains
 {
 	public abstract partial class BaseDomain
 	{
-		protected readonly IUnitOfWork uow;
+		protected readonly IMongoClient _client;
+		protected readonly IMongoDatabase _database;
+		protected readonly IServiceProvider _serviceProvider;
 		
-		public BaseDomain(IUnitOfWork uow)
+		public BaseDomain(IServiceProvider provider, IMongoDbSettings settings)
 		{
-			this.uow = uow;
+			_serviceProvider = provider;
+			_client = new MongoClient(settings.ConnectionString);
+			_database = _client.GetDatabase(settings.DatabaseName);
+		}
+		
+		protected T Service<T>()
+		{
+			return _serviceProvider.GetRequiredService<T>();
 		}
 		
 	}

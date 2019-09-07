@@ -1,14 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using TestDataService.Models;
-using TestDataService.Models.Repositories;
-using TestDataService.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using TestDataService.Models.Configs;
+using TestDataService.Models.Repositories;
 
 namespace TestDataService.Global
 {
@@ -20,7 +18,7 @@ namespace TestDataService.Global
 		//{
 			//cfg =>
 			//{
-			//	cfg.CreateMap<Products, ProductsViewModel>().ReverseMap();
+			//	cfg.CreateMap<Test, TestViewModel>().ReverseMap();
 		//	}
 		//};
 		private static void ConfigureAutomapper()
@@ -37,13 +35,11 @@ namespace TestDataService.Global
 			
 		}
 		
-		private static void ConfigureIoC(IServiceCollection services)
+		private static void ConfigureIoC(IServiceCollection services, IMongoDbSettings settings)
 		{
 			//IoC
-			services.AddScoped<UnitOfWork>()
-				.AddScoped<IUnitOfWork, UnitOfWork>()
-				.AddScoped<DbContext, DataContext>()
-				.AddScoped<IProductsRepository, ProductsRepository>();
+			services.AddSingleton(settings)
+				.AddSingleton<ITestRepository, TestRepository>();
 		}
 		
 	}

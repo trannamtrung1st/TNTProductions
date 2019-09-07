@@ -73,7 +73,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Repositories
             m2.Signature = "public override `entity` FindById(`entityPK` id)";
             m2.Body.Add(new StatementGen(
                 "var entity = _collection.Find(",
-                $"{GetKeyCompareExpr()}).FirstOrDefault();",
+                $"Builders<`entity`>.Filter.Where({GetKeyCompareExpr()})).FirstOrDefault();",
                 "return entity;"));
 
             var m3 = new ContainerGen();
@@ -81,68 +81,68 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Repositories
             m3.Body.Add(
                 new StatementGen(
                 "var entity = await (await _collection.FindAsync(",
-                $"{GetKeyCompareExpr()})).FirstOrDefaultAsync();",
+                $"Builders<`entity`>.Filter.Where({GetKeyCompareExpr()}))).FirstOrDefaultAsync();",
                 "return entity;"));
 
             var m4 = new ContainerGen();
-            m4.Signature = "public override DeleteResult Remove(`entityPK` id)";
+            m4.Signature = "public override `entity` Remove(`entityPK` id)";
             m4.Body.Add(
                 new StatementGen(
-                "return _collection.DeleteOne(",
-                $"{GetKeyCompareExpr()});"));
+                "return _collection.FindOneAndDelete(",
+                $"Builders<`entity`>.Filter.Where({GetKeyCompareExpr()}));"));
 
             var m5 = new ContainerGen();
-            m5.Signature = "public override DeleteResult Remove(IClientSessionHandle handle, `entityPK` id)";
+            m5.Signature = "public override `entity` Remove(IClientSessionHandle handle, `entityPK` id)";
             m5.Body.Add(
                 new StatementGen(
-                "return _collection.DeleteOne(handle,",
-                $"{GetKeyCompareExpr()});"));
+                "return _collection.FindOneAndDelete(handle,",
+                $"Builders<`entity`>.Filter.Where({GetKeyCompareExpr()}));"));
 
             var m6 = new ContainerGen();
-            m6.Signature = "public override async Task<DeleteResult> RemoveAsync(`entityPK` id)";
+            m6.Signature = "public override async Task<`entity`> RemoveAsync(`entityPK` id)";
             m6.Body.Add(
                 new StatementGen(
-                "return await _collection.DeleteOneAsync(",
-                $"{GetKeyCompareExpr()});"));
+                "return await _collection.FindOneAndDeleteAsync(",
+                $"Builders<`entity`>.Filter.Where({GetKeyCompareExpr()}));"));
 
             var m7 = new ContainerGen();
-            m7.Signature = "public override async Task<DeleteResult> RemoveAsync(IClientSessionHandle handle, `entityPK` id)";
+            m7.Signature = "public override async Task<`entity`> RemoveAsync(IClientSessionHandle handle, `entityPK` id)";
             m7.Body.Add(
                 new StatementGen(
-                "return await _collection.DeleteOneAsync(handle,",
-                $"{GetKeyCompareExpr()});"));
+                "return await _collection.FindOneAndDeleteAsync(handle,",
+                $"Builders<`entity`>.Filter.Where({GetKeyCompareExpr()}));"));
 
             var m8 = new ContainerGen();
-            m8.Signature = "public override ReplaceOneResult Replace(`entity` entity)";
+            m8.Signature = "public override `entity` Replace(`entity` entity)";
             m8.Body.Add(
                 new StatementGen(
                     $"var id = entity.{EInfo.PKProp};",
-                "return _collection.ReplaceOne(",
-                $"{GetKeyCompareExpr()}, entity);"));
+                "return _collection.FindOneAndReplace(",
+                $"Builders<`entity`>.Filter.Where({GetKeyCompareExpr()}), entity);"));
 
             var m9 = new ContainerGen();
-            m9.Signature = "public override async Task<ReplaceOneResult> ReplaceAsync(`entity` entity)";
+            m9.Signature = "public override async Task<`entity`> ReplaceAsync(`entity` entity)";
             m9.Body.Add(
                 new StatementGen(
                     $"var id = entity.{EInfo.PKProp};",
-                "return await _collection.ReplaceOneAsync(",
-                $"{GetKeyCompareExpr()}, entity);"));
+                "return await _collection.FindOneAndReplaceAsync(",
+                $"Builders<`entity`>.Filter.Where({GetKeyCompareExpr()}), entity);"));
 
             var m10 = new ContainerGen();
-            m10.Signature = "public override ReplaceOneResult Replace(IClientSessionHandle handle, `entity` entity)";
+            m10.Signature = "public override `entity` Replace(IClientSessionHandle handle, `entity` entity)";
             m10.Body.Add(
                 new StatementGen(
                     $"var id = entity.{EInfo.PKProp};",
-                "return _collection.ReplaceOne(handle,",
-                $"{GetKeyCompareExpr()}, entity);"));
+                "return _collection.FindOneAndReplace(handle,",
+                $"Builders<`entity`>.Filter.Where({GetKeyCompareExpr()}), entity);"));
 
             var m11 = new ContainerGen();
-            m11.Signature = "public override async Task<ReplaceOneResult> ReplaceAsync(IClientSessionHandle handle, `entity` entity)";
+            m11.Signature = "public override async Task<`entity`> ReplaceAsync(IClientSessionHandle handle, `entity` entity)";
             m11.Body.Add(
                 new StatementGen(
                     $"var id = entity.{EInfo.PKProp};",
-                "return await _collection.ReplaceOneAsync(handle,",
-                $"{GetKeyCompareExpr()}, entity);"));
+                "return await _collection.FindOneAndReplaceAsync(handle,",
+                $"Builders<`entity`>.Filter.Where({GetKeyCompareExpr()}), entity);"));
 
             var s12 = new StatementGen("#endregion");
 
@@ -164,7 +164,7 @@ namespace TNT.Core.Template.DataService.MongoDB.Models.Repositories
 
         private string GetKeyCompareExpr()
         {
-            var expr = "\te =>";
+            var expr = "e =>";
             var name = EInfo.PKProp;
             expr += " e." + name + " == id";
             return expr;
