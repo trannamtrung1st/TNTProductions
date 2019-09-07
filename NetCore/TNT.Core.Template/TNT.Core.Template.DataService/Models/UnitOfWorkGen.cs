@@ -50,7 +50,7 @@ namespace TNT.Core.Template.DataService.Models
         public void GenerateIUnitOfWork()
         {
             IUnitOfWork = new ContainerGen();
-            IUnitOfWork.Signature = "public partial interface IUnitOfWork : IDisposable";
+            IUnitOfWork.Signature = "public partial interface IUnitOfWork";
             IUnitOfWorkBody = IUnitOfWork.Body;
 
             var s1 = new StatementGen(
@@ -76,26 +76,19 @@ namespace TNT.Core.Template.DataService.Models
         public void GenerateUnitOfWork()
         {
             UnitOfWork = new ContainerGen();
-            UnitOfWork.Signature = "public partial class UnitOfWork : `context`, IUnitOfWork";
+            UnitOfWork.Signature = "public partial class UnitOfWork: IUnitOfWork";
             UnitOfWorkBody = UnitOfWork.Body;
 
             var s1 = new StatementGen(
-               "protected readonly " + Container + " scope;"
-                //"public DbContext Context { get; }"
+                "protected readonly " + Container + " scope;",
+                "protected readonly DbContext context;"
                 );
 
             var c21 = new ContainerGen();
-            c21.Signature = "public UnitOfWork(" + Container + " scope) : base()";
+            c21.Signature = "public UnitOfWork(" + Container + " scope, DbContext context)";
             c21.Body.Add(new StatementGen(
-                "this.scope = scope;"
-                //"Context = this;"
-                ));
-
-            var c22 = new ContainerGen();
-            c22.Signature = "public UnitOfWork(" + Container + " scope, DbContextOptions<`context`> options) : base(options)";
-            c22.Body.Add(new StatementGen(
-                "this.scope = scope;"
-                //"Context = this;"
+                "this.scope = scope;",
+                "this.context = context;"
                 ));
 
             var method = "GetService";
@@ -122,16 +115,27 @@ namespace TNT.Core.Template.DataService.Models
             var m6 = new ContainerGen();
             m6.Signature = "public IDbContextTransaction BeginTransaction()";
             m6.Body.Add(new StatementGen(
-                "var trans = this.Database.BeginTransaction();",
+                "var trans = this.context.Database.BeginTransaction();",
                 "return trans;"));
+
+            var m7 = new ContainerGen();
+            m7.Signature = "public int SaveChanges()";
+            m7.Body.Add(new StatementGen(
+                "return this.context.SaveChanges();"));
+
+            var m8 = new ContainerGen();
+            m8.Signature = "public async Task<int> SaveChangesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))";
+            m8.Body.Add(new StatementGen(
+                "return await this.context.SaveChangesAsync(cancellationToken);"));
 
             UnitOfWorkBody.Add(
                 c21, new StatementGen(""),
-                c22, new StatementGen(""),
                 s1, new StatementGen(""),
                 m3, new StatementGen(""),
                 //m4, new StatementGen(""),
-                m6, new StatementGen("")
+                m6, new StatementGen(""),
+                m7, new StatementGen(""),
+                m8, new StatementGen("")
                 );
 
             NamespaceBody.Add(UnitOfWork);
