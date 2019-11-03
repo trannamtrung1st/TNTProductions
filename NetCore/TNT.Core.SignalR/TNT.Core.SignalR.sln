@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TNT.Core.SignalR", "TNT.Core.SignalR\TNT.Core.SignalR.csproj", "{84FC16A2-D165-4B5B-904D-D1981071F306}"
 EndProject
@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TNT.Core.SignalR.Client", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TNT.Core.SignalR2.2", "TNT.Core.SignalR2.2\TNT.Core.SignalR2.2.csproj", "{4213C08E-7168-40F8-B393-5BE7CF5A1D8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSignalRMessenger", "TestSignalRMessenger\TestSignalRMessenger.csproj", "{79E50652-FE83-4694-97B4-E48A0C38A26B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSignalRMessenger", "TestSignalRMessenger\TestSignalRMessenger.csproj", "{79E50652-FE83-4694-97B4-E48A0C38A26B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRFrameworkDemo", "SignalRFrameworkDemo\SignalRFrameworkDemo.csproj", "{C0C412A6-840F-4108-B7D1-DFDE02FFB574}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{79E50652-FE83-4694-97B4-E48A0C38A26B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79E50652-FE83-4694-97B4-E48A0C38A26B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79E50652-FE83-4694-97B4-E48A0C38A26B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0C412A6-840F-4108-B7D1-DFDE02FFB574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0C412A6-840F-4108-B7D1-DFDE02FFB574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0C412A6-840F-4108-B7D1-DFDE02FFB574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0C412A6-840F-4108-B7D1-DFDE02FFB574}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
