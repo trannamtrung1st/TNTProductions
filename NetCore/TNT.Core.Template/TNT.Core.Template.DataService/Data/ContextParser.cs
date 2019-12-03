@@ -46,7 +46,8 @@ namespace TNT.Core.Template.DataService.Data
                 { "Binary", "byte[]" },
                 { "Byte[]", "byte[]" },
                 { "Guid", "System.Guid" },
-                { "Time", "System.TimeSpan" }
+                { "Time", "System.TimeSpan" },
+                { "IGeometry", "GeoAPI.Geometries.IGeometry" }
             };
 
         public ContextParser(DbContext context, string projectName, bool activeCol = true)
