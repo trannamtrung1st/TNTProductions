@@ -15,12 +15,7 @@ namespace TNT.Core.Template.DataService.Models.Domains
         {
             Data = dt;
             Directive.Add(
-                Data.ProjectName + ".Models.Repositories",
-                Data.ProjectName + ".ViewModels",
-                Data.ContextNamespace,
-                Data.ProjectName + ".Global",
-                "Microsoft.EntityFrameworkCore",
-                "System.Linq.Expressions");
+                "TNT.Core.Helpers.DI");
             ResolveMapping["context"] = dt.ContextName;
 
             //GENERATE
@@ -59,14 +54,15 @@ namespace TNT.Core.Template.DataService.Models.Domains
             //    "protected DbContext context;");
 
             var c1 = new ContainerGen();
-            c1.Signature = "public BaseDomain(IUnitOfWork uow)";
+            c1.Signature = "public BaseDomain(PropertyInjection inj)";
             c1.Body.Add(new StatementGen(
-                "this.uow = uow;"
+                "inj.Inject(this);"
                 //"this.context = uow.Context;"
                 ));
 
             var s2 = new StatementGen(
-                "protected readonly IUnitOfWork uow;");
+                "[Inject]",
+                "protected IUnitOfWork uow { get; set; }");
 
             //var s3 = new StatementGen("public IUnitOfWork UoW { get { return uow; } }");
             //var s4 = new StatementGen("public DbContext Context { get { return context; } }");
