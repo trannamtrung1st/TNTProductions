@@ -27,13 +27,14 @@ namespace TNT.Core.Template.DataService.Helpers
             if (!projectPath.EndsWith('\\') && !projectPath.EndsWith('/'))
                 projectPath = projectPath + '/';
             string gFolder = projectPath + "Global/Gen";
-            string dFolder = projectPath + "Models/Domains/Gen";
+            string dFolder = projectPath + "Domains/Gen";
             string vmFolder = projectPath + "ViewModels/Gen";
             string vmTextFolder = projectPath + "ViewModels/Gen";
             string eFolder = projectPath + "Models/Extensions/Gen";
             string mFolder = projectPath + "Models/Gen";
             string repoFolder = projectPath + "Models/Repositories/Gen";
-            var dataServiceStructure = new List<string>() { gFolder, dFolder, vmFolder, vmTextFolder, eFolder, mFolder, repoFolder };
+            var dataServiceStructure = new List<string>() {
+                gFolder, dFolder, vmFolder, vmTextFolder, eFolder, mFolder, repoFolder };
 
             foreach (var fol in dataServiceStructure)
             {
