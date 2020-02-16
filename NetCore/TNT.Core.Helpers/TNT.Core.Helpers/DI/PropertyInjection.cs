@@ -9,10 +9,13 @@ namespace TNT.Core.Helpers.DI
     public class PropertyInjection
     {
         private static IDictionary<Type, IEnumerable<PropertyInfo>> _mappings;
-
-        internal static void Init(IEnumerable<Type> assemblyRepresentTypes)
+        static PropertyInjection()
         {
             _mappings = new Dictionary<Type, IEnumerable<PropertyInfo>>();
+        }
+
+        public static void Register(IEnumerable<Type> assemblyRepresentTypes)
+        {
             foreach (var t in assemblyRepresentTypes)
             {
                 var assembly = Assembly.GetAssembly(t);

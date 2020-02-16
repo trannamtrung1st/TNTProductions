@@ -8,10 +8,8 @@ namespace TNT.Core.Helpers.DI
 
     public static class PropertyInjectionExtensions
     {
-        public static IServiceCollection AddPropertyInjection(this IServiceCollection services,
-            IEnumerable<Type> assTypes)
+        public static IServiceCollection AddPropertyInjection(this IServiceCollection services)
         {
-            PropertyInjection.Init(assTypes);
             return services.AddScoped<PropertyInjection>();
         }
     }
