@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace TNT.Core.Http
+namespace TNT.Core.Helpers.DI
 {
     public class PropertyInjection
     {

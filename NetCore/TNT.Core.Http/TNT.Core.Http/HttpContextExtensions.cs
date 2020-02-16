@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using TNT.Core.Helpers.DI;
 
 namespace TNT.Core.Http
 {
