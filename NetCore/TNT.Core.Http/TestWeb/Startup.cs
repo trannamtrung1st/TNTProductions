@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TNT.Core.Helpers.DI;
 using TNT.Core.Http;
+using TNT.Core.Http.DI;
 
 namespace TestWeb
 {
@@ -25,12 +26,12 @@ namespace TestWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            PropertyInjection.Register(new List<Type>()
+            ServiceInjection.Register(new List<Type>()
             {
                 typeof(Startup),
-                typeof(PropertyInjection)
+                typeof(InjectionFilter)
             });
-            services.AddPropertyInjection();
+            services.AddServiceInjection();
 
             services.Configure<CookiePolicyOptions>(options =>
             {

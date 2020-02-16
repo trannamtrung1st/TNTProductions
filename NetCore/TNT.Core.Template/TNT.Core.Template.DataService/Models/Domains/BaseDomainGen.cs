@@ -62,7 +62,7 @@ namespace TNT.Core.Template.DataService.Models.Domains
 
             var s2 = new StatementGen(
                 "[Inject]",
-                "protected IUnitOfWork uow { get; set; }");
+                "protected readonly IUnitOfWork _uow;");
 
             //var s3 = new StatementGen("public IUnitOfWork UoW { get { return uow; } }");
             //var s4 = new StatementGen("public DbContext Context { get { return context; } }");

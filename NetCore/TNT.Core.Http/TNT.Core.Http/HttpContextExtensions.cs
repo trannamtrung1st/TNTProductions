@@ -35,7 +35,7 @@ namespace TNT.Core.Http
 
         public static void Inject(this HttpContext context, object obj)
         {
-            var pI = context.RequestServices.GetRequiredService<PropertyInjection>();
+            var pI = context.RequestServices.GetRequiredService<ServiceInjection>();
             pI.Inject(obj);
         }
     }

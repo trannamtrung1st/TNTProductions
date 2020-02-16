@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TNT.Core.Http.DI
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    public class PropertyInjectionFilter : Attribute, IAsyncPageFilter, IAsyncActionFilter
+    public class InjectionFilter : Attribute, IAsyncPageFilter, IAsyncActionFilter
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {

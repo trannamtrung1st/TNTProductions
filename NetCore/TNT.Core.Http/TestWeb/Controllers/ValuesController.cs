@@ -13,11 +13,11 @@ namespace TestWeb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [PropertyInjectionFilter]
+    [InjectionFilter]
     public class ValuesController : ControllerBase
     {
         [Inject]
-        private IHostingEnvironment _env { get; set; }
+        private readonly IHostingEnvironment _env;
 
         // GET: api/<controller>
         [HttpGet]

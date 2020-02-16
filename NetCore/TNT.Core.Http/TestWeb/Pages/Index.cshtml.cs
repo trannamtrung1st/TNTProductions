@@ -11,11 +11,11 @@ using TNT.Core.Http.DI;
 
 namespace TestWeb.Pages
 {
-    [PropertyInjectionFilter]
+    [InjectionFilter]
     public class IndexModel : PageModel
     {
         [Inject]
-        private IHostingEnvironment _env { get; set; }
+        private readonly IHostingEnvironment _env;
 
         public void OnGet()
         {
