@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TNT.Core.Template.DataService.Data;
 using TNT.Core.Template.Generators;
 
-namespace TNT.Core.Template.DataService.Models.Domains
+namespace TNT.Core.Template.DataService.Domains
 {
     public class BaseDomainGen : FileGen
     {
@@ -15,6 +15,11 @@ namespace TNT.Core.Template.DataService.Models.Domains
         {
             Data = dt;
             Directive.Add(
+                "Microsoft.EntityFrameworkCore",
+                Data.ContextNamespace,
+                Data.ProjectName + ".Models",
+                Data.ProjectName + ".Models.Repositories",
+                Data.ProjectName + ".ViewModels",
                 "TNT.Core.Helpers.DI");
             ResolveMapping["context"] = dt.ContextName;
 
@@ -30,7 +35,7 @@ namespace TNT.Core.Template.DataService.Models.Domains
         public void GenerateNamespace()
         {
             Namespace = new ContainerGen();
-            Namespace.Signature = "namespace " + Data.ProjectName + ".Models.Domains";
+            Namespace.Signature = "namespace " + Data.ProjectName + ".Domains";
             NamespaceBody = Namespace.Body;
 
             Content = Namespace;

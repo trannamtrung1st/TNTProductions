@@ -19,7 +19,7 @@ namespace TNT.Core.Template.DataService.Models
                 "Microsoft.EntityFrameworkCore.Storage",
                 "Microsoft.EntityFrameworkCore",
                 Data.ProjectName + ".Global", Data.ProjectName + ".Models.Repositories",
-                Data.ProjectName + ".Models.Domains",
+                Data.ProjectName + ".Domains",
                 Data.ContextNamespace);
             ResolveMapping["context"] = Data.ContextName;
 

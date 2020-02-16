@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TNT.Core.Template.DataService.Data;
 using TNT.Core.Template.DataService.Helpers;
 using TNT.Core.Template.DataService.Models;
-using TNT.Core.Template.DataService.Models.Domains;
+using TNT.Core.Template.DataService.Domains;
 using TNT.Core.Template.Generators;
 using static TNT.Core.Template.DataService.Helpers.GeneralHelper;
 using Microsoft.EntityFrameworkCore;
@@ -172,7 +172,7 @@ namespace TNT.Core.Template.DataService.Auto
         private void GenerateDomain()
         {
             var dGen = new BaseDomainGen(Data);
-            FileHelper.Write(OutputPath + "Models/Domains/Gen", "BaseDomain.Gen.cs", dGen.Generate());
+            FileHelper.Write(OutputPath + "Domains/Gen", "BaseDomain.Gen.cs", dGen.Generate());
         }
 
     }

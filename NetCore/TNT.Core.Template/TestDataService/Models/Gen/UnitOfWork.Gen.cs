@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
 using TestDataService.Global;
 using TestDataService.Models.Repositories;
-using TestDataService.Models.Domains;
+using TestDataService.Domains;
 using TestDataService.Models;
 using Microsoft.Extensions.DependencyInjection;
 
