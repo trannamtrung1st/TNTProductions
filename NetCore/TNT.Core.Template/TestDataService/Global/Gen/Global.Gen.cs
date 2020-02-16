@@ -1,12 +1,15 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
-using TestDataService.Models.Configs;
+using Microsoft.EntityFrameworkCore;
+using TestDataService.Models;
 using TestDataService.Models.Repositories;
+using TestDataService.ViewModels;
+using TNT.Core.Helpers.DI;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace TestDataService.Global
 {
@@ -18,7 +21,15 @@ namespace TestDataService.Global
 		//{
 			//cfg =>
 			//{
-			//	cfg.CreateMap<Test, TestViewModel>().ReverseMap();
+			//	cfg.CreateMap<AspNetRoleClaims, AspNetRoleClaimsViewModel>().ReverseMap();
+			//	cfg.CreateMap<AspNetRoles, AspNetRolesViewModel>().ReverseMap();
+			//	cfg.CreateMap<AspNetUserClaims, AspNetUserClaimsViewModel>().ReverseMap();
+			//	cfg.CreateMap<AspNetUserLogins, AspNetUserLoginsViewModel>().ReverseMap();
+			//	cfg.CreateMap<AspNetUserRoles, AspNetUserRolesViewModel>().ReverseMap();
+			//	cfg.CreateMap<AspNetUserTokens, AspNetUserTokensViewModel>().ReverseMap();
+			//	cfg.CreateMap<AspNetUsers, AspNetUsersViewModel>().ReverseMap();
+			//	cfg.CreateMap<Logs, LogsViewModel>().ReverseMap();
+			//	cfg.CreateMap<Products, ProductsViewModel>().ReverseMap();
 		//	}
 		//};
 		private static void ConfigureAutomapper()
@@ -35,11 +46,22 @@ namespace TestDataService.Global
 			
 		}
 		
-		private static void ConfigureIoC(IServiceCollection services, IMongoDbSettings settings)
+		private static void ConfigureIoC(IServiceCollection services)
 		{
 			//IoC
-			services.AddSingleton(settings)
-				.AddSingleton<ITestRepository, TestRepository>();
+			services.AddScoped<UnitOfWork>()
+				.AddScoped<IUnitOfWork, UnitOfWork>()
+				.AddScoped<DbContext, TemplateContext>()
+				.AddScoped<IAspNetRoleClaimsRepository, AspNetRoleClaimsRepository>()
+				.AddScoped<IAspNetRolesRepository, AspNetRolesRepository>()
+				.AddScoped<IAspNetUserClaimsRepository, AspNetUserClaimsRepository>()
+				.AddScoped<IAspNetUserLoginsRepository, AspNetUserLoginsRepository>()
+				.AddScoped<IAspNetUserRolesRepository, AspNetUserRolesRepository>()
+				.AddScoped<IAspNetUserTokensRepository, AspNetUserTokensRepository>()
+				.AddScoped<IAspNetUsersRepository, AspNetUsersRepository>()
+				.AddScoped<ILogsRepository, LogsRepository>()
+				.AddScoped<IProductsRepository, ProductsRepository>();
+			ServiceInjection.Register(new List<Type>(){ typeof(G) });
 		}
 		
 	}

@@ -1,30 +1,20 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MongoDB.Driver;
-using Microsoft.Extensions.DependencyInjection;
-using TestDataService.Models.Configs;
+using TNT.Core.Helpers.DI;
 
 namespace TestDataService.Models.Domains
 {
 	public abstract partial class BaseDomain
 	{
-		protected readonly IMongoClient _client;
-		protected readonly IMongoDatabase _database;
-		protected readonly IServiceProvider _serviceProvider;
+		[Inject]
+		protected readonly IUnitOfWork _uow;
 		
-		public BaseDomain(IServiceProvider provider, IMongoDbSettings settings)
+		public BaseDomain(ServiceInjection inj)
 		{
-			_serviceProvider = provider;
-			_client = new MongoClient(settings.ConnectionString);
-			_database = _client.GetDatabase(settings.DatabaseName);
-		}
-		
-		protected T Service<T>()
-		{
-			return _serviceProvider.GetRequiredService<T>();
+			inj.Inject(this);
 		}
 		
 	}

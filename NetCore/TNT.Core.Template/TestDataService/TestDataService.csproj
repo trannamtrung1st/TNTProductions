@@ -24,7 +24,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="TNT.Core.Helpers" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>

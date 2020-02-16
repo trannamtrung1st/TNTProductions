@@ -19,7 +19,8 @@ namespace TNT.Core.Template.DataService.Global
                 Data.ContextNamespace,
                 Data.ProjectName + ".Models",
                 Data.ProjectName + ".Models.Repositories",
-                Data.ProjectName + ".ViewModels");
+                Data.ProjectName + ".ViewModels",
+                "TNT.Core.Helpers.DI");
             Directive.Add("Microsoft.Extensions.DependencyInjection");
 
             //GENERATE
@@ -124,6 +125,9 @@ namespace TNT.Core.Template.DataService.Global
             s2.Add("\t.AddScoped<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>();");
 
             method.Body.Add(s2);
+            var s3 = new StatementGen("ServiceInjection.Register(new List<Type>(){ typeof(G) });");
+            method.Body.Add(s3);
+
             GlobalClassBody.Add(method, new StatementGen(""));
         }
 

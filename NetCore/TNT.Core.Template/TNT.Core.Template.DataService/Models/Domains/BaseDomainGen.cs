@@ -54,7 +54,7 @@ namespace TNT.Core.Template.DataService.Models.Domains
             //    "protected DbContext context;");
 
             var c1 = new ContainerGen();
-            c1.Signature = "public BaseDomain(PropertyInjection inj)";
+            c1.Signature = "public BaseDomain(ServiceInjection inj)";
             c1.Body.Add(new StatementGen(
                 "inj.Inject(this);"
                 //"this.context = uow.Context;"

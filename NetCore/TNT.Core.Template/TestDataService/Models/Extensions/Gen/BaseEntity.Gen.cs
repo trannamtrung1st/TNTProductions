@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +11,8 @@ namespace TestDataService.Models
 	{
 		E To<E>();
 		void CopyTo(object dest);
-		
 	}
+	
 	public abstract partial class BaseEntity : IBaseEntity
 	{
 		public virtual E To<E>()
@@ -26,4 +26,5 @@ namespace TestDataService.Models
 		}
 		
 	}
+	
 }
