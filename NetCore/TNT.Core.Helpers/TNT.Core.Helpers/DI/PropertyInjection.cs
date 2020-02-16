@@ -8,24 +8,28 @@ namespace TNT.Core.Helpers.DI
 {
     public class PropertyInjection
     {
-        private static readonly IDictionary<Type, IEnumerable<PropertyInfo>> _mappings;
-        static PropertyInjection()
+        private static IDictionary<Type, IEnumerable<PropertyInfo>> _mappings;
+
+        internal static void Init(IEnumerable<Type> assemblyRepresentTypes)
         {
             _mappings = new Dictionary<Type, IEnumerable<PropertyInfo>>();
-            var assembly = Assembly.GetEntryAssembly();
-            var allTypes = assembly.DefinedTypes;
-            foreach (var type in allTypes)
+            foreach (var t in assemblyRepresentTypes)
             {
-                var listProps = new List<PropertyInfo>();
-                var allProps = type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                foreach (var p in allProps)
+                var assembly = Assembly.GetAssembly(t);
+                var allTypes = assembly.DefinedTypes;
+                foreach (var type in allTypes)
                 {
-                    var attr = p.GetCustomAttribute<InjectAttribute>(false);
-                    if (attr != null)
-                        listProps.Add(p);
+                    var listProps = new List<PropertyInfo>();
+                    var allProps = type.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                    foreach (var p in allProps)
+                    {
+                        var attr = p.GetCustomAttribute<InjectAttribute>(false);
+                        if (attr != null)
+                            listProps.Add(p);
+                    }
+                    if (listProps.Count > 0)
+                        _mappings[type] = listProps;
                 }
-                if (listProps.Count > 0)
-                    _mappings[type] = listProps;
             }
         }
 
@@ -49,11 +53,4 @@ namespace TNT.Core.Helpers.DI
         }
     }
 
-    public static class PropertyInjectionExtensions
-    {
-        public static IServiceCollection AddPropertyInjection(this IServiceCollection services)
-        {
-            return services.AddScoped<PropertyInjection>();
-        }
-    }
 }

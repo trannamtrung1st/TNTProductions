@@ -1,16 +1,17 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Text;
-using TNT.Core.Helpers.DI;
 
-namespace TNT.Core.Http
+namespace TNT.Core.Helpers.DI
 {
+
     public static class PropertyInjectionExtensions
     {
-        public static IServiceCollection AddPropertyInjection(this IServiceCollection services)
+        public static IServiceCollection AddPropertyInjection(this IServiceCollection services,
+            IEnumerable<Type> assTypes)
         {
+            PropertyInjection.Init(assTypes);
             return services.AddScoped<PropertyInjection>();
         }
     }
