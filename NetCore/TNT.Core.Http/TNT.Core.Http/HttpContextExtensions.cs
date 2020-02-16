@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,6 +30,12 @@ namespace TNT.Core.Http
                 return dict;
             }
             catch (Exception) { return null; }
+        }
+
+        public static void Inject(this HttpContext context, object obj)
+        {
+            var pI = context.RequestServices.GetRequiredService<PropertyInjection>();
+            pI.Inject(obj);
         }
     }
 }
