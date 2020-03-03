@@ -22,14 +22,14 @@ namespace TestDataService.Models.Repositories
 		#region CRUD area
 		public override Logs FindById(int key)
 		{
-			var entity = dbSet.FirstOrDefault(
+			var entity = QuerySet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
 		public override async Task<Logs> FindByIdAsync(int key)
 		{
-			var entity = await dbSet.FirstOrDefaultAsync(
+			var entity = await QuerySet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}

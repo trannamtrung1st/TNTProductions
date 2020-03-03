@@ -46,44 +46,50 @@ namespace TestDataService.Models.Repositories
 	{
 		protected readonly DbContext context;
 		protected readonly DbSet<E> dbSet;
+		protected virtual DbSet<E> QuerySet { get { return dbSet; } }
 		
 		public BaseRepository(DbContext context)
 		{
 			this.context = context;
 			this.dbSet = context.Set<E>();
+			Init();
 		}
 		
-		public int SaveChanges()
+		protected virtual void Init()
+		{
+		}
+		
+		public virtual int SaveChanges()
 		{
 			return context.SaveChanges();
 		}
 		
-		public async Task<int> SaveChangesAsync()
+		public virtual async Task<int> SaveChangesAsync()
 		{
 			return await context.SaveChangesAsync();
 		}
 		
-		public void Reload(E entity)
+		public virtual void Reload(E entity)
 		{
 			context.Entry(entity).Reload();
 		}
 		
-		public EntityEntry<E> Create(E entity)
+		public virtual EntityEntry<E> Create(E entity)
 		{
 			return dbSet.Add(entity);
 		}
 		
-		public void CreateRange(IEnumerable<E> entities)
+		public virtual void CreateRange(IEnumerable<E> entities)
 		{
 			dbSet.AddRange(entities);
 		}
 		
-		public EntityEntry<E> Remove(E entity)
+		public virtual EntityEntry<E> Remove(E entity)
 		{
 			return dbSet.Remove(entity);
 		}
 		
-		public EntityEntry<E> Remove(K key)
+		public virtual EntityEntry<E> Remove(K key)
 		{
 			var entity = FindById(key);
 			if (entity!=null)
@@ -91,84 +97,84 @@ namespace TestDataService.Models.Repositories
 			return null;
 		}
 		
-		public void RemoveIf(Expression<Func<E, bool>> expr)
+		public virtual void RemoveIf(Expression<Func<E, bool>> expr)
 		{
 			dbSet.RemoveRange(dbSet.Where(expr).ToList());
 		}
 		
-		public void RemoveRange(IEnumerable<E> list)
+		public virtual void RemoveRange(IEnumerable<E> list)
 		{
 			dbSet.RemoveRange(list);
 		}
 		
-		public EntityEntry<E> Update(E entity)
+		public virtual EntityEntry<E> Update(E entity)
 		{
 			var entry = context.Entry(entity);
 			entry.State = EntityState.Modified;
 			return entry;
 		}
 		
-		public void UpdateRange(IEnumerable<E> entities)
+		public virtual void UpdateRange(IEnumerable<E> entities)
 		{
 			foreach (var e in entities)
 				context.Entry(e).State = EntityState.Modified;
 		}
 		
-		public EntityEntry<E> Update(E entity, Action<E> patchAction)
+		public virtual EntityEntry<E> Update(E entity, Action<E> patchAction)
 		{
 			var entry = dbSet.Attach(entity);
 			patchAction.Invoke(entity);
 			return entry;
 		}
 		
-		public EntityEntry<E> Attach(E entity)
+		public virtual EntityEntry<E> Attach(E entity)
 		{
 			return dbSet.Attach(entity);
 		}
 		
-		public IQueryable<E> AsNoTracking()
+		public virtual IQueryable<E> AsNoTracking()
 		{
-			return dbSet.AsNoTracking();
+			return QuerySet.AsNoTracking();
 		}
 		
-		public DbSet<E> Get()
+		public virtual DbSet<E> Get()
 		{
-			return dbSet;
+			return QuerySet;
 		}
 		
-		public IQueryable<E> Get(Expression<Func<E, bool>> expr)
+		public virtual IQueryable<E> Get(Expression<Func<E, bool>> expr)
 		{
-			return dbSet.Where(expr);
+			return QuerySet.Where(expr);
 		}
 		
-		public E FirstOrDefault()
+		public virtual E FirstOrDefault()
 		{
-			return dbSet.FirstOrDefault();
+			return QuerySet.FirstOrDefault();
 		}
 		
-		public E FirstOrDefault(Expression<Func<E, bool>> expr)
+		public virtual E FirstOrDefault(Expression<Func<E, bool>> expr)
 		{
-			return dbSet.FirstOrDefault(expr);
+			return QuerySet.FirstOrDefault(expr);
 		}
 		
-		public async Task<E> FirstOrDefaultAsync()
+		public virtual async Task<E> FirstOrDefaultAsync()
 		{
-			return await dbSet.FirstOrDefaultAsync();
+			return await QuerySet.FirstOrDefaultAsync();
 		}
 		
 		public async Task<E> FirstOrDefaultAsync(Expression<Func<E, bool>> expr)
 		{
-			return await dbSet.FirstOrDefaultAsync(expr);
+			return await QuerySet.FirstOrDefaultAsync(expr);
 		}
 		
-		public E SingleOrDefault(Expression<Func<E, bool>> expr)
+		public virtual E SingleOrDefault(Expression<Func<E, bool>> expr)
 		{
-			return dbSet.SingleOrDefault(expr);
+			return QuerySet.SingleOrDefault(expr);
 		}
 		
-		public async Task<E> SingleOrDefaultAsync(Expression<Func<E, bool>> expr)
+		public virtual async Task<E> SingleOrDefaultAsync(Expression<Func<E, bool>> expr)
 		{
-			return await dbSet.SingleOrDefaultAsync(expr);
+			return await QuerySet.SingleOrDefaultAsync(expr);
 		}
 		
 		/*

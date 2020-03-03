@@ -22,14 +22,14 @@ namespace TestDataService.Models.Repositories
 		#region CRUD area
 		public override AspNetUserRoles FindById(AspNetUserRolesPK key)
 		{
-			var entity = dbSet.FirstOrDefault(
+			var entity = QuerySet.FirstOrDefault(
 				e => e.UserId == key.UserId && e.RoleId == key.RoleId);
 			return entity;
 		}
 		
 		public override async Task<AspNetUserRoles> FindByIdAsync(AspNetUserRolesPK key)
 		{
-			var entity = await dbSet.FirstOrDefaultAsync(
+			var entity = await QuerySet.FirstOrDefaultAsync(
 				e => e.UserId == key.UserId && e.RoleId == key.RoleId);
 			return entity;
 		}

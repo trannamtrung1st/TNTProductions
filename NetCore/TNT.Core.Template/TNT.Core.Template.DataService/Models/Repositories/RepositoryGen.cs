@@ -100,7 +100,8 @@ namespace TNT.Core.Template.DataService.Models.Repositories
         {
             var s12 = new StatementGen(
                 "protected readonly DbContext context;",
-                "protected readonly DbSet<E> dbSet;"
+                "protected readonly DbSet<E> dbSet;",
+                "protected virtual DbSet<E> QuerySet { get { return dbSet; } }"
                 //"protected IUnitOfWork uow;"
                 );
 
@@ -115,40 +116,44 @@ namespace TNT.Core.Template.DataService.Models.Repositories
             c4.Signature = "public BaseRepository(DbContext context)";
             c4.Body.Add(new StatementGen(
                 "this.context = context;",
-                "this.dbSet = context.Set<E>();"));
+                "this.dbSet = context.Set<E>();",
+                "Init();"));
+
+            var cm31 = new ContainerGen();
+            cm31.Signature = "protected virtual void Init()";
 
             var m31 = new ContainerGen();
-            m31.Signature = "public int SaveChanges()";
+            m31.Signature = "public virtual int SaveChanges()";
             m31.Body.Add(new StatementGen(
                 "return context.SaveChanges();"));
 
             var m32 = new ContainerGen();
-            m32.Signature = "public async Task<int> SaveChangesAsync()";
+            m32.Signature = "public virtual async Task<int> SaveChangesAsync()";
             m32.Body.Add(new StatementGen(
                 "return await context.SaveChangesAsync();"));
 
             var m91 = new ContainerGen();
-            m91.Signature = "public void Reload(E entity)";
+            m91.Signature = "public virtual void Reload(E entity)";
             m91.Body.Add(new StatementGen(
                 "context.Entry(entity).Reload();"));
 
             var m10 = new ContainerGen();
-            m10.Signature = "public EntityEntry<E> Create(E entity)";
+            m10.Signature = "public virtual EntityEntry<E> Create(E entity)";
             m10.Body.Add(new StatementGen(
                 "return dbSet.Add(entity);"));
 
             var m101 = new ContainerGen();
-            m101.Signature = "public void CreateRange(IEnumerable<E> entities)";
+            m101.Signature = "public virtual void CreateRange(IEnumerable<E> entities)";
             m101.Body.Add(new StatementGen(
                 "dbSet.AddRange(entities);"));
 
             var m11 = new ContainerGen();
-            m11.Signature = "public EntityEntry<E> Remove(E entity)";
+            m11.Signature = "public virtual EntityEntry<E> Remove(E entity)";
             m11.Body.Add(new StatementGen(
                 "return dbSet.Remove(entity);"));
 
             var m12 = new ContainerGen();
-            m12.Signature = "public EntityEntry<E> Remove(K key)";
+            m12.Signature = "public virtual EntityEntry<E> Remove(K key)";
             m12.Body.Add(new StatementGen(
                 "var entity = FindById(key);",
                 "if (entity!=null)",
@@ -156,75 +161,75 @@ namespace TNT.Core.Template.DataService.Models.Repositories
                 "return null;"));
 
             var m13 = new ContainerGen();
-            m13.Signature = "public void RemoveIf(Expression<Func<E, bool>> expr)";
+            m13.Signature = "public virtual void RemoveIf(Expression<Func<E, bool>> expr)";
             m13.Body.Add(new StatementGen(
                 "dbSet.RemoveRange(dbSet.Where(expr).ToList());"));
 
             var m14 = new ContainerGen();
-            m14.Signature = "public void RemoveRange(IEnumerable<E> list)";
+            m14.Signature = "public virtual void RemoveRange(IEnumerable<E> list)";
             m14.Body.Add(new StatementGen(
                 "dbSet.RemoveRange(list);"));
 
             var m141 = new ContainerGen();
-            m141.Signature = "public EntityEntry<E> Update(E entity)";
+            m141.Signature = "public virtual EntityEntry<E> Update(E entity)";
             m141.Body.Add(new StatementGen(
                 "var entry = context.Entry(entity);",
                 "entry.State = EntityState.Modified;",
                 "return entry;"));
 
             var m1421 = new ContainerGen();
-            m1421.Signature = "public EntityEntry<E> Update(E entity, Action<E> patchAction)";
+            m1421.Signature = "public virtual EntityEntry<E> Update(E entity, Action<E> patchAction)";
             m1421.Body.Add(new StatementGen(
                 "var entry = dbSet.Attach(entity);",
                 "patchAction.Invoke(entity);",
                 "return entry;"));
 
             var m1411 = new ContainerGen();
-            m1411.Signature = "public void UpdateRange(IEnumerable<E> entities)";
+            m1411.Signature = "public virtual void UpdateRange(IEnumerable<E> entities)";
             m1411.Body.Add(new StatementGen(
                 "foreach (var e in entities)",
                 "\tcontext.Entry(e).State = EntityState.Modified;"));
 
             var m1412 = new ContainerGen();
-            m1412.Signature = "public EntityEntry<E> Attach(E entity)";
+            m1412.Signature = "public virtual EntityEntry<E> Attach(E entity)";
             m1412.Body.Add(new StatementGen(
                 "return dbSet.Attach(entity);"));
 
             var mm1 = new ContainerGen();
-            mm1.Signature = "public IQueryable<E> AsNoTracking()";
-            mm1.Body.Add(new StatementGen("return dbSet.AsNoTracking();"));
+            mm1.Signature = "public virtual IQueryable<E> AsNoTracking()";
+            mm1.Body.Add(new StatementGen("return QuerySet.AsNoTracking();"));
 
             var m142 = new ContainerGen();
-            m142.Signature = "public DbSet<E> Get()";
-            m142.Body.Add(new StatementGen("return dbSet;"));
+            m142.Signature = "public virtual DbSet<E> Get()";
+            m142.Body.Add(new StatementGen("return QuerySet;"));
 
             var m143 = new ContainerGen();
-            m143.Signature = "public IQueryable<E> Get(Expression<Func<E, bool>> expr)";
-            m143.Body.Add(new StatementGen("return dbSet.Where(expr);"));
+            m143.Signature = "public virtual IQueryable<E> Get(Expression<Func<E, bool>> expr)";
+            m143.Body.Add(new StatementGen("return QuerySet.Where(expr);"));
 
             var m15 = new ContainerGen();
-            m15.Signature = "public E FirstOrDefault()";
-            m15.Body.Add(new StatementGen("return dbSet.FirstOrDefault();"));
+            m15.Signature = "public virtual E FirstOrDefault()";
+            m15.Body.Add(new StatementGen("return QuerySet.FirstOrDefault();"));
 
             var m151 = new ContainerGen();
-            m151.Signature = "public E FirstOrDefault(Expression<Func<E, bool>> expr)";
-            m151.Body.Add(new StatementGen("return dbSet.FirstOrDefault(expr);"));
+            m151.Signature = "public virtual E FirstOrDefault(Expression<Func<E, bool>> expr)";
+            m151.Body.Add(new StatementGen("return QuerySet.FirstOrDefault(expr);"));
 
             var m16 = new ContainerGen();
-            m16.Signature = "public async Task<E> FirstOrDefaultAsync()";
-            m16.Body.Add(new StatementGen("return await dbSet.FirstOrDefaultAsync();"));
+            m16.Signature = "public virtual async Task<E> FirstOrDefaultAsync()";
+            m16.Body.Add(new StatementGen("return await QuerySet.FirstOrDefaultAsync();"));
 
             var m161 = new ContainerGen();
-            m161.Signature = "public async Task<E> FirstOrDefaultAsync(Expression<Func<E, bool>> expr)";
-            m161.Body.Add(new StatementGen("return await dbSet.FirstOrDefaultAsync(expr);"));
+            m161.Signature = "public virtual async Task<E> FirstOrDefaultAsync(Expression<Func<E, bool>> expr)";
+            m161.Body.Add(new StatementGen("return await QuerySet.FirstOrDefaultAsync(expr);"));
 
             var m17 = new ContainerGen();
-            m17.Signature = "public E SingleOrDefault(Expression<Func<E, bool>> expr)";
-            m17.Body.Add(new StatementGen("return dbSet.SingleOrDefault(expr);"));
+            m17.Signature = "public virtual E SingleOrDefault(Expression<Func<E, bool>> expr)";
+            m17.Body.Add(new StatementGen("return QuerySet.SingleOrDefault(expr);"));
 
             var m18 = new ContainerGen();
-            m18.Signature = "public async Task<E> SingleOrDefaultAsync(Expression<Func<E, bool>> expr)";
-            m18.Body.Add(new StatementGen("return await dbSet.SingleOrDefaultAsync(expr);"));
+            m18.Signature = "public virtual async Task<E> SingleOrDefaultAsync(Expression<Func<E, bool>> expr)";
+            m18.Body.Add(new StatementGen("return await QuerySet.SingleOrDefaultAsync(expr);"));
 
             var cm10 = new CommentGen(type: CommentType.BLOCK);
             cm10.Add("******************** ABSTRACT AREA *********************");
@@ -237,6 +242,7 @@ namespace TNT.Core.Template.DataService.Models.Repositories
                 s12, new StatementGen(""),
                 c4, new StatementGen(""));
             BaseRepositoryBody.Add(
+                cm31, new StatementGen(""),
                 m31, new StatementGen(""),
                 m32, new StatementGen(""),
                 m91, new StatementGen(""),

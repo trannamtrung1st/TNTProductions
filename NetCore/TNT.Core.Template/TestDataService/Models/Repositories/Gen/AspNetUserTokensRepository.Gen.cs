@@ -22,14 +22,14 @@ namespace TestDataService.Models.Repositories
 		#region CRUD area
 		public override AspNetUserTokens FindById(AspNetUserTokensPK key)
 		{
-			var entity = dbSet.FirstOrDefault(
+			var entity = QuerySet.FirstOrDefault(
 				e => e.UserId == key.UserId && e.LoginProvider == key.LoginProvider && e.Name == key.Name);
 			return entity;
 		}
 		
 		public override async Task<AspNetUserTokens> FindByIdAsync(AspNetUserTokensPK key)
 		{
-			var entity = await dbSet.FirstOrDefaultAsync(
+			var entity = await QuerySet.FirstOrDefaultAsync(
 				e => e.UserId == key.UserId && e.LoginProvider == key.LoginProvider && e.Name == key.Name);
 			return entity;
 		}

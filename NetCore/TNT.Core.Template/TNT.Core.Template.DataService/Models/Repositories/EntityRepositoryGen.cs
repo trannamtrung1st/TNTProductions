@@ -89,7 +89,7 @@ namespace TNT.Core.Template.DataService.Models.Repositories
             var m9 = new ContainerGen();
             m9.Signature = "public override `entity` FindById(`entityPK` key)";
             m9.Body.Add(new StatementGen(
-                "var entity = dbSet.FirstOrDefault(",
+                "var entity = QuerySet.FirstOrDefault(",
                 GetKeyCompareExpr() + ");",
                 "return entity;"));
 
@@ -99,7 +99,7 @@ namespace TNT.Core.Template.DataService.Models.Repositories
             m10.Signature = "public override async Task<`entity`> FindByIdAsync(`entityPK` key)";
             m10.Body.Add(
                 new StatementGen(
-                "var entity = await dbSet.FirstOrDefaultAsync(",
+                "var entity = await QuerySet.FirstOrDefaultAsync(",
                 GetKeyCompareExpr() + ");",
                 "return entity;"));
             EntityRepositoryBody.Add(m10, new StatementGen(""));
@@ -109,7 +109,7 @@ namespace TNT.Core.Template.DataService.Models.Repositories
                 var m91 = new ContainerGen();
                 m91.Signature = "public `entity` FindActiveById(`entityPK` key)";
                 m91.Body.Add(new StatementGen(
-                    "var entity = dbSet.FirstOrDefault(",
+                    "var entity = QuerySet.FirstOrDefault(",
                     GetKeyCompareExpr() +
                     (EInfo.Data.ActiveCol ? " && e.Active == true" : " && e.Deactive == false") + ");",
                     "return entity;"));
@@ -119,7 +119,7 @@ namespace TNT.Core.Template.DataService.Models.Repositories
                 m101.Signature = "public async Task<`entity`> FindActiveByIdAsync(`entityPK` key)";
                 m101.Body.Add(
                     new StatementGen(
-                    "var entity = await dbSet.FirstOrDefaultAsync(",
+                    "var entity = await QuerySet.FirstOrDefaultAsync(",
                     GetKeyCompareExpr() +
                     (EInfo.Data.ActiveCol ? " && e.Active == true" : " && e.Deactive == false") + ");",
                     "return entity;"));
@@ -127,14 +127,14 @@ namespace TNT.Core.Template.DataService.Models.Repositories
 
                 var m13 = new ContainerGen();
                 m13.Signature = "public IQueryable<`entity`> GetActive()";
-                var getActive = "return dbSet" +
+                var getActive = "return QuerySet" +
                     (EInfo.Data.ActiveCol ? ".Where(e => e.Active == true);" : ".Where(e => e.Deactive == false);");
                 m13.Body.Add(new StatementGen(getActive));
                 EntityRepositoryBody.Add(m13, new StatementGen(""));
 
                 var m14 = new ContainerGen();
                 m14.Signature = "public IQueryable<`entity`> GetActive(Expression<Func<`entity`, bool>> expr)";
-                m14.Body.Add(new StatementGen("return dbSet" +
+                m14.Body.Add(new StatementGen("return QuerySet" +
                     (EInfo.Data.ActiveCol ? ".Where(e => e.Active == true)" : ".Where(e => e.Deactive == false)") + ".Where(expr);"));
                 EntityRepositoryBody.Add(m14, new StatementGen(""));
             }
