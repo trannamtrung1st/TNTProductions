@@ -32,7 +32,7 @@ namespace TestDataService.Models.Repositories
 		E FindById(K key);
 		Task<E> FindByIdAsync(K key);
 		IQueryable<E> AsNoTracking();
-		DbSet<E> Get();
+		IQueryable<E> Get();
 		IQueryable<E> Get(Expression<Func<E, bool>> expr);
 		E FirstOrDefault();
 		E FirstOrDefault(Expression<Func<E, bool>> expr);
@@ -46,7 +46,7 @@ namespace TestDataService.Models.Repositories
 	{
 		protected readonly DbContext context;
 		protected readonly DbSet<E> dbSet;
-		protected virtual DbSet<E> QuerySet { get { return dbSet; } }
+		protected virtual IQueryable<E> QuerySet { get { return dbSet; } }
 		
 		public BaseRepository(DbContext context)
 		{
@@ -137,7 +137,7 @@ namespace TestDataService.Models.Repositories
 			return QuerySet.AsNoTracking();
 		}
 		
-		public virtual DbSet<E> Get()
+		public virtual IQueryable<E> Get()
 		{
 			return QuerySet;
 		}
@@ -162,7 +162,7 @@ namespace TestDataService.Models.Repositories
 			return await QuerySet.FirstOrDefaultAsync();
 		}
 		
-		public async Task<E> FirstOrDefaultAsync(Expression<Func<E, bool>> expr)
+		public virtual async Task<E> FirstOrDefaultAsync(Expression<Func<E, bool>> expr)
 		{
 			return await QuerySet.FirstOrDefaultAsync(expr);
 		}
