@@ -1,7 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
+using Microsoft.CodeAnalysis.Scripting.Hosting;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using TNT.Core.Helpers.Cryptography;
 using TNT.Core.Helpers.Data;
 
@@ -27,7 +31,11 @@ namespace TNT.Core.Helpers
         public AVM Child { get; set; }
     }
 
-    class Program
+    public class Global
+    {
+        public List<A> list { get; set; }
+    }
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -45,54 +53,68 @@ namespace TNT.Core.Helpers
                 } }
             };
 
-            var test = list
-                .SelectOnly<A, AVM>(SelectOption.ByPropertyName, "A=PropA", "Child.Child.A=Child?.Child?.PropA")
-                .ToList();
+            //var test = list
+            //    .SelectOnly<A, AVM>(SelectOption.ByPropertyName, "A=PropA", "Child.Child.A=Child?.Child?.PropA")
+            //    .ToList();
 
-            var test2 = list
-                .SelectOnly(SelectOption.ByPropertyName, "PropA", "Child?.Child?.PropA")
-                .ToList();
+            //var test2 = list
+            //    .SelectOnly(SelectOption.ByPropertyName, "PropA", "Child?.Child?.PropA")
+            //    .ToList();
 
-            var test3 = list
-                .SelectOnly(false, SelectOption.ByPropertyName, "PropA", "Child?.Child?.PropA")
-                .ToList();
-            var test4 = list
-                .SelectOnly(true, SelectOption.ByPropertyName, "PropA", "Child?.Child?.PropA")
-                .ToList();
+            //var test3 = list
+            //    .SelectOnly(false, SelectOption.ByPropertyName, "PropA", "Child?.Child?.PropA")
+            //    .ToList();
+            //var test4 = list
+            //    .SelectOnly(true, SelectOption.ByPropertyName, "PropA", "Child?.Child?.PropA")
+            //    .ToList();
 
-            var test5 = list
-                .SelectOnly<A, AVM>(SelectOption.ByJsonProperty, "prop_a=prop_a", "child.child.prop_a=child?.child?.prop_a")
-                .ToList();
+            //var test5 = list
+            //    .SelectOnly<A, AVM>(SelectOption.ByJsonProperty, "prop_a=prop_a", "child.child.prop_a=child?.child?.prop_a")
+            //    .ToList();
 
-            var test6 = list
-                .SelectOnly(SelectOption.ByJsonProperty, "prop_a", "child?.child?.prop_a")
-                .ToList();
+            //var test6 = list
+            //    .SelectOnly(SelectOption.ByJsonProperty, "prop_a", "child?.child?.prop_a")
+            //    .ToList();
 
-            var test7 = list
-                .SelectOnly(false, SelectOption.ByJsonProperty, "prop_a", "child?.child?.prop_a")
-                .ToList();
+            //var test7 = list
+            //    .SelectOnly(false, SelectOption.ByJsonProperty, "prop_a", "child?.child?.prop_a")
+            //    .ToList();
 
-            var test8 = list
-                .SelectOnly(true, SelectOption.ByJsonProperty, "prop_a", "child?.child?.prop_a")
-                .ToList();
+            //var test8 = list
+            //    .SelectOnly(true, SelectOption.ByJsonProperty, "prop_a", "child?.child?.prop_a")
+            //    .ToList();
 
+            var global = new Global
+            {
+                list = list
+            };
+            var options = ScriptOptions.Default
+                .WithReferences(Assembly.Load("TNT.Core.Helpers"))
+                .WithImports("TNT.Core.Helpers.Data",
+                "TNT.Core.Helpers",
+                "System.Linq");
+            var obj = CSharpScript.EvaluateAsync(
+                    code: "return list.ToList()",
+                    options: options,
+                    globals: global,
+                    globalsType: typeof(Global)).Result;
 
-            Console.WriteLine(JsonConvert.SerializeObject(test, Formatting.Indented));
-            Console.WriteLine("---------------");
-            Console.WriteLine(JsonConvert.SerializeObject(test2, Formatting.Indented));
-            Console.WriteLine("---------------");
-            Console.WriteLine(JsonConvert.SerializeObject(test3, Formatting.Indented));
-            Console.WriteLine("---------------");
-            Console.WriteLine(JsonConvert.SerializeObject(test4, Formatting.Indented));
-            Console.WriteLine("---------------");
-            Console.WriteLine(JsonConvert.SerializeObject(test5, Formatting.Indented));
-            Console.WriteLine("---------------");
-            Console.WriteLine(JsonConvert.SerializeObject(test6, Formatting.Indented));
-            Console.WriteLine("---------------");
-            Console.WriteLine(JsonConvert.SerializeObject(test7, Formatting.Indented));
-            Console.WriteLine("---------------");
-            Console.WriteLine(JsonConvert.SerializeObject(test8, Formatting.Indented));
-            Console.WriteLine("---------------");
+            //Console.WriteLine(JsonConvert.SerializeObject(test, Formatting.Indented));
+            //Console.WriteLine("---------------");
+            //Console.WriteLine(JsonConvert.SerializeObject(test2, Formatting.Indented));
+            //Console.WriteLine("---------------");
+            //Console.WriteLine(JsonConvert.SerializeObject(test3, Formatting.Indented));
+            //Console.WriteLine("---------------");
+            //Console.WriteLine(JsonConvert.SerializeObject(test4, Formatting.Indented));
+            //Console.WriteLine("---------------");
+            //Console.WriteLine(JsonConvert.SerializeObject(test5, Formatting.Indented));
+            //Console.WriteLine("---------------");
+            //Console.WriteLine(JsonConvert.SerializeObject(test6, Formatting.Indented));
+            //Console.WriteLine("---------------");
+            //Console.WriteLine(JsonConvert.SerializeObject(test7, Formatting.Indented));
+            //Console.WriteLine("---------------");
+            //Console.WriteLine(JsonConvert.SerializeObject(test8, Formatting.Indented));
+            //Console.WriteLine("---------------");
         }
     }
 }

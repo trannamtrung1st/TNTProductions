@@ -1,0 +1,3 @@
+{
+  "code": "list.Select(l => new A { Child = new A {PropA = \"TNT\" }, PropB = \"CON CAC\" });"
+}
