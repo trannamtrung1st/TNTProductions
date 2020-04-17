@@ -9,7 +9,7 @@ using TestDataService.Global;
 
 namespace TestDataService.Models
 {
-	public partial class Products : BaseEntity
+	public partial class SeoKeywords : BaseEntity
 	{
 	}
 	
@@ -18,24 +18,24 @@ namespace TestDataService.Models
 
 namespace TestDataService.Models.Extensions
 {
-	public static partial class ProductsExtension
+	public static partial class SeoKeywordsExtension
 	{
-		public static Products Id(this IQueryable<Products> query, int key)
+		public static SeoKeywords Id(this IQueryable<SeoKeywords> query, string key)
 		{
 			return query.FirstOrDefault(
-				e => e.Id == key);
+				e => e.Value == key);
 		}
 		
-		public static Products Id(this IEnumerable<Products> query, int key)
+		public static SeoKeywords Id(this IEnumerable<SeoKeywords> query, string key)
 		{
 			return query.FirstOrDefault(
-				e => e.Id == key);
+				e => e.Value == key);
 		}
 		
-		public static bool Existed(this IQueryable<Products> query, int key)
+		public static bool Existed(this IQueryable<SeoKeywords> query, string key)
 		{
 			return query.Any(
-				e => e.Id == key);
+				e => e.Value == key);
 		}
 		
 	}

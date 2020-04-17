@@ -15,7 +15,8 @@ namespace TNT.Core.Template.DataService.Models.Repositories
         {
             EInfo = eInfo;
             Directive.Add(EInfo.Data.ContextNamespace,
-                "System.Linq.Expressions", "Microsoft.EntityFrameworkCore");
+                "System.Linq.Expressions", "Microsoft.EntityFrameworkCore",
+                "Microsoft.EntityFrameworkCore.ChangeTracking");
 
             ResolveMapping["entity"] = EInfo.EntityName;
             ResolveMapping["entityPK"] = EInfo.PKClass;
@@ -83,14 +84,17 @@ namespace TNT.Core.Template.DataService.Models.Repositories
             var c1 = new ContainerGen();
             c1.Signature = "public `entity`Repository(DbContext context) : base(context)";
             EntityRepositoryBody.Add(c1, new StatementGen(""));
-
             EntityRepositoryBody.Add(new StatementGen("#region CRUD area"));
+
+            var keyCompare = GetKeyCompareExpr();
+            var keyAssignArgs = GetKeyAssignmentExpr(true);
+            var keyAssign = GetKeyAssignmentExpr(false);
 
             var m9 = new ContainerGen();
             m9.Signature = "public override `entity` FindById(`entityPK` key)";
             m9.Body.Add(new StatementGen(
                 "var entity = QuerySet.FirstOrDefault(",
-                GetKeyCompareExpr() + ");",
+                keyCompare + ");",
                 "return entity;"));
 
             EntityRepositoryBody.Add(m9, new StatementGen(""));
@@ -100,9 +104,36 @@ namespace TNT.Core.Template.DataService.Models.Repositories
             m10.Body.Add(
                 new StatementGen(
                 "var entity = await QuerySet.FirstOrDefaultAsync(",
-                GetKeyCompareExpr() + ");",
+                keyCompare + ");",
                 "return entity;"));
             EntityRepositoryBody.Add(m10, new StatementGen(""));
+
+            var m11 = new ContainerGen();
+            m11.Signature = "public override EntityEntry<`entity`> Remove(`entityPK` key)";
+            m11.Body.Add(
+                new StatementGen(
+                $"var entity = new `entity` {{ {keyAssign} }};",
+                "return dbSet.Remove(entity);"));
+            EntityRepositoryBody.Add(m11, new StatementGen(""));
+
+            var m12 = new ContainerGen();
+            m12.Signature = "public override IEnumerable<`entity`> RemoveIf(Expression<Func<`entity`, bool>> expr)";
+            m12.Body.Add(
+                new StatementGen(
+                $"var list = dbSet.Where(expr)" +
+                    $".Select(o => new `entity` {{ {keyAssignArgs} }}).ToList();",
+                "dbSet.RemoveRange(list);",
+                "return list;"));
+            EntityRepositoryBody.Add(m12, new StatementGen(""));
+
+            var m14 = new ContainerGen();
+            m14.Signature = "public override async Task<int> SqlRemoveAllAsync()";
+            m14.Body.Add(
+                new StatementGen(
+                $"var result = await context.Database.ExecuteSqlCommandAsync(\"DELETE FROM `entity`\");",
+                "return result;"));
+            EntityRepositoryBody.Add(new StatementGen("//Default DELETE command, override if there's any exception"),
+                m14, new StatementGen(""));
 
             if (EInfo.Activable)
             {
@@ -110,7 +141,7 @@ namespace TNT.Core.Template.DataService.Models.Repositories
                 m91.Signature = "public `entity` FindActiveById(`entityPK` key)";
                 m91.Body.Add(new StatementGen(
                     "var entity = QuerySet.FirstOrDefault(",
-                    GetKeyCompareExpr() +
+                    keyCompare +
                     (EInfo.Data.ActiveCol ? " && e.Active == true" : " && e.Deactive == false") + ");",
                     "return entity;"));
                 EntityRepositoryBody.Add(m91, new StatementGen(""));
@@ -120,23 +151,23 @@ namespace TNT.Core.Template.DataService.Models.Repositories
                 m101.Body.Add(
                     new StatementGen(
                     "var entity = await QuerySet.FirstOrDefaultAsync(",
-                    GetKeyCompareExpr() +
+                    keyCompare +
                     (EInfo.Data.ActiveCol ? " && e.Active == true" : " && e.Deactive == false") + ");",
                     "return entity;"));
                 EntityRepositoryBody.Add(m101, new StatementGen(""));
 
-                var m13 = new ContainerGen();
-                m13.Signature = "public IQueryable<`entity`> GetActive()";
+                var m15 = new ContainerGen();
+                m15.Signature = "public IQueryable<`entity`> GetActive()";
                 var getActive = "return QuerySet" +
                     (EInfo.Data.ActiveCol ? ".Where(e => e.Active == true);" : ".Where(e => e.Deactive == false);");
-                m13.Body.Add(new StatementGen(getActive));
-                EntityRepositoryBody.Add(m13, new StatementGen(""));
+                m15.Body.Add(new StatementGen(getActive));
+                EntityRepositoryBody.Add(m15, new StatementGen(""));
 
-                var m14 = new ContainerGen();
-                m14.Signature = "public IQueryable<`entity`> GetActive(Expression<Func<`entity`, bool>> expr)";
-                m14.Body.Add(new StatementGen("return QuerySet" +
+                var m16 = new ContainerGen();
+                m16.Signature = "public IQueryable<`entity`> GetActive(Expression<Func<`entity`, bool>> expr)";
+                m16.Body.Add(new StatementGen("return QuerySet" +
                     (EInfo.Data.ActiveCol ? ".Where(e => e.Active == true)" : ".Where(e => e.Deactive == false)") + ".Where(expr);"));
-                EntityRepositoryBody.Add(m14, new StatementGen(""));
+                EntityRepositoryBody.Add(m16, new StatementGen(""));
             }
             EntityRepositoryBody.Add(new StatementGen("#endregion"));
 
@@ -159,6 +190,27 @@ namespace TNT.Core.Template.DataService.Models.Repositories
                     expr += " e." + name + " == key." + name + " &&";
                 }
                 expr = expr.Remove(expr.Length - 3);
+            }
+            return expr;
+        }
+
+        private string GetKeyAssignmentExpr(bool hasArgs)
+        {
+            var expr = "";
+            if (EInfo.PKPropMapping.Count == 1)
+            {
+                var name = EInfo.PKPropMapping.Keys.ToList()[0];
+                expr += $"{name} = {(hasArgs ? $"o.{name}" : "key")}";
+            }
+            else
+            {
+                var parts = EInfo.PKPropMapping.Select(prop =>
+                {
+                    var name = prop.Key;
+                    var type = prop.Value;
+                    return $"{name} = {(hasArgs ? $"o.{name}" : $"key.{name}")}";
+                });
+                expr = string.Join(',', parts);
             }
             return expr;
         }

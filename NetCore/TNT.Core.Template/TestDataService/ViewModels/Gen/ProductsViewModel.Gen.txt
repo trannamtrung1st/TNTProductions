@@ -12,9 +12,11 @@ namespace TestDataService.ViewModels
 	public partial class ProductsViewModel: BaseViewModel<Products>
 	{
 		//[JsonProperty("id")]
-		public string Id { get; set; }
+		public int Id { get; set; }
 		//[JsonProperty("name")]
 		public string Name { get; set; }
+		//[JsonProperty("seo_keywords")]
+		//public IEnumerable<SeoKeywordsViewModel> SeoKeywordsVM { get; set; }
 		
 		public ProductsViewModel(Products entity) : base(entity)
 		{
@@ -29,9 +31,11 @@ namespace TestDataService.ViewModels
 	public partial class UpdateProductsViewModel: BaseUpdateViewModel<UpdateProductsViewModel, Products>
 	{
 		//[JsonProperty("id")]
-		public Wrapper<string> Id { get; set; }
+		public Wrapper<int> Id { get; set; }
 		//[JsonProperty("name")]
 		public Wrapper<string> Name { get; set; }
+		//[JsonProperty("seo_keywords")]
+		//public IEnumerable<SeoKeywordsViewModel> SeoKeywordsVM { get; set; }
 		
 	}
 }

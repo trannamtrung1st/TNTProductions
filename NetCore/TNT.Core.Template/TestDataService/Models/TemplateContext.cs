@@ -24,6 +24,7 @@ namespace TestDataService.Models
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<Products> Products { get; set; }
+        public virtual DbSet<SeoKeywords> SeoKeywords { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -171,12 +172,23 @@ namespace TestDataService.Models
 
             modelBuilder.Entity<Products>(entity =>
             {
-                entity.Property(e => e.Id)
+                entity.Property(e => e.Name).HasMaxLength(255);
+            });
+
+            modelBuilder.Entity<SeoKeywords>(entity =>
+            {
+                entity.HasKey(e => e.Value)
+                    .HasName("PK_SeoKeywords_1");
+
+                entity.Property(e => e.Value)
                     .HasMaxLength(100)
-                    .IsUnicode(false)
                     .ValueGeneratedNever();
 
-                entity.Property(e => e.Name).HasMaxLength(255);
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.SeoKeywords)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SeoKeywords_Products");
             });
         }
     }

@@ -27,8 +27,9 @@ namespace TestDataService.Models.Repositories
 		EntityEntry<E> Attach(E entity);
 		EntityEntry<E> Remove(E entity);
 		EntityEntry<E> Remove(K key);
-		void RemoveIf(Expression<Func<E, bool>> expr);
+		IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);
 		void RemoveRange(IEnumerable<E> list);
+		Task<int> SqlRemoveAllAsync();
 		E FindById(K key);
 		Task<E> FindByIdAsync(K key);
 		IQueryable<E> AsNoTracking();
@@ -87,19 +88,6 @@ namespace TestDataService.Models.Repositories
 		public virtual EntityEntry<E> Remove(E entity)
 		{
 			return dbSet.Remove(entity);
-		}
-		
-		public virtual EntityEntry<E> Remove(K key)
-		{
-			var entity = FindById(key);
-			if (entity!=null)
-				return dbSet.Remove(entity);
-			return null;
-		}
-		
-		public virtual void RemoveIf(Expression<Func<E, bool>> expr)
-		{
-			dbSet.RemoveRange(dbSet.Where(expr).ToList());
 		}
 		
 		public virtual void RemoveRange(IEnumerable<E> list)
@@ -183,6 +171,9 @@ namespace TestDataService.Models.Repositories
 		
 		public abstract E FindById(K key);
 		public abstract Task<E> FindByIdAsync(K key);
+		public abstract EntityEntry<E> Remove(K key);
+		public abstract IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);
+		public abstract Task<int> SqlRemoveAllAsync();
 		
 	}
 }

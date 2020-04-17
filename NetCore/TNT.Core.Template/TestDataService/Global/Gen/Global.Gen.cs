@@ -30,6 +30,7 @@ namespace TestDataService.Global
 			//	cfg.CreateMap<AspNetUsers, AspNetUsersViewModel>().ReverseMap();
 			//	cfg.CreateMap<Logs, LogsViewModel>().ReverseMap();
 			//	cfg.CreateMap<Products, ProductsViewModel>().ReverseMap();
+			//	cfg.CreateMap<SeoKeywords, SeoKeywordsViewModel>().ReverseMap();
 		//	}
 		//};
 		private static void ConfigureAutomapper()
@@ -60,7 +61,8 @@ namespace TestDataService.Global
 				.AddScoped<IAspNetUserTokensRepository, AspNetUserTokensRepository>()
 				.AddScoped<IAspNetUsersRepository, AspNetUsersRepository>()
 				.AddScoped<ILogsRepository, LogsRepository>()
-				.AddScoped<IProductsRepository, ProductsRepository>();
+				.AddScoped<IProductsRepository, ProductsRepository>()
+				.AddScoped<ISeoKeywordsRepository, SeoKeywordsRepository>();
 			ServiceInjection.Register(new List<Type>(){ typeof(G) });
 		}
 		

@@ -64,8 +64,9 @@ namespace TNT.Core.Template.DataService.Models.Repositories
                     "EntityEntry<E> Attach(E entity);",
                     "EntityEntry<E> Remove(E entity);",
                     "EntityEntry<E> Remove(K key);",
-                    "void RemoveIf(Expression<Func<E, bool>> expr);",
+                    "IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);",
                     "void RemoveRange(IEnumerable<E> list);",
+                    "Task<int> SqlRemoveAllAsync();",
                     "E FindById(K key);",
                     "Task<E> FindByIdAsync(K key);",
                     "IQueryable<E> AsNoTracking();",
@@ -152,19 +153,6 @@ namespace TNT.Core.Template.DataService.Models.Repositories
             m11.Body.Add(new StatementGen(
                 "return dbSet.Remove(entity);"));
 
-            var m12 = new ContainerGen();
-            m12.Signature = "public virtual EntityEntry<E> Remove(K key)";
-            m12.Body.Add(new StatementGen(
-                "var entity = FindById(key);",
-                "if (entity!=null)",
-                "\treturn dbSet.Remove(entity);",
-                "return null;"));
-
-            var m13 = new ContainerGen();
-            m13.Signature = "public virtual void RemoveIf(Expression<Func<E, bool>> expr)";
-            m13.Body.Add(new StatementGen(
-                "dbSet.RemoveRange(dbSet.Where(expr).ToList());"));
-
             var m14 = new ContainerGen();
             m14.Signature = "public virtual void RemoveRange(IEnumerable<E> list)";
             m14.Body.Add(new StatementGen(
@@ -236,7 +224,10 @@ namespace TNT.Core.Template.DataService.Models.Repositories
 
             var s11 = new StatementGen(
                 "public abstract E FindById(K key);",
-                "public abstract Task<E> FindByIdAsync(K key);");
+                "public abstract Task<E> FindByIdAsync(K key);",
+                "public abstract EntityEntry<E> Remove(K key);",
+                "public abstract IEnumerable<E> RemoveIf(Expression<Func<E, bool>> expr);",
+                "public abstract Task<int> SqlRemoveAllAsync();");
 
             BaseRepositoryBody.Add(
                 s12, new StatementGen(""),
@@ -249,8 +240,6 @@ namespace TNT.Core.Template.DataService.Models.Repositories
                 m10, new StatementGen(""),
                 m101, new StatementGen(""),
                 m11, new StatementGen(""),
-                m12, new StatementGen(""),
-                m13, new StatementGen(""),
                 m14, new StatementGen(""),
                 m141, new StatementGen(""),
                 m1411, new StatementGen(""),
