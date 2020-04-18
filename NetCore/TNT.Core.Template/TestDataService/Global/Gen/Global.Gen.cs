@@ -21,16 +21,16 @@ namespace TestDataService.Global
 		//{
 			//cfg =>
 			//{
-			//	cfg.CreateMap<AspNetRoleClaims, AspNetRoleClaimsViewModel>().ReverseMap();
-			//	cfg.CreateMap<AspNetRoles, AspNetRolesViewModel>().ReverseMap();
-			//	cfg.CreateMap<AspNetUserClaims, AspNetUserClaimsViewModel>().ReverseMap();
-			//	cfg.CreateMap<AspNetUserLogins, AspNetUserLoginsViewModel>().ReverseMap();
-			//	cfg.CreateMap<AspNetUserRoles, AspNetUserRolesViewModel>().ReverseMap();
-			//	cfg.CreateMap<AspNetUserTokens, AspNetUserTokensViewModel>().ReverseMap();
-			//	cfg.CreateMap<AspNetUsers, AspNetUsersViewModel>().ReverseMap();
-			//	cfg.CreateMap<Logs, LogsViewModel>().ReverseMap();
-			//	cfg.CreateMap<Products, ProductsViewModel>().ReverseMap();
-			//	cfg.CreateMap<SeoKeywords, SeoKeywordsViewModel>().ReverseMap();
+		//var vmType = typeof(IViewModel);
+		//var modelTypes = AppDomain.CurrentDomain.GetAssemblies()
+		//	.SelectMany(t => t.GetTypes())
+		//	.Where(t => vmType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);
+		//var maps = new Dictionary<Type, Type>();
+		//foreach (var t in modelTypes)
+		//{
+		//	var genArgs = t.BaseType?.GetGenericArguments().FirstOrDefault();
+		//	if (genArgs != null) cfg.CreateMap(genArgs, t).ReverseMap();
+		//}
 		//	}
 		//};
 		private static void ConfigureAutomapper()
@@ -52,17 +52,18 @@ namespace TestDataService.Global
 			//IoC
 			services.AddScoped<UnitOfWork>()
 				.AddScoped<IUnitOfWork, UnitOfWork>()
-				.AddScoped<DbContext, TemplateContext>()
-				.AddScoped<IAspNetRoleClaimsRepository, AspNetRoleClaimsRepository>()
-				.AddScoped<IAspNetRolesRepository, AspNetRolesRepository>()
-				.AddScoped<IAspNetUserClaimsRepository, AspNetUserClaimsRepository>()
-				.AddScoped<IAspNetUserLoginsRepository, AspNetUserLoginsRepository>()
-				.AddScoped<IAspNetUserRolesRepository, AspNetUserRolesRepository>()
-				.AddScoped<IAspNetUserTokensRepository, AspNetUserTokensRepository>()
-				.AddScoped<IAspNetUsersRepository, AspNetUsersRepository>()
-				.AddScoped<ILogsRepository, LogsRepository>()
-				.AddScoped<IProductsRepository, ProductsRepository>()
-				.AddScoped<ISeoKeywordsRepository, SeoKeywordsRepository>();
+				.AddScoped<DbContext, TemplateContext>();
+			
+			var baseRepoType = typeof(IRepository);
+			var repoTypes = AppDomain.CurrentDomain.GetAssemblies()
+				.SelectMany(t => t.GetTypes())
+				.Where(t => baseRepoType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);
+			var maps = new Dictionary<Type, Type>();
+			foreach (var t in repoTypes)
+			{
+				var iRepoType = t.GetInterface($"I{t.Name}");
+				if (iRepoType != null) services.AddScoped(iRepoType, t);
+			}
 			ServiceInjection.Register(new List<Type>(){ typeof(G) });
 		}
 		

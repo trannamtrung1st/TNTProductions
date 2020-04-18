@@ -68,15 +68,24 @@ namespace TNT.Core.Template.DataService.Global
             var open = new StatementGen(
                 "\t= new List<Action<IMapperConfigurationExpression>>();", "//{");
             var mapConfig = new StatementGen(true, "//cfg =>", "//{");
-            foreach (var e in Data.Entities)
-            {
-                mapConfig.Add("//\tcfg.CreateMap<" + e.EntityName + ", " + e.VMClass + ">().ReverseMap();");
-            }
+            var bodyConfig = new StatementGen(
+                "//var vmType = typeof(IViewModel);",
+                "//var modelTypes = AppDomain.CurrentDomain.GetAssemblies()",
+                    "//\t.SelectMany(t => t.GetTypes())",
+                    "//\t.Where(t => vmType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);",
+                "//var maps = new Dictionary<Type, Type>();",
+                "//foreach (var t in modelTypes)",
+                "//{",
+                    "//\tvar genArgs = t.BaseType?.GetGenericArguments().FirstOrDefault();",
+                    "//\tif (genArgs != null) cfg.CreateMap(genArgs, t).ReverseMap();",
+                "//}");
+
             var close = new StatementGen("//\t}", "//};");
             GlobalClassBody.Add(
                 mapperConfig,
                 open,
                 mapConfig,
+                bodyConfig,
                 close);
             #endregion
         }
@@ -113,20 +122,24 @@ namespace TNT.Core.Template.DataService.Global
             var s2 = new StatementGen("//IoC",
                 "services.AddScoped<UnitOfWork>()");
             s2.Add("\t.AddScoped<IUnitOfWork, UnitOfWork>()");
-            s2.Add($"\t.AddScoped<DbContext, {Data.ContextName}>()");
-
-            var entities = Data.Entities;
-            var len = entities.Count;
-            int i = 0;
-            for (i = 0; i < len - 1; i++)
-            {
-                s2.Add("\t.AddScoped<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>()");
-            }
-            s2.Add("\t.AddScoped<I" + entities[i].EntityName + "Repository, " + entities[i].EntityName + "Repository>();");
-
+            s2.Add($"\t.AddScoped<DbContext, {Data.ContextName}>();");
             method.Body.Add(s2);
-            var s3 = new StatementGen("ServiceInjection.Register(new List<Type>(){ typeof(G) });");
+
+            var s3 = new StatementGen("",
+                "var baseRepoType = typeof(IRepository);",
+                "var repoTypes = AppDomain.CurrentDomain.GetAssemblies()",
+                "\t.SelectMany(t => t.GetTypes())",
+                "\t.Where(t => baseRepoType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);",
+                "var maps = new Dictionary<Type, Type>();",
+                "foreach (var t in repoTypes)",
+                "{",
+                    "\tvar iRepoType = t.GetInterface($\"I{t.Name}\");",
+                    "\tif (iRepoType != null) services.AddScoped(iRepoType, t);",
+                "}");
             method.Body.Add(s3);
+
+            var s4 = new StatementGen("ServiceInjection.Register(new List<Type>(){ typeof(G) });");
+            method.Body.Add(s4);
 
             GlobalClassBody.Add(method, new StatementGen(""));
         }
