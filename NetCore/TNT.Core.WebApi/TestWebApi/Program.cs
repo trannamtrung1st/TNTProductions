@@ -8,7 +8,7 @@ namespace TestWebApi
     {
         static void Main(string[] args)
         {
-            var item = new ItemBuilder()
+            var item = new RequestItemBuilder()
                 .Url("{{web_api_url}}", "{{web_api_url}}", new List<Query>()
                 {
                     new Query{Key="",Value=""},

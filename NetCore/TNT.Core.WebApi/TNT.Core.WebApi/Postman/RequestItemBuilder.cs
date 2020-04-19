@@ -5,20 +5,19 @@ using System.Text;
 
 namespace TNT.Core.WebApi.Postman
 {
-    public class ItemBuilder
+    public class RequestItemBuilder
     {
-        protected Item _item;
-        public ItemBuilder()
+        protected RequestItem _item;
+        public RequestItemBuilder()
         {
-            _item = new Item();
+            _item = new RequestItem();
             _item.Request = new Request();
             _item.Response = new List<object>();
         }
 
-        public ItemBuilder OAuth2(string accessToken, OAuth2AddTokenToEnum addTokenTo)
+        public RequestItemBuilder OAuth2(string accessToken, OAuth2AddTokenToEnum addTokenTo)
         {
-            if (_item.Request.Auth == null)
-                _item.Request.Auth = new Auth();
+            _item.Request.Auth = new Auth();
             _item.Request.Auth.Type = AuthType.OAuth2.DisplayName();
             //override
             _item.Request.Auth.OAuth2 = new List<OAuth2>();
@@ -29,19 +28,19 @@ namespace TNT.Core.WebApi.Postman
             return this;
         }
 
-        public ItemBuilder Description(string desc)
+        public RequestItemBuilder Description(string desc)
         {
             _item.Request.Description = desc;
             return this;
         }
 
-        public ItemBuilder Method(string method)
+        public RequestItemBuilder Method(string method)
         {
             _item.Request.Method = method;
             return this;
         }
 
-        public ItemBuilder AddHeaders(params Header[] headers)
+        public RequestItemBuilder AddHeaders(params Header[] headers)
         {
             if (_item.Request.Header == null)
                 _item.Request.Header = new List<Header>();
@@ -49,7 +48,7 @@ namespace TNT.Core.WebApi.Postman
             return this;
         }
 
-        public ItemBuilder JsonBody(string json)
+        public RequestItemBuilder JsonBody(string json)
         {
             _item.Request.Body = new Body();
             _item.Request.Body.Mode = BodyMode.Raw.DisplayName();
@@ -64,7 +63,7 @@ namespace TNT.Core.WebApi.Postman
             return this;
         }
 
-        public ItemBuilder Url(string raw, string host, string queryStr)
+        public RequestItemBuilder Url(string raw, string host, string queryStr)
         {
             var queries = queryStr.Split('&').Select(q =>
             {
@@ -86,7 +85,7 @@ namespace TNT.Core.WebApi.Postman
             };
             return this;
         }
-        public ItemBuilder Url(string raw, string host, List<Query> queries)
+        public RequestItemBuilder Url(string raw, string host, List<Query> queries)
         {
             _item.Request.Url = new Url
             {
@@ -100,7 +99,13 @@ namespace TNT.Core.WebApi.Postman
             return this;
         }
 
-        public Item Build()
+        public RequestItemBuilder Name(string name)
+        {
+            _item.Name = name;
+            return this;
+        }
+
+        public RequestItem Build()
         {
             return _item;
         }

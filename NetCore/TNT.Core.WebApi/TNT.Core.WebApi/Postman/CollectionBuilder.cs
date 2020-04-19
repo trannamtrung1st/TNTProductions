@@ -21,8 +21,7 @@ namespace TNT.Core.WebApi.Postman
 
         public CollectionBuilder OAuth2(string accessToken, OAuth2AddTokenToEnum addTokenTo)
         {
-            if (_collection.Auth == null)
-                _collection.Auth = new Auth();
+            _collection.Auth = new Auth();
             _collection.Auth.Type = AuthType.OAuth2.DisplayName();
             //override
             _collection.Auth.OAuth2 = new List<OAuth2>();

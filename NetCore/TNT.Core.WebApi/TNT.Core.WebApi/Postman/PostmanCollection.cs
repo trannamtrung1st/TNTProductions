@@ -6,19 +6,22 @@ using System.Text;
 
 namespace TNT.Core.WebApi.Postman
 {
-
     public class PostmanCollection
     {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+        [JsonProperty("auth")]
+        public Auth Auth { get; set; }
+        [JsonProperty("description")]
+        public string Description { get; set; }
+        [JsonProperty("protocolProfileBehavior")]
+        public ProtocolProfileBehavior ProtocolProfileBehavior { get; set; }
         [JsonProperty("info")]
         public Info Info { get; set; }
         [JsonProperty("item")]
         public List<Item> Item { get; set; }
-        [JsonProperty("auth")]
-        public Auth Auth { get; set; }
         [JsonProperty("variable")]
         public List<Variable> Variable { get; set; }
-        [JsonProperty("protocolProfileBehavior")]
-        public ProtocolProfileBehavior ProtocolProfileBehavior { get; set; }
     }
 
     public class Info
@@ -53,14 +56,30 @@ namespace TNT.Core.WebApi.Postman
     {
     }
 
-    public class Item
+    public abstract class Item
     {
         [JsonProperty("name")]
         public string Name { get; set; }
+    }
+
+    public class RequestItem : Item
+    {
         [JsonProperty("request")]
         public Request Request { get; set; }
         [JsonProperty("response")]
         public List<object> Response { get; set; }
+    }
+
+    public class FolderItem : Item
+    {
+        [JsonProperty("auth")]
+        public Auth Auth { get; set; }
+        [JsonProperty("description")]
+        public string Description { get; set; }
+        [JsonProperty("protocolProfileBehavior")]
+        public ProtocolProfileBehavior ProtocolProfileBehavior { get; set; }
+        [JsonProperty("item")]
+        public List<Item> Item { get; set; }
     }
 
     public class Request
