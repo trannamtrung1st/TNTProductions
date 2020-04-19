@@ -39,6 +39,14 @@ namespace TNT.Core.WebApi.Postman
             return this;
         }
 
+        public FolderItemBuilder AddItems(params Item[] items)
+        {
+            if (_item.Item == null)
+                _item.Item = new List<Item>();
+            _item.Item.AddRange(items);
+            return this;
+        }
+
         public FolderItem Build()
         {
             return _item;
