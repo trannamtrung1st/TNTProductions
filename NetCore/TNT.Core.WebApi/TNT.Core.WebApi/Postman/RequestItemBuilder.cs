@@ -76,11 +76,12 @@ namespace TNT.Core.WebApi.Postman
 
         protected Url GetUrl(string host, List<Query> queries, bool autoEscape)
         {
-            queries.ForEach(q =>
-            {
-                if (q.Value == null) q.Value = "";
-                else if (autoEscape) q.Value = Uri.EscapeDataString(q.Value);
-            });
+            if (queries != null)
+                queries.ForEach(q =>
+                {
+                    if (q.Value == null) q.Value = "";
+                    else if (autoEscape) q.Value = Uri.EscapeDataString(q.Value);
+                });
 
             return new Url
             {
@@ -92,11 +93,11 @@ namespace TNT.Core.WebApi.Postman
             };
         }
 
-        public RequestItemBuilder Url(string host, string queryStr, bool autoEscape = true)
+        public RequestItemBuilder Url(string host, string queryStr = null, bool autoEscape = true)
         {
             var builder = this.DeepClone();
             var item = builder._item;
-            var queries = queryStr.Split('&').Select(q =>
+            var queries = queryStr?.Split('&').Select(q =>
             {
                 var parts = q.Split('=');
                 return new Query
@@ -109,7 +110,7 @@ namespace TNT.Core.WebApi.Postman
             return builder;
         }
 
-        public RequestItemBuilder Url(string host, List<Query> queries, bool autoEscape = true)
+        public RequestItemBuilder Url(string host, List<Query> queries = null, bool autoEscape = true)
         {
             var builder = this.DeepClone();
             var item = builder._item;
