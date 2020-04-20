@@ -18,7 +18,7 @@ namespace TestWebApi
             var getLogs = new RequestItemBuilder()
                 .Name("Get logs")
                 .Method(HttpMethod.Get.Method)
-                .Url(null, $"{apiVarHolder}/api/logs", new List<Query>
+                .Url($"{apiVarHolder}/api/logs", new List<Query>
                 {
                     new Query{ Key = "date", Value = DateTime.Now.ToString() },
                     new Query{ Key = "sorts", Value = "ddate" },
@@ -48,7 +48,7 @@ namespace TestWebApi
             #endregion
 
             var json = JsonConvert.SerializeObject(collection, Formatting.Indented);
-            File.WriteAllText($"./postman-collection-{DateTime.Now}.json", json);
+            File.WriteAllText($"./postman-collection.json", json);
         }
     }
 }
