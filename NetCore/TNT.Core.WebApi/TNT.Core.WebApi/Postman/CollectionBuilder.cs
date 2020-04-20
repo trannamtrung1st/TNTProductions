@@ -5,6 +5,7 @@ using System.Text;
 
 namespace TNT.Core.WebApi.Postman
 {
+    [Serializable]
     public class CollectionBuilder
     {
         protected PostmanCollection _collection;
@@ -21,36 +22,58 @@ namespace TNT.Core.WebApi.Postman
 
         public CollectionBuilder OAuth2(string accessToken, OAuth2AddTokenToEnum addTokenTo)
         {
-            _collection.Auth = new Auth();
-            _collection.Auth.Type = AuthType.OAuth2.DisplayName();
+            var builder = this.DeepClone();
+            var col = builder._collection;
+            col.Auth = new Auth();
+            col.Auth.Type = AuthType.OAuth2.DisplayName();
             //override
-            _collection.Auth.OAuth2 = new List<OAuth2>();
+            col.Auth.OAuth2 = new List<OAuth2>();
             var listOAuth2 = new ListOAuth2Builder()
                 .From(accessToken, addTokenTo)
                 .Build();
-            _collection.Auth.OAuth2.AddRange(listOAuth2);
-            return this;
+            col.Auth.OAuth2.AddRange(listOAuth2);
+            return builder;
         }
 
         public CollectionBuilder AddStringVariables(params Variable[] vars)
         {
-            if (_collection.Variable == null)
-                _collection.Variable = new List<Variable>();
+            var builder = this.DeepClone();
+            var col = builder._collection;
+            if (col.Variable == null)
+                col.Variable = new List<Variable>();
             foreach (var v in vars)
             {
                 if (v.Id == null) v.Id = Guid.NewGuid().ToString();
                 v.Type = "string";
             }
-            _collection.Variable.AddRange(vars);
-            return this;
+            col.Variable.AddRange(vars);
+            return builder;
+        }
+
+        public CollectionBuilder Info(string name, string description,
+            string schema = "https://schema.getpostman.com/json/collection/v2.1.0/collection.json")
+        {
+            var builder = this.DeepClone();
+            var col = builder._collection;
+            col.Info = new Info()
+            {
+                Name = name,
+                Schema = schema,
+                Description = description,
+                PostmanId = Guid.NewGuid().ToString()
+            };
+            return builder;
+
         }
 
         public CollectionBuilder AddItems(params Item[] items)
         {
-            if (_collection.Item == null)
-                _collection.Item = new List<Item>();
-            _collection.Item.AddRange(items);
-            return this;
+            var builder = this.DeepClone();
+            var col = builder._collection;
+            if (col.Item == null)
+                col.Item = new List<Item>();
+            col.Item.AddRange(items);
+            return builder;
         }
 
     }

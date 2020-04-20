@@ -5,6 +5,7 @@ using System.Text;
 
 namespace TNT.Core.WebApi.Postman
 {
+    [Serializable]
     public class RequestItemBuilder
     {
         protected RequestItem _item;
@@ -17,54 +18,66 @@ namespace TNT.Core.WebApi.Postman
 
         public RequestItemBuilder OAuth2(string accessToken, OAuth2AddTokenToEnum addTokenTo)
         {
-            _item.Request.Auth = new Auth();
-            _item.Request.Auth.Type = AuthType.OAuth2.DisplayName();
+            var builder = this.DeepClone();
+            var item = builder._item;
+            item.Request.Auth = new Auth();
+            item.Request.Auth.Type = AuthType.OAuth2.DisplayName();
             //override
-            _item.Request.Auth.OAuth2 = new List<OAuth2>();
+            item.Request.Auth.OAuth2 = new List<OAuth2>();
             var listOAuth2 = new ListOAuth2Builder()
                 .From(accessToken, addTokenTo)
                 .Build();
-            _item.Request.Auth.OAuth2.AddRange(listOAuth2);
-            return this;
+            item.Request.Auth.OAuth2.AddRange(listOAuth2);
+            return builder;
         }
 
         public RequestItemBuilder Description(string desc)
         {
-            _item.Request.Description = desc;
-            return this;
+            var builder = this.DeepClone();
+            var item = builder._item;
+            item.Request.Description = desc;
+            return builder;
         }
 
         public RequestItemBuilder Method(string method)
         {
-            _item.Request.Method = method;
-            return this;
+            var builder = this.DeepClone();
+            var item = builder._item;
+            item.Request.Method = method;
+            return builder;
         }
 
         public RequestItemBuilder AddHeaders(params Header[] headers)
         {
-            if (_item.Request.Header == null)
-                _item.Request.Header = new List<Header>();
-            _item.Request.Header.AddRange(headers);
-            return this;
+            var builder = this.DeepClone();
+            var item = builder._item;
+            if (item.Request.Header == null)
+                item.Request.Header = new List<Header>();
+            item.Request.Header.AddRange(headers);
+            return builder;
         }
 
         public RequestItemBuilder JsonBody(string json)
         {
-            _item.Request.Body = new Body();
-            _item.Request.Body.Mode = BodyMode.Raw.DisplayName();
-            _item.Request.Body.Raw = json;
-            _item.Request.Body.Options = new Options
+            var builder = this.DeepClone();
+            var item = builder._item;
+            item.Request.Body = new Body();
+            item.Request.Body.Mode = BodyMode.Raw.DisplayName();
+            item.Request.Body.Raw = json;
+            item.Request.Body.Options = new Options
             {
                 Raw = new Raw
                 {
                     Language = RawLanguage.Json.DisplayName()
                 }
             };
-            return this;
+            return builder;
         }
 
         public RequestItemBuilder Url(string raw, string host, string queryStr)
         {
+            var builder = this.DeepClone();
+            var item = builder._item;
             var queries = queryStr.Split('&').Select(q =>
             {
                 var parts = q.Split('=');
@@ -74,7 +87,13 @@ namespace TNT.Core.WebApi.Postman
                     Value = parts[1]
                 };
             }).ToList();
-            _item.Request.Url = new Url
+            item.Request.Url = GetUrl(raw, host, queries);
+            return builder;
+        }
+
+        protected Url GetUrl(string raw, string host, List<Query> queries)
+        {
+            return new Url
             {
                 Host = new List<string>()
                 {
@@ -83,26 +102,22 @@ namespace TNT.Core.WebApi.Postman
                 Query = queries,
                 Raw = raw
             };
-            return this;
         }
+
         public RequestItemBuilder Url(string raw, string host, List<Query> queries)
         {
-            _item.Request.Url = new Url
-            {
-                Host = new List<string>()
-                {
-                    host
-                },
-                Query = queries,
-                Raw = raw
-            };
-            return this;
+            var builder = this.DeepClone();
+            var item = builder._item;
+            item.Request.Url = GetUrl(raw, host, queries);
+            return builder;
         }
 
         public RequestItemBuilder Name(string name)
         {
-            _item.Name = name;
-            return this;
+            var builder = this.DeepClone();
+            var item = builder._item;
+            item.Name = name;
+            return builder;
         }
 
         public RequestItem Build()

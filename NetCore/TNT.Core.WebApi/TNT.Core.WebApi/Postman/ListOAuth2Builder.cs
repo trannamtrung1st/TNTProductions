@@ -4,6 +4,7 @@ using System.Text;
 
 namespace TNT.Core.WebApi.Postman
 {
+    [Serializable]
     public class ListOAuth2Builder
     {
         protected List<OAuth2> _listOAuth2;
@@ -14,19 +15,21 @@ namespace TNT.Core.WebApi.Postman
 
         public ListOAuth2Builder From(string accessToken, OAuth2AddTokenToEnum addTokenTo)
         {
-            _listOAuth2.Add(new OAuth2
+            var builder = this.DeepClone();
+            var listOAuth2 = builder._listOAuth2;
+            listOAuth2.Add(new OAuth2
             {
                 Key = "accessToken",
                 Type = "string",
                 Value = accessToken
             });
-            _listOAuth2.Add(new OAuth2
+            listOAuth2.Add(new OAuth2
             {
                 Key = "addTokenTo",
                 Type = "string",
                 Value = addTokenTo.DisplayName()
             });
-            return this;
+            return builder;
         }
 
         public List<OAuth2> Build()
