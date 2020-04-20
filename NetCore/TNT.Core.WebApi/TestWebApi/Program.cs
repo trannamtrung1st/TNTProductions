@@ -18,7 +18,7 @@ namespace TestWebApi
             var getLogs = new RequestItemBuilder()
                 .Name("Get logs")
                 .Method(HttpMethod.Get.Method)
-                .Url($"{apiVarHolder}/api/logs", apiVarHolder, new List<Query>
+                .Url(null, $"{apiVarHolder}/api/logs", new List<Query>
                 {
                     new Query{ Key = "date", Value = DateTime.Now.ToString() },
                     new Query{ Key = "sorts", Value = "ddate" },
