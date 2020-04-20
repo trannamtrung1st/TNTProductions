@@ -93,7 +93,15 @@ namespace TNT.Core.WebApi.Postman
             };
         }
 
-        public RequestItemBuilder Url(string host, string queryStr = null, bool autoEscape = true)
+        public RequestItemBuilder Url(string host, bool autoEscape = true)
+        {
+            var builder = this.DeepClone();
+            var item = builder._item;
+            item.Request.Url = GetUrl(host, null, autoEscape);
+            return builder;
+        }
+
+        public RequestItemBuilder Url(string host, string queryStr, bool autoEscape = true)
         {
             var builder = this.DeepClone();
             var item = builder._item;
@@ -110,7 +118,7 @@ namespace TNT.Core.WebApi.Postman
             return builder;
         }
 
-        public RequestItemBuilder Url(string host, List<Query> queries = null, bool autoEscape = true)
+        public RequestItemBuilder Url(string host, List<Query> queries, bool autoEscape = true)
         {
             var builder = this.DeepClone();
             var item = builder._item;
