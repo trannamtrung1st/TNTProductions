@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace TNT.Core.Helpers.Data
 {
+    [Obsolete("Using raw query instead")]
     public static class DataExtension
     {
         #region Get properties of type
@@ -306,6 +307,7 @@ namespace TNT.Core.Helpers.Data
             return initObj;
         }
 
+        [Obsolete("Using raw query instead")]
         public static IQueryable<object> SelectOnly<In>(this IQueryable<In> query, bool keepStructure, SelectOption option, params string[] properties)
         {
             var inpType = typeof(In);
@@ -320,6 +322,7 @@ namespace TNT.Core.Helpers.Data
             return query.Select(lambda);
         }
 
+        [Obsolete("Using raw query instead")]
         public static IEnumerable<object> SelectOnly<In>(this IEnumerable<In> query, bool keepStructure, SelectOption option, params string[] properties)
         {
             var inpType = typeof(In);
@@ -334,6 +337,7 @@ namespace TNT.Core.Helpers.Data
             return query.Select(lambda);
         }
 
+        [Obsolete("Using raw query instead")]
         public static IQueryable<In> SelectOnly<In>(this IQueryable<In> query, SelectOption option, params string[] properties)
         {
             var inpType = typeof(In);
@@ -347,6 +351,7 @@ namespace TNT.Core.Helpers.Data
             return query.Select(lambda);
         }
 
+        [Obsolete("Using raw query instead")]
         public static IEnumerable<In> SelectOnly<In>(this IEnumerable<In> query, SelectOption option, params string[] properties)
         {
             var inpType = typeof(In);
@@ -452,6 +457,7 @@ namespace TNT.Core.Helpers.Data
             return initObj;
         }
 
+        [Obsolete("Using raw query instead")]
         public static IQueryable<Out> SelectOnly<In, Out>(this IQueryable<In> query, SelectOption option = SelectOption.ByPropertyName, params string[] propMappings)
         {
             var inpType = typeof(In);
@@ -466,6 +472,7 @@ namespace TNT.Core.Helpers.Data
             return query.Select(lambda);
         }
 
+        [Obsolete("Using raw query instead")]
         public static IEnumerable<Out> SelectOnly<In, Out>(this IEnumerable<In> query, SelectOption option, params string[] propMappings)
         {
             var inpType = typeof(In);
@@ -483,6 +490,7 @@ namespace TNT.Core.Helpers.Data
         #endregion
 
         #region Select only (specify output type by method param)
+        [Obsolete("Using raw query instead")]
         public static IQueryable<object> SelectOnly<In>(this IQueryable<In> query, Type outType, SelectOption option, params string[] propMappings)
         {
             var inpType = typeof(In);
@@ -496,6 +504,7 @@ namespace TNT.Core.Helpers.Data
             return query.Select(lambda);
         }
 
+        [Obsolete("Using raw query instead")]
         public static IEnumerable<object> SelectOnly<In>(this IEnumerable<In> query, Type outType, SelectOption option, params string[] propMappings)
         {
             var inpType = typeof(In);
