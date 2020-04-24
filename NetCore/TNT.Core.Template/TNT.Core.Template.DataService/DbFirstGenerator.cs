@@ -11,10 +11,10 @@ using static TNT.Core.Template.DataService.Helpers.GeneralHelper;
 
 namespace TNT.Core.Template.DataService
 {
-    public class SimpleGenerator
+    public class DbFirstGenerator
     {
 
-        public SimpleGenerator(string projectName, string dbServer, string dbName, string username, string password, string outputFolder,
+        public DbFirstGenerator(string projectName, string dbServer, string dbName, string username, string password, string outputFolder,
             string dbContextName, string projectPath)
         {
             this.projectName = projectName;
@@ -80,7 +80,7 @@ namespace TNT.Core.Template.DataService
                     var proc3 = GeneralHelper.ExecuteBuildProjectCmd("../../../../", $"{generatorProjectName} -c Release");
                     proc3.WaitForExit();
 
-                    var proc4 = GeneralHelper.ExecuteRunDllCmd("../../Release/netcoreapp2.2", $"{generatorProjectName}.dll true");
+                    var proc4 = GeneralHelper.ExecuteRunDllCmd("../../Release/netcoreapp3.1", $"{generatorProjectName}.dll true");
                     proc4.WaitForExit();
 
                     Directory.Delete("../../../" + outputFolder, true);

@@ -44,30 +44,4 @@ namespace TestDataService.ViewModels
 		
 	}
 	
-	public partial class UpdateLogsViewModel: BaseUpdateViewModel<UpdateLogsViewModel, Logs>
-	{
-		//[JsonProperty("id")]
-		public Wrapper<int> Id { get; set; }
-		//[JsonProperty("callsite")]
-		public Wrapper<string> Callsite { get; set; }
-		//[JsonProperty("data")]
-		public Wrapper<string> Data { get; set; }
-		//[JsonProperty("exception")]
-		public Wrapper<string> Exception { get; set; }
-		//[JsonProperty("level")]
-		public Wrapper<string> Level { get; set; }
-		//[JsonProperty("logged")]
-		public Wrapper<DateTime> Logged { get; set; }
-		//[JsonProperty("logger")]
-		public Wrapper<string> Logger { get; set; }
-		//[JsonProperty("machine_name")]
-		public Wrapper<string> MachineName { get; set; }
-		//[JsonProperty("message")]
-		public Wrapper<string> Message { get; set; }
-		//[JsonProperty("user_id")]
-		public Wrapper<string> UserId { get; set; }
-		//[JsonProperty("user_name")]
-		public Wrapper<string> UserName { get; set; }
-		
-	}
 }

@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestCodeFirst.Global;
+using TestCodeFirst.Models;
+using Newtonsoft.Json;
+
+namespace TestCodeFirst.ViewModels
+{
+	public partial class AspNetUserLoginsViewModel: BaseViewModel<AspNetUserLogins>
+	{
+		//[JsonProperty("login_provider")]
+		public string LoginProvider { get; set; }
+		//[JsonProperty("provider_key")]
+		public string ProviderKey { get; set; }
+		//[JsonProperty("provider_display_name")]
+		public string ProviderDisplayName { get; set; }
+		//[JsonProperty("user_id")]
+		public string UserId { get; set; }
+		//[JsonProperty("user")]
+		//public AspNetUsersViewModel UserVM { get; set; }
+		
+		public AspNetUserLoginsViewModel(AspNetUserLogins entity) : base(entity)
+		{
+		}
+		
+		public AspNetUserLoginsViewModel()
+		{
+		}
+		
+	}
+	
+}

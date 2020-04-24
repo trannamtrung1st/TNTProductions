@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestCodeFirst.Global;
+using TestCodeFirst.Models;
+using Newtonsoft.Json;
+
+namespace TestCodeFirst.ViewModels
+{
+	public partial class LogsViewModel: BaseViewModel<Logs>
+	{
+		//[JsonProperty("id")]
+		public int Id { get; set; }
+		//[JsonProperty("callsite")]
+		public string Callsite { get; set; }
+		//[JsonProperty("data")]
+		public string Data { get; set; }
+		//[JsonProperty("exception")]
+		public string Exception { get; set; }
+		//[JsonProperty("level")]
+		public string Level { get; set; }
+		//[JsonProperty("logged")]
+		public DateTime Logged { get; set; }
+		//[JsonProperty("logger")]
+		public string Logger { get; set; }
+		//[JsonProperty("machine_name")]
+		public string MachineName { get; set; }
+		//[JsonProperty("message")]
+		public string Message { get; set; }
+		//[JsonProperty("user_id")]
+		public string UserId { get; set; }
+		//[JsonProperty("user_name")]
+		public string UserName { get; set; }
+		
+		public LogsViewModel(Logs entity) : base(entity)
+		{
+		}
+		
+		public LogsViewModel()
+		{
+		}
+		
+	}
+	
+}

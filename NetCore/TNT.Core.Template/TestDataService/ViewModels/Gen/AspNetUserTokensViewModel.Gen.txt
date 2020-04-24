@@ -32,18 +32,4 @@ namespace TestDataService.ViewModels
 		
 	}
 	
-	public partial class UpdateAspNetUserTokensViewModel: BaseUpdateViewModel<UpdateAspNetUserTokensViewModel, AspNetUserTokens>
-	{
-		//[JsonProperty("user_id")]
-		public Wrapper<string> UserId { get; set; }
-		//[JsonProperty("login_provider")]
-		public Wrapper<string> LoginProvider { get; set; }
-		//[JsonProperty("name")]
-		public Wrapper<string> Name { get; set; }
-		//[JsonProperty("value")]
-		public Wrapper<string> Value { get; set; }
-		//[JsonProperty("user")]
-		//public AspNetUsersViewModel UserVM { get; set; }
-		
-	}
 }

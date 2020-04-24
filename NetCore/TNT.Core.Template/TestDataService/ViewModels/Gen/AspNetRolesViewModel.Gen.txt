@@ -34,20 +34,4 @@ namespace TestDataService.ViewModels
 		
 	}
 	
-	public partial class UpdateAspNetRolesViewModel: BaseUpdateViewModel<UpdateAspNetRolesViewModel, AspNetRoles>
-	{
-		//[JsonProperty("id")]
-		public Wrapper<string> Id { get; set; }
-		//[JsonProperty("concurrency_stamp")]
-		public Wrapper<string> ConcurrencyStamp { get; set; }
-		//[JsonProperty("name")]
-		public Wrapper<string> Name { get; set; }
-		//[JsonProperty("normalized_name")]
-		public Wrapper<string> NormalizedName { get; set; }
-		//[JsonProperty("asp_net_role_claims")]
-		//public IEnumerable<AspNetRoleClaimsViewModel> AspNetRoleClaimsVM { get; set; }
-		//[JsonProperty("asp_net_user_roles")]
-		//public IEnumerable<AspNetUserRolesViewModel> AspNetUserRolesVM { get; set; }
-		
-	}
 }

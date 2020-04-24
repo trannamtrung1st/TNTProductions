@@ -28,14 +28,4 @@ namespace TestDataService.ViewModels
 		
 	}
 	
-	public partial class UpdateProductsViewModel: BaseUpdateViewModel<UpdateProductsViewModel, Products>
-	{
-		//[JsonProperty("id")]
-		public Wrapper<int> Id { get; set; }
-		//[JsonProperty("name")]
-		public Wrapper<string> Name { get; set; }
-		//[JsonProperty("seo_keywords")]
-		//public IEnumerable<SeoKeywordsViewModel> SeoKeywordsVM { get; set; }
-		
-	}
 }

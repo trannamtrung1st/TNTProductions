@@ -32,18 +32,4 @@ namespace TestDataService.ViewModels
 		
 	}
 	
-	public partial class UpdateAspNetUserClaimsViewModel: BaseUpdateViewModel<UpdateAspNetUserClaimsViewModel, AspNetUserClaims>
-	{
-		//[JsonProperty("id")]
-		public Wrapper<int> Id { get; set; }
-		//[JsonProperty("claim_type")]
-		public Wrapper<string> ClaimType { get; set; }
-		//[JsonProperty("claim_value")]
-		public Wrapper<string> ClaimValue { get; set; }
-		//[JsonProperty("user_id")]
-		public Wrapper<string> UserId { get; set; }
-		//[JsonProperty("user")]
-		//public AspNetUsersViewModel UserVM { get; set; }
-		
-	}
 }

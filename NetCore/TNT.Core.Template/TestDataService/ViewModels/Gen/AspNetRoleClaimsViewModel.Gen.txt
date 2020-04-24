@@ -32,18 +32,4 @@ namespace TestDataService.ViewModels
 		
 	}
 	
-	public partial class UpdateAspNetRoleClaimsViewModel: BaseUpdateViewModel<UpdateAspNetRoleClaimsViewModel, AspNetRoleClaims>
-	{
-		//[JsonProperty("id")]
-		public Wrapper<int> Id { get; set; }
-		//[JsonProperty("claim_type")]
-		public Wrapper<string> ClaimType { get; set; }
-		//[JsonProperty("claim_value")]
-		public Wrapper<string> ClaimValue { get; set; }
-		//[JsonProperty("role_id")]
-		public Wrapper<string> RoleId { get; set; }
-		//[JsonProperty("role")]
-		//public AspNetRolesViewModel RoleVM { get; set; }
-		
-	}
 }

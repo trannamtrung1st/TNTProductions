@@ -21,15 +21,15 @@ namespace TestDataService.Global
 		//{
 			//cfg =>
 			//{
-		//var vmType = typeof(IViewModel);
-		//var modelTypes = AppDomain.CurrentDomain.GetAssemblies()
-		//	.SelectMany(t => t.GetTypes())
-		//	.Where(t => vmType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);
-		//var maps = new Dictionary<Type, Type>();
-		//foreach (var t in modelTypes)
-		//{
-		//	var genArgs = t.BaseType?.GetGenericArguments().FirstOrDefault();
-		//	if (genArgs != null) cfg.CreateMap(genArgs, t).ReverseMap();
+			//var vmType = typeof(IViewModel);
+			//var modelTypes = AppDomain.CurrentDomain.GetAssemblies()
+			//	.SelectMany(t => t.GetTypes())
+			//	.Where(t => vmType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);
+			//var maps = new Dictionary<Type, Type>();
+			//foreach (var t in modelTypes)
+			//{
+			//	var genArgs = t.BaseType?.GetGenericArguments().FirstOrDefault();
+			//	if (genArgs != null) cfg.CreateMap(genArgs, t).ReverseMap();
 		//}
 		//	}
 		//};
