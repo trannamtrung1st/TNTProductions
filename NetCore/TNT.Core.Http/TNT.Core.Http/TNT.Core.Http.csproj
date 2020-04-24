@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <ApplicationIcon />
     <StartupObject />
     <Authors>TNT</Authors>
-    <Version>1.1.4</Version>
+    <Version>1.1.5</Version>
   </PropertyGroup>
 
   <ItemGroup>
