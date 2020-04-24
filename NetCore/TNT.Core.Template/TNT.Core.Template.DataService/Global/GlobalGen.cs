@@ -69,15 +69,15 @@ namespace TNT.Core.Template.DataService.Global
                 "\t= new List<Action<IMapperConfigurationExpression>>();", "//{");
             var mapConfig = new StatementGen(true, "//cfg =>", "//{");
             var bodyConfig = new StatementGen(
-                "//var vmType = typeof(IViewModel);",
-                "//var modelTypes = AppDomain.CurrentDomain.GetAssemblies()",
-                    "//\t.SelectMany(t => t.GetTypes())",
-                    "//\t.Where(t => vmType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);",
-                "//var maps = new Dictionary<Type, Type>();",
-                "//foreach (var t in modelTypes)",
-                "//{",
-                    "//\tvar genArgs = t.BaseType?.GetGenericArguments().FirstOrDefault();",
-                    "//\tif (genArgs != null) cfg.CreateMap(genArgs, t).ReverseMap();",
+                "\t//var vmType = typeof(IViewModel);",
+                "\t//var modelTypes = AppDomain.CurrentDomain.GetAssemblies()",
+                    "\t//\t.SelectMany(t => t.GetTypes())",
+                    "\t//\t.Where(t => vmType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);",
+                "\t//var maps = new Dictionary<Type, Type>();",
+                "\t//foreach (var t in modelTypes)",
+                "\t//{",
+                    "\t//\tvar genArgs = t.BaseType?.GetGenericArguments().FirstOrDefault();",
+                    "\t//\tif (genArgs != null) cfg.CreateMap(genArgs, t).ReverseMap();",
                 "//}");
 
             var close = new StatementGen("//\t}", "//};");

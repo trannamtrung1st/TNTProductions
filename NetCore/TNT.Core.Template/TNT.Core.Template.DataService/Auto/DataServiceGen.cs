@@ -123,9 +123,6 @@ namespace TNT.Core.Template.DataService.Auto
             var baseVMGen = new BaseVMGen(Data);
             FileHelper.Write(OutputPath + "ViewModels/Gen", "BaseViewModel.Gen.cs", baseVMGen.Generate());
 
-            var wrapperGen = new WrapperGen(Data);
-            FileHelper.Write(OutputPath + "ViewModels/Gen", "Wrapper.Gen.cs", wrapperGen.Generate());
-
             foreach (var e in Data.Entities)
             {
                 var vmGen = new VMGen(e, VMJsonIgnoreProps,
