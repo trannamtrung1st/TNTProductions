@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace TestCodeFirst.ViewModels
 {
-	public partial class LogsViewModel: BaseViewModel<Logs>
+	public partial class .LogsViewModel: BaseViewModel<.Logs>
 	{
 		//[JsonProperty("id")]
 		public int Id { get; set; }
@@ -34,11 +34,11 @@ namespace TestCodeFirst.ViewModels
 		//[JsonProperty("user_name")]
 		public string UserName { get; set; }
 		
-		public LogsViewModel(Logs entity) : base(entity)
+		public .LogsViewModel(.Logs entity) : base(entity)
 		{
 		}
 		
-		public LogsViewModel()
+		public .LogsViewModel()
 		{
 		}
 		

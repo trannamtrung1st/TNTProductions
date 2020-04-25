@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace TestCodeFirst.ViewModels
 {
-	public partial class AspNetUsersViewModel: BaseViewModel<AspNetUsers>
+	public partial class .AspNetUsersViewModel: BaseViewModel<.AspNetUsers>
 	{
 		//[JsonProperty("id")]
 		public string Id { get; set; }
@@ -52,11 +52,11 @@ namespace TestCodeFirst.ViewModels
 		//[JsonProperty("asp_net_user_tokens")]
 		//public IEnumerable<AspNetUserTokensViewModel> AspNetUserTokensVM { get; set; }
 		
-		public AspNetUsersViewModel(AspNetUsers entity) : base(entity)
+		public .AspNetUsersViewModel(.AspNetUsers entity) : base(entity)
 		{
 		}
 		
-		public AspNetUsersViewModel()
+		public .AspNetUsersViewModel()
 		{
 		}
 		

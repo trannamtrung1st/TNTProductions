@@ -9,7 +9,7 @@ using TestCodeFirst.Global;
 
 namespace TestCodeFirst.Models
 {
-	public partial class Logs : BaseEntity
+	public partial class .AspNetUsers : BaseEntity
 	{
 	}
 	
@@ -18,21 +18,21 @@ namespace TestCodeFirst.Models
 
 namespace TestCodeFirst.Models.Extensions
 {
-	public static partial class LogsExtension
+	public static partial class .AspNetUsersExtension
 	{
-		public static Logs Id(this IQueryable<Logs> query, int key)
+		public static .AspNetUsers Id(this IQueryable<.AspNetUsers> query, string key)
 		{
 			return query.FirstOrDefault(
 				e => e.Id == key);
 		}
 		
-		public static Logs Id(this IEnumerable<Logs> query, int key)
+		public static .AspNetUsers Id(this IEnumerable<.AspNetUsers> query, string key)
 		{
 			return query.FirstOrDefault(
 				e => e.Id == key);
 		}
 		
-		public static bool Existed(this IQueryable<Logs> query, int key)
+		public static bool Existed(this IQueryable<.AspNetUsers> query, string key)
 		{
 			return query.Any(
 				e => e.Id == key);

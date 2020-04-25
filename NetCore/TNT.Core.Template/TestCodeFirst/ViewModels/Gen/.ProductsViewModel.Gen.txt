@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace TestCodeFirst.ViewModels
 {
-	public partial class ProductsViewModel: BaseViewModel<Products>
+	public partial class .ProductsViewModel: BaseViewModel<.Products>
 	{
 		//[JsonProperty("id")]
 		public int Id { get; set; }
@@ -18,11 +18,11 @@ namespace TestCodeFirst.ViewModels
 		//[JsonProperty("seo_keywords")]
 		//public IEnumerable<SeoKeywordsViewModel> SeoKeywordsVM { get; set; }
 		
-		public ProductsViewModel(Products entity) : base(entity)
+		public .ProductsViewModel(.Products entity) : base(entity)
 		{
 		}
 		
-		public ProductsViewModel()
+		public .ProductsViewModel()
 		{
 		}
 		

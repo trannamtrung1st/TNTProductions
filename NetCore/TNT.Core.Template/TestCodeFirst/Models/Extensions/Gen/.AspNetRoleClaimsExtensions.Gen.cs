@@ -9,7 +9,7 @@ using TestCodeFirst.Global;
 
 namespace TestCodeFirst.Models
 {
-	public partial class AspNetUserClaims : BaseEntity
+	public partial class .AspNetRoleClaims : BaseEntity
 	{
 	}
 	
@@ -18,21 +18,21 @@ namespace TestCodeFirst.Models
 
 namespace TestCodeFirst.Models.Extensions
 {
-	public static partial class AspNetUserClaimsExtension
+	public static partial class .AspNetRoleClaimsExtension
 	{
-		public static AspNetUserClaims Id(this IQueryable<AspNetUserClaims> query, int key)
+		public static .AspNetRoleClaims Id(this IQueryable<.AspNetRoleClaims> query, int key)
 		{
 			return query.FirstOrDefault(
 				e => e.Id == key);
 		}
 		
-		public static AspNetUserClaims Id(this IEnumerable<AspNetUserClaims> query, int key)
+		public static .AspNetRoleClaims Id(this IEnumerable<.AspNetRoleClaims> query, int key)
 		{
 			return query.FirstOrDefault(
 				e => e.Id == key);
 		}
 		
-		public static bool Existed(this IQueryable<AspNetUserClaims> query, int key)
+		public static bool Existed(this IQueryable<.AspNetRoleClaims> query, int key)
 		{
 			return query.Any(
 				e => e.Id == key);

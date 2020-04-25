@@ -10,40 +10,40 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace TestCodeFirst.Models.Repositories
 {
-	public partial interface IAspNetUserClaimsRepository : IBaseRepository<AspNetUserClaims, int>
+	public partial interface I.LogsRepository : IBaseRepository<.Logs, int>
 	{
 	}
 	
-	public partial class AspNetUserClaimsRepository : BaseRepository<AspNetUserClaims, int>, IAspNetUserClaimsRepository
+	public partial class .LogsRepository : BaseRepository<.Logs, int>, I.LogsRepository
 	{
-		public AspNetUserClaimsRepository(DbContext context) : base(context)
+		public .LogsRepository(DbContext context) : base(context)
 		{
 		}
 		
 		#region CRUD area
-		public override AspNetUserClaims FindById(int key)
+		public override .Logs FindById(int key)
 		{
 			var entity = QuerySet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
-		public override async Task<AspNetUserClaims> FindByIdAsync(int key)
+		public override async Task<.Logs> FindByIdAsync(int key)
 		{
 			var entity = await QuerySet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
-		public override EntityEntry<AspNetUserClaims> Remove(int key)
+		public override EntityEntry<.Logs> Remove(int key)
 		{
-			var entity = new AspNetUserClaims { Id = key };
+			var entity = new .Logs { Id = key };
 			return dbSet.Remove(entity);
 		}
 		
-		public override IEnumerable<AspNetUserClaims> RemoveIf(Expression<Func<AspNetUserClaims, bool>> expr)
+		public override IEnumerable<.Logs> RemoveIf(Expression<Func<.Logs, bool>> expr)
 		{
-			var list = dbSet.Where(expr).Select(o => new AspNetUserClaims { Id = o.Id }).ToList();
+			var list = dbSet.Where(expr).Select(o => new .Logs { Id = o.Id }).ToList();
 			dbSet.RemoveRange(list);
 			return list;
 		}
@@ -51,7 +51,7 @@ namespace TestCodeFirst.Models.Repositories
 		//Default DELETE command, override if there's any exception
 		public override async Task<int> SqlRemoveAllAsync()
 		{
-			var result = await context.Database.ExecuteSqlCommandAsync("DELETE FROM AspNetUserClaims");
+			var result = await context.Database.ExecuteSqlCommandAsync("DELETE FROM .Logs");
 			return result;
 		}
 		

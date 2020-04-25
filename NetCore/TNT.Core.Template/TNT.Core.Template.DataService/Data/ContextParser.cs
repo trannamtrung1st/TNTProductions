@@ -70,10 +70,14 @@ namespace TNT.Core.Template.DataService.Data
         private void SetEntitiesInfo()
         {
             var eTypes = context.Model.GetEntityTypes();
+            string regexSearch = new string(
+                Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+            Regex r = new Regex($"[{Regex.Escape(regexSearch)}]");
             foreach (var eT in eTypes)
             {
                 var eInfo = new EntityInfo(Data);
-                eInfo.EntityName = eT.Name.Substring(eT.Name.LastIndexOf('.') + 1);
+                eInfo.EntityName = eT.Name.Substring(eT.Name.LastIndexOf('.'));
+                eInfo.EntityName = r.Replace(eInfo.EntityName, "");
                 eInfo.VMClass = eInfo.EntityName + "ViewModel";
                 eInfo.Activable = IsActivable(eT);
                 SetPKInfo(eInfo, eT);

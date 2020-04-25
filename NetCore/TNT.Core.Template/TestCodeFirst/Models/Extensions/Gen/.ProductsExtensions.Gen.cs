@@ -9,7 +9,7 @@ using TestCodeFirst.Global;
 
 namespace TestCodeFirst.Models
 {
-	public partial class AspNetRoleClaims : BaseEntity
+	public partial class .Products : BaseEntity
 	{
 	}
 	
@@ -18,21 +18,21 @@ namespace TestCodeFirst.Models
 
 namespace TestCodeFirst.Models.Extensions
 {
-	public static partial class AspNetRoleClaimsExtension
+	public static partial class .ProductsExtension
 	{
-		public static AspNetRoleClaims Id(this IQueryable<AspNetRoleClaims> query, int key)
+		public static .Products Id(this IQueryable<.Products> query, int key)
 		{
 			return query.FirstOrDefault(
 				e => e.Id == key);
 		}
 		
-		public static AspNetRoleClaims Id(this IEnumerable<AspNetRoleClaims> query, int key)
+		public static .Products Id(this IEnumerable<.Products> query, int key)
 		{
 			return query.FirstOrDefault(
 				e => e.Id == key);
 		}
 		
-		public static bool Existed(this IQueryable<AspNetRoleClaims> query, int key)
+		public static bool Existed(this IQueryable<.Products> query, int key)
 		{
 			return query.Any(
 				e => e.Id == key);

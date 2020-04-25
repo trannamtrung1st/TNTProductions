@@ -10,40 +10,40 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace TestCodeFirst.Models.Repositories
 {
-	public partial interface ISeoKeywordsRepository : IBaseRepository<SeoKeywords, string>
+	public partial interface I.SeoKeywordsRepository : IBaseRepository<.SeoKeywords, string>
 	{
 	}
 	
-	public partial class SeoKeywordsRepository : BaseRepository<SeoKeywords, string>, ISeoKeywordsRepository
+	public partial class .SeoKeywordsRepository : BaseRepository<.SeoKeywords, string>, I.SeoKeywordsRepository
 	{
-		public SeoKeywordsRepository(DbContext context) : base(context)
+		public .SeoKeywordsRepository(DbContext context) : base(context)
 		{
 		}
 		
 		#region CRUD area
-		public override SeoKeywords FindById(string key)
+		public override .SeoKeywords FindById(string key)
 		{
 			var entity = QuerySet.FirstOrDefault(
 				e => e.Value == key);
 			return entity;
 		}
 		
-		public override async Task<SeoKeywords> FindByIdAsync(string key)
+		public override async Task<.SeoKeywords> FindByIdAsync(string key)
 		{
 			var entity = await QuerySet.FirstOrDefaultAsync(
 				e => e.Value == key);
 			return entity;
 		}
 		
-		public override EntityEntry<SeoKeywords> Remove(string key)
+		public override EntityEntry<.SeoKeywords> Remove(string key)
 		{
-			var entity = new SeoKeywords { Value = key };
+			var entity = new .SeoKeywords { Value = key };
 			return dbSet.Remove(entity);
 		}
 		
-		public override IEnumerable<SeoKeywords> RemoveIf(Expression<Func<SeoKeywords, bool>> expr)
+		public override IEnumerable<.SeoKeywords> RemoveIf(Expression<Func<.SeoKeywords, bool>> expr)
 		{
-			var list = dbSet.Where(expr).Select(o => new SeoKeywords { Value = o.Value }).ToList();
+			var list = dbSet.Where(expr).Select(o => new .SeoKeywords { Value = o.Value }).ToList();
 			dbSet.RemoveRange(list);
 			return list;
 		}
@@ -51,7 +51,7 @@ namespace TestCodeFirst.Models.Repositories
 		//Default DELETE command, override if there's any exception
 		public override async Task<int> SqlRemoveAllAsync()
 		{
-			var result = await context.Database.ExecuteSqlCommandAsync("DELETE FROM SeoKeywords");
+			var result = await context.Database.ExecuteSqlCommandAsync("DELETE FROM .SeoKeywords");
 			return result;
 		}
 		
