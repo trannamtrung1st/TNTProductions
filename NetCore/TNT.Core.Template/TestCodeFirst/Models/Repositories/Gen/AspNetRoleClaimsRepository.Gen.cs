@@ -10,40 +10,40 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace TestCodeFirst.Models.Repositories
 {
-	public partial interface I.ProductsRepository : IBaseRepository<.Products, int>
+	public partial interface IAspNetRoleClaimsRepository : IBaseRepository<AspNetRoleClaims, int>
 	{
 	}
 	
-	public partial class .ProductsRepository : BaseRepository<.Products, int>, I.ProductsRepository
+	public partial class AspNetRoleClaimsRepository : BaseRepository<AspNetRoleClaims, int>, IAspNetRoleClaimsRepository
 	{
-		public .ProductsRepository(DbContext context) : base(context)
+		public AspNetRoleClaimsRepository(DbContext context) : base(context)
 		{
 		}
 		
 		#region CRUD area
-		public override .Products FindById(int key)
+		public override AspNetRoleClaims FindById(int key)
 		{
 			var entity = QuerySet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
-		public override async Task<.Products> FindByIdAsync(int key)
+		public override async Task<AspNetRoleClaims> FindByIdAsync(int key)
 		{
 			var entity = await QuerySet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
-		public override EntityEntry<.Products> Remove(int key)
+		public override EntityEntry<AspNetRoleClaims> Remove(int key)
 		{
-			var entity = new .Products { Id = key };
+			var entity = new AspNetRoleClaims { Id = key };
 			return dbSet.Remove(entity);
 		}
 		
-		public override IEnumerable<.Products> RemoveIf(Expression<Func<.Products, bool>> expr)
+		public override IEnumerable<AspNetRoleClaims> RemoveIf(Expression<Func<AspNetRoleClaims, bool>> expr)
 		{
-			var list = dbSet.Where(expr).Select(o => new .Products { Id = o.Id }).ToList();
+			var list = dbSet.Where(expr).Select(o => new AspNetRoleClaims { Id = o.Id }).ToList();
 			dbSet.RemoveRange(list);
 			return list;
 		}
@@ -51,7 +51,7 @@ namespace TestCodeFirst.Models.Repositories
 		//Default DELETE command, override if there's any exception
 		public override async Task<int> SqlRemoveAllAsync()
 		{
-			var result = await context.Database.ExecuteSqlCommandAsync("DELETE FROM .Products");
+			var result = await context.Database.ExecuteSqlCommandAsync("DELETE FROM AspNetRoleClaims");
 			return result;
 		}
 		

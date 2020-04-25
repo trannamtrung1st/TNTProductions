@@ -9,13 +9,13 @@ using TestCodeFirst.Global;
 
 namespace TestCodeFirst.Models
 {
-	public partial class .AspNetUserRolesPK
+	public partial class AspNetUserRolesPK
 	{
 		public string UserId { get; set; }
 		public string RoleId { get; set; }
 	}
 	
-	public partial class .AspNetUserRoles : BaseEntity
+	public partial class AspNetUserRoles : BaseEntity
 	{
 	}
 	
@@ -24,21 +24,21 @@ namespace TestCodeFirst.Models
 
 namespace TestCodeFirst.Models.Extensions
 {
-	public static partial class .AspNetUserRolesExtension
+	public static partial class AspNetUserRolesExtension
 	{
-		public static .AspNetUserRoles Id(this IQueryable<.AspNetUserRoles> query, .AspNetUserRolesPK key)
+		public static AspNetUserRoles Id(this IQueryable<AspNetUserRoles> query, AspNetUserRolesPK key)
 		{
 			return query.FirstOrDefault(
 				e => e.UserId == key.UserId && e.RoleId == key.RoleId);
 		}
 		
-		public static .AspNetUserRoles Id(this IEnumerable<.AspNetUserRoles> query, .AspNetUserRolesPK key)
+		public static AspNetUserRoles Id(this IEnumerable<AspNetUserRoles> query, AspNetUserRolesPK key)
 		{
 			return query.FirstOrDefault(
 				e => e.UserId == key.UserId && e.RoleId == key.RoleId);
 		}
 		
-		public static bool Existed(this IQueryable<.AspNetUserRoles> query, .AspNetUserRolesPK key)
+		public static bool Existed(this IQueryable<AspNetUserRoles> query, AspNetUserRolesPK key)
 		{
 			return query.Any(
 				e => e.UserId == key.UserId && e.RoleId == key.RoleId);

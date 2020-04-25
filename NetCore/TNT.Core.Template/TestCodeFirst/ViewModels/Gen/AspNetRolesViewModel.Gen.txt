@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace TestCodeFirst.ViewModels
 {
-	public partial class .AspNetRolesViewModel: BaseViewModel<.AspNetRoles>
+	public partial class AspNetRolesViewModel: BaseViewModel<AspNetRoles>
 	{
 		//[JsonProperty("id")]
 		public string Id { get; set; }
@@ -24,11 +24,11 @@ namespace TestCodeFirst.ViewModels
 		//[JsonProperty("asp_net_user_roles")]
 		//public IEnumerable<AspNetUserRolesViewModel> AspNetUserRolesVM { get; set; }
 		
-		public .AspNetRolesViewModel(.AspNetRoles entity) : base(entity)
+		public AspNetRolesViewModel(AspNetRoles entity) : base(entity)
 		{
 		}
 		
-		public .AspNetRolesViewModel()
+		public AspNetRolesViewModel()
 		{
 		}
 		

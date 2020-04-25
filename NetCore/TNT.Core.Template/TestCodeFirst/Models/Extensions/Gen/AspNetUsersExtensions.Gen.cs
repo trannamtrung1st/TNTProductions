@@ -9,7 +9,7 @@ using TestCodeFirst.Global;
 
 namespace TestCodeFirst.Models
 {
-	public partial class .SeoKeywords : BaseEntity
+	public partial class AspNetUsers : BaseEntity
 	{
 	}
 	
@@ -18,24 +18,24 @@ namespace TestCodeFirst.Models
 
 namespace TestCodeFirst.Models.Extensions
 {
-	public static partial class .SeoKeywordsExtension
+	public static partial class AspNetUsersExtension
 	{
-		public static .SeoKeywords Id(this IQueryable<.SeoKeywords> query, string key)
+		public static AspNetUsers Id(this IQueryable<AspNetUsers> query, string key)
 		{
 			return query.FirstOrDefault(
-				e => e.Value == key);
+				e => e.Id == key);
 		}
 		
-		public static .SeoKeywords Id(this IEnumerable<.SeoKeywords> query, string key)
+		public static AspNetUsers Id(this IEnumerable<AspNetUsers> query, string key)
 		{
 			return query.FirstOrDefault(
-				e => e.Value == key);
+				e => e.Id == key);
 		}
 		
-		public static bool Existed(this IQueryable<.SeoKeywords> query, string key)
+		public static bool Existed(this IQueryable<AspNetUsers> query, string key)
 		{
 			return query.Any(
-				e => e.Value == key);
+				e => e.Id == key);
 		}
 		
 	}

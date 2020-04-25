@@ -9,24 +9,24 @@ using Newtonsoft.Json;
 
 namespace TestCodeFirst.ViewModels
 {
-	public partial class .AspNetUserClaimsViewModel: BaseViewModel<.AspNetUserClaims>
+	public partial class AspNetUserTokensViewModel: BaseViewModel<AspNetUserTokens>
 	{
-		//[JsonProperty("id")]
-		public int Id { get; set; }
-		//[JsonProperty("claim_type")]
-		public string ClaimType { get; set; }
-		//[JsonProperty("claim_value")]
-		public string ClaimValue { get; set; }
 		//[JsonProperty("user_id")]
 		public string UserId { get; set; }
+		//[JsonProperty("login_provider")]
+		public string LoginProvider { get; set; }
+		//[JsonProperty("name")]
+		public string Name { get; set; }
+		//[JsonProperty("value")]
+		public string Value { get; set; }
 		//[JsonProperty("user")]
 		//public AspNetUsersViewModel UserVM { get; set; }
 		
-		public .AspNetUserClaimsViewModel(.AspNetUserClaims entity) : base(entity)
+		public AspNetUserTokensViewModel(AspNetUserTokens entity) : base(entity)
 		{
 		}
 		
-		public .AspNetUserClaimsViewModel()
+		public AspNetUserTokensViewModel()
 		{
 		}
 		

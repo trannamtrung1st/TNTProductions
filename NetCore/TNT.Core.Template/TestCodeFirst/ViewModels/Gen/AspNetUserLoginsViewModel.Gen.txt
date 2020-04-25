@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace TestCodeFirst.ViewModels
 {
-	public partial class .AspNetUserLoginsViewModel: BaseViewModel<.AspNetUserLogins>
+	public partial class AspNetUserLoginsViewModel: BaseViewModel<AspNetUserLogins>
 	{
 		//[JsonProperty("login_provider")]
 		public string LoginProvider { get; set; }
@@ -22,11 +22,11 @@ namespace TestCodeFirst.ViewModels
 		//[JsonProperty("user")]
 		//public AspNetUsersViewModel UserVM { get; set; }
 		
-		public .AspNetUserLoginsViewModel(.AspNetUserLogins entity) : base(entity)
+		public AspNetUserLoginsViewModel(AspNetUserLogins entity) : base(entity)
 		{
 		}
 		
-		public .AspNetUserLoginsViewModel()
+		public AspNetUserLoginsViewModel()
 		{
 		}
 		

@@ -76,7 +76,7 @@ namespace TNT.Core.Template.DataService.Data
             foreach (var eT in eTypes)
             {
                 var eInfo = new EntityInfo(Data);
-                eInfo.EntityName = eT.Name.Substring(eT.Name.LastIndexOf('.'));
+                eInfo.EntityName = eT.Name.Substring(eT.Name.LastIndexOf('.') + 1);
                 eInfo.EntityName = r.Replace(eInfo.EntityName, "");
                 eInfo.VMClass = eInfo.EntityName + "ViewModel";
                 eInfo.Activable = IsActivable(eT);

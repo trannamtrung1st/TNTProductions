@@ -9,24 +9,22 @@ using Newtonsoft.Json;
 
 namespace TestCodeFirst.ViewModels
 {
-	public partial class .AspNetRoleClaimsViewModel: BaseViewModel<.AspNetRoleClaims>
+	public partial class AspNetUserRolesViewModel: BaseViewModel<AspNetUserRoles>
 	{
-		//[JsonProperty("id")]
-		public int Id { get; set; }
-		//[JsonProperty("claim_type")]
-		public string ClaimType { get; set; }
-		//[JsonProperty("claim_value")]
-		public string ClaimValue { get; set; }
+		//[JsonProperty("user_id")]
+		public string UserId { get; set; }
 		//[JsonProperty("role_id")]
 		public string RoleId { get; set; }
 		//[JsonProperty("role")]
 		//public AspNetRolesViewModel RoleVM { get; set; }
+		//[JsonProperty("user")]
+		//public AspNetUsersViewModel UserVM { get; set; }
 		
-		public .AspNetRoleClaimsViewModel(.AspNetRoleClaims entity) : base(entity)
+		public AspNetUserRolesViewModel(AspNetUserRoles entity) : base(entity)
 		{
 		}
 		
-		public .AspNetRoleClaimsViewModel()
+		public AspNetUserRolesViewModel()
 		{
 		}
 		
