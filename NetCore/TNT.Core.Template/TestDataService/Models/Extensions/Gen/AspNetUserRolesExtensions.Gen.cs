@@ -15,20 +15,6 @@ namespace TestDataService.Models
 		public string RoleId { get; set; }
 	}
 	
-	public partial class AspNetUserRoles : IBaseEntity
-	{
-		public virtual E To<E>()
-		{
-			return G.Mapper.Map<E>(this);
-		}
-		
-		public virtual void CopyTo(object dest)
-		{
-			G.Mapper.Map(this, dest);
-		}
-		
-	}
-	
 }
 
 

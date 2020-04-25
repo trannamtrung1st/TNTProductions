@@ -10,15 +10,15 @@ namespace TNT.Core.Template.DataService.Data
     {
         public ContextInfo Data { get; set; }
         public string EntityName { get; set; }
+        public string NormalizedName { get; set; }
         public string PKClass { get; set; }
         public string VMClass { get; set; }
-        public bool Activable { get; set; }
         //key: propName - value: type
         public IDictionary<string, string> PKPropMapping { get; set; }
         public IDictionary<string, string> PropMapping { get; set; }
         public IDictionary<string, string> NavPropMapping { get; set; }
         public IDictionary<string, string> NavCollectionPropMapping { get; set; }
-
+        public List<string> RelatedReferences { get; set; }
         public EntityInfo(ContextInfo dt)
         {
             Data = dt;
@@ -26,6 +26,7 @@ namespace TNT.Core.Template.DataService.Data
             PropMapping = new Dictionary<string, string>();
             NavPropMapping = new Dictionary<string, string>();
             NavCollectionPropMapping = new Dictionary<string, string>();
+            RelatedReferences = new List<string>();
         }
 
         public override string ToString()
@@ -33,7 +34,6 @@ namespace TNT.Core.Template.DataService.Data
             var builder = new StringBuilder("");
             builder.AppendLine(EntityName);
             builder.AppendLine("\tViewModel: " + VMClass);
-            builder.AppendLine("\tActivable: " + Activable);
             builder.AppendLine("\tPKClass: " + PKClass);
             builder.AppendLine("\t---- Key(s) ----");
             foreach (var p in PKPropMapping)

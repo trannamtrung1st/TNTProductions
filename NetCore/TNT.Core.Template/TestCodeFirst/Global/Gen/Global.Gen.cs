@@ -19,20 +19,21 @@ namespace TestCodeFirst.Global
 		private static List<Action<IMapperConfigurationExpression>> MapperConfigs
 			= new List<Action<IMapperConfigurationExpression>>();
 		//{
-			//cfg =>
-			//{
-			//var vmType = typeof(IViewModel);
-			//var modelTypes = AppDomain.CurrentDomain.GetAssemblies()
-			//	.SelectMany(t => t.GetTypes())
-			//	.Where(t => vmType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);
-			//var maps = new Dictionary<Type, Type>();
-			//foreach (var t in modelTypes)
-			//{
-			//	var genArgs = t.BaseType?.GetGenericArguments().FirstOrDefault();
-			//	if (genArgs != null) cfg.CreateMap(genArgs, t).ReverseMap();
-		//}
+		//	cfg =>
+		//	{
+		//		var vmType = typeof(IViewModel);
+		//		var modelTypes = AppDomain.CurrentDomain.GetAssemblies()
+		//		.SelectMany(t => t.GetTypes())
+		//		.Where(t => vmType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);
+		//		var maps = new Dictionary<Type, Type>();
+		//		foreach (var t in modelTypes)
+		//		{
+		//		var genArgs = t.BaseType?.GetGenericArguments().FirstOrDefault();
+		//		if (genArgs != null) cfg.CreateMap(genArgs, t).ReverseMap();
+		//		}
 		//	}
 		//};
+		
 		private static void ConfigureAutomapper()
 		{
 			//AutoMapper

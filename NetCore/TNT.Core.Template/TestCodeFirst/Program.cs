@@ -12,8 +12,8 @@ namespace TestCodeFirst
             {
                 var where = "WHERE 1=1";
 
-                var list = context.Products
-                    .FromSqlRaw($"SELECT * FROM Products {where}")
+                var list = context.Product
+                    .FromSqlRaw($"SELECT * FROM Product {where}")
                     .AsNoTracking()
                     .ToListAsync().Result;
                 Console.WriteLine(list.Count);

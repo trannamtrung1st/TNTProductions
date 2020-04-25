@@ -13,48 +13,12 @@ namespace TNT.Core.Template.DataService.Data
         public string ContextName { get; set; }
         public string ContextNamespace { get; set; }
         public bool RequestScope { get; set; }
-        public bool ActiveCol { get; set; } //or else Deactive col
         public List<EntityInfo> Entities { get; set; }
 
         public ContextInfo()
         {
             Entities = new List<EntityInfo>();
         }
-
-        //====== TEST =======
-        //private void Test()
-        //{
-        //    ContextName = "UniLinkEntities";
-        //    var supplyInfo = new EntityInfo(this)
-        //    {
-        //        EntityName = "Supply",
-        //        PKClass = "SupplyPK",
-        //        VMClass = "SupplyViewModel",
-        //        Activable = true,
-        //        PluralEntityName = GeneralHelper.PluralizeNoun("Supply"),
-        //        PKPropMapping = new Dictionary<string, string>()
-        //        {
-        //            { "PromotionId", "int"},
-        //            { "ToolId", "int"}
-        //        }
-        //    };
-
-        //    var toolInfo = new EntityInfo(this)
-        //    {
-        //        EntityName = "Tool",
-        //        PKClass = "int",
-        //        VMClass = "ToolViewModel",
-        //        Activable = true,
-        //        PluralEntityName = GeneralHelper.PluralizeNoun("Tool"),
-        //        PKPropMapping = new Dictionary<string, string>()
-        //        {
-        //            {"ToolId", "int" }
-        //        }
-        //    };
-
-        //    Entities.Add(toolInfo);
-        //    Entities.Add(supplyInfo);
-        //}
 
         public override string ToString()
         {

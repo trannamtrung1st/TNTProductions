@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TestCodeFirst.Global;
+using TestCodeFirst.Models;
+using Newtonsoft.Json;
+
+namespace TestCodeFirst.ViewModels
+{
+	public partial class ProductViewModel: BaseViewModel<Product>
+	{
+		//[JsonProperty("id")]
+		public int Id { get; set; }
+		//[JsonProperty("name")]
+		public string Name { get; set; }
+		//[JsonProperty("seo_keyword")]
+		//public IEnumerable<SeoKeywordViewModel> SeoKeywordVM { get; set; }
+		
+		public ProductViewModel(Product entity) : base(entity)
+		{
+		}
+		
+		public ProductViewModel()
+		{
+		}
+		
+	}
+	
+}

@@ -17,8 +17,12 @@ namespace TNT.Core.Template.DataService.Models.Repositories
             Directive.Add(EInfo.Data.ContextNamespace,
                 "System.Linq.Expressions", "Microsoft.EntityFrameworkCore",
                 "Microsoft.EntityFrameworkCore.ChangeTracking");
+            if (EInfo.RelatedReferences != null)
+                foreach (var d in EInfo.RelatedReferences)
+                    Directive.Add(d);
 
             ResolveMapping["entity"] = EInfo.EntityName;
+            ResolveMapping["entityNml"] = EInfo.NormalizedName;
             ResolveMapping["entityPK"] = EInfo.PKClass;
             ResolveMapping["entityVM"] = EInfo.VMClass;
             ResolveMapping["context"] = EInfo.Data.ContextName;
@@ -48,18 +52,8 @@ namespace TNT.Core.Template.DataService.Models.Repositories
         public void GenerateIEntityRepository()
         {
             IEntityRepository = new ContainerGen();
-            IEntityRepository.Signature = "public partial interface I`entity`Repository : IBaseRepository<`entity`, `entityPK`>";
+            IEntityRepository.Signature = "public partial interface I`entityNml`Repository : IBaseRepository<`entity`, `entityPK`>";
             IEntityRepositoryBody = IEntityRepository.Body;
-            if (EInfo.Activable)
-            {
-                IEntityRepositoryBody.Add(
-                    new StatementGen("`entity` FindActiveById(`entityPK` key);"),
-                    new StatementGen("Task<`entity`> FindActiveByIdAsync(`entityPK` key);"),
-                    new StatementGen("IQueryable<`entity`> GetActive();"),
-                    new StatementGen("IQueryable<`entity`> GetActive(Expression<Func<`entity`, bool>> expr);")
-                    );
-            }
-
             NamespaceBody.Add(IEntityRepository, new StatementGen(""));
         }
 
@@ -70,7 +64,7 @@ namespace TNT.Core.Template.DataService.Models.Repositories
         {
             EntityRepository = new ContainerGen();
             EntityRepository.Signature =
-                "public partial class `entity`Repository : BaseRepository<`entity`, `entityPK`>, I`entity`Repository";
+                "public partial class `entityNml`Repository : BaseRepository<`entity`, `entityPK`>, I`entityNml`Repository";
             EntityRepositoryBody = EntityRepository.Body;
 
             NamespaceBody.Add(EntityRepository);
@@ -82,7 +76,7 @@ namespace TNT.Core.Template.DataService.Models.Repositories
             //c1.Signature = "public `entity`Repository(IUnitOfWork uow) : base(uow)";
             //EntityRepositoryBody.Add(c1, new StatementGen(""));
             var c1 = new ContainerGen();
-            c1.Signature = "public `entity`Repository(DbContext context) : base(context)";
+            c1.Signature = "public `entityNml`Repository(DbContext context) : base(context)";
             EntityRepositoryBody.Add(c1, new StatementGen(""));
             EntityRepositoryBody.Add(new StatementGen("#region CRUD area"));
 
@@ -135,40 +129,6 @@ namespace TNT.Core.Template.DataService.Models.Repositories
             EntityRepositoryBody.Add(new StatementGen("//Default DELETE command, override if there's any exception"),
                 m14, new StatementGen(""));
 
-            if (EInfo.Activable)
-            {
-                var m91 = new ContainerGen();
-                m91.Signature = "public `entity` FindActiveById(`entityPK` key)";
-                m91.Body.Add(new StatementGen(
-                    "var entity = QuerySet.FirstOrDefault(",
-                    keyCompare +
-                    (EInfo.Data.ActiveCol ? " && e.Active == true" : " && e.Deactive == false") + ");",
-                    "return entity;"));
-                EntityRepositoryBody.Add(m91, new StatementGen(""));
-
-                var m101 = new ContainerGen();
-                m101.Signature = "public async Task<`entity`> FindActiveByIdAsync(`entityPK` key)";
-                m101.Body.Add(
-                    new StatementGen(
-                    "var entity = await QuerySet.FirstOrDefaultAsync(",
-                    keyCompare +
-                    (EInfo.Data.ActiveCol ? " && e.Active == true" : " && e.Deactive == false") + ");",
-                    "return entity;"));
-                EntityRepositoryBody.Add(m101, new StatementGen(""));
-
-                var m15 = new ContainerGen();
-                m15.Signature = "public IQueryable<`entity`> GetActive()";
-                var getActive = "return QuerySet" +
-                    (EInfo.Data.ActiveCol ? ".Where(e => e.Active == true);" : ".Where(e => e.Deactive == false);");
-                m15.Body.Add(new StatementGen(getActive));
-                EntityRepositoryBody.Add(m15, new StatementGen(""));
-
-                var m16 = new ContainerGen();
-                m16.Signature = "public IQueryable<`entity`> GetActive(Expression<Func<`entity`, bool>> expr)";
-                m16.Body.Add(new StatementGen("return QuerySet" +
-                    (EInfo.Data.ActiveCol ? ".Where(e => e.Active == true)" : ".Where(e => e.Deactive == false)") + ".Where(expr);"));
-                EntityRepositoryBody.Add(m16, new StatementGen(""));
-            }
             EntityRepositoryBody.Add(new StatementGen("#endregion"));
 
         }

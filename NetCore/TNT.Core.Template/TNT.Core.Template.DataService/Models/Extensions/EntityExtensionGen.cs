@@ -18,16 +18,19 @@ namespace TNT.Core.Template.DataService.Models.Extensions
             EInfo = eInfo;
 
             ResolveMapping["entity"] = EInfo.EntityName;
+            ResolveMapping["entityNml"] = EInfo.NormalizedName;
             ResolveMapping["entityPK"] = EInfo.PKClass;
             ResolveMapping["entityVM"] = EInfo.VMClass;
 
             Directive.Add(EInfo.Data.ProjectName + ".ViewModels",
                 EInfo.Data.ContextNamespace,
                 EInfo.Data.ProjectName + ".Global");
+            if (EInfo.RelatedReferences != null)
+                foreach (var d in EInfo.RelatedReferences)
+                    Directive.Add(d);
             //GENERATE
             GenerateNamespace();
             GenerateEntityPKClass();
-            GenerateBaseEntityExtension();
             GenerateExtensionNamespace();
             GenerateEntityExtension();
         }
@@ -68,33 +71,6 @@ namespace TNT.Core.Template.DataService.Models.Extensions
             }
         }
 
-        //generate BaseEExtension
-        private ContainerGen BaseEntityExtension { get; set; }
-        private BodyGen BaseEntityExtensionBody { get; set; }
-        public void GenerateBaseEntityExtension()
-        {
-            BaseEntityExtension = new ContainerGen();
-            BaseEntityExtension.Signature = "public partial class `entity` : IBaseEntity";
-            BaseEntityExtensionBody = BaseEntityExtension.Body;
-
-            var m2 = new ContainerGen();
-            m2.Signature = "public virtual E To<E>()";
-            m2.Body.Add(new StatementGen(
-                "return G.Mapper.Map<E>(this);"));
-
-            var m3 = new ContainerGen();
-            m3.Signature = "public virtual void CopyTo(object dest)";
-            m3.Body.Add(new StatementGen(
-                "G.Mapper.Map(this, dest);"));
-
-            BaseEntityExtensionBody.Add(
-                m2, new StatementGen(""),
-                m3, new StatementGen(""));
-
-            NamespaceBody.Add(BaseEntityExtension, new StatementGen(""));
-        }
-
-
         //generate extension namespace
         public ContainerGen ENamespace { get; set; }
         private BodyGen ENamespaceBody { get; set; }
@@ -113,7 +89,7 @@ namespace TNT.Core.Template.DataService.Models.Extensions
         public void GenerateEntityExtension()
         {
             EntityExtension = new ContainerGen();
-            EntityExtension.Signature = "public static partial class `entity`Extension";
+            EntityExtension.Signature = "public static partial class `entityNml`Extension";
             EntityExtensionBody = EntityExtension.Body;
 
             var m1 = new ContainerGen();
@@ -128,26 +104,6 @@ namespace TNT.Core.Template.DataService.Models.Extensions
                 new StatementGen("return query.FirstOrDefault("),
                 new StatementGen(GetKeyCompareExpr() + ");"));
 
-            var m3 = new ContainerGen();
-            m3.Signature = "public static IQueryable<`entity`> Active(this IQueryable<`entity`> query)";
-            var getActive = "return query" + (EInfo.Data.ActiveCol ? ".Where(e => e.Active == true);" : ".Where(e => e.Deactive == false);");
-            m3.Body.Add(new StatementGen(getActive));
-
-            var m4 = new ContainerGen();
-            m4.Signature = "public static IQueryable<`entity`> NotActive(this IQueryable<`entity`> query)";
-            m4.Body.Add(new StatementGen(
-                "return query" + (EInfo.Data.ActiveCol ? ".Where(e => e.Active == false);" : ".Where(e => e.Deactive == true);")));
-
-            var m5 = new ContainerGen();
-            m5.Signature = "public static IEnumerable<`entity`> Active(this IEnumerable<`entity`> query)";
-            m5.Body.Add(new StatementGen(
-                "return query" + (EInfo.Data.ActiveCol ? ".Where(e => e.Active == true);" : ".Where(e => e.Deactive == false);")));
-
-            var m6 = new ContainerGen();
-            m6.Signature = "public static IEnumerable<`entity`> NotActive(this IEnumerable<`entity`> query)";
-            m6.Body.Add(new StatementGen(
-                "return query" + (EInfo.Data.ActiveCol ? ".Where(e => e.Active == false);" : ".Where(e => e.Deactive == true);")));
-
             var m7 = new ContainerGen();
             m7.Signature = "public static bool Existed(this IQueryable<`entity`> query, `entityPK` key)";
             m7.Body.Add(
@@ -158,15 +114,6 @@ namespace TNT.Core.Template.DataService.Models.Extensions
                 m1, new StatementGen(""),
                 m2, new StatementGen(""),
                 m7, new StatementGen(""));
-
-            if (EInfo.Activable)
-            {
-                EntityExtensionBody.Add(
-                m3, new StatementGen(""),
-                m4, new StatementGen(""),
-                m5, new StatementGen(""),
-                m6, new StatementGen(""));
-            }
 
             ENamespaceBody.Add(EntityExtension);
         }

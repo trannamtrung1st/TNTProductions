@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestDataService.ViewModels;
-using TestDataService.Models;
-using TestDataService.Global;
+using TestCodeFirst.ViewModels;
+using TestCodeFirst.Models;
+using TestCodeFirst.Global;
 
-namespace TestDataService.Models
+namespace TestCodeFirst.Models
 {
 }
 
 
-namespace TestDataService.Models.Extensions
+namespace TestCodeFirst.Models.Extensions
 {
 	public static partial class ProductExtension
 	{

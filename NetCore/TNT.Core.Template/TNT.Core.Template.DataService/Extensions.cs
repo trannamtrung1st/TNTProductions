@@ -15,7 +15,6 @@ namespace TNT.Core.Template.DataService
             string projectPath,
             string projectName,
             JsonPropertyFormatEnum vmPropStyle,
-            bool activeCol = true,
             bool requestScope = false
             )
         {
@@ -29,12 +28,11 @@ namespace TNT.Core.Template.DataService
             string outputPath,
             string projectName,
             JsonPropertyFormatEnum vmPropStyle,
-            bool activeCol = true,
             bool requestScope = false
             )
         {
-            return new DataServiceGen(dbContext, projectPath, outputPath, projectName,
-                vmPropStyle, requestScope);
+            return new DataServiceGen(dbContext, projectPath, outputPath,
+                projectName, vmPropStyle, requestScope);
         }
     }
 }

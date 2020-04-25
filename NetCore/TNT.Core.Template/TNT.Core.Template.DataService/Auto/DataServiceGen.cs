@@ -35,7 +35,6 @@ namespace TNT.Core.Template.DataService.Auto
             string projectPath,
             string projectName,
             JsonPropertyFormatEnum vmPropStyle,
-            bool activeCol = true,
             bool requestScope = false
             )
         {
@@ -53,7 +52,6 @@ namespace TNT.Core.Template.DataService.Auto
 
             Data = new ContextParser(dbContext, projectName).Data;
             Data.RequestScope = requestScope;
-            Data.ActiveCol = activeCol;
         }
 
         public DataServiceGen(
@@ -62,9 +60,7 @@ namespace TNT.Core.Template.DataService.Auto
             string outputPath,
             string projectName,
             JsonPropertyFormatEnum vmPropStyle,
-            bool activeCol = true,
-            bool requestScope = false
-            )
+            bool requestScope = false)
         {
             ProjectPath = projectPath;
 
@@ -85,7 +81,6 @@ namespace TNT.Core.Template.DataService.Auto
 
             Data = new ContextParser(dbContext, projectName).Data;
             Data.RequestScope = requestScope;
-            Data.ActiveCol = activeCol;
         }
 
         public void AddVMExceptProps(params string[] props)
@@ -127,7 +122,7 @@ namespace TNT.Core.Template.DataService.Auto
             {
                 var vmGen = new VMGen(e, VMJsonIgnoreProps,
                     VMExceptProps, Style);
-                FileHelper.Write(OutputPath + "ViewModels/Gen", e.EntityName + "ViewModel.Gen.txt", vmGen.Generate());
+                FileHelper.Write(OutputPath + "ViewModels/Gen", e.NormalizedName + "ViewModel.Gen.txt", vmGen.Generate());
             }
         }
 
@@ -139,12 +134,10 @@ namespace TNT.Core.Template.DataService.Auto
 
         private void GenerateEntityExtension()
         {
-            var baseEGen = new EntityGen(Data);
-            FileHelper.Write(OutputPath + "Models/Extensions/Gen", "IBaseEntity.Gen.cs", baseEGen.Generate());
             foreach (var e in Data.Entities)
             {
                 var eGen = new EntityExtensionGen(e);
-                FileHelper.Write(OutputPath + "Models/Extensions/Gen", e.EntityName + "Extensions.Gen.cs",
+                FileHelper.Write(OutputPath + "Models/Extensions/Gen", e.NormalizedName + "Extensions.Gen.cs",
                     eGen.Generate() + "\r\n\r\n" + eGen.ENamespace.Generate());
             }
         }
@@ -156,7 +149,7 @@ namespace TNT.Core.Template.DataService.Auto
             foreach (var e in Data.Entities)
             {
                 var eRGen = new EntityRepositoryGen(e);
-                FileHelper.Write(OutputPath + "Models/Repositories/Gen", e.EntityName + "Repository.Gen.cs", eRGen.Generate());
+                FileHelper.Write(OutputPath + "Models/Repositories/Gen", e.NormalizedName + "Repository.Gen.cs", eRGen.Generate());
             }
         }
 

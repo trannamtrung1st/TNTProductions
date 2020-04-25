@@ -50,11 +50,12 @@ namespace TNT.Core.Template.DataService.Data
                 { "IGeometry", "GeoAPI.Geometries.IGeometry" }
             };
 
-        public ContextParser(DbContext context, string projectName, bool activeCol = true)
+        private string _srcContextNamespace;
+
+        public ContextParser(DbContext context, string projectName)
         {
             Data = new ContextInfo();
             Data.ProjectName = projectName;
-            Data.ActiveCol = activeCol;
             this.context = context;
             SetDBInfo();
             SetEntitiesInfo();
@@ -62,8 +63,10 @@ namespace TNT.Core.Template.DataService.Data
 
         private void SetDBInfo()
         {
-            Data.ContextName = context.GetType().Name;
-            Data.ContextNamespace = context.GetType().Namespace;
+            var cType = context.GetType();
+            Data.ContextName = cType.Name;
+            _srcContextNamespace = context.GetType().Namespace;
+            Data.ContextNamespace = _srcContextNamespace;
             Data.ContextNamespace = Data.ProjectName + Data.ContextNamespace.Remove(0, Data.ContextNamespace.IndexOf(".Models"));
         }
 
@@ -76,10 +79,15 @@ namespace TNT.Core.Template.DataService.Data
             foreach (var eT in eTypes)
             {
                 var eInfo = new EntityInfo(Data);
-                eInfo.EntityName = eT.Name.Substring(eT.Name.LastIndexOf('.') + 1);
-                eInfo.EntityName = r.Replace(eInfo.EntityName, "");
-                eInfo.VMClass = eInfo.EntityName + "ViewModel";
-                eInfo.Activable = IsActivable(eT);
+                var fullName = eT.Name;
+                var lastDotIdx = fullName.LastIndexOf('.');
+                var etNamespace = fullName.Substring(0, lastDotIdx);
+                if (!etNamespace.StartsWith(Data.ProjectName) &&
+                    !etNamespace.StartsWith(_srcContextNamespace))
+                    eInfo.RelatedReferences.Add(etNamespace);
+                eInfo.EntityName = fullName.Substring(lastDotIdx + 1);
+                eInfo.NormalizedName = r.Replace(eInfo.EntityName, "_");
+                eInfo.VMClass = eInfo.NormalizedName + "ViewModel";
                 SetPKInfo(eInfo, eT);
                 SetPropInfo(eInfo, eT);
                 SetNavPropInfo(eInfo, eT);
@@ -140,15 +148,8 @@ namespace TNT.Core.Template.DataService.Data
                 eInfo.PKPropMapping[p.Name] = tempPKClass;
             }
             if (pkProps.Count() > 1)
-                eInfo.PKClass = eInfo.EntityName + "PK";
+                eInfo.PKClass = eInfo.NormalizedName + "PK";
             else eInfo.PKClass = tempPKClass;
-        }
-
-        private bool IsActivable(IEntityType eType)
-        {
-            var colName = (Data.ActiveCol ? "Active" : "Deactive");
-            var prop = eType.FindProperty(colName);
-            return (prop != null && (prop.ClrType.Equals(typeof(bool)) || prop.ClrType.Equals(typeof(bool?))));
         }
 
     }

@@ -22,13 +22,17 @@ namespace TNT.Core.Template.DataService.ViewModels
             EInfo = eInfo;
 
             ResolveMapping["entity"] = EInfo.EntityName;
+            ResolveMapping["entityNml"] = EInfo.NormalizedName;
             ResolveMapping["entityVM"] = EInfo.VMClass;
 
             JsonIgnoreProps = jsonIgnoreProps;
             ExceptProps = exceptProps;
             Directive.Add(EInfo.Data.ProjectName + ".Global", EInfo.Data.ContextNamespace,
                 "Newtonsoft.Json");
-
+            if (EInfo.RelatedReferences != null)
+                foreach (var d in EInfo.RelatedReferences)
+                    Directive.Add(d);
+            
             //GENERATE
             GenerateNamespace();
             GenerateVMClass();

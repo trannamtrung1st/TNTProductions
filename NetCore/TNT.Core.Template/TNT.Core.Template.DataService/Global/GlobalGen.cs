@@ -67,20 +67,20 @@ namespace TNT.Core.Template.DataService.Global
             var mapperConfig = new StatementGen("private static List<Action<IMapperConfigurationExpression>> MapperConfigs");
             var open = new StatementGen(
                 "\t= new List<Action<IMapperConfigurationExpression>>();", "//{");
-            var mapConfig = new StatementGen(true, "//cfg =>", "//{");
+            var mapConfig = new StatementGen("//\tcfg =>", "//\t{");
             var bodyConfig = new StatementGen(
-                "\t//var vmType = typeof(IViewModel);",
-                "\t//var modelTypes = AppDomain.CurrentDomain.GetAssemblies()",
-                    "\t//\t.SelectMany(t => t.GetTypes())",
-                    "\t//\t.Where(t => vmType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);",
-                "\t//var maps = new Dictionary<Type, Type>();",
-                "\t//foreach (var t in modelTypes)",
-                "\t//{",
-                    "\t//\tvar genArgs = t.BaseType?.GetGenericArguments().FirstOrDefault();",
-                    "\t//\tif (genArgs != null) cfg.CreateMap(genArgs, t).ReverseMap();",
-                "//}");
+                "//\t\tvar vmType = typeof(IViewModel);",
+                "//\t\tvar modelTypes = AppDomain.CurrentDomain.GetAssemblies()",
+                "//\t\t.SelectMany(t => t.GetTypes())",
+                "//\t\t.Where(t => vmType.IsAssignableFrom(t) && t.IsClass && !t.IsAbstract);",
+                "//\t\tvar maps = new Dictionary<Type, Type>();",
+                "//\t\tforeach (var t in modelTypes)",
+                "//\t\t{",
+                "//\t\tvar genArgs = t.BaseType?.GetGenericArguments().FirstOrDefault();",
+                "//\t\tif (genArgs != null) cfg.CreateMap(genArgs, t).ReverseMap();",
+                "//\t\t}");
 
-            var close = new StatementGen("//\t}", "//};");
+            var close = new StatementGen("//\t}", "//};", "");
             GlobalClassBody.Add(
                 mapperConfig,
                 open,

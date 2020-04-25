@@ -58,7 +58,7 @@ namespace TNT.Core.Template.DataService
                             projectPath);
                         var gen = context.GetDataServiceGenerator(
                             "../../../", projectPath, projectName,
-                            JsonPropertyFormatEnum.JsonStyle, true, true);
+                            JsonPropertyFormatEnum.JsonStyle, true);
                         gen.Generate();
                     }
                 }
