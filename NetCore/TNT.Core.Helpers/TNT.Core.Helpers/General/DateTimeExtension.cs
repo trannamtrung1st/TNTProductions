@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TNT.Core.Helpers.General
 {
-    public static class DateTimeExtensions
+    public static class DateTimeExtension
     {
 
         private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0,
@@ -54,6 +54,16 @@ namespace TNT.Core.Helpers.General
         public static bool Is24HoursFormat(this TimeSpan time)
         {
             return time.TotalSeconds >= 0 && time.TotalSeconds < 86400;
+        }
+
+        public static DateTime ToStartOfDay(this DateTime dt)
+        {
+            return new DateTime(dt.Year, dt.Month, dt.Day, 0, 0, 0);
+        }
+
+        public static DateTime ToEndOfDay(this DateTime dt)
+        {
+            return new DateTime(dt.Year, dt.Month, dt.Day, 23, 59, 59);
         }
 
     }

@@ -137,7 +137,7 @@ namespace TNT.Core.Template.DataService.Auto
             foreach (var e in Data.Entities)
             {
                 var eGen = new EntityExtensionGen(e);
-                FileHelper.Write(OutputPath + "Models/Extensions/Gen", e.NormalizedName + "Extensions.Gen.cs",
+                FileHelper.Write(OutputPath + "Models/Extensions/Gen", e.NormalizedName + "Extension.Gen.cs",
                     eGen.Generate() + "\r\n\r\n" + eGen.ENamespace.Generate());
             }
         }
