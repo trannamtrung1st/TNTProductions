@@ -140,7 +140,7 @@ namespace TNT.Core.Template.DataService.Auto
         private void GenerateEntityExtension()
         {
             var baseEGen = new EntityGen(Data);
-            FileHelper.Write(OutputPath + "Models/Extensions/Gen", "BaseEntity.Gen.cs", baseEGen.Generate());
+            FileHelper.Write(OutputPath + "Models/Extensions/Gen", "IBaseEntity.Gen.cs", baseEGen.Generate());
             foreach (var e in Data.Entities)
             {
                 var eGen = new EntityExtensionGen(e);

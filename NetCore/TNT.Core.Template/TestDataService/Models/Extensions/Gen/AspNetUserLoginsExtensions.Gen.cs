@@ -15,8 +15,18 @@ namespace TestDataService.Models
 		public string ProviderKey { get; set; }
 	}
 	
-	public partial class AspNetUserLogins : BaseEntity
+	public partial class AspNetUserLogins : IBaseEntity
 	{
+		public virtual E To<E>()
+		{
+			return G.Mapper.Map<E>(this);
+		}
+		
+		public virtual void CopyTo(object dest)
+		{
+			G.Mapper.Map(this, dest);
+		}
+		
 	}
 	
 }

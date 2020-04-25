@@ -9,8 +9,18 @@ using TestCodeFirst.Global;
 
 namespace TestCodeFirst.Models
 {
-	public partial class Products : BaseEntity
+	public partial class Products : IBaseEntity
 	{
+		public virtual E To<E>()
+		{
+			return G.Mapper.Map<E>(this);
+		}
+		
+		public virtual void CopyTo(object dest)
+		{
+			G.Mapper.Map(this, dest);
+		}
+		
 	}
 	
 }

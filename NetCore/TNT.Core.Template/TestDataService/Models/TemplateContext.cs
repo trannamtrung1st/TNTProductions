@@ -23,8 +23,8 @@ namespace TestDataService.Models
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Logs> Logs { get; set; }
-        public virtual DbSet<Products> Products { get; set; }
-        public virtual DbSet<SeoKeywords> SeoKeywords { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<SeoKeyword> SeoKeyword { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -43,7 +43,8 @@ namespace TestDataService.Models
 
                 entity.Property(e => e.RoleId)
                     .IsRequired()
-                    .HasMaxLength(100);
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.AspNetRoleClaims)
@@ -57,7 +58,9 @@ namespace TestDataService.Models
                     .IsUnique()
                     .HasFilter("([NormalizedName] IS NOT NULL)");
 
-                entity.Property(e => e.Id).HasMaxLength(100);
+                entity.Property(e => e.Id)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Name).HasMaxLength(256);
 
@@ -70,7 +73,8 @@ namespace TestDataService.Models
 
                 entity.Property(e => e.UserId)
                     .IsRequired()
-                    .HasMaxLength(100);
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AspNetUserClaims)
@@ -85,7 +89,8 @@ namespace TestDataService.Models
 
                 entity.Property(e => e.UserId)
                     .IsRequired()
-                    .HasMaxLength(100);
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AspNetUserLogins)
@@ -98,9 +103,13 @@ namespace TestDataService.Models
 
                 entity.HasIndex(e => e.RoleId);
 
-                entity.Property(e => e.UserId).HasMaxLength(100);
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.RoleId).HasMaxLength(100);
+                entity.Property(e => e.RoleId)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.AspNetUserRoles)
@@ -115,7 +124,9 @@ namespace TestDataService.Models
             {
                 entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
 
-                entity.Property(e => e.UserId).HasMaxLength(100);
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AspNetUserTokens)
@@ -132,7 +143,9 @@ namespace TestDataService.Models
                     .IsUnique()
                     .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
-                entity.Property(e => e.Id).HasMaxLength(100);
+                entity.Property(e => e.Id)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Email).HasMaxLength(256);
 
@@ -164,23 +177,23 @@ namespace TestDataService.Models
                 entity.Property(e => e.UserName).HasMaxLength(100);
             });
 
-            modelBuilder.Entity<Products>(entity =>
+            modelBuilder.Entity<Product>(entity =>
             {
                 entity.Property(e => e.Name).HasMaxLength(255);
             });
 
-            modelBuilder.Entity<SeoKeywords>(entity =>
+            modelBuilder.Entity<SeoKeyword>(entity =>
             {
-                entity.HasKey(e => e.Value)
-                    .HasName("PK_SeoKeywords_1");
+                entity.HasKey(e => e.Value);
+
+                entity.HasIndex(e => e.ProductId);
 
                 entity.Property(e => e.Value).HasMaxLength(100);
 
                 entity.HasOne(d => d.Product)
-                    .WithMany(p => p.SeoKeywords)
+                    .WithMany(p => p.SeoKeyword)
                     .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SeoKeywords_Products");
+                    .HasConstraintName("FK_SeoKeyword_Product");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -74,8 +74,22 @@ namespace TNT.Core.Template.DataService.Models.Extensions
         public void GenerateBaseEntityExtension()
         {
             BaseEntityExtension = new ContainerGen();
-            BaseEntityExtension.Signature = "public partial class `entity` : BaseEntity";
+            BaseEntityExtension.Signature = "public partial class `entity` : IBaseEntity";
             BaseEntityExtensionBody = BaseEntityExtension.Body;
+
+            var m2 = new ContainerGen();
+            m2.Signature = "public virtual E To<E>()";
+            m2.Body.Add(new StatementGen(
+                "return G.Mapper.Map<E>(this);"));
+
+            var m3 = new ContainerGen();
+            m3.Signature = "public virtual void CopyTo(object dest)";
+            m3.Body.Add(new StatementGen(
+                "G.Mapper.Map(this, dest);"));
+
+            BaseEntityExtensionBody.Add(
+                m2, new StatementGen(""),
+                m3, new StatementGen(""));
 
             NamespaceBody.Add(BaseEntityExtension, new StatementGen(""));
         }

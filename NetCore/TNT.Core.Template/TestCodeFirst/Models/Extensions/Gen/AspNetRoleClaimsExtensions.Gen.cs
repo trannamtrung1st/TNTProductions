@@ -9,8 +9,18 @@ using TestCodeFirst.Global;
 
 namespace TestCodeFirst.Models
 {
-	public partial class AspNetRoleClaims : BaseEntity
+	public partial class AspNetRoleClaims : IBaseEntity
 	{
+		public virtual E To<E>()
+		{
+			return G.Mapper.Map<E>(this);
+		}
+		
+		public virtual void CopyTo(object dest)
+		{
+			G.Mapper.Map(this, dest);
+		}
+		
 	}
 	
 }

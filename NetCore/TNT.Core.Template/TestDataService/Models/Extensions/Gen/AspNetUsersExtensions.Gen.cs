@@ -9,8 +9,18 @@ using TestDataService.Global;
 
 namespace TestDataService.Models
 {
-	public partial class AspNetUsers : BaseEntity
+	public partial class AspNetUsers : IBaseEntity
 	{
+		public virtual E To<E>()
+		{
+			return G.Mapper.Map<E>(this);
+		}
+		
+		public virtual void CopyTo(object dest)
+		{
+			G.Mapper.Map(this, dest);
+		}
+		
 	}
 	
 }

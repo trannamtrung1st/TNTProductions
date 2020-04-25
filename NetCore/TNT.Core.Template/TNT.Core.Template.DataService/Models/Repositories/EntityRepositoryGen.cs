@@ -130,7 +130,7 @@ namespace TNT.Core.Template.DataService.Models.Repositories
             m14.Signature = "public override async Task<int> SqlRemoveAllAsync()";
             m14.Body.Add(
                 new StatementGen(
-                $"var result = await context.Database.ExecuteSqlCommandAsync(\"DELETE FROM `entity`\");",
+                $"var result = await context.Database.ExecuteSqlRawAsync(\"DELETE FROM `entity`\");",
                 "return result;"));
             EntityRepositoryBody.Add(new StatementGen("//Default DELETE command, override if there's any exception"),
                 m14, new StatementGen(""));

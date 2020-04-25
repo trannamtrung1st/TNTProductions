@@ -9,8 +9,18 @@ using TestDataService.Global;
 
 namespace TestDataService.Models
 {
-	public partial class SeoKeywords : BaseEntity
+	public partial class SeoKeyword : IBaseEntity
 	{
+		public virtual E To<E>()
+		{
+			return G.Mapper.Map<E>(this);
+		}
+		
+		public virtual void CopyTo(object dest)
+		{
+			G.Mapper.Map(this, dest);
+		}
+		
 	}
 	
 }
@@ -18,21 +28,21 @@ namespace TestDataService.Models
 
 namespace TestDataService.Models.Extensions
 {
-	public static partial class SeoKeywordsExtension
+	public static partial class SeoKeywordExtension
 	{
-		public static SeoKeywords Id(this IQueryable<SeoKeywords> query, string key)
+		public static SeoKeyword Id(this IQueryable<SeoKeyword> query, string key)
 		{
 			return query.FirstOrDefault(
 				e => e.Value == key);
 		}
 		
-		public static SeoKeywords Id(this IEnumerable<SeoKeywords> query, string key)
+		public static SeoKeyword Id(this IEnumerable<SeoKeyword> query, string key)
 		{
 			return query.FirstOrDefault(
 				e => e.Value == key);
 		}
 		
-		public static bool Existed(this IQueryable<SeoKeywords> query, string key)
+		public static bool Existed(this IQueryable<SeoKeyword> query, string key)
 		{
 			return query.Any(
 				e => e.Value == key);

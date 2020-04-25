@@ -51,7 +51,7 @@ namespace TestDataService.Models.Repositories
 		//Default DELETE command, override if there's any exception
 		public override async Task<int> SqlRemoveAllAsync()
 		{
-			var result = await context.Database.ExecuteSqlCommandAsync("DELETE FROM Logs");
+			var result = await context.Database.ExecuteSqlRawAsync("DELETE FROM Logs");
 			return result;
 		}
 		

@@ -15,8 +15,18 @@ namespace TestCodeFirst.Models
 		public string RoleId { get; set; }
 	}
 	
-	public partial class AspNetUserRoles : BaseEntity
+	public partial class AspNetUserRoles : IBaseEntity
 	{
+		public virtual E To<E>()
+		{
+			return G.Mapper.Map<E>(this);
+		}
+		
+		public virtual void CopyTo(object dest)
+		{
+			G.Mapper.Map(this, dest);
+		}
+		
 	}
 	
 }

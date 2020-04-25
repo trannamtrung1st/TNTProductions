@@ -9,8 +9,18 @@ using TestDataService.Global;
 
 namespace TestDataService.Models
 {
-	public partial class Products : BaseEntity
+	public partial class Product : IBaseEntity
 	{
+		public virtual E To<E>()
+		{
+			return G.Mapper.Map<E>(this);
+		}
+		
+		public virtual void CopyTo(object dest)
+		{
+			G.Mapper.Map(this, dest);
+		}
+		
 	}
 	
 }
@@ -18,21 +28,21 @@ namespace TestDataService.Models
 
 namespace TestDataService.Models.Extensions
 {
-	public static partial class ProductsExtension
+	public static partial class ProductExtension
 	{
-		public static Products Id(this IQueryable<Products> query, int key)
+		public static Product Id(this IQueryable<Product> query, int key)
 		{
 			return query.FirstOrDefault(
 				e => e.Id == key);
 		}
 		
-		public static Products Id(this IEnumerable<Products> query, int key)
+		public static Product Id(this IEnumerable<Product> query, int key)
 		{
 			return query.FirstOrDefault(
 				e => e.Id == key);
 		}
 		
-		public static bool Existed(this IQueryable<Products> query, int key)
+		public static bool Existed(this IQueryable<Product> query, int key)
 		{
 			return query.Any(
 				e => e.Id == key);

@@ -9,20 +9,20 @@ using Newtonsoft.Json;
 
 namespace TestDataService.ViewModels
 {
-	public partial class ProductsViewModel: BaseViewModel<Products>
+	public partial class ProductViewModel: BaseViewModel<Product>
 	{
 		//[JsonProperty("id")]
 		public int Id { get; set; }
 		//[JsonProperty("name")]
 		public string Name { get; set; }
-		//[JsonProperty("seo_keywords")]
-		//public IEnumerable<SeoKeywordsViewModel> SeoKeywordsVM { get; set; }
+		//[JsonProperty("seo_keyword")]
+		//public IEnumerable<SeoKeywordViewModel> SeoKeywordVM { get; set; }
 		
-		public ProductsViewModel(Products entity) : base(entity)
+		public ProductViewModel(Product entity) : base(entity)
 		{
 		}
 		
-		public ProductsViewModel()
+		public ProductViewModel()
 		{
 		}
 		

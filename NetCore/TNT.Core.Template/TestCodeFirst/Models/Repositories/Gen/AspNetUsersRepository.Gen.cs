@@ -51,7 +51,7 @@ namespace TestCodeFirst.Models.Repositories
 		//Default DELETE command, override if there's any exception
 		public override async Task<int> SqlRemoveAllAsync()
 		{
-			var result = await context.Database.ExecuteSqlCommandAsync("DELETE FROM AspNetUsers");
+			var result = await context.Database.ExecuteSqlRawAsync("DELETE FROM AspNetUsers");
 			return result;
 		}
 		

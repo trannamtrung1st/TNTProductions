@@ -10,40 +10,40 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace TestDataService.Models.Repositories
 {
-	public partial interface IProductsRepository : IBaseRepository<Products, int>
+	public partial interface IProductRepository : IBaseRepository<Product, int>
 	{
 	}
 	
-	public partial class ProductsRepository : BaseRepository<Products, int>, IProductsRepository
+	public partial class ProductRepository : BaseRepository<Product, int>, IProductRepository
 	{
-		public ProductsRepository(DbContext context) : base(context)
+		public ProductRepository(DbContext context) : base(context)
 		{
 		}
 		
 		#region CRUD area
-		public override Products FindById(int key)
+		public override Product FindById(int key)
 		{
 			var entity = QuerySet.FirstOrDefault(
 				e => e.Id == key);
 			return entity;
 		}
 		
-		public override async Task<Products> FindByIdAsync(int key)
+		public override async Task<Product> FindByIdAsync(int key)
 		{
 			var entity = await QuerySet.FirstOrDefaultAsync(
 				e => e.Id == key);
 			return entity;
 		}
 		
-		public override EntityEntry<Products> Remove(int key)
+		public override EntityEntry<Product> Remove(int key)
 		{
-			var entity = new Products { Id = key };
+			var entity = new Product { Id = key };
 			return dbSet.Remove(entity);
 		}
 		
-		public override IEnumerable<Products> RemoveIf(Expression<Func<Products, bool>> expr)
+		public override IEnumerable<Product> RemoveIf(Expression<Func<Product, bool>> expr)
 		{
-			var list = dbSet.Where(expr).Select(o => new Products { Id = o.Id }).ToList();
+			var list = dbSet.Where(expr).Select(o => new Product { Id = o.Id }).ToList();
 			dbSet.RemoveRange(list);
 			return list;
 		}
@@ -51,7 +51,7 @@ namespace TestDataService.Models.Repositories
 		//Default DELETE command, override if there's any exception
 		public override async Task<int> SqlRemoveAllAsync()
 		{
-			var result = await context.Database.ExecuteSqlCommandAsync("DELETE FROM Products");
+			var result = await context.Database.ExecuteSqlRawAsync("DELETE FROM Product");
 			return result;
 		}
 		
