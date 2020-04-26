@@ -15,8 +15,8 @@ namespace TNT.Core.Helpers.Data
             var sb = new StringBuilder();
             var listParams = listValues.Select((v, i) =>
             {
-                var name = $"@{prefix}{i}";
-                sb.Append($",{name}");
+                var name = $"{prefix}{i}";
+                sb.Append($",@{name}");
                 return new DataParameter
                 {
                     Name = name,
