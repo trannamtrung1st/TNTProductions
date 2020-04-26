@@ -52,6 +52,7 @@ namespace TNT.Core.Template.DataService.Models.Repositories
 
             IBaseRepositoryBody.Add(
                 new StatementGen(
+                    "DbSet<E> DbSet { get; }",
                     "int SaveChanges();",
                     "Task<int> SaveChangesAsync();",
                     "",
@@ -102,9 +103,8 @@ namespace TNT.Core.Template.DataService.Models.Repositories
             var s12 = new StatementGen(
                 "protected readonly DbContext context;",
                 "protected readonly DbSet<E> dbSet;",
-                "protected virtual IQueryable<E> QuerySet { get { return dbSet; } }"
-                //"protected IUnitOfWork uow;"
-                );
+                "protected virtual IQueryable<E> QuerySet { get { return dbSet; } }",
+                "public DbSet<E> DbSet { get { return dbSet; } }");
 
             //var c4 = new ContainerGen();
             //c4.Signature = "public BaseRepository(IUnitOfWork uow)";

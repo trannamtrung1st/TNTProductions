@@ -15,6 +15,7 @@ namespace TestCodeFirst.Models.Repositories
 	}
 	public partial interface IBaseRepository<E, K> : IRepository where E : class
 	{
+		DbSet<E> DbSet { get; }
 		int SaveChanges();
 		Task<int> SaveChangesAsync();
 		
@@ -48,6 +49,7 @@ namespace TestCodeFirst.Models.Repositories
 		protected readonly DbContext context;
 		protected readonly DbSet<E> dbSet;
 		protected virtual IQueryable<E> QuerySet { get { return dbSet; } }
+		public DbSet<E> DbSet { get { return dbSet; } }
 		
 		public BaseRepository(DbContext context)
 		{

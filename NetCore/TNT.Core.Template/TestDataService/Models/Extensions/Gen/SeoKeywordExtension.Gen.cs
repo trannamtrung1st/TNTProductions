@@ -16,22 +16,22 @@ namespace TestDataService.Models.Extensions
 {
 	public static partial class SeoKeywordExtension
 	{
-		public static SeoKeyword Id(this IQueryable<SeoKeyword> query, string key)
+		public static SeoKeyword Id(this IQueryable<SeoKeyword> query, int key)
 		{
 			return query.FirstOrDefault(
-				e => e.Value == key);
+				e => e.Id == key);
 		}
 		
-		public static SeoKeyword Id(this IEnumerable<SeoKeyword> query, string key)
+		public static SeoKeyword Id(this IEnumerable<SeoKeyword> query, int key)
 		{
 			return query.FirstOrDefault(
-				e => e.Value == key);
+				e => e.Id == key);
 		}
 		
-		public static bool Existed(this IQueryable<SeoKeyword> query, string key)
+		public static bool Existed(this IQueryable<SeoKeyword> query, int key)
 		{
 			return query.Any(
-				e => e.Value == key);
+				e => e.Id == key);
 		}
 		
 	}

@@ -184,11 +184,14 @@ namespace TestDataService.Models
 
             modelBuilder.Entity<SeoKeyword>(entity =>
             {
-                entity.HasKey(e => e.Value);
-
                 entity.HasIndex(e => e.ProductId);
 
-                entity.Property(e => e.Value).HasMaxLength(100);
+                entity.HasIndex(e => new { e.Value, e.ProductId })
+                    .IsUnique();
+
+                entity.Property(e => e.Value)
+                    .IsRequired()
+                    .HasMaxLength(100);
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.SeoKeyword)
