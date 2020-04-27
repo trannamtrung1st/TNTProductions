@@ -88,28 +88,12 @@ namespace TNT.Core.Template.DataService.Models
             c21.Signature = "public UnitOfWork(" + Container + " scope, DbContext context)";
             c21.Body.Add(new StatementGen(
                 "this.scope = scope;",
-                "this.context = context;"
-                ));
-
-            var method = "GetService";
-
-            //var m3 = new ContainerGen();
-            //m3.Signature = "public S Repository<S>() where S : class, IRepository";
-            //m3.Body.Add(new StatementGen(
-            //    "var repository = Scope." + method + "<S>();",
-            //    "return repository;"
-            //));
-            //var m4 = new ContainerGen();
-            //m4.Signature = "public D Domain<D>() where D : BaseDomain";
-            //m4.Body.Add(new StatementGen(
-            //    "var domain = Scope." + method + "<D>();",
-            //    "return domain;"
-            //));
+                "this.context = context;"));
 
             var m3 = new ContainerGen();
             m3.Signature = "public T GetService<T>()";
             m3.Body.Add(new StatementGen(
-                "return scope." + method + "<T>();"
+                "return scope.GetRequiredService<T>();"
             ));
 
             var m6 = new ContainerGen();

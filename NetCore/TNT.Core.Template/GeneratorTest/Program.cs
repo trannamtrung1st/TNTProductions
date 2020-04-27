@@ -12,7 +12,7 @@ namespace GeneratorTest
     {
         static void Main(string[] args)
         {
-            CodeFirstGen();
+            DbFirstGen(args);
         }
 
         static void DbFirstGen(string[] args)

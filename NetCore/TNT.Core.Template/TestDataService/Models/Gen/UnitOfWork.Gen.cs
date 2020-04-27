@@ -34,7 +34,7 @@ namespace TestDataService.Models
 		
 		public T GetService<T>()
 		{
-			return scope.GetService<T>();
+			return scope.GetRequiredService<T>();
 		}
 		
 		public IDbContextTransaction BeginTransaction()
