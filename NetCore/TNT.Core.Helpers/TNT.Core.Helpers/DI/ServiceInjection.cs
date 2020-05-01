@@ -20,11 +20,10 @@ namespace TNT.Core.Helpers.DI
             _mappings = new Dictionary<Type, InjectedTypeInfo>();
         }
 
-        public static void Register(IEnumerable<Type> assemblyRepresentTypes)
+        public static void Register(IEnumerable<Assembly> assemblies)
         {
-            foreach (var t in assemblyRepresentTypes)
+            foreach (var assembly in assemblies)
             {
-                var assembly = Assembly.GetAssembly(t);
                 var allTypes = assembly.DefinedTypes;
                 foreach (var type in allTypes)
                 {
