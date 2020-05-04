@@ -20,11 +20,11 @@ namespace TestWebApi
                 .Method(HttpMethod.Get.Method)
                 .Url($"{apiVarHolder}/api/logs", new List<Query>
                 {
-                    new Query{ Key = "date", Value = DateTime.Now.ToString() },
-                    new Query{ Key = "sorts", Value = "ddate" },
-                    new Query{ Key = "page", Value = "0" },
-                    new Query{ Key = "limit", Value = "50" },
-                    new Query{ Key = "count_total", Value = "true" },
+                    new Query{ key = "date", value = DateTime.Now.ToString() },
+                    new Query{ key = "sorts", value = "ddate" },
+                    new Query{ key = "page", value = "0" },
+                    new Query{ key = "limit", value = "50" },
+                    new Query{ key = "count_total", value = "true" },
                 })
                 .Description("Get all logs in date")
                 .Build();
@@ -40,8 +40,8 @@ namespace TestWebApi
                 .Info("Test collection", "This is test collection")
                 .AddStringVariables(new Variable
                 {
-                    Key = apiVarName,
-                    Value = "http://localhost:64878",
+                    key = apiVarName,
+                    value = "http://localhost:64878",
                 })
                 .AddItems(logFolder)
                 .Build();

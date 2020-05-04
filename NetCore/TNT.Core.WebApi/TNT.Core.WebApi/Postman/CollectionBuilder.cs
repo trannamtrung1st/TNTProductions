@@ -20,18 +20,18 @@ namespace TNT.Core.WebApi.Postman
             return _collection;
         }
 
-        public CollectionBuilder OAuth2(string accessToken, OAuth2AddTokenToEnum addTokenTo)
+        public CollectionBuilder oauth2(string accessToken, OAuth2AddTokenToEnum addTokenTo)
         {
             var builder = this.DeepClone();
             var col = builder._collection;
-            col.Auth = new Auth();
-            col.Auth.Type = AuthType.OAuth2.DisplayName();
+            col.auth = new Auth();
+            col.auth.type = AuthType.OAuth2.DisplayName();
             //override
-            col.Auth.OAuth2 = new List<OAuth2>();
-            var listOAuth2 = new ListOAuth2Builder()
+            col.auth.oauth2 = new List<OAuth2>();
+            var listoauth2 = new ListOAuth2Builder()
                 .From(accessToken, addTokenTo)
                 .Build();
-            col.Auth.OAuth2.AddRange(listOAuth2);
+            col.auth.oauth2.AddRange(listoauth2);
             return builder;
         }
 
@@ -39,14 +39,14 @@ namespace TNT.Core.WebApi.Postman
         {
             var builder = this.DeepClone();
             var col = builder._collection;
-            if (col.Variable == null)
-                col.Variable = new List<Variable>();
+            if (col.variable == null)
+                col.variable = new List<Variable>();
             foreach (var v in vars)
             {
-                if (v.Id == null) v.Id = Guid.NewGuid().ToString();
-                v.Type = "string";
+                if (v.id == null) v.id = Guid.NewGuid().ToString();
+                v.type = "string";
             }
-            col.Variable.AddRange(vars);
+            col.variable.AddRange(vars);
             return builder;
         }
 
@@ -55,12 +55,12 @@ namespace TNT.Core.WebApi.Postman
         {
             var builder = this.DeepClone();
             var col = builder._collection;
-            col.Info = new Info()
+            col.info = new Info()
             {
-                Name = name,
-                Schema = schema,
-                Description = description,
-                PostmanId = Guid.NewGuid().ToString()
+                name = name,
+                schema = schema,
+                description = description,
+                _postman_id = Guid.NewGuid().ToString()
             };
             return builder;
 
@@ -70,9 +70,9 @@ namespace TNT.Core.WebApi.Postman
         {
             var builder = this.DeepClone();
             var col = builder._collection;
-            if (col.Item == null)
-                col.Item = new List<Item>();
-            col.Item.AddRange(items);
+            if (col.item == null)
+                col.item = new List<Item>();
+            col.item.AddRange(items);
             return builder;
         }
 

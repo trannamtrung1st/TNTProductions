@@ -19,15 +19,15 @@ namespace TNT.Core.WebApi.Postman
             var listOAuth2 = builder._listOAuth2;
             listOAuth2.Add(new OAuth2
             {
-                Key = "accessToken",
-                Type = "string",
-                Value = accessToken
+                key = "accessToken",
+                type = "string",
+                value = accessToken
             });
             listOAuth2.Add(new OAuth2
             {
-                Key = "addTokenTo",
-                Type = "string",
-                Value = addTokenTo.DisplayName()
+                key = "addTokenTo",
+                type = "string",
+                value = addTokenTo.DisplayName()
             });
             return builder;
         }

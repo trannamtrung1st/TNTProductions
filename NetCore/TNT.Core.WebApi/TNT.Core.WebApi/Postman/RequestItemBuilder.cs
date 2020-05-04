@@ -12,22 +12,22 @@ namespace TNT.Core.WebApi.Postman
         public RequestItemBuilder()
         {
             _item = new RequestItem();
-            _item.Request = new Request();
-            _item.Response = new List<object>();
+            _item.request = new Request();
+            _item.response = new List<object>();
         }
 
         public RequestItemBuilder OAuth2(string accessToken, OAuth2AddTokenToEnum addTokenTo)
         {
             var builder = this.DeepClone();
             var item = builder._item;
-            item.Request.Auth = new Auth();
-            item.Request.Auth.Type = AuthType.OAuth2.DisplayName();
+            item.request.auth = new Auth();
+            item.request.auth.type = AuthType.OAuth2.DisplayName();
             //override
-            item.Request.Auth.OAuth2 = new List<OAuth2>();
+            item.request.auth.oauth2 = new List<OAuth2>();
             var listOAuth2 = new ListOAuth2Builder()
                 .From(accessToken, addTokenTo)
                 .Build();
-            item.Request.Auth.OAuth2.AddRange(listOAuth2);
+            item.request.auth.oauth2.AddRange(listOAuth2);
             return builder;
         }
 
@@ -35,7 +35,7 @@ namespace TNT.Core.WebApi.Postman
         {
             var builder = this.DeepClone();
             var item = builder._item;
-            item.Request.Description = desc;
+            item.request.description = desc;
             return builder;
         }
 
@@ -43,7 +43,7 @@ namespace TNT.Core.WebApi.Postman
         {
             var builder = this.DeepClone();
             var item = builder._item;
-            item.Request.Method = method;
+            item.request.method = method;
             return builder;
         }
 
@@ -51,9 +51,9 @@ namespace TNT.Core.WebApi.Postman
         {
             var builder = this.DeepClone();
             var item = builder._item;
-            if (item.Request.Header == null)
-                item.Request.Header = new List<Header>();
-            item.Request.Header.AddRange(headers);
+            if (item.request.header == null)
+                item.request.header = new List<Header>();
+            item.request.header.AddRange(headers);
             return builder;
         }
 
@@ -61,14 +61,14 @@ namespace TNT.Core.WebApi.Postman
         {
             var builder = this.DeepClone();
             var item = builder._item;
-            item.Request.Body = new Body();
-            item.Request.Body.Mode = BodyMode.Raw.DisplayName();
-            item.Request.Body.Raw = json;
-            item.Request.Body.Options = new Options
+            item.request.body = new Body();
+            item.request.body.mode = BodyMode.Raw.DisplayName();
+            item.request.body.raw = json;
+            item.request.body.options = new Options
             {
-                Raw = new Raw
+                raw = new Raw
                 {
-                    Language = RawLanguage.Json.DisplayName()
+                    language = RawLanguage.Json.DisplayName()
                 }
             };
             return builder;
@@ -79,17 +79,17 @@ namespace TNT.Core.WebApi.Postman
             if (queries != null)
                 queries.ForEach(q =>
                 {
-                    if (q.Value == null) q.Value = "";
-                    else if (autoEscape) q.Value = Uri.EscapeDataString(q.Value);
+                    if (q.value == null) q.value = "";
+                    else if (autoEscape) q.value = Uri.EscapeDataString(q.value);
                 });
 
             return new Url
             {
-                Host = new List<string>()
+                host = new List<string>()
                 {
                     host
                 },
-                Query = queries,
+                query = queries,
             };
         }
 
@@ -97,7 +97,7 @@ namespace TNT.Core.WebApi.Postman
         {
             var builder = this.DeepClone();
             var item = builder._item;
-            item.Request.Url = GetUrl(host, null, autoEscape);
+            item.request.url = GetUrl(host, null, autoEscape);
             return builder;
         }
 
@@ -110,11 +110,11 @@ namespace TNT.Core.WebApi.Postman
                 var parts = q.Split('=');
                 return new Query
                 {
-                    Key = parts[0],
-                    Value = parts[1]
+                    key = parts[0],
+                    value = parts[1]
                 };
             }).ToList();
-            item.Request.Url = GetUrl(host, queries, autoEscape);
+            item.request.url = GetUrl(host, queries, autoEscape);
             return builder;
         }
 
@@ -122,7 +122,7 @@ namespace TNT.Core.WebApi.Postman
         {
             var builder = this.DeepClone();
             var item = builder._item;
-            item.Request.Url = GetUrl(host, queries, autoEscape);
+            item.request.url = GetUrl(host, queries, autoEscape);
             return builder;
         }
 
@@ -130,7 +130,7 @@ namespace TNT.Core.WebApi.Postman
         {
             var builder = this.DeepClone();
             var item = builder._item;
-            item.Name = name;
+            item.name = name;
             return builder;
         }
 
