@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWeb31", "TestWeb31\Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestWebApi31", "TestWebApi31\TestWebApi31.csproj", "{103EB539-B62D-4E36-8CD8-D5ACED270870}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TNT.Core.Helpers", "..\TNT.Core.Helpers\TNT.Core.Helpers\TNT.Core.Helpers.csproj", "{BF1FE1A0-9850-49FE-A8DB-9B31A6B3C0D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{103EB539-B62D-4E36-8CD8-D5ACED270870}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{103EB539-B62D-4E36-8CD8-D5ACED270870}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{103EB539-B62D-4E36-8CD8-D5ACED270870}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF1FE1A0-9850-49FE-A8DB-9B31A6B3C0D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF1FE1A0-9850-49FE-A8DB-9B31A6B3C0D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF1FE1A0-9850-49FE-A8DB-9B31A6B3C0D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF1FE1A0-9850-49FE-A8DB-9B31A6B3C0D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
