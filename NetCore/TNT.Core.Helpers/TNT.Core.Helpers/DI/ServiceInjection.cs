@@ -32,13 +32,13 @@ namespace TNT.Core.Helpers.DI
                     var info = new InjectedTypeInfo();
                     foreach (var p in allProps)
                     {
-                        var attr = p.GetCustomAttribute<InjectAttribute>(false);
+                        var attr = p.GetCustomAttribute<InjectAttribute>(true);
                         if (attr != null)
                             info.Properties.Add(p);
                     }
                     foreach (var f in allFields)
                     {
-                        var attr = f.GetCustomAttribute<InjectAttribute>(false);
+                        var attr = f.GetCustomAttribute<InjectAttribute>(true);
                         if (attr != null)
                             info.Fields.Add(f);
                     }
